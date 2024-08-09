@@ -1,0 +1,50 @@
+[workspace]
+members = [
+    "oasbi",
+    "openapi-smf"]
+resolver = "2"
+
+[workspace.package]
+name = "openapi-5gc"
+version = "0.1.0"
+edition = "2021"
+authors = ["UnifyAir Maintainers <maintainers@unifyair.com>"]
+repository = "https://bitbucket.org/blocknet/open-api"
+homepage = "https://unifyair.com/"
+description = "UnifyAir 5g Core"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace.dependencies]
+clap = { version = "4.5.4", features = ["cargo"] }
+serde = { version = "1.0.197", features = ["derive"] }
+serde_yaml = "0.9.34"
+tokio = { version = "1.38", features = ["full"] }
+bytes = "1.0"
+chrono = { version = "0.4", default-features = false, features = ["serde", "alloc"] }
+futures-core = "0.3"
+percent-encoding = "2.3"
+regress = "0.10"
+reqwest = { version = "0.11", default-features = false, features = [
+    "json",
+    "stream",
+] }
+serde_urlencoded = "0.7"
+uuid = { version = "1.0", features = ["serde", "v4"] }
+async-trait = "0.1"
+axum = { version = "0.7" }
+axum-extra = { version = "0.9", features = ["cookie", "multipart"] }
+base64 = "0.22"
+frunk = { version = "0.4"}
+frunk-enum-core = { version = "0.3"}
+frunk-enum-derive = { version = "0.3"}
+frunk_core = { version = "0.4"}
+frunk_derives = { version = "0.4"}
+http = "1"
+lazy_static = "1"
+regex = "1"
+serde_json = { version = "1", features = ["raw_value"] }
+validator = { version = "0.18", features = ["derive"] }
+tracing-subscriber = "0.3"
+tracing = { version = "0.1.0"}
