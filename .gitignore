@@ -1,0 +1,52 @@
+## File system
+.DS_Store
+desktop.ini
+
+
+.venv/
+.env
+**/target/
+log.txt
+nohup.out
+
+## Editor
+*.swp
+*.swo
+Session.vim
+.cproject
+*.iml
+.idea/
+.vscode/
+.project
+.favorites.json
+.settings/
+.vs/
+
+
+## Tool
+.valgrindrc
+.cargo
+
+## Build
+/dl/
+/doc/
+/inst/
+/llvm/
+/mingw-build/
+build/
+!/compiler/rustc_mir_build/src/build/
+/build-rust-analyzer/
+/dist/
+/unicode-downloads
+/src/bootstrap/target
+/src/tools/x/target
+Cargo.lock
+
+# Created by default with `src/ci/docker/run.sh`
+/obj/
+
+
+## Python
+__pycache__/
+*.py[cod]
+*$py.class
