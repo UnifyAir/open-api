@@ -1,10 +1,10 @@
+pub mod progenitor_client;
 pub mod amf;
 pub mod ausf;
 pub mod chf;
 pub mod nrf;
 pub mod nssf;
 pub mod pcf;
-pub mod progenitor_client;
 pub mod smf;
 pub mod udm;
 pub mod udr;

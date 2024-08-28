@@ -10,17 +10,17 @@ pub mod types {
     /// Error types.
     pub mod error {
         /// Error from a TryFrom or FromStr implementation.
-        pub struct ConversionError(std::borrow::Cow<'static, str>);
-        impl std::error::Error for ConversionError {}
-        impl std::fmt::Display for ConversionError {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-                std::fmt::Display::fmt(&self.0, f)
+        pub struct ConversionError(::std::borrow::Cow<'static, str>);
+        impl ::std::error::Error for ConversionError {}
+        impl ::std::fmt::Display for ConversionError {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+                ::std::fmt::Display::fmt(&self.0, f)
             }
         }
 
-        impl std::fmt::Debug for ConversionError {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-                std::fmt::Debug::fmt(&self.0, f)
+        impl ::std::fmt::Debug for ConversionError {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+                ::std::fmt::Debug::fmt(&self.0, f)
             }
         }
 
@@ -44,50 +44,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Represents the access technology",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NR",
-    ///        "EUTRAN_IN_WBS1_MODE_AND_NBS1_MODE",
-    ///        "EUTRAN_IN_NBS1_MODE_ONLY",
-    ///        "EUTRAN_IN_WBS1_MODE_ONLY",
-    ///        "UTRAN",
-    ///        "GSM_AND_ECGSM_IoT",
-    ///        "GSM_WITHOUT_ECGSM_IoT",
-    ///        "ECGSM_IoT_ONLY",
-    ///        "CDMA_1xRTT",
-    ///        "CDMA_HRPD",
-    ///        "GSM_COMPACT"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AccessTech {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AccessTechSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&AccessTech> for AccessTech {
-        fn from(value: &AccessTech) -> Self {
-            value.clone()
-        }
-    }
-
-    ///AccessTechSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NR",
@@ -101,23 +57,23 @@ pub mod types {
     ///    "CDMA_1xRTT",
     ///    "CDMA_HRPD",
     ///    "GSM_COMPACT"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum AccessTechSubtype0 {
+    pub enum AccessTech {
         #[serde(rename = "NR")]
         Nr,
         #[serde(rename = "EUTRAN_IN_WBS1_MODE_AND_NBS1_MODE")]
@@ -140,15 +96,17 @@ pub mod types {
         CdmaHrpd,
         #[serde(rename = "GSM_COMPACT")]
         GsmCompact,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&AccessTechSubtype0> for AccessTechSubtype0 {
-        fn from(value: &AccessTechSubtype0) -> Self {
+    impl From<&AccessTech> for AccessTech {
+        fn from(value: &AccessTech) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for AccessTechSubtype0 {
+    impl ToString for AccessTech {
         fn to_string(&self) -> String {
             match *self {
                 Self::Nr => "NR".to_string(),
@@ -164,11 +122,12 @@ pub mod types {
                 Self::Cdma1xRtt => "CDMA_1xRTT".to_string(),
                 Self::CdmaHrpd => "CDMA_HRPD".to_string(),
                 Self::GsmCompact => "GSM_COMPACT".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AccessTechSubtype0 {
+    impl std::str::FromStr for AccessTech {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -183,26 +142,26 @@ pub mod types {
                 "CDMA_1xRTT" => Ok(Self::Cdma1xRtt),
                 "CDMA_HRPD" => Ok(Self::CdmaHrpd),
                 "GSM_COMPACT" => Ok(Self::GsmCompact),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AccessTechSubtype0 {
+    impl std::convert::TryFrom<&str> for AccessTech {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AccessTechSubtype0 {
+    impl std::convert::TryFrom<&String> for AccessTech {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AccessTechSubtype0 {
+    impl std::convert::TryFrom<String> for AccessTech {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -242,7 +201,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccessTokenErr {
         pub error: AccessTokenErrError,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -276,6 +235,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -284,8 +245,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AccessTokenErrError {
         #[serde(rename = "invalid_request")]
@@ -457,7 +416,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccessTokenReq {
         pub grant_type: AccessTokenReqGrantType,
         #[serde(
@@ -577,6 +536,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -585,8 +546,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AccessTokenReqGrantType {
         #[serde(rename = "client_credentials")]
@@ -649,9 +608,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct AccessTokenReqScope(String);
-    impl std::ops::Deref for AccessTokenReqScope {
+    impl ::std::ops::Deref for AccessTokenReqScope {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -670,7 +629,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for AccessTokenReqScope {
+    impl ::std::str::FromStr for AccessTokenReqScope {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^([a-zA-Z0-9_:-]+)( [a-zA-Z0-9_:-]+)*$")
@@ -686,36 +645,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<&str> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<&String> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<String> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for AccessTokenReqScope {
+    impl<'de> ::serde::Deserialize<'de> for AccessTokenReqScope {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -732,9 +691,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AckInd(pub bool);
-    impl std::ops::Deref for AckInd {
+    impl ::std::ops::Deref for AckInd {
         type Target = bool;
         fn deref(&self) -> &bool {
             &self.0
@@ -810,6 +769,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -818,8 +779,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AuthResult {
         #[serde(rename = "AUTHENTICATION_SUCCESS")]
@@ -886,29 +845,39 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the authentication method used.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "5G_AKA",
-    ///        "EAP_AKA_PRIME",
-    ///        "EAP_TLS",
-    ///        "EAP_TTLS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "5G_AKA",
+    ///    "EAP_AKA_PRIME",
+    ///    "EAP_TLS",
+    ///    "EAP_TTLS"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AuthType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AuthTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AuthType {
+        #[serde(rename = "5G_AKA")]
+        FiveGAka,
+        #[serde(rename = "EAP_AKA_PRIME")]
+        EapAkaPrime,
+        #[serde(rename = "EAP_TLS")]
+        EapTls,
+        #[serde(rename = "EAP_TTLS")]
+        EapTtls,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AuthType> for AuthType {
@@ -917,90 +886,46 @@ pub mod types {
         }
     }
 
-    ///AuthTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "5G_AKA",
-    ///    "EAP_AKA_PRIME",
-    ///    "EAP_TLS",
-    ///    "EAP_TTLS"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AuthTypeSubtype0 {
-        #[serde(rename = "5G_AKA")]
-        _5gAka,
-        #[serde(rename = "EAP_AKA_PRIME")]
-        EapAkaPrime,
-        #[serde(rename = "EAP_TLS")]
-        EapTls,
-        #[serde(rename = "EAP_TTLS")]
-        EapTtls,
-    }
-
-    impl From<&AuthTypeSubtype0> for AuthTypeSubtype0 {
-        fn from(value: &AuthTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AuthTypeSubtype0 {
+    impl ToString for AuthType {
         fn to_string(&self) -> String {
             match *self {
-                Self::_5gAka => "5G_AKA".to_string(),
+                Self::FiveGAka => "5G_AKA".to_string(),
                 Self::EapAkaPrime => "EAP_AKA_PRIME".to_string(),
                 Self::EapTls => "EAP_TLS".to_string(),
                 Self::EapTtls => "EAP_TTLS".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AuthTypeSubtype0 {
+    impl std::str::FromStr for AuthType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
-                "5G_AKA" => Ok(Self::_5gAka),
+                "5G_AKA" => Ok(Self::FiveGAka),
                 "EAP_AKA_PRIME" => Ok(Self::EapAkaPrime),
                 "EAP_TLS" => Ok(Self::EapTls),
                 "EAP_TTLS" => Ok(Self::EapTtls),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AuthTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for AuthType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AuthTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for AuthType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AuthTypeSubtype0 {
+    impl std::convert::TryFrom<String> for AuthType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -1073,7 +998,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AuthenticationInfo {
         #[serde(rename = "cellCagInfo", default, skip_serializing_if = "Vec::is_empty")]
         pub cell_cag_info: Vec<CagId>,
@@ -1136,9 +1061,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct AuthenticationInfoRoutingIndicator(String);
-    impl std::ops::Deref for AuthenticationInfoRoutingIndicator {
+    impl ::std::ops::Deref for AuthenticationInfoRoutingIndicator {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1157,7 +1082,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for AuthenticationInfoRoutingIndicator {
+    impl ::std::str::FromStr for AuthenticationInfoRoutingIndicator {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9]{1,4}$")
@@ -1171,36 +1096,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for AuthenticationInfoRoutingIndicator {
+    impl ::std::convert::TryFrom<&str> for AuthenticationInfoRoutingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AuthenticationInfoRoutingIndicator {
+    impl ::std::convert::TryFrom<&String> for AuthenticationInfoRoutingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AuthenticationInfoRoutingIndicator {
+    impl ::std::convert::TryFrom<String> for AuthenticationInfoRoutingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for AuthenticationInfoRoutingIndicator {
+    impl<'de> ::serde::Deserialize<'de> for AuthenticationInfoRoutingIndicator {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1216,9 +1141,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Autn(String);
-    impl std::ops::Deref for Autn {
+    impl ::std::ops::Deref for Autn {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1237,7 +1162,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Autn {
+    impl ::std::str::FromStr for Autn {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{32}$")
@@ -1251,36 +1176,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Autn {
+    impl ::std::convert::TryFrom<&str> for Autn {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Autn {
+    impl ::std::convert::TryFrom<&String> for Autn {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Autn {
+    impl ::std::convert::TryFrom<String> for Autn {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Autn {
+    impl<'de> ::serde::Deserialize<'de> for Autn {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1296,9 +1221,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Auts(String);
-    impl std::ops::Deref for Auts {
+    impl ::std::ops::Deref for Auts {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1317,7 +1242,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Auts {
+    impl ::std::str::FromStr for Auts {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{28}$")
@@ -1331,36 +1256,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Auts {
+    impl ::std::convert::TryFrom<&str> for Auts {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Auts {
+    impl ::std::convert::TryFrom<&String> for Auts {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Auts {
+    impl ::std::convert::TryFrom<String> for Auts {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Auts {
+    impl<'de> ::serde::Deserialize<'de> for Auts {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1392,7 +1317,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Av5gAka {
         pub autn: Autn,
         #[serde(rename = "hxresStar")]
@@ -1419,10 +1344,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Bytes(pub String);
-    impl std::ops::Deref for Bytes {
+    impl ::std::ops::Deref for Bytes {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1472,9 +1405,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct CagId(String);
-    impl std::ops::Deref for CagId {
+    impl ::std::ops::Deref for CagId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1493,7 +1426,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for CagId {
+    impl ::std::str::FromStr for CagId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{8}$")
@@ -1507,36 +1440,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for CagId {
+    impl ::std::convert::TryFrom<&str> for CagId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CagId {
+    impl ::std::convert::TryFrom<&String> for CagId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CagId {
+    impl ::std::convert::TryFrom<String> for CagId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for CagId {
+    impl<'de> ::serde::Deserialize<'de> for CagId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1563,7 +1496,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ConfirmationData {
         #[serde(rename = "resStar")]
         pub res_star: ResStar,
@@ -1613,7 +1546,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ConfirmationDataResponse {
         #[serde(rename = "authResult")]
         pub auth_result: AuthResult,
@@ -1643,9 +1576,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct CounterSor(String);
-    impl std::ops::Deref for CounterSor {
+    impl ::std::ops::Deref for CounterSor {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1664,7 +1597,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for CounterSor {
+    impl ::std::str::FromStr for CounterSor {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -1678,36 +1611,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for CounterSor {
+    impl ::std::convert::TryFrom<&str> for CounterSor {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CounterSor {
+    impl ::std::convert::TryFrom<&String> for CounterSor {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CounterSor {
+    impl ::std::convert::TryFrom<String> for CounterSor {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for CounterSor {
+    impl<'de> ::serde::Deserialize<'de> for CounterSor {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1724,9 +1657,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct CounterUpu(String);
-    impl std::ops::Deref for CounterUpu {
+    impl ::std::ops::Deref for CounterUpu {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1745,7 +1678,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for CounterUpu {
+    impl ::std::str::FromStr for CounterUpu {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -1759,36 +1692,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for CounterUpu {
+    impl ::std::convert::TryFrom<&str> for CounterUpu {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CounterUpu {
+    impl ::std::convert::TryFrom<&String> for CounterUpu {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CounterUpu {
+    impl ::std::convert::TryFrom<String> for CounterUpu {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for CounterUpu {
+    impl<'de> ::serde::Deserialize<'de> for CounterUpu {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -1815,7 +1748,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DeregistrationInfo {
         pub supi: Supi,
         #[serde(
@@ -1847,9 +1780,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EapPayload(pub Option<String>);
-    impl std::ops::Deref for EapPayload {
+    impl ::std::ops::Deref for EapPayload {
         type Target = Option<String>;
         fn deref(&self) -> &Option<String> {
             &self.0
@@ -1923,7 +1856,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EapSession {
         #[serde(
             rename = "authResult",
@@ -1939,9 +1872,9 @@ pub mod types {
         #[serde(
             rename = "_links",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub links: std::collections::HashMap<String, LinksValueSchema>,
+        pub links: ::std::collections::HashMap<String, LinksValueSchema>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub msk: Option<Msk>,
         #[serde(rename = "pvsInfo", default, skip_serializing_if = "Vec::is_empty")]
@@ -1977,9 +1910,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Fqdn(String);
-    impl std::ops::Deref for Fqdn {
+    impl ::std::ops::Deref for Fqdn {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1998,7 +1931,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Fqdn {
+    impl ::std::str::FromStr for Fqdn {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if value.len() > 253usize {
@@ -2020,36 +1953,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Fqdn {
+    impl ::std::convert::TryFrom<&str> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Fqdn {
+    impl ::std::convert::TryFrom<&String> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Fqdn {
+    impl ::std::convert::TryFrom<String> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Fqdn {
+    impl<'de> ::serde::Deserialize<'de> for Fqdn {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2066,9 +1999,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct HxresStar(String);
-    impl std::ops::Deref for HxresStar {
+    impl ::std::ops::Deref for HxresStar {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2087,7 +2020,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for HxresStar {
+    impl ::std::str::FromStr for HxresStar {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("[A-Fa-f0-9]{32}")
@@ -2101,36 +2034,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for HxresStar {
+    impl ::std::convert::TryFrom<&str> for HxresStar {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for HxresStar {
+    impl ::std::convert::TryFrom<&String> for HxresStar {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for HxresStar {
+    impl ::std::convert::TryFrom<String> for HxresStar {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for HxresStar {
+    impl<'de> ::serde::Deserialize<'de> for HxresStar {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2175,7 +2108,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct InvalidParam {
         ///If the invalid parameter is an attribute in a JSON body, this IE
         /// shall contain the  attribute's name and shall be encoded as a JSON
@@ -2224,9 +2157,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv4Addr(String);
-    impl std::ops::Deref for Ipv4Addr {
+    impl ::std::ops::Deref for Ipv4Addr {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2245,7 +2178,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv4Addr {
+    impl ::std::str::FromStr for Ipv4Addr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$\"" . into ()) ; }
@@ -2253,36 +2186,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv4Addr {
+    impl ::std::convert::TryFrom<&str> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv4Addr {
+    impl ::std::convert::TryFrom<&String> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv4Addr {
+    impl ::std::convert::TryFrom<String> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv4Addr {
+    impl<'de> ::serde::Deserialize<'de> for Ipv4Addr {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2309,9 +2242,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv6Addr(String);
-    impl std::ops::Deref for Ipv6Addr {
+    impl ::std::ops::Deref for Ipv6Addr {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2330,7 +2263,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv6Addr {
+    impl ::std::str::FromStr for Ipv6Addr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)\"" . into ()) ; }
@@ -2338,36 +2271,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv6Addr {
+    impl ::std::convert::TryFrom<&str> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv6Addr {
+    impl ::std::convert::TryFrom<&String> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv6Addr {
+    impl ::std::convert::TryFrom<String> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv6Addr {
+    impl<'de> ::serde::Deserialize<'de> for Ipv6Addr {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2384,9 +2317,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct KnrProSe(String);
-    impl std::ops::Deref for KnrProSe {
+    impl ::std::ops::Deref for KnrProSe {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2405,7 +2338,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for KnrProSe {
+    impl ::std::str::FromStr for KnrProSe {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("[A-Fa-f0-9]{64}")
@@ -2419,36 +2352,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for KnrProSe {
+    impl ::std::convert::TryFrom<&str> for KnrProSe {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for KnrProSe {
+    impl ::std::convert::TryFrom<&String> for KnrProSe {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for KnrProSe {
+    impl ::std::convert::TryFrom<String> for KnrProSe {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for KnrProSe {
+    impl<'de> ::serde::Deserialize<'de> for KnrProSe {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2465,9 +2398,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Kseaf(String);
-    impl std::ops::Deref for Kseaf {
+    impl ::std::ops::Deref for Kseaf {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2486,7 +2419,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Kseaf {
+    impl ::std::str::FromStr for Kseaf {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("[A-Fa-f0-9]{64}")
@@ -2500,36 +2433,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Kseaf {
+    impl ::std::convert::TryFrom<&str> for Kseaf {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Kseaf {
+    impl ::std::convert::TryFrom<&String> for Kseaf {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Kseaf {
+    impl ::std::convert::TryFrom<String> for Kseaf {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Kseaf {
+    impl<'de> ::serde::Deserialize<'de> for Kseaf {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2550,7 +2483,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Link {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub href: Option<Uri>,
@@ -2585,7 +2518,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum LinksValueSchema {
         Variant0(Vec<Link>),
@@ -2624,9 +2557,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Mcc(String);
-    impl std::ops::Deref for Mcc {
+    impl ::std::ops::Deref for Mcc {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2645,7 +2578,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Mcc {
+    impl ::std::str::FromStr for Mcc {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d{3}$")
@@ -2659,36 +2592,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Mcc {
+    impl ::std::convert::TryFrom<&str> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Mcc {
+    impl ::std::convert::TryFrom<&String> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Mcc {
+    impl ::std::convert::TryFrom<String> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Mcc {
+    impl<'de> ::serde::Deserialize<'de> for Mcc {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2707,9 +2640,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Mnc(String);
-    impl std::ops::Deref for Mnc {
+    impl ::std::ops::Deref for Mnc {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2728,7 +2661,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Mnc {
+    impl ::std::str::FromStr for Mnc {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d{2,3}$")
@@ -2742,36 +2675,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Mnc {
+    impl ::std::convert::TryFrom<&str> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Mnc {
+    impl ::std::convert::TryFrom<&String> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Mnc {
+    impl ::std::convert::TryFrom<String> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Mnc {
+    impl<'de> ::serde::Deserialize<'de> for Mnc {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2788,9 +2721,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Msk(String);
-    impl std::ops::Deref for Msk {
+    impl ::std::ops::Deref for Msk {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2809,7 +2742,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Msk {
+    impl ::std::str::FromStr for Msk {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("[A-Fa-f0-9]{128}")
@@ -2823,36 +2756,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Msk {
+    impl ::std::convert::TryFrom<&str> for Msk {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Msk {
+    impl ::std::convert::TryFrom<&String> for Msk {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Msk {
+    impl ::std::convert::TryFrom<String> for Msk {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Msk {
+    impl<'de> ::serde::Deserialize<'de> for Msk {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -2869,10 +2802,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct NfGroupId(pub String);
-    impl std::ops::Deref for NfGroupId {
+    impl ::std::ops::Deref for NfGroupId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -2926,9 +2867,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NfInstanceId(pub uuid::Uuid);
-    impl std::ops::Deref for NfInstanceId {
+    impl ::std::ops::Deref for NfInstanceId {
         type Target = uuid::Uuid;
         fn deref(&self) -> &uuid::Uuid {
             &self.0
@@ -3027,10 +2968,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct NfServiceSetId(pub String);
-    impl std::ops::Deref for NfServiceSetId {
+    impl ::std::ops::Deref for NfServiceSetId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -3103,10 +3052,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct NfSetId(pub String);
-    impl std::ops::Deref for NfSetId {
+    impl ::std::ops::Deref for NfSetId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -3151,97 +3108,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "NF types known to NRF",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NRF",
-    ///        "UDM",
-    ///        "AMF",
-    ///        "SMF",
-    ///        "AUSF",
-    ///        "NEF",
-    ///        "PCF",
-    ///        "SMSF",
-    ///        "NSSF",
-    ///        "UDR",
-    ///        "LMF",
-    ///        "GMLC",
-    ///        "5G_EIR",
-    ///        "SEPP",
-    ///        "UPF",
-    ///        "N3IWF",
-    ///        "AF",
-    ///        "UDSF",
-    ///        "BSF",
-    ///        "CHF",
-    ///        "NWDAF",
-    ///        "PCSCF",
-    ///        "CBCF",
-    ///        "HSS",
-    ///        "UCMF",
-    ///        "SOR_AF",
-    ///        "SPAF",
-    ///        "MME",
-    ///        "SCSAS",
-    ///        "SCEF",
-    ///        "SCP",
-    ///        "NSSAAF",
-    ///        "ICSCF",
-    ///        "SCSCF",
-    ///        "DRA",
-    ///        "IMS_AS",
-    ///        "AANF",
-    ///        "5G_DDNMF",
-    ///        "NSACF",
-    ///        "MFAF",
-    ///        "EASDF",
-    ///        "DCCF",
-    ///        "MB_SMF",
-    ///        "TSCTSF",
-    ///        "ADRF",
-    ///        "GBA_BSF",
-    ///        "CEF",
-    ///        "MB_UPF",
-    ///        "NSWOF",
-    ///        "PKMF",
-    ///        "MNPF",
-    ///        "SMS_GMSC",
-    ///        "SMS_IWMSC",
-    ///        "MBSF",
-    ///        "MBSTF",
-    ///        "PANF",
-    ///        "IP_SM_GW",
-    ///        "SMS_ROUTER"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NfType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NfTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&NfType> for NfType {
-        fn from(value: &NfType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///NfTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NRF",
@@ -3302,23 +3168,23 @@ pub mod types {
     ///    "PANF",
     ///    "IP_SM_GW",
     ///    "SMS_ROUTER"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum NfTypeSubtype0 {
+    pub enum NfType {
         #[serde(rename = "NRF")]
         Nrf,
         #[serde(rename = "UDM")]
@@ -3344,7 +3210,7 @@ pub mod types {
         #[serde(rename = "GMLC")]
         Gmlc,
         #[serde(rename = "5G_EIR")]
-        _5gEir,
+        FiveGEir,
         #[serde(rename = "SEPP")]
         Sepp,
         #[serde(rename = "UPF")]
@@ -3394,7 +3260,7 @@ pub mod types {
         #[serde(rename = "AANF")]
         Aanf,
         #[serde(rename = "5G_DDNMF")]
-        _5gDdnmf,
+        FiveGDdnmf,
         #[serde(rename = "NSACF")]
         Nsacf,
         #[serde(rename = "MFAF")]
@@ -3435,15 +3301,17 @@ pub mod types {
         IpSmGw,
         #[serde(rename = "SMS_ROUTER")]
         SmsRouter,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&NfTypeSubtype0> for NfTypeSubtype0 {
-        fn from(value: &NfTypeSubtype0) -> Self {
+    impl From<&NfType> for NfType {
+        fn from(value: &NfType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for NfTypeSubtype0 {
+    impl ToString for NfType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Nrf => "NRF".to_string(),
@@ -3458,7 +3326,7 @@ pub mod types {
                 Self::Udr => "UDR".to_string(),
                 Self::Lmf => "LMF".to_string(),
                 Self::Gmlc => "GMLC".to_string(),
-                Self::_5gEir => "5G_EIR".to_string(),
+                Self::FiveGEir => "5G_EIR".to_string(),
                 Self::Sepp => "SEPP".to_string(),
                 Self::Upf => "UPF".to_string(),
                 Self::N3iwf => "N3IWF".to_string(),
@@ -3483,7 +3351,7 @@ pub mod types {
                 Self::Dra => "DRA".to_string(),
                 Self::ImsAs => "IMS_AS".to_string(),
                 Self::Aanf => "AANF".to_string(),
-                Self::_5gDdnmf => "5G_DDNMF".to_string(),
+                Self::FiveGDdnmf => "5G_DDNMF".to_string(),
                 Self::Nsacf => "NSACF".to_string(),
                 Self::Mfaf => "MFAF".to_string(),
                 Self::Easdf => "EASDF".to_string(),
@@ -3504,11 +3372,12 @@ pub mod types {
                 Self::Panf => "PANF".to_string(),
                 Self::IpSmGw => "IP_SM_GW".to_string(),
                 Self::SmsRouter => "SMS_ROUTER".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NfTypeSubtype0 {
+    impl std::str::FromStr for NfType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -3524,7 +3393,7 @@ pub mod types {
                 "UDR" => Ok(Self::Udr),
                 "LMF" => Ok(Self::Lmf),
                 "GMLC" => Ok(Self::Gmlc),
-                "5G_EIR" => Ok(Self::_5gEir),
+                "5G_EIR" => Ok(Self::FiveGEir),
                 "SEPP" => Ok(Self::Sepp),
                 "UPF" => Ok(Self::Upf),
                 "N3IWF" => Ok(Self::N3iwf),
@@ -3549,7 +3418,7 @@ pub mod types {
                 "DRA" => Ok(Self::Dra),
                 "IMS_AS" => Ok(Self::ImsAs),
                 "AANF" => Ok(Self::Aanf),
-                "5G_DDNMF" => Ok(Self::_5gDdnmf),
+                "5G_DDNMF" => Ok(Self::FiveGDdnmf),
                 "NSACF" => Ok(Self::Nsacf),
                 "MFAF" => Ok(Self::Mfaf),
                 "EASDF" => Ok(Self::Easdf),
@@ -3570,26 +3439,26 @@ pub mod types {
                 "PANF" => Ok(Self::Panf),
                 "IP_SM_GW" => Ok(Self::IpSmGw),
                 "SMS_ROUTER" => Ok(Self::SmsRouter),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<String> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -3612,9 +3481,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Nid(String);
-    impl std::ops::Deref for Nid {
+    impl ::std::ops::Deref for Nid {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -3633,7 +3502,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Nid {
+    impl ::std::str::FromStr for Nid {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{11}$")
@@ -3647,36 +3516,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Nid {
+    impl ::std::convert::TryFrom<&str> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Nid {
+    impl ::std::convert::TryFrom<&String> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Nid {
+    impl ::std::convert::TryFrom<String> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Nid {
+    impl<'de> ::serde::Deserialize<'de> for Nid {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -3696,9 +3565,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Nonce1(pub Option<String>);
-    impl std::ops::Deref for Nonce1 {
+    impl ::std::ops::Deref for Nonce1 {
         type Target = Option<String>;
         fn deref(&self) -> &Option<String> {
             &self.0
@@ -3738,9 +3607,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Nonce2(pub Option<String>);
-    impl std::ops::Deref for Nonce2 {
+    impl ::std::ops::Deref for Nonce2 {
         type Target = Option<String>;
         fn deref(&self) -> &Option<String> {
             &self.0
@@ -3791,9 +3660,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Pei(String);
-    impl std::ops::Deref for Pei {
+    impl ::std::ops::Deref for Pei {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -3812,7 +3681,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Pei {
+    impl ::std::str::FromStr for Pei {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$\"" . into ()) ; }
@@ -3820,36 +3689,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Pei {
+    impl ::std::convert::TryFrom<&str> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Pei {
+    impl ::std::convert::TryFrom<&String> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Pei {
+    impl ::std::convert::TryFrom<String> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Pei {
+    impl<'de> ::serde::Deserialize<'de> for Pei {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -3881,7 +3750,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PlmnId {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -3922,7 +3791,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PlmnIdNid {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -3950,9 +3819,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProSeAuthData(pub EapPayload);
-    impl std::ops::Deref for ProSeAuthData {
+    impl ::std::ops::Deref for ProSeAuthData {
         type Target = EapPayload;
         fn deref(&self) -> &EapPayload {
             &self.0
@@ -4014,13 +3883,13 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProSeAuthenticationCtx {
         #[serde(rename = "authType")]
         pub auth_type: AuthType,
         ///A map(list of key-value pairs) where member serves as key
         #[serde(rename = "_links")]
-        pub links: std::collections::HashMap<String, LinksValueSchema>,
+        pub links: ::std::collections::HashMap<String, LinksValueSchema>,
         #[serde(rename = "proSeAuthData")]
         pub pro_se_auth_data: ProSeAuthData,
         #[serde(
@@ -4075,10 +3944,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProSeAuthenticationInfo {
         #[serde(rename = "5gPrukId", default, skip_serializing_if = "Option::is_none")]
-        pub _5g_pruk_id: Option<_5gPrukId>,
+        pub five_g_pruk_id: Option<_5gPrukId>,
         pub nonce1: Nonce1,
         #[serde(rename = "relayServiceCode")]
         pub relay_service_code: RelayServiceCode,
@@ -4126,7 +3995,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProSeAuthenticationResult {
         #[serde(rename = "knrProSe", default, skip_serializing_if = "Option::is_none")]
         pub knr_pro_se: Option<KnrProSe>,
@@ -4190,10 +4059,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProSeEapSession {
-        #[serde(rename = "5gPrukId", default, skip_serializing_if = "Option::is_none")]
-        pub _5g_pruk_id: Option<_5gPrukId>,
         #[serde(
             rename = "authResult",
             default,
@@ -4202,15 +4069,17 @@ pub mod types {
         pub auth_result: Option<AuthResult>,
         #[serde(rename = "eapPayload")]
         pub eap_payload: EapPayload,
+        #[serde(rename = "5gPrukId", default, skip_serializing_if = "Option::is_none")]
+        pub five_g_pruk_id: Option<_5gPrukId>,
         #[serde(rename = "knrProSe", default, skip_serializing_if = "Option::is_none")]
         pub knr_pro_se: Option<KnrProSe>,
         ///A map(list of key-value pairs) where member serves as key
         #[serde(
             rename = "_links",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub links: std::collections::HashMap<String, LinksValueSchema>,
+        pub links: ::std::collections::HashMap<String, LinksValueSchema>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub nonce2: Option<Nonce2>,
         #[serde(
@@ -4282,7 +4151,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProblemDetails {
         #[serde(
             rename = "accessTokenError",
@@ -4346,9 +4215,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Rand(String);
-    impl std::ops::Deref for Rand {
+    impl ::std::ops::Deref for Rand {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4367,7 +4236,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Rand {
+    impl ::std::str::FromStr for Rand {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{32}$")
@@ -4381,36 +4250,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Rand {
+    impl ::std::convert::TryFrom<&str> for Rand {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Rand {
+    impl ::std::convert::TryFrom<&String> for Rand {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Rand {
+    impl ::std::convert::TryFrom<String> for Rand {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Rand {
+    impl<'de> ::serde::Deserialize<'de> for Rand {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -4443,7 +4312,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RedirectResponse {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub cause: Option<String>,
@@ -4478,9 +4347,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RelayServiceCode(pub i64);
-    impl std::ops::Deref for RelayServiceCode {
+    impl ::std::ops::Deref for RelayServiceCode {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -4554,9 +4423,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ResStar(pub Option<ResStarInner>);
-    impl std::ops::Deref for ResStar {
+    impl ::std::ops::Deref for ResStar {
         type Target = Option<ResStarInner>;
         fn deref(&self) -> &Option<ResStarInner> {
             &self.0
@@ -4593,9 +4462,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct ResStarInner(String);
-    impl std::ops::Deref for ResStarInner {
+    impl ::std::ops::Deref for ResStarInner {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4614,7 +4483,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for ResStarInner {
+    impl ::std::str::FromStr for ResStarInner {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("[A-Fa-f0-9]{32}")
@@ -4628,36 +4497,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for ResStarInner {
+    impl ::std::convert::TryFrom<&str> for ResStarInner {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ResStarInner {
+    impl ::std::convert::TryFrom<&String> for ResStarInner {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ResStarInner {
+    impl ::std::convert::TryFrom<String> for ResStarInner {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for ResStarInner {
+    impl<'de> ::serde::Deserialize<'de> for ResStarInner {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -4684,7 +4553,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ResynchronizationInfo {
         pub auts: Auts,
         pub rand: Rand,
@@ -4723,7 +4592,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RgAuthCtx {
         #[serde(rename = "authInd", default)]
         pub auth_ind: bool,
@@ -4767,7 +4636,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RgAuthenticationInfo {
         #[serde(rename = "authenticatedInd")]
         pub authenticated_ind: bool,
@@ -4798,9 +4667,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct RoutingId(String);
-    impl std::ops::Deref for RoutingId {
+    impl ::std::ops::Deref for RoutingId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4819,7 +4688,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for RoutingId {
+    impl ::std::str::FromStr for RoutingId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9]{1,4}$")
@@ -4833,36 +4702,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for RoutingId {
+    impl ::std::convert::TryFrom<&str> for RoutingId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RoutingId {
+    impl ::std::convert::TryFrom<&String> for RoutingId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RoutingId {
+    impl ::std::convert::TryFrom<String> for RoutingId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for RoutingId {
+    impl<'de> ::serde::Deserialize<'de> for RoutingId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -4880,10 +4749,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct SecuredPacket(pub String);
-    impl std::ops::Deref for SecuredPacket {
+    impl ::std::ops::Deref for SecuredPacket {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4973,7 +4850,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum ServerAddressingInfo {
         Variant0 {
@@ -5009,9 +4886,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct ServingNetworkName(String);
-    impl std::ops::Deref for ServingNetworkName {
+    impl ::std::ops::Deref for ServingNetworkName {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5030,7 +4907,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for ServingNetworkName {
+    impl ::std::str::FromStr for ServingNetworkName {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new(
@@ -5046,36 +4923,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServingNetworkName {
+    impl ::std::convert::TryFrom<&str> for ServingNetworkName {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServingNetworkName {
+    impl ::std::convert::TryFrom<&String> for ServingNetworkName {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServingNetworkName {
+    impl ::std::convert::TryFrom<String> for ServingNetworkName {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for ServingNetworkName {
+    impl<'de> ::serde::Deserialize<'de> for ServingNetworkName {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5127,7 +5004,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Snssai {
         ///3-octet string, representing the Slice Differentiator, in
         /// hexadecimal representation. Each character in the string shall take
@@ -5187,9 +5064,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SnssaiSd(String);
-    impl std::ops::Deref for SnssaiSd {
+    impl ::std::ops::Deref for SnssaiSd {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5208,7 +5085,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SnssaiSd {
+    impl ::std::str::FromStr for SnssaiSd {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{6}$")
@@ -5222,36 +5099,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SnssaiSd {
+    impl ::std::convert::TryFrom<&str> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SnssaiSd {
+    impl ::std::convert::TryFrom<&String> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SnssaiSd {
+    impl ::std::convert::TryFrom<String> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SnssaiSd {
+    impl<'de> ::serde::Deserialize<'de> for SnssaiSd {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5266,9 +5143,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SorHeader(pub Bytes);
-    impl std::ops::Deref for SorHeader {
+    impl ::std::ops::Deref for SorHeader {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -5358,7 +5235,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SorInfo {
         #[serde(rename = "ackInd")]
         pub ack_ind: AckInd,
@@ -5403,9 +5280,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SorMac(String);
-    impl std::ops::Deref for SorMac {
+    impl ::std::ops::Deref for SorMac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5424,7 +5301,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SorMac {
+    impl ::std::str::FromStr for SorMac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{32}$")
@@ -5438,36 +5315,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SorMac {
+    impl ::std::convert::TryFrom<&str> for SorMac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SorMac {
+    impl ::std::convert::TryFrom<&String> for SorMac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SorMac {
+    impl ::std::convert::TryFrom<String> for SorMac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SorMac {
+    impl<'de> ::serde::Deserialize<'de> for SorMac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5500,7 +5377,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SorSecurityInfo {
         #[serde(rename = "counterSor")]
         pub counter_sor: CounterSor,
@@ -5530,9 +5407,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SorTransparentInfo(pub Bytes);
-    impl std::ops::Deref for SorTransparentInfo {
+    impl ::std::ops::Deref for SorTransparentInfo {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -5613,7 +5490,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum SteeringContainer {
         Variant0(Vec<SteeringInfo>),
@@ -5666,7 +5543,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SteeringInfo {
         #[serde(
             rename = "accessTechList",
@@ -5699,9 +5576,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Suci(String);
-    impl std::ops::Deref for Suci {
+    impl ::std::ops::Deref for Suci {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5720,7 +5597,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Suci {
+    impl ::std::str::FromStr for Suci {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.+|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.+|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$\"" . into ()) ; }
@@ -5728,36 +5605,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Suci {
+    impl ::std::convert::TryFrom<&str> for Suci {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Suci {
+    impl ::std::convert::TryFrom<&String> for Suci {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Suci {
+    impl ::std::convert::TryFrom<String> for Suci {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Suci {
+    impl<'de> ::serde::Deserialize<'de> for Suci {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5803,9 +5680,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Supi(String);
-    impl std::ops::Deref for Supi {
+    impl ::std::ops::Deref for Supi {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5824,7 +5701,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Supi {
+    impl ::std::str::FromStr for Supi {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$")
@@ -5840,36 +5717,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Supi {
+    impl ::std::convert::TryFrom<&str> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Supi {
+    impl ::std::convert::TryFrom<&String> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Supi {
+    impl ::std::convert::TryFrom<String> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Supi {
+    impl<'de> ::serde::Deserialize<'de> for Supi {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5890,9 +5767,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SupiOrSuci(String);
-    impl std::ops::Deref for SupiOrSuci {
+    impl ::std::ops::Deref for SupiOrSuci {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5911,7 +5788,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SupiOrSuci {
+    impl ::std::str::FromStr for SupiOrSuci {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(imsi-[0-9]{5,15}|nai-.+|gli-.+|gci-.+|suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.*|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(imsi-[0-9]{5,15}|nai-.+|gli-.+|gci-.+|suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.*|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$\"" . into ()) ; }
@@ -5919,36 +5796,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SupiOrSuci {
+    impl ::std::convert::TryFrom<&str> for SupiOrSuci {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SupiOrSuci {
+    impl ::std::convert::TryFrom<&String> for SupiOrSuci {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SupiOrSuci {
+    impl ::std::convert::TryFrom<String> for SupiOrSuci {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SupiOrSuci {
+    impl<'de> ::serde::Deserialize<'de> for SupiOrSuci {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5977,9 +5854,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SupportedFeatures(String);
-    impl std::ops::Deref for SupportedFeatures {
+    impl ::std::ops::Deref for SupportedFeatures {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5998,7 +5875,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SupportedFeatures {
+    impl ::std::str::FromStr for SupportedFeatures {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]*$")
@@ -6012,36 +5889,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SupportedFeatures {
+    impl ::std::convert::TryFrom<&str> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SupportedFeatures {
+    impl ::std::convert::TryFrom<&String> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SupportedFeatures {
+    impl ::std::convert::TryFrom<String> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SupportedFeatures {
+    impl<'de> ::serde::Deserialize<'de> for SupportedFeatures {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6131,9 +6008,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TraceData(pub Option<TraceDataInner>);
-    impl std::ops::Deref for TraceData {
+    impl ::std::ops::Deref for TraceData {
         type Target = Option<TraceDataInner>;
         fn deref(&self) -> &Option<TraceDataInner> {
             &self.0
@@ -6240,7 +6117,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TraceDataInner {
         #[serde(
             rename = "collectionEntityIpv4Addr",
@@ -6342,9 +6219,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerEventList(String);
-    impl std::ops::Deref for TraceDataInnerEventList {
+    impl ::std::ops::Deref for TraceDataInnerEventList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6363,7 +6240,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerEventList {
+    impl ::std::str::FromStr for TraceDataInnerEventList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -6377,36 +6254,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerEventList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerEventList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6440,9 +6317,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerInterfaceList(String);
-    impl std::ops::Deref for TraceDataInnerInterfaceList {
+    impl ::std::ops::Deref for TraceDataInnerInterfaceList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6461,7 +6338,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerInterfaceList {
+    impl ::std::str::FromStr for TraceDataInnerInterfaceList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -6475,36 +6352,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerInterfaceList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerInterfaceList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6534,9 +6411,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerNeTypeList(String);
-    impl std::ops::Deref for TraceDataInnerNeTypeList {
+    impl ::std::ops::Deref for TraceDataInnerNeTypeList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6555,7 +6432,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerNeTypeList {
+    impl ::std::str::FromStr for TraceDataInnerNeTypeList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -6569,36 +6446,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerNeTypeList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerNeTypeList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6631,9 +6508,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerTraceRef(String);
-    impl std::ops::Deref for TraceDataInnerTraceRef {
+    impl ::std::ops::Deref for TraceDataInnerTraceRef {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6652,7 +6529,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerTraceRef {
+    impl ::std::str::FromStr for TraceDataInnerTraceRef {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9]{3}[0-9]{2,3}-[A-Fa-f0-9]{6}$")
@@ -6666,36 +6543,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerTraceRef {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerTraceRef {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6712,45 +6589,6 @@ pub mod types {
     /// information should be recorded in the trace. See 3GPP TS 32.422 for
     /// further description of the values. It shall comply with the provisions
     /// defined in table 5.6.3.1-1\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MINIMUM",
-    ///        "MEDIUM",
-    ///        "MAXIMUM",
-    ///        "MINIMUM_WO_VENDOR_EXTENSION",
-    ///        "MEDIUM_WO_VENDOR_EXTENSION",
-    ///        "MAXIMUM_WO_VENDOR_EXTENSION"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct TraceDepth {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<TraceDepthSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&TraceDepth> for TraceDepth {
-        fn from(value: &TraceDepth) -> Self {
-            value.clone()
-        }
-    }
-
-    ///TraceDepthSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "MINIMUM",
@@ -6759,23 +6597,23 @@ pub mod types {
     ///    "MINIMUM_WO_VENDOR_EXTENSION",
     ///    "MEDIUM_WO_VENDOR_EXTENSION",
     ///    "MAXIMUM_WO_VENDOR_EXTENSION"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum TraceDepthSubtype0 {
+    pub enum TraceDepth {
         #[serde(rename = "MINIMUM")]
         Minimum,
         #[serde(rename = "MEDIUM")]
@@ -6788,15 +6626,17 @@ pub mod types {
         MediumWoVendorExtension,
         #[serde(rename = "MAXIMUM_WO_VENDOR_EXTENSION")]
         MaximumWoVendorExtension,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&TraceDepthSubtype0> for TraceDepthSubtype0 {
-        fn from(value: &TraceDepthSubtype0) -> Self {
+    impl From<&TraceDepth> for TraceDepth {
+        fn from(value: &TraceDepth) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for TraceDepthSubtype0 {
+    impl ToString for TraceDepth {
         fn to_string(&self) -> String {
             match *self {
                 Self::Minimum => "MINIMUM".to_string(),
@@ -6805,11 +6645,12 @@ pub mod types {
                 Self::MinimumWoVendorExtension => "MINIMUM_WO_VENDOR_EXTENSION".to_string(),
                 Self::MediumWoVendorExtension => "MEDIUM_WO_VENDOR_EXTENSION".to_string(),
                 Self::MaximumWoVendorExtension => "MAXIMUM_WO_VENDOR_EXTENSION".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for TraceDepthSubtype0 {
+    impl std::str::FromStr for TraceDepth {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -6819,26 +6660,26 @@ pub mod types {
                 "MINIMUM_WO_VENDOR_EXTENSION" => Ok(Self::MinimumWoVendorExtension),
                 "MEDIUM_WO_VENDOR_EXTENSION" => Ok(Self::MediumWoVendorExtension),
                 "MAXIMUM_WO_VENDOR_EXTENSION" => Ok(Self::MaximumWoVendorExtension),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<&str> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<&String> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<String> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -6893,15 +6734,15 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeAuthenticationCtx {
-        #[serde(rename = "5gAuthData")]
-        pub _5g_auth_data: UeAuthenticationCtx5gAuthData,
         #[serde(rename = "authType")]
         pub auth_type: AuthType,
+        #[serde(rename = "5gAuthData")]
+        pub five_g_auth_data: UeAuthenticationCtx5gAuthData,
         ///A map(list of key-value pairs) where member serves as key
         #[serde(rename = "_links")]
-        pub links: std::collections::HashMap<String, LinksValueSchema>,
+        pub links: ::std::collections::HashMap<String, LinksValueSchema>,
         #[serde(
             rename = "servingNetworkName",
             default,
@@ -6933,7 +6774,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum UeAuthenticationCtx5gAuthData {
         Av5gAka(Av5gAka),
@@ -6971,9 +6812,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpuAckInd(pub bool);
-    impl std::ops::Deref for UpuAckInd {
+    impl ::std::ops::Deref for UpuAckInd {
         type Target = bool;
         fn deref(&self) -> &bool {
             &self.0
@@ -7068,7 +6909,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpuData {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub aol: Option<bool>,
@@ -7107,9 +6948,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UpuHeader(String);
-    impl std::ops::Deref for UpuHeader {
+    impl ::std::ops::Deref for UpuHeader {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7128,7 +6969,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UpuHeader {
+    impl ::std::str::FromStr for UpuHeader {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{2}$")
@@ -7142,36 +6983,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UpuHeader {
+    impl ::std::convert::TryFrom<&str> for UpuHeader {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UpuHeader {
+    impl ::std::convert::TryFrom<&String> for UpuHeader {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UpuHeader {
+    impl ::std::convert::TryFrom<String> for UpuHeader {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UpuHeader {
+    impl<'de> ::serde::Deserialize<'de> for UpuHeader {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -7212,7 +7053,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpuInfo {
         #[serde(
             rename = "supportedFeatures",
@@ -7253,9 +7094,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UpuMac(String);
-    impl std::ops::Deref for UpuMac {
+    impl ::std::ops::Deref for UpuMac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7274,7 +7115,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UpuMac {
+    impl ::std::str::FromStr for UpuMac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{32}$")
@@ -7288,36 +7129,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UpuMac {
+    impl ::std::convert::TryFrom<&str> for UpuMac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UpuMac {
+    impl ::std::convert::TryFrom<&String> for UpuMac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UpuMac {
+    impl ::std::convert::TryFrom<String> for UpuMac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UpuMac {
+    impl<'de> ::serde::Deserialize<'de> for UpuMac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -7350,7 +7191,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpuSecurityInfo {
         #[serde(rename = "counterUpu")]
         pub counter_upu: CounterUpu,
@@ -7380,9 +7221,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpuTransparentInfo(pub Bytes);
-    impl std::ops::Deref for UpuTransparentInfo {
+    impl ::std::ops::Deref for UpuTransparentInfo {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -7454,10 +7295,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Uri(pub String);
-    impl std::ops::Deref for Uri {
+    impl ::std::ops::Deref for Uri {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7512,9 +7361,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct _5gPrukId(String);
-    impl std::ops::Deref for _5gPrukId {
+    impl ::std::ops::Deref for _5gPrukId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7533,7 +7382,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for _5gPrukId {
+    impl ::std::str::FromStr for _5gPrukId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^rid[0-9]{1,4}\\.pid[0-9a-fA-F]+\\@prose-cp\\.5gc\\.mnc[0-9]{2,3}\\.mcc[0-9]{3}\\.3gppnetwork\\.org$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^rid[0-9]{1,4}\\.pid[0-9a-fA-F]+\\@prose-cp\\.5gc\\.mnc[0-9]{2,3}\\.mcc[0-9]{3}\\.3gppnetwork\\.org$\"" . into ()) ; }
@@ -7541,36 +7390,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for _5gPrukId {
+    impl ::std::convert::TryFrom<&str> for _5gPrukId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for _5gPrukId {
+    impl ::std::convert::TryFrom<&String> for _5gPrukId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for _5gPrukId {
+    impl ::std::convert::TryFrom<String> for _5gPrukId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for _5gPrukId {
+    impl<'de> ::serde::Deserialize<'de> for _5gPrukId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }

@@ -1,5 +1,3 @@
-
-
 #[allow(unused_imports)]
 use crate::progenitor_client::{encode_path, RequestBuilderExt};
 #[allow(unused_imports)]
@@ -12,17 +10,17 @@ pub mod types {
     /// Error types.
     pub mod error {
         /// Error from a TryFrom or FromStr implementation.
-        pub struct ConversionError(std::borrow::Cow<'static, str>);
-        impl std::error::Error for ConversionError {}
-        impl std::fmt::Display for ConversionError {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-                std::fmt::Display::fmt(&self.0, f)
+        pub struct ConversionError(::std::borrow::Cow<'static, str>);
+        impl ::std::error::Error for ConversionError {}
+        impl ::std::fmt::Display for ConversionError {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+                ::std::fmt::Display::fmt(&self.0, f)
             }
         }
 
-        impl std::fmt::Debug for ConversionError {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-                std::fmt::Debug::fmt(&self.0, f)
+        impl ::std::fmt::Debug for ConversionError {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+                ::std::fmt::Debug::fmt(&self.0, f)
             }
         }
 
@@ -87,7 +85,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AccNetChId {
         Variant0 {
@@ -172,7 +170,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AccNetChargingAddress {
         Variant0 {
@@ -227,12 +225,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AcceptableMbsServInfo {
         Variant0 {
             #[serde(rename = "accMbsServInfo")]
-            acc_mbs_serv_info: std::collections::HashMap<String, MbsMediaComp>,
+            acc_mbs_serv_info: ::std::collections::HashMap<String, MbsMediaComp>,
         },
         Variant1 {
             #[serde(rename = "accMaxMbsBw")]
@@ -276,7 +274,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AcceptableServiceInfo {
         ///Indicates the maximum bandwidth that shall be authorized by the PCF
         /// for each media component of the map. The key of the map is the media
@@ -284,9 +282,9 @@ pub mod types {
         #[serde(
             rename = "accBwMedComps",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub acc_bw_med_comps: std::collections::HashMap<String, MediaComponent>,
+        pub acc_bw_med_comps: ::std::collections::HashMap<String, MediaComponent>,
         #[serde(rename = "marBwDl", default, skip_serializing_if = "Option::is_none")]
         pub mar_bw_dl: Option<BitRate>,
         #[serde(rename = "marBwUl", default, skip_serializing_if = "Option::is_none")]
@@ -339,7 +337,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AccessNetChargingIdentifier {
         Variant0 {
@@ -397,7 +395,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccessTokenErr {
         pub error: AccessTokenErrError,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -431,6 +429,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -439,8 +439,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AccessTokenErrError {
         #[serde(rename = "invalid_request")]
@@ -612,7 +610,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccessTokenReq {
         pub grant_type: AccessTokenReqGrantType,
         #[serde(
@@ -732,6 +730,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -740,8 +740,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AccessTokenReqGrantType {
         #[serde(rename = "client_credentials")]
@@ -804,9 +802,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct AccessTokenReqScope(String);
-    impl std::ops::Deref for AccessTokenReqScope {
+    impl ::std::ops::Deref for AccessTokenReqScope {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -825,7 +823,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for AccessTokenReqScope {
+    impl ::std::str::FromStr for AccessTokenReqScope {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^([a-zA-Z0-9_:-]+)( [a-zA-Z0-9_:-]+)*$")
@@ -841,36 +839,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<&str> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<&String> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AccessTokenReqScope {
+    impl ::std::convert::TryFrom<String> for AccessTokenReqScope {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for AccessTokenReqScope {
+    impl<'de> ::serde::Deserialize<'de> for AccessTokenReqScope {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -892,6 +890,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -900,12 +900,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AccessType {
         #[serde(rename = "3GPP_ACCESS")]
-        _3gppAccess,
+        ThreeGppAccess,
         #[serde(rename = "NON_3GPP_ACCESS")]
         Non3gppAccess,
     }
@@ -919,7 +917,7 @@ pub mod types {
     impl ToString for AccessType {
         fn to_string(&self) -> String {
             match *self {
-                Self::_3gppAccess => "3GPP_ACCESS".to_string(),
+                Self::ThreeGppAccess => "3GPP_ACCESS".to_string(),
                 Self::Non3gppAccess => "NON_3GPP_ACCESS".to_string(),
             }
         }
@@ -929,7 +927,7 @@ pub mod types {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
-                "3GPP_ACCESS" => Ok(Self::_3gppAccess),
+                "3GPP_ACCESS" => Ok(Self::ThreeGppAccess),
                 "NON_3GPP_ACCESS" => Ok(Self::Non3gppAccess),
                 _ => Err("invalid value".into()),
             }
@@ -977,7 +975,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AccessTypeRm {
         AccessType(AccessType),
@@ -1047,7 +1045,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccuUsageReport {
         #[serde(
             rename = "nextTimeUsage",
@@ -1126,7 +1124,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AccumulatedUsage {
         #[serde(
             rename = "downlinkVolume",
@@ -1180,7 +1178,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AdditionalAccessInfo {
         #[serde(rename = "accessType")]
         pub access_type: AccessType,
@@ -1206,10 +1204,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct AfAppId(pub String);
-    impl std::ops::Deref for AfAppId {
+    impl ::std::ops::Deref for AfAppId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -1254,50 +1260,172 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Represents an event to notify to the AF.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACCESS_TYPE_CHANGE",
-    ///        "ANI_REPORT",
-    ///        "APP_DETECTION",
-    ///        "CHARGING_CORRELATION",
-    ///        "EPS_FALLBACK",
-    ///        "FAILED_QOS_UPDATE",
-    ///        "FAILED_RESOURCES_ALLOCATION",
-    ///        "OUT_OF_CREDIT",
-    ///        "PDU_SESSION_STATUS",
-    ///        "PLMN_CHG",
-    ///        "QOS_MONITORING",
-    ///        "QOS_NOTIF",
-    ///        "RAN_NAS_CAUSE",
-    ///        "REALLOCATION_OF_CREDIT",
-    ///        "SAT_CATEGORY_CHG",
-    ///        "SUCCESSFUL_QOS_UPDATE",
-    ///        "SUCCESSFUL_RESOURCES_ALLOCATION",
-    ///        "TSN_BRIDGE_INFO",
-    ///        "UP_PATH_CHG_FAILURE",
-    ///        "USAGE_REPORT"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ACCESS_TYPE_CHANGE",
+    ///    "ANI_REPORT",
+    ///    "APP_DETECTION",
+    ///    "CHARGING_CORRELATION",
+    ///    "EPS_FALLBACK",
+    ///    "FAILED_QOS_UPDATE",
+    ///    "FAILED_RESOURCES_ALLOCATION",
+    ///    "OUT_OF_CREDIT",
+    ///    "PDU_SESSION_STATUS",
+    ///    "PLMN_CHG",
+    ///    "QOS_MONITORING",
+    ///    "QOS_NOTIF",
+    ///    "RAN_NAS_CAUSE",
+    ///    "REALLOCATION_OF_CREDIT",
+    ///    "SAT_CATEGORY_CHG",
+    ///    "SUCCESSFUL_QOS_UPDATE",
+    ///    "SUCCESSFUL_RESOURCES_ALLOCATION",
+    ///    "TSN_BRIDGE_INFO",
+    ///    "UP_PATH_CHG_FAILURE",
+    ///    "USAGE_REPORT"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AfEvent {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AfEventSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AfEvent {
+        #[serde(rename = "ACCESS_TYPE_CHANGE")]
+        AccessTypeChange,
+        #[serde(rename = "ANI_REPORT")]
+        AniReport,
+        #[serde(rename = "APP_DETECTION")]
+        AppDetection,
+        #[serde(rename = "CHARGING_CORRELATION")]
+        ChargingCorrelation,
+        #[serde(rename = "EPS_FALLBACK")]
+        EpsFallback,
+        #[serde(rename = "FAILED_QOS_UPDATE")]
+        FailedQosUpdate,
+        #[serde(rename = "FAILED_RESOURCES_ALLOCATION")]
+        FailedResourcesAllocation,
+        #[serde(rename = "OUT_OF_CREDIT")]
+        OutOfCredit,
+        #[serde(rename = "PDU_SESSION_STATUS")]
+        PduSessionStatus,
+        #[serde(rename = "PLMN_CHG")]
+        PlmnChg,
+        #[serde(rename = "QOS_MONITORING")]
+        QosMonitoring,
+        #[serde(rename = "QOS_NOTIF")]
+        QosNotif,
+        #[serde(rename = "RAN_NAS_CAUSE")]
+        RanNasCause,
+        #[serde(rename = "REALLOCATION_OF_CREDIT")]
+        ReallocationOfCredit,
+        #[serde(rename = "SAT_CATEGORY_CHG")]
+        SatCategoryChg,
+        #[serde(rename = "SUCCESSFUL_QOS_UPDATE")]
+        SuccessfulQosUpdate,
+        #[serde(rename = "SUCCESSFUL_RESOURCES_ALLOCATION")]
+        SuccessfulResourcesAllocation,
+        #[serde(rename = "TSN_BRIDGE_INFO")]
+        TsnBridgeInfo,
+        #[serde(rename = "UP_PATH_CHG_FAILURE")]
+        UpPathChgFailure,
+        #[serde(rename = "USAGE_REPORT")]
+        UsageReport,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AfEvent> for AfEvent {
         fn from(value: &AfEvent) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for AfEvent {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::AccessTypeChange => "ACCESS_TYPE_CHANGE".to_string(),
+                Self::AniReport => "ANI_REPORT".to_string(),
+                Self::AppDetection => "APP_DETECTION".to_string(),
+                Self::ChargingCorrelation => "CHARGING_CORRELATION".to_string(),
+                Self::EpsFallback => "EPS_FALLBACK".to_string(),
+                Self::FailedQosUpdate => "FAILED_QOS_UPDATE".to_string(),
+                Self::FailedResourcesAllocation => "FAILED_RESOURCES_ALLOCATION".to_string(),
+                Self::OutOfCredit => "OUT_OF_CREDIT".to_string(),
+                Self::PduSessionStatus => "PDU_SESSION_STATUS".to_string(),
+                Self::PlmnChg => "PLMN_CHG".to_string(),
+                Self::QosMonitoring => "QOS_MONITORING".to_string(),
+                Self::QosNotif => "QOS_NOTIF".to_string(),
+                Self::RanNasCause => "RAN_NAS_CAUSE".to_string(),
+                Self::ReallocationOfCredit => "REALLOCATION_OF_CREDIT".to_string(),
+                Self::SatCategoryChg => "SAT_CATEGORY_CHG".to_string(),
+                Self::SuccessfulQosUpdate => "SUCCESSFUL_QOS_UPDATE".to_string(),
+                Self::SuccessfulResourcesAllocation => {
+                    "SUCCESSFUL_RESOURCES_ALLOCATION".to_string()
+                }
+                Self::TsnBridgeInfo => "TSN_BRIDGE_INFO".to_string(),
+                Self::UpPathChgFailure => "UP_PATH_CHG_FAILURE".to_string(),
+                Self::UsageReport => "USAGE_REPORT".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for AfEvent {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "ACCESS_TYPE_CHANGE" => Ok(Self::AccessTypeChange),
+                "ANI_REPORT" => Ok(Self::AniReport),
+                "APP_DETECTION" => Ok(Self::AppDetection),
+                "CHARGING_CORRELATION" => Ok(Self::ChargingCorrelation),
+                "EPS_FALLBACK" => Ok(Self::EpsFallback),
+                "FAILED_QOS_UPDATE" => Ok(Self::FailedQosUpdate),
+                "FAILED_RESOURCES_ALLOCATION" => Ok(Self::FailedResourcesAllocation),
+                "OUT_OF_CREDIT" => Ok(Self::OutOfCredit),
+                "PDU_SESSION_STATUS" => Ok(Self::PduSessionStatus),
+                "PLMN_CHG" => Ok(Self::PlmnChg),
+                "QOS_MONITORING" => Ok(Self::QosMonitoring),
+                "QOS_NOTIF" => Ok(Self::QosNotif),
+                "RAN_NAS_CAUSE" => Ok(Self::RanNasCause),
+                "REALLOCATION_OF_CREDIT" => Ok(Self::ReallocationOfCredit),
+                "SAT_CATEGORY_CHG" => Ok(Self::SatCategoryChg),
+                "SUCCESSFUL_QOS_UPDATE" => Ok(Self::SuccessfulQosUpdate),
+                "SUCCESSFUL_RESOURCES_ALLOCATION" => Ok(Self::SuccessfulResourcesAllocation),
+                "TSN_BRIDGE_INFO" => Ok(Self::TsnBridgeInfo),
+                "UP_PATH_CHG_FAILURE" => Ok(Self::UpPathChgFailure),
+                "USAGE_REPORT" => Ok(Self::UsageReport),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for AfEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for AfEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for AfEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -1328,7 +1456,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfEventNotification {
         pub event: AfEvent,
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -1370,7 +1498,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfEventSubscription {
         pub event: AfEvent,
         #[serde(
@@ -1391,178 +1519,6 @@ pub mod types {
         }
     }
 
-    ///AfEventSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ACCESS_TYPE_CHANGE",
-    ///    "ANI_REPORT",
-    ///    "APP_DETECTION",
-    ///    "CHARGING_CORRELATION",
-    ///    "EPS_FALLBACK",
-    ///    "FAILED_QOS_UPDATE",
-    ///    "FAILED_RESOURCES_ALLOCATION",
-    ///    "OUT_OF_CREDIT",
-    ///    "PDU_SESSION_STATUS",
-    ///    "PLMN_CHG",
-    ///    "QOS_MONITORING",
-    ///    "QOS_NOTIF",
-    ///    "RAN_NAS_CAUSE",
-    ///    "REALLOCATION_OF_CREDIT",
-    ///    "SAT_CATEGORY_CHG",
-    ///    "SUCCESSFUL_QOS_UPDATE",
-    ///    "SUCCESSFUL_RESOURCES_ALLOCATION",
-    ///    "TSN_BRIDGE_INFO",
-    ///    "UP_PATH_CHG_FAILURE",
-    ///    "USAGE_REPORT"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AfEventSubtype0 {
-        #[serde(rename = "ACCESS_TYPE_CHANGE")]
-        AccessTypeChange,
-        #[serde(rename = "ANI_REPORT")]
-        AniReport,
-        #[serde(rename = "APP_DETECTION")]
-        AppDetection,
-        #[serde(rename = "CHARGING_CORRELATION")]
-        ChargingCorrelation,
-        #[serde(rename = "EPS_FALLBACK")]
-        EpsFallback,
-        #[serde(rename = "FAILED_QOS_UPDATE")]
-        FailedQosUpdate,
-        #[serde(rename = "FAILED_RESOURCES_ALLOCATION")]
-        FailedResourcesAllocation,
-        #[serde(rename = "OUT_OF_CREDIT")]
-        OutOfCredit,
-        #[serde(rename = "PDU_SESSION_STATUS")]
-        PduSessionStatus,
-        #[serde(rename = "PLMN_CHG")]
-        PlmnChg,
-        #[serde(rename = "QOS_MONITORING")]
-        QosMonitoring,
-        #[serde(rename = "QOS_NOTIF")]
-        QosNotif,
-        #[serde(rename = "RAN_NAS_CAUSE")]
-        RanNasCause,
-        #[serde(rename = "REALLOCATION_OF_CREDIT")]
-        ReallocationOfCredit,
-        #[serde(rename = "SAT_CATEGORY_CHG")]
-        SatCategoryChg,
-        #[serde(rename = "SUCCESSFUL_QOS_UPDATE")]
-        SuccessfulQosUpdate,
-        #[serde(rename = "SUCCESSFUL_RESOURCES_ALLOCATION")]
-        SuccessfulResourcesAllocation,
-        #[serde(rename = "TSN_BRIDGE_INFO")]
-        TsnBridgeInfo,
-        #[serde(rename = "UP_PATH_CHG_FAILURE")]
-        UpPathChgFailure,
-        #[serde(rename = "USAGE_REPORT")]
-        UsageReport,
-    }
-
-    impl From<&AfEventSubtype0> for AfEventSubtype0 {
-        fn from(value: &AfEventSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AfEventSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::AccessTypeChange => "ACCESS_TYPE_CHANGE".to_string(),
-                Self::AniReport => "ANI_REPORT".to_string(),
-                Self::AppDetection => "APP_DETECTION".to_string(),
-                Self::ChargingCorrelation => "CHARGING_CORRELATION".to_string(),
-                Self::EpsFallback => "EPS_FALLBACK".to_string(),
-                Self::FailedQosUpdate => "FAILED_QOS_UPDATE".to_string(),
-                Self::FailedResourcesAllocation => "FAILED_RESOURCES_ALLOCATION".to_string(),
-                Self::OutOfCredit => "OUT_OF_CREDIT".to_string(),
-                Self::PduSessionStatus => "PDU_SESSION_STATUS".to_string(),
-                Self::PlmnChg => "PLMN_CHG".to_string(),
-                Self::QosMonitoring => "QOS_MONITORING".to_string(),
-                Self::QosNotif => "QOS_NOTIF".to_string(),
-                Self::RanNasCause => "RAN_NAS_CAUSE".to_string(),
-                Self::ReallocationOfCredit => "REALLOCATION_OF_CREDIT".to_string(),
-                Self::SatCategoryChg => "SAT_CATEGORY_CHG".to_string(),
-                Self::SuccessfulQosUpdate => "SUCCESSFUL_QOS_UPDATE".to_string(),
-                Self::SuccessfulResourcesAllocation => {
-                    "SUCCESSFUL_RESOURCES_ALLOCATION".to_string()
-                }
-                Self::TsnBridgeInfo => "TSN_BRIDGE_INFO".to_string(),
-                Self::UpPathChgFailure => "UP_PATH_CHG_FAILURE".to_string(),
-                Self::UsageReport => "USAGE_REPORT".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for AfEventSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "ACCESS_TYPE_CHANGE" => Ok(Self::AccessTypeChange),
-                "ANI_REPORT" => Ok(Self::AniReport),
-                "APP_DETECTION" => Ok(Self::AppDetection),
-                "CHARGING_CORRELATION" => Ok(Self::ChargingCorrelation),
-                "EPS_FALLBACK" => Ok(Self::EpsFallback),
-                "FAILED_QOS_UPDATE" => Ok(Self::FailedQosUpdate),
-                "FAILED_RESOURCES_ALLOCATION" => Ok(Self::FailedResourcesAllocation),
-                "OUT_OF_CREDIT" => Ok(Self::OutOfCredit),
-                "PDU_SESSION_STATUS" => Ok(Self::PduSessionStatus),
-                "PLMN_CHG" => Ok(Self::PlmnChg),
-                "QOS_MONITORING" => Ok(Self::QosMonitoring),
-                "QOS_NOTIF" => Ok(Self::QosNotif),
-                "RAN_NAS_CAUSE" => Ok(Self::RanNasCause),
-                "REALLOCATION_OF_CREDIT" => Ok(Self::ReallocationOfCredit),
-                "SAT_CATEGORY_CHG" => Ok(Self::SatCategoryChg),
-                "SUCCESSFUL_QOS_UPDATE" => Ok(Self::SuccessfulQosUpdate),
-                "SUCCESSFUL_RESOURCES_ALLOCATION" => Ok(Self::SuccessfulResourcesAllocation),
-                "TSN_BRIDGE_INFO" => Ok(Self::TsnBridgeInfo),
-                "UP_PATH_CHG_FAILURE" => Ok(Self::UpPathChgFailure),
-                "USAGE_REPORT" => Ok(Self::UsageReport),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for AfEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for AfEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for AfEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
     ///Represents the notification methods that can be subscribed for an event.
     ///
     /// <details><summary>JSON schema</summary>
@@ -1571,28 +1527,36 @@ pub mod types {
     ///{
     ///  "description": "Represents the notification methods that can be
     /// subscribed for an event.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "EVENT_DETECTION",
-    ///        "ONE_TIME",
-    ///        "PERIODIC"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "EVENT_DETECTION",
+    ///    "ONE_TIME",
+    ///    "PERIODIC"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AfNotifMethod {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AfNotifMethodSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AfNotifMethod {
+        #[serde(rename = "EVENT_DETECTION")]
+        EventDetection,
+        #[serde(rename = "ONE_TIME")]
+        OneTime,
+        #[serde(rename = "PERIODIC")]
+        Periodic,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AfNotifMethod> for AfNotifMethod {
@@ -1601,85 +1565,44 @@ pub mod types {
         }
     }
 
-    ///AfNotifMethodSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "EVENT_DETECTION",
-    ///    "ONE_TIME",
-    ///    "PERIODIC"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AfNotifMethodSubtype0 {
-        #[serde(rename = "EVENT_DETECTION")]
-        EventDetection,
-        #[serde(rename = "ONE_TIME")]
-        OneTime,
-        #[serde(rename = "PERIODIC")]
-        Periodic,
-    }
-
-    impl From<&AfNotifMethodSubtype0> for AfNotifMethodSubtype0 {
-        fn from(value: &AfNotifMethodSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AfNotifMethodSubtype0 {
+    impl ToString for AfNotifMethod {
         fn to_string(&self) -> String {
             match *self {
                 Self::EventDetection => "EVENT_DETECTION".to_string(),
                 Self::OneTime => "ONE_TIME".to_string(),
                 Self::Periodic => "PERIODIC".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AfNotifMethodSubtype0 {
+    impl std::str::FromStr for AfNotifMethod {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "EVENT_DETECTION" => Ok(Self::EventDetection),
                 "ONE_TIME" => Ok(Self::OneTime),
                 "PERIODIC" => Ok(Self::Periodic),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AfNotifMethodSubtype0 {
+    impl std::convert::TryFrom<&str> for AfNotifMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AfNotifMethodSubtype0 {
+    impl std::convert::TryFrom<&String> for AfNotifMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AfNotifMethodSubtype0 {
+    impl std::convert::TryFrom<String> for AfNotifMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -1694,26 +1617,30 @@ pub mod types {
     ///{
     ///  "description": "Represents the information that the AF requested to be
     /// exposed.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UE_IDENTITY"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UE_IDENTITY"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AfRequestedData {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AfRequestedDataSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AfRequestedData {
+        #[serde(rename = "UE_IDENTITY")]
+        UeIdentity,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AfRequestedData> for AfRequestedData {
@@ -1722,75 +1649,40 @@ pub mod types {
         }
     }
 
-    ///AfRequestedDataSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UE_IDENTITY"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AfRequestedDataSubtype0 {
-        #[serde(rename = "UE_IDENTITY")]
-        UeIdentity,
-    }
-
-    impl From<&AfRequestedDataSubtype0> for AfRequestedDataSubtype0 {
-        fn from(value: &AfRequestedDataSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AfRequestedDataSubtype0 {
+    impl ToString for AfRequestedData {
         fn to_string(&self) -> String {
             match *self {
                 Self::UeIdentity => "UE_IDENTITY".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AfRequestedDataSubtype0 {
+    impl std::str::FromStr for AfRequestedData {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "UE_IDENTITY" => Ok(Self::UeIdentity),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AfRequestedDataSubtype0 {
+    impl std::convert::TryFrom<&str> for AfRequestedData {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AfRequestedDataSubtype0 {
+    impl std::convert::TryFrom<&String> for AfRequestedData {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AfRequestedDataSubtype0 {
+    impl std::convert::TryFrom<String> for AfRequestedData {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -1860,7 +1752,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfRoutingRequirement {
         #[serde(
             rename = "addrPreserInd",
@@ -2009,9 +1901,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfRoutingRequirementRm(pub Option<AfRoutingRequirementRmInner>);
-    impl std::ops::Deref for AfRoutingRequirementRm {
+    impl ::std::ops::Deref for AfRoutingRequirementRm {
         type Target = Option<AfRoutingRequirementRmInner>;
         fn deref(&self) -> &Option<AfRoutingRequirementRmInner> {
             &self.0
@@ -2118,7 +2010,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfRoutingRequirementRmInner {
         #[serde(
             rename = "addrPreserInd",
@@ -2221,7 +2113,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AfSigProtocol {
         #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
         pub subtype_0: Option<AfSigProtocolSubtype0>,
@@ -2252,6 +2144,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -2260,8 +2154,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum AfSigProtocolSubtype0 {
         #[serde(rename = "NO_INFORMATION")]
@@ -2347,7 +2239,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AlternativeServiceRequirementsData {
         ///Reference to this alternative QoS related parameter set.
         #[serde(rename = "altQosParamSetRef")]
@@ -2377,35 +2269,80 @@ pub mod types {
     ///  "description": "Possible values are:\n- SAC_CH: Service Area Coverage
     /// Change\n- PDUID_CH: The PDUID assigned to a UE for the UE ProSe Policies
     /// changed\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "SAC_CH",
-    ///        "PDUID_CH"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "SAC_CH",
+    ///    "PDUID_CH"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AmEvent {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AmEventSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AmEvent {
+        #[serde(rename = "SAC_CH")]
+        SacCh,
+        #[serde(rename = "PDUID_CH")]
+        PduidCh,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AmEvent> for AmEvent {
         fn from(value: &AmEvent) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for AmEvent {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::SacCh => "SAC_CH".to_string(),
+                Self::PduidCh => "PDUID_CH".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for AmEvent {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "SAC_CH" => Ok(Self::SacCh),
+                "PDUID_CH" => Ok(Self::PduidCh),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for AmEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for AmEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for AmEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -2445,7 +2382,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventData {
         pub event: AmEvent,
         #[serde(rename = "immRep", default, skip_serializing_if = "Option::is_none")]
@@ -2499,7 +2436,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventNotification {
         #[serde(
             rename = "appliedCov",
@@ -2515,86 +2452,6 @@ pub mod types {
     impl From<&AmEventNotification> for AmEventNotification {
         fn from(value: &AmEventNotification) -> Self {
             value.clone()
-        }
-    }
-
-    ///AmEventSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "SAC_CH",
-    ///    "PDUID_CH"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AmEventSubtype0 {
-        #[serde(rename = "SAC_CH")]
-        SacCh,
-        #[serde(rename = "PDUID_CH")]
-        PduidCh,
-    }
-
-    impl From<&AmEventSubtype0> for AmEventSubtype0 {
-        fn from(value: &AmEventSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AmEventSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::SacCh => "SAC_CH".to_string(),
-                Self::PduidCh => "PDUID_CH".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for AmEventSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "SAC_CH" => Ok(Self::SacCh),
-                "PDUID_CH" => Ok(Self::PduidCh),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for AmEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for AmEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for AmEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
         }
     }
 
@@ -2628,7 +2485,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventsNotification {
         ///Contains the AM Policy Events Subscription resource identifier
         /// related to the event notification.
@@ -2675,7 +2532,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventsSubscData {
         #[serde(rename = "eventNotifUri")]
         pub event_notif_uri: Uri,
@@ -2716,9 +2573,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventsSubscDataRm(pub Option<AmEventsSubscDataRmInner>);
-    impl std::ops::Deref for AmEventsSubscDataRm {
+    impl ::std::ops::Deref for AmEventsSubscDataRm {
         type Target = Option<AmEventsSubscDataRmInner>;
         fn deref(&self) -> &Option<AmEventsSubscDataRmInner> {
             &self.0
@@ -2767,7 +2624,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmEventsSubscDataRmInner {
         #[serde(
             rename = "eventNotifUri",
@@ -2807,7 +2664,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AmEventsSubscRespData {
         SubscData(AmEventsSubscData),
@@ -2888,7 +2745,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmRequestedValueRep {
         #[serde(rename = "accessTypes", default, skip_serializing_if = "Vec::is_empty")]
         pub access_types: Vec<AccessType>,
@@ -2911,9 +2768,9 @@ pub mod types {
         #[serde(
             rename = "praStatuses",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub pra_statuses: std::collections::HashMap<String, PresenceInfo>,
+        pub pra_statuses: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(rename = "ratTypes", default, skip_serializing_if = "Vec::is_empty")]
         pub rat_types: Vec<RatType>,
         #[serde(rename = "userLoc", default, skip_serializing_if = "Option::is_none")]
@@ -2937,31 +2794,36 @@ pub mod types {
     ///  "description": "It represents the cause values that the PCF should
     /// report when requesting to an NF service consumer the deletion of an \"AF
     /// application AM context\" resource.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UE_DEREGISTERED",
-    ///        "UNSPECIFIED",
-    ///        "INSUFFICIENT_RESOURCES"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UE_DEREGISTERED",
+    ///    "UNSPECIFIED",
+    ///    "INSUFFICIENT_RESOURCES"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AmTerminationCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AmTerminationCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AmTerminationCause {
+        #[serde(rename = "UE_DEREGISTERED")]
+        UeDeregistered,
+        #[serde(rename = "UNSPECIFIED")]
+        Unspecified,
+        #[serde(rename = "INSUFFICIENT_RESOURCES")]
+        InsufficientResources,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AmTerminationCause> for AmTerminationCause {
@@ -2970,85 +2832,44 @@ pub mod types {
         }
     }
 
-    ///AmTerminationCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UE_DEREGISTERED",
-    ///    "UNSPECIFIED",
-    ///    "INSUFFICIENT_RESOURCES"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AmTerminationCauseSubtype0 {
-        #[serde(rename = "UE_DEREGISTERED")]
-        UeDeregistered,
-        #[serde(rename = "UNSPECIFIED")]
-        Unspecified,
-        #[serde(rename = "INSUFFICIENT_RESOURCES")]
-        InsufficientResources,
-    }
-
-    impl From<&AmTerminationCauseSubtype0> for AmTerminationCauseSubtype0 {
-        fn from(value: &AmTerminationCauseSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AmTerminationCauseSubtype0 {
+    impl ToString for AmTerminationCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::UeDeregistered => "UE_DEREGISTERED".to_string(),
                 Self::Unspecified => "UNSPECIFIED".to_string(),
                 Self::InsufficientResources => "INSUFFICIENT_RESOURCES".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AmTerminationCauseSubtype0 {
+    impl std::str::FromStr for AmTerminationCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "UE_DEREGISTERED" => Ok(Self::UeDeregistered),
                 "UNSPECIFIED" => Ok(Self::Unspecified),
                 "INSUFFICIENT_RESOURCES" => Ok(Self::InsufficientResources),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AmTerminationCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for AmTerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AmTerminationCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for AmTerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AmTerminationCauseSubtype0 {
+    impl std::convert::TryFrom<String> for AmTerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -3082,7 +2903,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AmTerminationInfo {
         ///Contains the Individual application AM context resource identifier
         /// related to the termination notification.
@@ -3122,7 +2943,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Ambr {
         pub downlink: BitRate,
         pub uplink: BitRate,
@@ -3152,9 +2973,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct AmfId(String);
-    impl std::ops::Deref for AmfId {
+    impl ::std::ops::Deref for AmfId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -3173,7 +2994,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for AmfId {
+    impl ::std::str::FromStr for AmfId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{6}$")
@@ -3187,36 +3008,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for AmfId {
+    impl ::std::convert::TryFrom<&str> for AmfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AmfId {
+    impl ::std::convert::TryFrom<&String> for AmfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AmfId {
+    impl ::std::convert::TryFrom<String> for AmfId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for AmfId {
+    impl<'de> ::serde::Deserialize<'de> for AmfId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -3253,7 +3074,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AnGwAddress {
         Variant0 {
@@ -3351,7 +3172,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AppAmContextData {
         Variant0(AppAmContextDataVariant0),
@@ -3479,6 +3300,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -3487,8 +3310,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     #[serde(deny_unknown_fields)]
     pub enum AppAmContextDataVariant0 {}
@@ -3520,7 +3341,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppAmContextRespData {
         #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
         pub subtype_0: Option<AppAmContextData>,
@@ -3580,7 +3401,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppAmContextUpdateData {
         #[serde(
             rename = "asTimeDisParam",
@@ -3656,7 +3477,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppDetectionInfo {
         ///A reference to the application detection filter configured at the
         /// UPF
@@ -3695,27 +3516,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates the notification type for Application
     /// Detection Control.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "APP_START",
-    ///        "APP_STOP"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "APP_START",
+    ///    "APP_STOP"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AppDetectionNotifType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AppDetectionNotifTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum AppDetectionNotifType {
+        #[serde(rename = "APP_START")]
+        AppStart,
+        #[serde(rename = "APP_STOP")]
+        AppStop,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&AppDetectionNotifType> for AppDetectionNotifType {
@@ -3724,80 +3551,42 @@ pub mod types {
         }
     }
 
-    ///AppDetectionNotifTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "APP_START",
-    ///    "APP_STOP"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum AppDetectionNotifTypeSubtype0 {
-        #[serde(rename = "APP_START")]
-        AppStart,
-        #[serde(rename = "APP_STOP")]
-        AppStop,
-    }
-
-    impl From<&AppDetectionNotifTypeSubtype0> for AppDetectionNotifTypeSubtype0 {
-        fn from(value: &AppDetectionNotifTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for AppDetectionNotifTypeSubtype0 {
+    impl ToString for AppDetectionNotifType {
         fn to_string(&self) -> String {
             match *self {
                 Self::AppStart => "APP_START".to_string(),
                 Self::AppStop => "APP_STOP".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AppDetectionNotifTypeSubtype0 {
+    impl std::str::FromStr for AppDetectionNotifType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "APP_START" => Ok(Self::AppStart),
                 "APP_STOP" => Ok(Self::AppStop),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AppDetectionNotifTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for AppDetectionNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AppDetectionNotifTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for AppDetectionNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AppDetectionNotifTypeSubtype0 {
+    impl std::convert::TryFrom<String> for AppDetectionNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -3830,7 +3619,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppDetectionReport {
         #[serde(rename = "adNotifType")]
         pub ad_notif_type: AppDetectionNotifType,
@@ -3867,7 +3656,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppSessionContext {
         #[serde(
             rename = "ascReqData",
@@ -4037,7 +3826,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum AppSessionContextReqData {
         Variant0 {
@@ -4075,9 +3864,9 @@ pub mod types {
             #[serde(
                 rename = "medComponents",
                 default,
-                skip_serializing_if = "std::collections::HashMap::is_empty"
+                skip_serializing_if = "::std::collections::HashMap::is_empty"
             )]
-            med_components: std::collections::HashMap<String, MediaComponent>,
+            med_components: ::std::collections::HashMap<String, MediaComponent>,
             #[serde(rename = "mpsAction", default, skip_serializing_if = "Option::is_none")]
             mps_action: Option<MpsAction>,
             ///Indication of MPS service request.
@@ -4171,9 +3960,9 @@ pub mod types {
             #[serde(
                 rename = "medComponents",
                 default,
-                skip_serializing_if = "std::collections::HashMap::is_empty"
+                skip_serializing_if = "::std::collections::HashMap::is_empty"
             )]
-            med_components: std::collections::HashMap<String, MediaComponent>,
+            med_components: ::std::collections::HashMap<String, MediaComponent>,
             #[serde(rename = "mpsAction", default, skip_serializing_if = "Option::is_none")]
             mps_action: Option<MpsAction>,
             ///Indication of MPS service request.
@@ -4267,9 +4056,9 @@ pub mod types {
             #[serde(
                 rename = "medComponents",
                 default,
-                skip_serializing_if = "std::collections::HashMap::is_empty"
+                skip_serializing_if = "::std::collections::HashMap::is_empty"
             )]
-            med_components: std::collections::HashMap<String, MediaComponent>,
+            med_components: ::std::collections::HashMap<String, MediaComponent>,
             #[serde(rename = "mpsAction", default, skip_serializing_if = "Option::is_none")]
             mps_action: Option<MpsAction>,
             ///Indication of MPS service request.
@@ -4364,7 +4153,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppSessionContextRespData {
         #[serde(
             rename = "servAuthInfo",
@@ -4475,7 +4264,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppSessionContextUpdateData {
         #[serde(rename = "afAppId", default, skip_serializing_if = "Option::is_none")]
         pub af_app_id: Option<AfAppId>,
@@ -4501,9 +4290,9 @@ pub mod types {
         #[serde(
             rename = "medComponents",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub med_components: std::collections::HashMap<String, MediaComponentRm>,
+        pub med_components: ::std::collections::HashMap<String, MediaComponentRm>,
         #[serde(rename = "mpsAction", default, skip_serializing_if = "Option::is_none")]
         pub mps_action: Option<MpsAction>,
         ///Indication of MPS service request.
@@ -4583,7 +4372,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AppSessionContextUpdateDataPatch {
         #[serde(
             rename = "ascReqData",
@@ -4613,10 +4402,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct ApplicationChargingId(pub String);
-    impl std::ops::Deref for ApplicationChargingId {
+    impl ::std::ops::Deref for ApplicationChargingId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4664,9 +4461,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ApplicationDescriptor(pub Bytes);
-    impl std::ops::Deref for ApplicationDescriptor {
+    impl ::std::ops::Deref for ApplicationDescriptor {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -4760,7 +4557,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum Area {
         Variant0 {
@@ -4790,10 +4587,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct AreaCode(pub String);
-    impl std::ops::Deref for AreaCode {
+    impl ::std::ops::Deref for AreaCode {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -4859,7 +4664,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Arp {
         #[serde(rename = "preemptCap")]
         pub preempt_cap: PreemptionCapability,
@@ -4899,9 +4704,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ArpPriorityLevel(pub Option<i64>);
-    impl std::ops::Deref for ArpPriorityLevel {
+    impl ::std::ops::Deref for ArpPriorityLevel {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -4949,9 +4754,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AsTimeDistributionParam(pub Option<AsTimeDistributionParamInner>);
-    impl std::ops::Deref for AsTimeDistributionParam {
+    impl ::std::ops::Deref for AsTimeDistributionParam {
         type Target = Option<AsTimeDistributionParamInner>;
         fn deref(&self) -> &Option<AsTimeDistributionParamInner> {
             &self.0
@@ -4996,7 +4801,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AsTimeDistributionParamInner {
         #[serde(
             rename = "asTimeDistInd",
@@ -5031,10 +4836,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct AspId(pub String);
-    impl std::ops::Deref for AspId {
+    impl ::std::ops::Deref for AspId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5080,44 +4893,6 @@ pub mod types {
     ///{
     ///  "description": "Contains the ATSSS capability supported for the MA PDU
     /// Session.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MPTCP_ATSSS_LL_WITH_ASMODE_UL",
-    ///        "MPTCP_ATSSS_LL_WITH_EXSDMODE_DL_ASMODE_UL",
-    ///        "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL",
-    ///        "ATSSS_LL",
-    ///        "MPTCP_ATSSS_LL"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct AtsssCapability {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<AtsssCapabilitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&AtsssCapability> for AtsssCapability {
-        fn from(value: &AtsssCapability) -> Self {
-            value.clone()
-        }
-    }
-
-    ///AtsssCapabilitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "MPTCP_ATSSS_LL_WITH_ASMODE_UL",
@@ -5125,23 +4900,23 @@ pub mod types {
     ///    "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL",
     ///    "ATSSS_LL",
     ///    "MPTCP_ATSSS_LL"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum AtsssCapabilitySubtype0 {
+    pub enum AtsssCapability {
         #[serde(rename = "MPTCP_ATSSS_LL_WITH_ASMODE_UL")]
         MptcpAtsssLlWithAsmodeUl,
         #[serde(rename = "MPTCP_ATSSS_LL_WITH_EXSDMODE_DL_ASMODE_UL")]
@@ -5152,15 +4927,17 @@ pub mod types {
         AtsssLl,
         #[serde(rename = "MPTCP_ATSSS_LL")]
         MptcpAtsssLl,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&AtsssCapabilitySubtype0> for AtsssCapabilitySubtype0 {
-        fn from(value: &AtsssCapabilitySubtype0) -> Self {
+    impl From<&AtsssCapability> for AtsssCapability {
+        fn from(value: &AtsssCapability) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for AtsssCapabilitySubtype0 {
+    impl ToString for AtsssCapability {
         fn to_string(&self) -> String {
             match *self {
                 Self::MptcpAtsssLlWithAsmodeUl => "MPTCP_ATSSS_LL_WITH_ASMODE_UL".to_string(),
@@ -5170,11 +4947,12 @@ pub mod types {
                 Self::MptcpAtsssLlWithAsmodeDlul => "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL".to_string(),
                 Self::AtsssLl => "ATSSS_LL".to_string(),
                 Self::MptcpAtsssLl => "MPTCP_ATSSS_LL".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for AtsssCapabilitySubtype0 {
+    impl std::str::FromStr for AtsssCapability {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -5185,26 +4963,26 @@ pub mod types {
                 "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL" => Ok(Self::MptcpAtsssLlWithAsmodeDlul),
                 "ATSSS_LL" => Ok(Self::AtsssLl),
                 "MPTCP_ATSSS_LL" => Ok(Self::MptcpAtsssLl),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for AtsssCapabilitySubtype0 {
+    impl std::convert::TryFrom<&str> for AtsssCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for AtsssCapabilitySubtype0 {
+    impl std::convert::TryFrom<&String> for AtsssCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for AtsssCapabilitySubtype0 {
+    impl std::convert::TryFrom<String> for AtsssCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -5254,10 +5032,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AuthorizedDefaultQos {
-        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
-        pub _5qi: Option<_5qi>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
         #[serde(
@@ -5272,6 +5048,8 @@ pub mod types {
             skip_serializing_if = "Option::is_none"
         )]
         pub ext_max_data_burst_vol: Option<ExtMaxDataBurstVolRm>,
+        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
+        pub five_qi: Option<_5qi>,
         #[serde(rename = "gbrDl", default, skip_serializing_if = "Option::is_none")]
         pub gbr_dl: Option<BitRateRm>,
         #[serde(rename = "gbrUl", default, skip_serializing_if = "Option::is_none")]
@@ -5317,9 +5095,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AverWindow(pub i64);
-    impl std::ops::Deref for AverWindow {
+    impl ::std::ops::Deref for AverWindow {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -5398,9 +5176,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct AverWindowRm(pub Option<i64>);
-    impl std::ops::Deref for AverWindowRm {
+    impl ::std::ops::Deref for AverWindowRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -5444,7 +5222,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BdtPolicy {
         #[serde(
             rename = "bdtPolData",
@@ -5503,7 +5281,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BdtPolicyData {
         #[serde(rename = "bdtRefId")]
         pub bdt_ref_id: BdtReferenceId,
@@ -5555,7 +5333,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BdtPolicyDataPatch {
         ///Contains an identity (i.e. transPolicyId value) of the selected
         /// transfer policy. If the BdtNotification_5G feature is supported
@@ -5584,10 +5362,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct BdtReferenceId(pub String);
-    impl std::ops::Deref for BdtReferenceId {
+    impl ::std::ops::Deref for BdtReferenceId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5686,7 +5472,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BdtReqData {
         #[serde(rename = "aspId")]
         pub asp_id: AspId,
@@ -5760,7 +5546,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BdtReqDataPatch {
         ///Indicates whether the BDT warning notification is enabled or
         /// disabled.
@@ -5796,9 +5582,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct BitRate(String);
-    impl std::ops::Deref for BitRate {
+    impl ::std::ops::Deref for BitRate {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5817,7 +5603,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for BitRate {
+    impl ::std::str::FromStr for BitRate {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$")
@@ -5833,36 +5619,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for BitRate {
+    impl ::std::convert::TryFrom<&str> for BitRate {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for BitRate {
+    impl ::std::convert::TryFrom<&String> for BitRate {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for BitRate {
+    impl ::std::convert::TryFrom<String> for BitRate {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for BitRate {
+    impl<'de> ::serde::Deserialize<'de> for BitRate {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -5883,9 +5669,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BitRateRm(pub Option<BitRateRmInner>);
-    impl std::ops::Deref for BitRateRm {
+    impl ::std::ops::Deref for BitRateRm {
         type Target = Option<BitRateRmInner>;
         fn deref(&self) -> &Option<BitRateRmInner> {
             &self.0
@@ -5923,9 +5709,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct BitRateRmInner(String);
-    impl std::ops::Deref for BitRateRmInner {
+    impl ::std::ops::Deref for BitRateRmInner {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -5944,7 +5730,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for BitRateRmInner {
+    impl ::std::str::FromStr for BitRateRmInner {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$")
@@ -5960,36 +5746,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for BitRateRmInner {
+    impl ::std::convert::TryFrom<&str> for BitRateRmInner {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for BitRateRmInner {
+    impl ::std::convert::TryFrom<&String> for BitRateRmInner {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for BitRateRmInner {
+    impl ::std::convert::TryFrom<String> for BitRateRmInner {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for BitRateRmInner {
+    impl<'de> ::serde::Deserialize<'de> for BitRateRmInner {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6013,7 +5799,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct BridgeManagementContainer {
         #[serde(rename = "bridgeManCont")]
         pub bridge_man_cont: Bytes,
@@ -6038,10 +5824,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Bytes(pub String);
-    impl std::ops::Deref for Bytes {
+    impl ::std::ops::Deref for Bytes {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6112,9 +5906,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct CandidateForReplacement(pub Option<CandidateForReplacementInner>);
-    impl std::ops::Deref for CandidateForReplacement {
+    impl ::std::ops::Deref for CandidateForReplacement {
         type Target = Option<CandidateForReplacementInner>;
         fn deref(&self) -> &Option<CandidateForReplacementInner> {
             &self.0
@@ -6169,7 +5963,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct CandidateForReplacementInner {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub dnns: Option<Vec<Dnn>>,
@@ -6213,7 +6007,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct CellGlobalId {
         #[serde(rename = "cellId")]
         pub cell_id: CellGlobalIdCellId,
@@ -6239,9 +6033,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct CellGlobalIdCellId(String);
-    impl std::ops::Deref for CellGlobalIdCellId {
+    impl ::std::ops::Deref for CellGlobalIdCellId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6260,7 +6054,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for CellGlobalIdCellId {
+    impl ::std::str::FromStr for CellGlobalIdCellId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -6274,36 +6068,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for CellGlobalIdCellId {
+    impl ::std::convert::TryFrom<&str> for CellGlobalIdCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CellGlobalIdCellId {
+    impl ::std::convert::TryFrom<&String> for CellGlobalIdCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CellGlobalIdCellId {
+    impl ::std::convert::TryFrom<String> for CellGlobalIdCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for CellGlobalIdCellId {
+    impl<'de> ::serde::Deserialize<'de> for CellGlobalIdCellId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6319,9 +6113,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct CellGlobalIdLac(String);
-    impl std::ops::Deref for CellGlobalIdLac {
+    impl ::std::ops::Deref for CellGlobalIdLac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6340,7 +6134,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for CellGlobalIdLac {
+    impl ::std::str::FromStr for CellGlobalIdLac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -6354,36 +6148,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for CellGlobalIdLac {
+    impl ::std::convert::TryFrom<&str> for CellGlobalIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CellGlobalIdLac {
+    impl ::std::convert::TryFrom<&String> for CellGlobalIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CellGlobalIdLac {
+    impl ::std::convert::TryFrom<String> for CellGlobalIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for CellGlobalIdLac {
+    impl<'de> ::serde::Deserialize<'de> for CellGlobalIdLac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -6455,9 +6249,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ChargingData(pub Option<ChargingDataInner>);
-    impl std::ops::Deref for ChargingData {
+    impl ::std::ops::Deref for ChargingData {
         type Target = Option<ChargingDataInner>;
         fn deref(&self) -> &Option<ChargingDataInner> {
             &self.0
@@ -6546,7 +6340,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ChargingDataInner {
         #[serde(rename = "afChargId", default, skip_serializing_if = "Option::is_none")]
         pub af_charg_id: Option<ApplicationChargingId>,
@@ -6626,9 +6420,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ChargingId(pub u32);
-    impl std::ops::Deref for ChargingId {
+    impl ::std::ops::Deref for ChargingId {
         type Target = u32;
         fn deref(&self) -> &u32 {
             &self.0
@@ -6721,7 +6515,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ChargingInformation {
         #[serde(rename = "primaryChfAddress")]
         pub primary_chf_address: Uri,
@@ -6770,27 +6564,33 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Describes the connection management state of a UE",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "IDLE",
-    ///        "CONNECTED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "IDLE",
+    ///    "CONNECTED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct CmState {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<CmStateSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum CmState {
+        #[serde(rename = "IDLE")]
+        Idle,
+        #[serde(rename = "CONNECTED")]
+        Connected,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&CmState> for CmState {
@@ -6799,80 +6599,42 @@ pub mod types {
         }
     }
 
-    ///CmStateSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "IDLE",
-    ///    "CONNECTED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum CmStateSubtype0 {
-        #[serde(rename = "IDLE")]
-        Idle,
-        #[serde(rename = "CONNECTED")]
-        Connected,
-    }
-
-    impl From<&CmStateSubtype0> for CmStateSubtype0 {
-        fn from(value: &CmStateSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for CmStateSubtype0 {
+    impl ToString for CmState {
         fn to_string(&self) -> String {
             match *self {
                 Self::Idle => "IDLE".to_string(),
                 Self::Connected => "CONNECTED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for CmStateSubtype0 {
+    impl std::str::FromStr for CmState {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "IDLE" => Ok(Self::Idle),
                 "CONNECTED" => Ok(Self::Connected),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for CmStateSubtype0 {
+    impl std::convert::TryFrom<&str> for CmState {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CmStateSubtype0 {
+    impl std::convert::TryFrom<&String> for CmState {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CmStateSubtype0 {
+    impl std::convert::TryFrom<String> for CmState {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -6891,10 +6653,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct CodecData(pub String);
-    impl std::ops::Deref for CodecData {
+    impl ::std::ops::Deref for CodecData {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -6968,9 +6738,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ConditionData(pub Option<ConditionDataInner>);
-    impl std::ops::Deref for ConditionData {
+    impl ::std::ops::Deref for ConditionData {
         type Target = Option<ConditionDataInner>;
         fn deref(&self) -> &Option<ConditionDataInner> {
             &self.0
@@ -7028,7 +6798,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ConditionDataInner {
         #[serde(
             rename = "accessType",
@@ -7072,9 +6842,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ContentVersion(pub i64);
-    impl std::ops::Deref for ContentVersion {
+    impl ::std::ops::Deref for ContentVersion {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -7141,44 +6911,6 @@ pub mod types {
     ///{
     ///  "description": "Indicates the reason of the credit management session
     /// failure.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "END_USER_SER_DENIED",
-    ///        "CREDIT_CTRL_NOT_APP",
-    ///        "AUTH_REJECTED",
-    ///        "USER_UNKNOWN",
-    ///        "RATING_FAILED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct CreditManagementStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<CreditManagementStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&CreditManagementStatus> for CreditManagementStatus {
-        fn from(value: &CreditManagementStatus) -> Self {
-            value.clone()
-        }
-    }
-
-    ///CreditManagementStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "END_USER_SER_DENIED",
@@ -7186,23 +6918,23 @@ pub mod types {
     ///    "AUTH_REJECTED",
     ///    "USER_UNKNOWN",
     ///    "RATING_FAILED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum CreditManagementStatusSubtype0 {
+    pub enum CreditManagementStatus {
         #[serde(rename = "END_USER_SER_DENIED")]
         EndUserSerDenied,
         #[serde(rename = "CREDIT_CTRL_NOT_APP")]
@@ -7213,15 +6945,17 @@ pub mod types {
         UserUnknown,
         #[serde(rename = "RATING_FAILED")]
         RatingFailed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&CreditManagementStatusSubtype0> for CreditManagementStatusSubtype0 {
-        fn from(value: &CreditManagementStatusSubtype0) -> Self {
+    impl From<&CreditManagementStatus> for CreditManagementStatus {
+        fn from(value: &CreditManagementStatus) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for CreditManagementStatusSubtype0 {
+    impl ToString for CreditManagementStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::EndUserSerDenied => "END_USER_SER_DENIED".to_string(),
@@ -7229,11 +6963,12 @@ pub mod types {
                 Self::AuthRejected => "AUTH_REJECTED".to_string(),
                 Self::UserUnknown => "USER_UNKNOWN".to_string(),
                 Self::RatingFailed => "RATING_FAILED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for CreditManagementStatusSubtype0 {
+    impl std::str::FromStr for CreditManagementStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -7242,26 +6977,26 @@ pub mod types {
                 "AUTH_REJECTED" => Ok(Self::AuthRejected),
                 "USER_UNKNOWN" => Ok(Self::UserUnknown),
                 "RATING_FAILED" => Ok(Self::RatingFailed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for CreditManagementStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for CreditManagementStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for CreditManagementStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for CreditManagementStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for CreditManagementStatusSubtype0 {
+    impl std::convert::TryFrom<String> for CreditManagementStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -7280,9 +7015,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DateTime(pub chrono::DateTime<chrono::offset::Utc>);
-    impl std::ops::Deref for DateTime {
+    impl ::std::ops::Deref for DateTime {
         type Target = chrono::DateTime<chrono::offset::Utc>;
         fn deref(&self) -> &chrono::DateTime<chrono::offset::Utc> {
             &self.0
@@ -7358,9 +7093,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DateTimeRm(pub Option<chrono::DateTime<chrono::offset::Utc>>);
-    impl std::ops::Deref for DateTimeRm {
+    impl ::std::ops::Deref for DateTimeRm {
         type Target = Option<chrono::DateTime<chrono::offset::Utc>>;
         fn deref(&self) -> &Option<chrono::DateTime<chrono::offset::Utc>> {
             &self.0
@@ -7410,7 +7145,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DddTrafficDescriptor {
         #[serde(rename = "ipv4Addr", default, skip_serializing_if = "Option::is_none")]
         pub ipv4_addr: Option<Ipv4Addr>,
@@ -7461,31 +7196,36 @@ pub mod types {
     /// downlink traffic is\n  discarded because the Extended Buffering time, as
     /// determined by the SMF, expires or\n  the amount of downlink data to be
     /// buffered is exceeded.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "BUFFERED",
-    ///        "TRANSMITTED",
-    ///        "DISCARDED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "BUFFERED",
+    ///    "TRANSMITTED",
+    ///    "DISCARDED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct DlDataDeliveryStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<DlDataDeliveryStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum DlDataDeliveryStatus {
+        #[serde(rename = "BUFFERED")]
+        Buffered,
+        #[serde(rename = "TRANSMITTED")]
+        Transmitted,
+        #[serde(rename = "DISCARDED")]
+        Discarded,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&DlDataDeliveryStatus> for DlDataDeliveryStatus {
@@ -7494,85 +7234,44 @@ pub mod types {
         }
     }
 
-    ///DlDataDeliveryStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "BUFFERED",
-    ///    "TRANSMITTED",
-    ///    "DISCARDED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum DlDataDeliveryStatusSubtype0 {
-        #[serde(rename = "BUFFERED")]
-        Buffered,
-        #[serde(rename = "TRANSMITTED")]
-        Transmitted,
-        #[serde(rename = "DISCARDED")]
-        Discarded,
-    }
-
-    impl From<&DlDataDeliveryStatusSubtype0> for DlDataDeliveryStatusSubtype0 {
-        fn from(value: &DlDataDeliveryStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for DlDataDeliveryStatusSubtype0 {
+    impl ToString for DlDataDeliveryStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Buffered => "BUFFERED".to_string(),
                 Self::Transmitted => "TRANSMITTED".to_string(),
                 Self::Discarded => "DISCARDED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for DlDataDeliveryStatusSubtype0 {
+    impl std::str::FromStr for DlDataDeliveryStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "BUFFERED" => Ok(Self::Buffered),
                 "TRANSMITTED" => Ok(Self::Transmitted),
                 "DISCARDED" => Ok(Self::Discarded),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for DlDataDeliveryStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for DlDataDeliveryStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for DlDataDeliveryStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for DlDataDeliveryStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for DlDataDeliveryStatusSubtype0 {
+    impl std::convert::TryFrom<String> for DlDataDeliveryStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -7593,10 +7292,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Dnai(pub String);
-    impl std::ops::Deref for Dnai {
+    impl ::std::ops::Deref for Dnai {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7650,31 +7357,36 @@ pub mod types {
     /// path reconfiguration. This value shall\n  only be present in the
     /// subscription to the DNAI change event.\n- LATE: Late notification of UP
     /// path reconfiguration. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "EARLY",
-    ///        "EARLY_LATE",
-    ///        "LATE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode  content
-    /// defined in the present version of this API. \n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "EARLY",
+    ///    "EARLY_LATE",
+    ///    "LATE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct DnaiChangeType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<DnaiChangeTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum DnaiChangeType {
+        #[serde(rename = "EARLY")]
+        Early,
+        #[serde(rename = "EARLY_LATE")]
+        EarlyLate,
+        #[serde(rename = "LATE")]
+        Late,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&DnaiChangeType> for DnaiChangeType {
@@ -7683,85 +7395,44 @@ pub mod types {
         }
     }
 
-    ///DnaiChangeTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "EARLY",
-    ///    "EARLY_LATE",
-    ///    "LATE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum DnaiChangeTypeSubtype0 {
-        #[serde(rename = "EARLY")]
-        Early,
-        #[serde(rename = "EARLY_LATE")]
-        EarlyLate,
-        #[serde(rename = "LATE")]
-        Late,
-    }
-
-    impl From<&DnaiChangeTypeSubtype0> for DnaiChangeTypeSubtype0 {
-        fn from(value: &DnaiChangeTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for DnaiChangeTypeSubtype0 {
+    impl ToString for DnaiChangeType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Early => "EARLY".to_string(),
                 Self::EarlyLate => "EARLY_LATE".to_string(),
                 Self::Late => "LATE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for DnaiChangeTypeSubtype0 {
+    impl std::str::FromStr for DnaiChangeType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "EARLY" => Ok(Self::Early),
                 "EARLY_LATE" => Ok(Self::EarlyLate),
                 "LATE" => Ok(Self::Late),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for DnaiChangeTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for DnaiChangeType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for DnaiChangeTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for DnaiChangeType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for DnaiChangeTypeSubtype0 {
+    impl std::convert::TryFrom<String> for DnaiChangeType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -7789,10 +7460,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Dnn(pub String);
-    impl std::ops::Deref for Dnn {
+    impl ::std::ops::Deref for Dnn {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -7841,31 +7520,36 @@ pub mod types {
     ///{
     ///  "description": "DNN Selection Mode. Possible values are\n- VERIFIED\n-
     /// UE_DNN_NOT_VERIFIED\n- NW_DNN_NOT_VERIFIED\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "VERIFIED",
-    ///        "UE_DNN_NOT_VERIFIED",
-    ///        "NW_DNN_NOT_VERIFIED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "VERIFIED",
+    ///    "UE_DNN_NOT_VERIFIED",
+    ///    "NW_DNN_NOT_VERIFIED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct DnnSelectionMode {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<DnnSelectionModeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum DnnSelectionMode {
+        #[serde(rename = "VERIFIED")]
+        Verified,
+        #[serde(rename = "UE_DNN_NOT_VERIFIED")]
+        UeDnnNotVerified,
+        #[serde(rename = "NW_DNN_NOT_VERIFIED")]
+        NwDnnNotVerified,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&DnnSelectionMode> for DnnSelectionMode {
@@ -7874,85 +7558,44 @@ pub mod types {
         }
     }
 
-    ///DnnSelectionModeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "VERIFIED",
-    ///    "UE_DNN_NOT_VERIFIED",
-    ///    "NW_DNN_NOT_VERIFIED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum DnnSelectionModeSubtype0 {
-        #[serde(rename = "VERIFIED")]
-        Verified,
-        #[serde(rename = "UE_DNN_NOT_VERIFIED")]
-        UeDnnNotVerified,
-        #[serde(rename = "NW_DNN_NOT_VERIFIED")]
-        NwDnnNotVerified,
-    }
-
-    impl From<&DnnSelectionModeSubtype0> for DnnSelectionModeSubtype0 {
-        fn from(value: &DnnSelectionModeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for DnnSelectionModeSubtype0 {
+    impl ToString for DnnSelectionMode {
         fn to_string(&self) -> String {
             match *self {
                 Self::Verified => "VERIFIED".to_string(),
                 Self::UeDnnNotVerified => "UE_DNN_NOT_VERIFIED".to_string(),
                 Self::NwDnnNotVerified => "NW_DNN_NOT_VERIFIED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for DnnSelectionModeSubtype0 {
+    impl std::str::FromStr for DnnSelectionMode {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "VERIFIED" => Ok(Self::Verified),
                 "UE_DNN_NOT_VERIFIED" => Ok(Self::UeDnnNotVerified),
                 "NW_DNN_NOT_VERIFIED" => Ok(Self::NwDnnNotVerified),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for DnnSelectionModeSubtype0 {
+    impl std::convert::TryFrom<&str> for DnnSelectionMode {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for DnnSelectionModeSubtype0 {
+    impl std::convert::TryFrom<&String> for DnnSelectionMode {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for DnnSelectionModeSubtype0 {
+    impl std::convert::TryFrom<String> for DnnSelectionMode {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -7987,7 +7630,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DownlinkDataNotificationControl {
         #[serde(
             rename = "notifCtrlInds",
@@ -8049,11 +7692,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DownlinkDataNotificationControlRm(
         pub Option<DownlinkDataNotificationControlRmInner>,
     );
-    impl std::ops::Deref for DownlinkDataNotificationControlRm {
+    impl ::std::ops::Deref for DownlinkDataNotificationControlRm {
         type Target = Option<DownlinkDataNotificationControlRmInner>;
         fn deref(&self) -> &Option<DownlinkDataNotificationControlRmInner> {
             &self.0
@@ -8115,7 +7758,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DownlinkDataNotificationControlRmInner {
         #[serde(
             rename = "notifCtrlInds",
@@ -8148,9 +7791,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DurationSec(pub i64);
-    impl std::ops::Deref for DurationSec {
+    impl ::std::ops::Deref for DurationSec {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -8225,9 +7868,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct DurationSecRm(pub Option<i64>);
-    impl std::ops::Deref for DurationSecRm {
+    impl ::std::ops::Deref for DurationSecRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -8290,9 +7933,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct ENbId(String);
-    impl std::ops::Deref for ENbId {
+    impl ::std::ops::Deref for ENbId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -8311,7 +7954,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for ENbId {
+    impl ::std::str::FromStr for ENbId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(MacroeNB-[A-Fa-f0-9]{5}|LMacroeNB-[A-Fa-f0-9]{6}|SMacroeNB-[A-Fa-f0-9]{5}|HomeeNB-[A-Fa-f0-9]{7})$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(MacroeNB-[A-Fa-f0-9]{5}|LMacroeNB-[A-Fa-f0-9]{6}|SMacroeNB-[A-Fa-f0-9]{5}|HomeeNB-[A-Fa-f0-9]{7})$\"" . into ()) ; }
@@ -8319,36 +7962,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for ENbId {
+    impl ::std::convert::TryFrom<&str> for ENbId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ENbId {
+    impl ::std::convert::TryFrom<&String> for ENbId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ENbId {
+    impl ::std::convert::TryFrom<String> for ENbId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for ENbId {
+    impl<'de> ::serde::Deserialize<'de> for ENbId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -8377,7 +8020,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EasIpReplacementInfo {
         pub source: EasServerAddress,
         pub target: EasServerAddress,
@@ -8412,7 +8055,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EasServerAddress {
         pub ip: IpAddr,
         pub port: Uinteger,
@@ -8452,7 +8095,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Ecgi {
         #[serde(rename = "eutraCellId")]
         pub eutra_cell_id: EutraCellId,
@@ -8480,10 +8123,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct EpsRanNasRelCause(pub String);
-    impl std::ops::Deref for EpsRanNasRelCause {
+    impl ::std::ops::Deref for EpsRanNasRelCause {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -8571,7 +8222,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ErrorReport {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub error: Option<ProblemDetails>,
@@ -8653,7 +8304,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EthFlowDescription {
         #[serde(
             rename = "destMacAddr",
@@ -8722,7 +8373,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EthernetFlowInfo {
         #[serde(rename = "ethFlows", default, skip_serializing_if = "Vec::is_empty")]
         pub eth_flows: Vec<SchemasEthFlowDescription>,
@@ -8761,9 +8412,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct EutraCellId(String);
-    impl std::ops::Deref for EutraCellId {
+    impl ::std::ops::Deref for EutraCellId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -8782,7 +8433,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for EutraCellId {
+    impl ::std::str::FromStr for EutraCellId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{7}$")
@@ -8796,36 +8447,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for EutraCellId {
+    impl ::std::convert::TryFrom<&str> for EutraCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for EutraCellId {
+    impl ::std::convert::TryFrom<&String> for EutraCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for EutraCellId {
+    impl ::std::convert::TryFrom<String> for EutraCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for EutraCellId {
+    impl<'de> ::serde::Deserialize<'de> for EutraCellId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -8898,7 +8549,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EutraLocation {
         ///The value represents the elapsed time in minutes since the last
         /// network contact of the mobile station.  Value "0" indicates that the
@@ -8981,9 +8632,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct EutraLocationGeodeticInformation(String);
-    impl std::ops::Deref for EutraLocationGeodeticInformation {
+    impl ::std::ops::Deref for EutraLocationGeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -9002,7 +8653,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for EutraLocationGeodeticInformation {
+    impl ::std::str::FromStr for EutraLocationGeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -9016,36 +8667,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for EutraLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for EutraLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for EutraLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for EutraLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for EutraLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<String> for EutraLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for EutraLocationGeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for EutraLocationGeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -9066,9 +8717,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct EutraLocationGeographicalInformation(String);
-    impl std::ops::Deref for EutraLocationGeographicalInformation {
+    impl ::std::ops::Deref for EutraLocationGeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -9087,7 +8738,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for EutraLocationGeographicalInformation {
+    impl ::std::str::FromStr for EutraLocationGeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -9101,36 +8752,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for EutraLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for EutraLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for EutraLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for EutraLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for EutraLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<String> for EutraLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for EutraLocationGeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for EutraLocationGeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -9272,7 +8923,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EventsNotification {
         #[serde(
             rename = "accessType",
@@ -9418,7 +9069,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum EventsSubscPutData {
         SubscReqData(EventsSubscReqData),
@@ -9502,7 +9153,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EventsSubscReqData {
         #[serde(rename = "afAppIds", default, skip_serializing_if = "Vec::is_empty")]
         pub af_app_ids: Vec<AfAppId>,
@@ -9601,9 +9252,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EventsSubscReqDataRm(pub Option<EventsSubscReqDataRmInner>);
-    impl std::ops::Deref for EventsSubscReqDataRm {
+    impl ::std::ops::Deref for EventsSubscReqDataRm {
         type Target = Option<EventsSubscReqDataRmInner>;
         fn deref(&self) -> &Option<EventsSubscReqDataRmInner> {
             &self.0
@@ -9685,7 +9336,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct EventsSubscReqDataRmInner {
         #[serde(
             rename = "directNotifInd",
@@ -9738,9 +9389,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ExtMaxDataBurstVol(pub i64);
-    impl std::ops::Deref for ExtMaxDataBurstVol {
+    impl ::std::ops::Deref for ExtMaxDataBurstVol {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -9818,9 +9469,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ExtMaxDataBurstVolRm(pub Option<i64>);
-    impl std::ops::Deref for ExtMaxDataBurstVolRm {
+    impl ::std::ops::Deref for ExtMaxDataBurstVolRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -9869,7 +9520,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ExtendedProblemDetails {
         #[serde(
             rename = "acceptableServInfo",
@@ -9957,31 +9608,39 @@ pub mod types {
     /// message.\n- UE_TEMP_UNREACHABLE: Indicates the PCF received the
     /// notification from the AMF that the UE\n  is not reachable but the PCF
     /// will retry again.\n",
-    ///  "oneOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UNSPECIFIED",
-    ///        "UE_NOT_REACHABLE",
-    ///        "UNKNOWN",
-    ///        "UE_TEMP_UNREACHABLE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string represents the failure reason for the
-    /// unsuccessful result. May be present if the reported reportEvent
-    /// attribute is \"UNSUCCESS_UE_POL_DEL_SP\".\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UNSPECIFIED",
+    ///    "UE_NOT_REACHABLE",
+    ///    "UNKNOWN",
+    ///    "UE_TEMP_UNREACHABLE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    #[serde(untagged)]
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
     pub enum Failure {
-        Variant0(FailureVariant0),
-        Variant1(String),
+        #[serde(rename = "UNSPECIFIED")]
+        Unspecified,
+        #[serde(rename = "UE_NOT_REACHABLE")]
+        UeNotReachable,
+        #[serde(rename = "UNKNOWN")]
+        Unknown,
+        #[serde(rename = "UE_TEMP_UNREACHABLE")]
+        UeTempUnreachable,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&Failure> for Failure {
@@ -9990,9 +9649,49 @@ pub mod types {
         }
     }
 
-    impl From<FailureVariant0> for Failure {
-        fn from(value: FailureVariant0) -> Self {
-            Self::Variant0(value)
+    impl ToString for Failure {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::Unspecified => "UNSPECIFIED".to_string(),
+                Self::UeNotReachable => "UE_NOT_REACHABLE".to_string(),
+                Self::Unknown => "UNKNOWN".to_string(),
+                Self::UeTempUnreachable => "UE_TEMP_UNREACHABLE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for Failure {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "UNSPECIFIED" => Ok(Self::Unspecified),
+                "UE_NOT_REACHABLE" => Ok(Self::UeNotReachable),
+                "UNKNOWN" => Ok(Self::Unknown),
+                "UE_TEMP_UNREACHABLE" => Ok(Self::UeTempUnreachable),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for Failure {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for Failure {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for Failure {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -10004,44 +9703,6 @@ pub mod types {
     ///{
     ///  "description": "Indicates the cause of the failure in a Partial Success
     /// Report.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PCC_RULE_EVENT",
-    ///        "PCC_QOS_FLOW_EVENT",
-    ///        "RULE_PERMANENT_ERROR",
-    ///        "RULE_TEMPORARY_ERROR",
-    ///        "POL_DEC_ERROR"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FailureCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FailureCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&FailureCause> for FailureCause {
-        fn from(value: &FailureCause) -> Self {
-            value.clone()
-        }
-    }
-
-    ///FailureCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "PCC_RULE_EVENT",
@@ -10049,23 +9710,23 @@ pub mod types {
     ///    "RULE_PERMANENT_ERROR",
     ///    "RULE_TEMPORARY_ERROR",
     ///    "POL_DEC_ERROR"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum FailureCauseSubtype0 {
+    pub enum FailureCause {
         #[serde(rename = "PCC_RULE_EVENT")]
         PccRuleEvent,
         #[serde(rename = "PCC_QOS_FLOW_EVENT")]
@@ -10076,15 +9737,17 @@ pub mod types {
         RuleTemporaryError,
         #[serde(rename = "POL_DEC_ERROR")]
         PolDecError,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&FailureCauseSubtype0> for FailureCauseSubtype0 {
-        fn from(value: &FailureCauseSubtype0) -> Self {
+    impl From<&FailureCause> for FailureCause {
+        fn from(value: &FailureCause) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for FailureCauseSubtype0 {
+    impl ToString for FailureCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::PccRuleEvent => "PCC_RULE_EVENT".to_string(),
@@ -10092,11 +9755,12 @@ pub mod types {
                 Self::RulePermanentError => "RULE_PERMANENT_ERROR".to_string(),
                 Self::RuleTemporaryError => "RULE_TEMPORARY_ERROR".to_string(),
                 Self::PolDecError => "POL_DEC_ERROR".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for FailureCauseSubtype0 {
+    impl std::str::FromStr for FailureCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -10105,26 +9769,26 @@ pub mod types {
                 "RULE_PERMANENT_ERROR" => Ok(Self::RulePermanentError),
                 "RULE_TEMPORARY_ERROR" => Ok(Self::RuleTemporaryError),
                 "POL_DEC_ERROR" => Ok(Self::PolDecError),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for FailureCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for FailureCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for FailureCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for FailureCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for FailureCauseSubtype0 {
+    impl std::convert::TryFrom<String> for FailureCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -10345,72 +10009,6 @@ pub mod types {
     /// PCC rule could not be successfully modified because the mute condition
     /// for application detection report cannot be changed. Applicable when the
     /// functionality introduced with the ADC feature applies.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UNK_RULE_ID",
-    ///        "RA_GR_ERR",
-    ///        "SER_ID_ERR",
-    ///        "NF_MAL",
-    ///        "RES_LIM",
-    ///        "MAX_NR_QoS_FLOW",
-    ///        "MISS_FLOW_INFO",
-    ///        "RES_ALLO_FAIL",
-    ///        "UNSUCC_QOS_VAL",
-    ///        "INCOR_FLOW_INFO",
-    ///        "PS_TO_CS_HAN",
-    ///        "APP_ID_ERR",
-    ///        "NO_QOS_FLOW_BOUND",
-    ///        "FILTER_RES",
-    ///        "MISS_REDI_SER_ADDR",
-    ///        "CM_END_USER_SER_DENIED",
-    ///        "CM_CREDIT_CON_NOT_APP",
-    ///        "CM_AUTH_REJ",
-    ///        "CM_USER_UNK",
-    ///        "CM_RAT_FAILED",
-    ///        "UE_STA_SUSP",
-    ///        "UNKNOWN_REF_ID",
-    ///        "INCORRECT_COND_DATA",
-    ///        "REF_ID_COLLISION",
-    ///        "TRAFFIC_STEERING_ERROR",
-    ///        "DNAI_STEERING_ERROR",
-    ///        "AN_GW_FAILE",
-    ///        "MAX_NR_PACKET_FILTERS_EXCEEDED",
-    ///        "PACKET_FILTER_TFT_ALLOCATION_EXCEEDED",
-    ///        "MUTE_CHG_NOT_ALLOWED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FailureCode {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FailureCodeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&FailureCode> for FailureCode {
-        fn from(value: &FailureCode) -> Self {
-            value.clone()
-        }
-    }
-
-    ///FailureCodeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "UNK_RULE_ID",
@@ -10443,23 +10041,23 @@ pub mod types {
     ///    "MAX_NR_PACKET_FILTERS_EXCEEDED",
     ///    "PACKET_FILTER_TFT_ALLOCATION_EXCEEDED",
     ///    "MUTE_CHG_NOT_ALLOWED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum FailureCodeSubtype0 {
+    pub enum FailureCode {
         #[serde(rename = "UNK_RULE_ID")]
         UnkRuleId,
         #[serde(rename = "RA_GR_ERR")]
@@ -10520,15 +10118,17 @@ pub mod types {
         PacketFilterTftAllocationExceeded,
         #[serde(rename = "MUTE_CHG_NOT_ALLOWED")]
         MuteChgNotAllowed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&FailureCodeSubtype0> for FailureCodeSubtype0 {
-        fn from(value: &FailureCodeSubtype0) -> Self {
+    impl From<&FailureCode> for FailureCode {
+        fn from(value: &FailureCode) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for FailureCodeSubtype0 {
+    impl ToString for FailureCode {
         fn to_string(&self) -> String {
             match *self {
                 Self::UnkRuleId => "UNK_RULE_ID".to_string(),
@@ -10563,11 +10163,12 @@ pub mod types {
                     "PACKET_FILTER_TFT_ALLOCATION_EXCEEDED".to_string()
                 }
                 Self::MuteChgNotAllowed => "MUTE_CHG_NOT_ALLOWED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for FailureCodeSubtype0 {
+    impl std::str::FromStr for FailureCode {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -10603,116 +10204,26 @@ pub mod types {
                     Ok(Self::PacketFilterTftAllocationExceeded)
                 }
                 "MUTE_CHG_NOT_ALLOWED" => Ok(Self::MuteChgNotAllowed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for FailureCodeSubtype0 {
+    impl std::convert::TryFrom<&str> for FailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for FailureCodeSubtype0 {
+    impl std::convert::TryFrom<&String> for FailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for FailureCodeSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    ///FailureVariant0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UNSPECIFIED",
-    ///    "UE_NOT_REACHABLE",
-    ///    "UNKNOWN",
-    ///    "UE_TEMP_UNREACHABLE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum FailureVariant0 {
-        #[serde(rename = "UNSPECIFIED")]
-        Unspecified,
-        #[serde(rename = "UE_NOT_REACHABLE")]
-        UeNotReachable,
-        #[serde(rename = "UNKNOWN")]
-        Unknown,
-        #[serde(rename = "UE_TEMP_UNREACHABLE")]
-        UeTempUnreachable,
-    }
-
-    impl From<&FailureVariant0> for FailureVariant0 {
-        fn from(value: &FailureVariant0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for FailureVariant0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::Unspecified => "UNSPECIFIED".to_string(),
-                Self::UeNotReachable => "UE_NOT_REACHABLE".to_string(),
-                Self::Unknown => "UNKNOWN".to_string(),
-                Self::UeTempUnreachable => "UE_TEMP_UNREACHABLE".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for FailureVariant0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "UNSPECIFIED" => Ok(Self::Unspecified),
-                "UE_NOT_REACHABLE" => Ok(Self::UeNotReachable),
-                "UNKNOWN" => Ok(Self::Unknown),
-                "UE_TEMP_UNREACHABLE" => Ok(Self::UeTempUnreachable),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for FailureVariant0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for FailureVariant0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for FailureVariant0 {
+    impl std::convert::TryFrom<String> for FailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -10725,28 +10236,36 @@ pub mod types {
     ///
     /// ```json
     ///{
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "TERMINATE",
-    ///        "REDIRECT",
-    ///        "RESTRICT_ACCESS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "TERMINATE",
+    ///    "REDIRECT",
+    ///    "RESTRICT_ACCESS"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FinalUnitAction {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FinalUnitActionSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum FinalUnitAction {
+        #[serde(rename = "TERMINATE")]
+        Terminate,
+        #[serde(rename = "REDIRECT")]
+        Redirect,
+        #[serde(rename = "RESTRICT_ACCESS")]
+        RestrictAccess,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&FinalUnitAction> for FinalUnitAction {
@@ -10755,85 +10274,44 @@ pub mod types {
         }
     }
 
-    ///FinalUnitActionSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "TERMINATE",
-    ///    "REDIRECT",
-    ///    "RESTRICT_ACCESS"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum FinalUnitActionSubtype0 {
-        #[serde(rename = "TERMINATE")]
-        Terminate,
-        #[serde(rename = "REDIRECT")]
-        Redirect,
-        #[serde(rename = "RESTRICT_ACCESS")]
-        RestrictAccess,
-    }
-
-    impl From<&FinalUnitActionSubtype0> for FinalUnitActionSubtype0 {
-        fn from(value: &FinalUnitActionSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for FinalUnitActionSubtype0 {
+    impl ToString for FinalUnitAction {
         fn to_string(&self) -> String {
             match *self {
                 Self::Terminate => "TERMINATE".to_string(),
                 Self::Redirect => "REDIRECT".to_string(),
                 Self::RestrictAccess => "RESTRICT_ACCESS".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for FinalUnitActionSubtype0 {
+    impl std::str::FromStr for FinalUnitAction {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "TERMINATE" => Ok(Self::Terminate),
                 "REDIRECT" => Ok(Self::Redirect),
                 "RESTRICT_ACCESS" => Ok(Self::RestrictAccess),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for FinalUnitActionSubtype0 {
+    impl std::convert::TryFrom<&str> for FinalUnitAction {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for FinalUnitActionSubtype0 {
+    impl std::convert::TryFrom<&String> for FinalUnitAction {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for FinalUnitActionSubtype0 {
+    impl std::convert::TryFrom<String> for FinalUnitAction {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -10852,9 +10330,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Float(pub f32);
-    impl std::ops::Deref for Float {
+    impl ::std::ops::Deref for Float {
         type Target = f32;
         fn deref(&self) -> &f32 {
             &self.0
@@ -10930,9 +10408,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct FloatRm(pub Option<f32>);
-    impl std::ops::Deref for FloatRm {
+    impl ::std::ops::Deref for FloatRm {
         type Target = Option<f32>;
         fn deref(&self) -> &Option<f32> {
             &self.0
@@ -10969,10 +10447,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct FlowDescription(pub String);
-    impl std::ops::Deref for FlowDescription {
+    impl ::std::ops::Deref for FlowDescription {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -11022,10 +10508,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct FlowDescription1(pub String);
-    impl std::ops::Deref for FlowDescription1 {
+    impl ::std::ops::Deref for FlowDescription1 {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -11091,37 +10585,90 @@ pub mod types {
     /// filters created by the network in NW-initiated procedures. The PCF shall
     /// only include the value UNSPECIFIED in filters in UE-initiated procedures
     /// if the same value is received from the SMF.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "DOWNLINK",
-    ///        "UPLINK",
-    ///        "BIDIRECTIONAL",
-    ///        "UNSPECIFIED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "DOWNLINK",
+    ///    "UPLINK",
+    ///    "BIDIRECTIONAL",
+    ///    "UNSPECIFIED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FlowDirection {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FlowDirectionSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum FlowDirection {
+        #[serde(rename = "DOWNLINK")]
+        Downlink,
+        #[serde(rename = "UPLINK")]
+        Uplink,
+        #[serde(rename = "BIDIRECTIONAL")]
+        Bidirectional,
+        #[serde(rename = "UNSPECIFIED")]
+        Unspecified,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&FlowDirection> for FlowDirection {
         fn from(value: &FlowDirection) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for FlowDirection {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::Downlink => "DOWNLINK".to_string(),
+                Self::Uplink => "UPLINK".to_string(),
+                Self::Bidirectional => "BIDIRECTIONAL".to_string(),
+                Self::Unspecified => "UNSPECIFIED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for FlowDirection {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "DOWNLINK" => Ok(Self::Downlink),
+                "UPLINK" => Ok(Self::Uplink),
+                "BIDIRECTIONAL" => Ok(Self::Bidirectional),
+                "UNSPECIFIED" => Ok(Self::Unspecified),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for FlowDirection {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for FlowDirection {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for FlowDirection {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -11146,12 +10693,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FlowDirectionRm {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FlowDirection>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<NullValue>,
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[serde(untagged)]
+    pub enum FlowDirectionRm {
+        FlowDirection(FlowDirection),
+        NullValue(NullValue),
     }
 
     impl From<&FlowDirectionRm> for FlowDirectionRm {
@@ -11160,93 +10706,15 @@ pub mod types {
         }
     }
 
-    ///FlowDirectionSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "DOWNLINK",
-    ///    "UPLINK",
-    ///    "BIDIRECTIONAL",
-    ///    "UNSPECIFIED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum FlowDirectionSubtype0 {
-        #[serde(rename = "DOWNLINK")]
-        Downlink,
-        #[serde(rename = "UPLINK")]
-        Uplink,
-        #[serde(rename = "BIDIRECTIONAL")]
-        Bidirectional,
-        #[serde(rename = "UNSPECIFIED")]
-        Unspecified,
-    }
-
-    impl From<&FlowDirectionSubtype0> for FlowDirectionSubtype0 {
-        fn from(value: &FlowDirectionSubtype0) -> Self {
-            value.clone()
+    impl From<FlowDirection> for FlowDirectionRm {
+        fn from(value: FlowDirection) -> Self {
+            Self::FlowDirection(value)
         }
     }
 
-    impl ToString for FlowDirectionSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::Downlink => "DOWNLINK".to_string(),
-                Self::Uplink => "UPLINK".to_string(),
-                Self::Bidirectional => "BIDIRECTIONAL".to_string(),
-                Self::Unspecified => "UNSPECIFIED".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for FlowDirectionSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "DOWNLINK" => Ok(Self::Downlink),
-                "UPLINK" => Ok(Self::Uplink),
-                "BIDIRECTIONAL" => Ok(Self::Bidirectional),
-                "UNSPECIFIED" => Ok(Self::Unspecified),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for FlowDirectionSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for FlowDirectionSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for FlowDirectionSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
+    impl From<NullValue> for FlowDirectionRm {
+        fn from(value: NullValue) -> Self {
+            Self::NullValue(value)
         }
     }
 
@@ -11302,7 +10770,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct FlowInformation {
         #[serde(
             rename = "ethFlowDescription",
@@ -11366,44 +10834,6 @@ pub mod types {
     ///{
     ///  "description": "Describes whether the IP flow(s) are enabled or
     /// disabled.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ENABLED-UPLINK",
-    ///        "ENABLED-DOWNLINK",
-    ///        "ENABLED",
-    ///        "DISABLED",
-    ///        "REMOVED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FlowStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FlowStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&FlowStatus> for FlowStatus {
-        fn from(value: &FlowStatus) -> Self {
-            value.clone()
-        }
-    }
-
-    ///FlowStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "ENABLED-UPLINK",
@@ -11411,23 +10841,23 @@ pub mod types {
     ///    "ENABLED",
     ///    "DISABLED",
     ///    "REMOVED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum FlowStatusSubtype0 {
+    pub enum FlowStatus {
         #[serde(rename = "ENABLED-UPLINK")]
         EnabledUplink,
         #[serde(rename = "ENABLED-DOWNLINK")]
@@ -11438,15 +10868,17 @@ pub mod types {
         Disabled,
         #[serde(rename = "REMOVED")]
         Removed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&FlowStatusSubtype0> for FlowStatusSubtype0 {
-        fn from(value: &FlowStatusSubtype0) -> Self {
+    impl From<&FlowStatus> for FlowStatus {
+        fn from(value: &FlowStatus) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for FlowStatusSubtype0 {
+    impl ToString for FlowStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::EnabledUplink => "ENABLED-UPLINK".to_string(),
@@ -11454,11 +10886,12 @@ pub mod types {
                 Self::Enabled => "ENABLED".to_string(),
                 Self::Disabled => "DISABLED".to_string(),
                 Self::Removed => "REMOVED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for FlowStatusSubtype0 {
+    impl std::str::FromStr for FlowStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -11467,26 +10900,26 @@ pub mod types {
                 "ENABLED" => Ok(Self::Enabled),
                 "DISABLED" => Ok(Self::Disabled),
                 "REMOVED" => Ok(Self::Removed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for FlowStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for FlowStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for FlowStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for FlowStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for FlowStatusSubtype0 {
+    impl std::convert::TryFrom<String> for FlowStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -11501,28 +10934,36 @@ pub mod types {
     ///{
     ///  "description": "Describes the flow usage of the flows described by a
     /// media subcomponent.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NO_INFO",
-    ///        "RTCP",
-    ///        "AF_SIGNALLING"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "NO_INFO",
+    ///    "RTCP",
+    ///    "AF_SIGNALLING"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct FlowUsage {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<FlowUsageSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum FlowUsage {
+        #[serde(rename = "NO_INFO")]
+        NoInfo,
+        #[serde(rename = "RTCP")]
+        Rtcp,
+        #[serde(rename = "AF_SIGNALLING")]
+        AfSignalling,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&FlowUsage> for FlowUsage {
@@ -11531,85 +10972,44 @@ pub mod types {
         }
     }
 
-    ///FlowUsageSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "NO_INFO",
-    ///    "RTCP",
-    ///    "AF_SIGNALLING"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum FlowUsageSubtype0 {
-        #[serde(rename = "NO_INFO")]
-        NoInfo,
-        #[serde(rename = "RTCP")]
-        Rtcp,
-        #[serde(rename = "AF_SIGNALLING")]
-        AfSignalling,
-    }
-
-    impl From<&FlowUsageSubtype0> for FlowUsageSubtype0 {
-        fn from(value: &FlowUsageSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for FlowUsageSubtype0 {
+    impl ToString for FlowUsage {
         fn to_string(&self) -> String {
             match *self {
                 Self::NoInfo => "NO_INFO".to_string(),
                 Self::Rtcp => "RTCP".to_string(),
                 Self::AfSignalling => "AF_SIGNALLING".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for FlowUsageSubtype0 {
+    impl std::str::FromStr for FlowUsage {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "NO_INFO" => Ok(Self::NoInfo),
                 "RTCP" => Ok(Self::Rtcp),
                 "AF_SIGNALLING" => Ok(Self::AfSignalling),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for FlowUsageSubtype0 {
+    impl std::convert::TryFrom<&str> for FlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for FlowUsageSubtype0 {
+    impl std::convert::TryFrom<&String> for FlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for FlowUsageSubtype0 {
+    impl std::convert::TryFrom<String> for FlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -11649,7 +11049,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Flows {
         #[serde(rename = "contVers", default, skip_serializing_if = "Vec::is_empty")]
         pub cont_vers: Vec<ContentVersion>,
@@ -11680,9 +11080,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Fqdn(String);
-    impl std::ops::Deref for Fqdn {
+    impl ::std::ops::Deref for Fqdn {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -11701,7 +11101,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Fqdn {
+    impl ::std::str::FromStr for Fqdn {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if value.len() > 253usize {
@@ -11723,36 +11123,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Fqdn {
+    impl ::std::convert::TryFrom<&str> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Fqdn {
+    impl ::std::convert::TryFrom<&String> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Fqdn {
+    impl ::std::convert::TryFrom<String> for Fqdn {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Fqdn {
+    impl<'de> ::serde::Deserialize<'de> for Fqdn {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -11795,7 +11195,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct GNbId {
         ///Unsigned integer representing the bit length of the gNB ID as
         /// defined in clause 9.3.1.6 of 3GPP TS 38.413 [11], within the range
@@ -11848,9 +11248,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GNbIdGNbValue(String);
-    impl std::ops::Deref for GNbIdGNbValue {
+    impl ::std::ops::Deref for GNbIdGNbValue {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -11869,7 +11269,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GNbIdGNbValue {
+    impl ::std::str::FromStr for GNbIdGNbValue {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{6,8}$")
@@ -11883,36 +11283,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GNbIdGNbValue {
+    impl ::std::convert::TryFrom<&str> for GNbIdGNbValue {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GNbIdGNbValue {
+    impl ::std::convert::TryFrom<&String> for GNbIdGNbValue {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GNbIdGNbValue {
+    impl ::std::convert::TryFrom<String> for GNbIdGNbValue {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GNbIdGNbValue {
+    impl<'de> ::serde::Deserialize<'de> for GNbIdGNbValue {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -11939,10 +11339,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Gci(pub String);
-    impl std::ops::Deref for Gci {
+    impl ::std::ops::Deref for Gci {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12058,7 +11466,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum GeraLocation {
         Variant0 {
@@ -12253,9 +11661,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant0GeodeticInformation(String);
-    impl std::ops::Deref for GeraLocationVariant0GeodeticInformation {
+    impl ::std::ops::Deref for GeraLocationVariant0GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12274,7 +11682,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant0GeodeticInformation {
+    impl ::std::str::FromStr for GeraLocationVariant0GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -12288,36 +11696,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant0GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant0GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12338,9 +11746,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant0GeographicalInformation(String);
-    impl std::ops::Deref for GeraLocationVariant0GeographicalInformation {
+    impl ::std::ops::Deref for GeraLocationVariant0GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12361,7 +11769,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant0GeographicalInformation {
+    impl ::std::str::FromStr for GeraLocationVariant0GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -12375,36 +11783,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant0GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant0GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12425,9 +11833,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant1GeodeticInformation(String);
-    impl std::ops::Deref for GeraLocationVariant1GeodeticInformation {
+    impl ::std::ops::Deref for GeraLocationVariant1GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12446,7 +11854,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant1GeodeticInformation {
+    impl ::std::str::FromStr for GeraLocationVariant1GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -12460,36 +11868,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant1GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant1GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12510,9 +11918,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant1GeographicalInformation(String);
-    impl std::ops::Deref for GeraLocationVariant1GeographicalInformation {
+    impl ::std::ops::Deref for GeraLocationVariant1GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12533,7 +11941,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant1GeographicalInformation {
+    impl ::std::str::FromStr for GeraLocationVariant1GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -12547,36 +11955,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant1GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant1GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12597,9 +12005,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant2GeodeticInformation(String);
-    impl std::ops::Deref for GeraLocationVariant2GeodeticInformation {
+    impl ::std::ops::Deref for GeraLocationVariant2GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12618,7 +12026,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant2GeodeticInformation {
+    impl ::std::str::FromStr for GeraLocationVariant2GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -12632,36 +12040,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant2GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant2GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12682,9 +12090,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GeraLocationVariant2GeographicalInformation(String);
-    impl std::ops::Deref for GeraLocationVariant2GeographicalInformation {
+    impl ::std::ops::Deref for GeraLocationVariant2GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12705,7 +12113,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GeraLocationVariant2GeographicalInformation {
+    impl ::std::str::FromStr for GeraLocationVariant2GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -12719,36 +12127,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GeraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for GeraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GeraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for GeraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GeraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for GeraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GeraLocationVariant2GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for GeraLocationVariant2GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12827,7 +12235,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum GlobalRanNodeId {
         Variant0 {
@@ -12905,9 +12313,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Gpsi(String);
-    impl std::ops::Deref for Gpsi {
+    impl ::std::ops::Deref for Gpsi {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -12926,7 +12334,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Gpsi {
+    impl ::std::str::FromStr for Gpsi {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$")
@@ -12942,36 +12350,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Gpsi {
+    impl ::std::convert::TryFrom<&str> for Gpsi {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Gpsi {
+    impl ::std::convert::TryFrom<&String> for Gpsi {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Gpsi {
+    impl ::std::convert::TryFrom<String> for Gpsi {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Gpsi {
+    impl<'de> ::serde::Deserialize<'de> for Gpsi {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -12993,9 +12401,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct GroupId(String);
-    impl std::ops::Deref for GroupId {
+    impl ::std::ops::Deref for GroupId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13014,7 +12422,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for GroupId {
+    impl ::std::str::FromStr for GroupId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new(
@@ -13030,36 +12438,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for GroupId {
+    impl ::std::convert::TryFrom<&str> for GroupId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for GroupId {
+    impl ::std::convert::TryFrom<&String> for GroupId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for GroupId {
+    impl ::std::convert::TryFrom<String> for GroupId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for GroupId {
+    impl<'de> ::serde::Deserialize<'de> for GroupId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13089,7 +12497,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Guami {
         #[serde(rename = "amfId")]
         pub amf_id: AmfId,
@@ -13120,9 +12528,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct HfcNId(String);
-    impl std::ops::Deref for HfcNId {
+    impl ::std::ops::Deref for HfcNId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13141,7 +12549,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for HfcNId {
+    impl ::std::str::FromStr for HfcNId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if value.len() > 6usize {
@@ -13151,36 +12559,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for HfcNId {
+    impl ::std::convert::TryFrom<&str> for HfcNId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for HfcNId {
+    impl ::std::convert::TryFrom<&String> for HfcNId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for HfcNId {
+    impl ::std::convert::TryFrom<String> for HfcNId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for HfcNId {
+    impl<'de> ::serde::Deserialize<'de> for HfcNId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13204,7 +12612,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct HfcNodeId {
         #[serde(rename = "hfcNId")]
         pub hfc_n_id: HfcNId,
@@ -13256,7 +12664,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct InvalidParam {
         ///If the invalid parameter is an attribute in a JSON body, this IE
         /// shall contain the  attribute's name and shall be encoded as a JSON
@@ -13325,7 +12733,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum IpAddr {
         Variant0 {
@@ -13377,7 +12785,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct IpEndPoint {
         #[serde(
             rename = "ipv4Address",
@@ -13430,7 +12838,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct IpFlowInfo {
         #[serde(rename = "flowNumber")]
         pub flow_number: i64,
@@ -13457,9 +12865,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct IpIndex(pub i64);
-    impl std::ops::Deref for IpIndex {
+    impl ::std::ops::Deref for IpIndex {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -13543,7 +12951,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct IpMulticastAddressInfo {
         #[serde(
             rename = "ipv4MulAddr",
@@ -13596,9 +13004,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv4Addr(String);
-    impl std::ops::Deref for Ipv4Addr {
+    impl ::std::ops::Deref for Ipv4Addr {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13617,7 +13025,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv4Addr {
+    impl ::std::str::FromStr for Ipv4Addr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$\"" . into ()) ; }
@@ -13625,36 +13033,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv4Addr {
+    impl ::std::convert::TryFrom<&str> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv4Addr {
+    impl ::std::convert::TryFrom<&String> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv4Addr {
+    impl ::std::convert::TryFrom<String> for Ipv4Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv4Addr {
+    impl<'de> ::serde::Deserialize<'de> for Ipv4Addr {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13679,9 +13087,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv4AddrMask(String);
-    impl std::ops::Deref for Ipv4AddrMask {
+    impl ::std::ops::Deref for Ipv4AddrMask {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13700,7 +13108,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv4AddrMask {
+    impl ::std::str::FromStr for Ipv4AddrMask {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$\"" . into ()) ; }
@@ -13708,36 +13116,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv4AddrMask {
+    impl ::std::convert::TryFrom<&str> for Ipv4AddrMask {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv4AddrMask {
+    impl ::std::convert::TryFrom<&String> for Ipv4AddrMask {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv4AddrMask {
+    impl ::std::convert::TryFrom<String> for Ipv4AddrMask {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv4AddrMask {
+    impl<'de> ::serde::Deserialize<'de> for Ipv4AddrMask {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13764,9 +13172,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv6Addr(String);
-    impl std::ops::Deref for Ipv6Addr {
+    impl ::std::ops::Deref for Ipv6Addr {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13785,7 +13193,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv6Addr {
+    impl ::std::str::FromStr for Ipv6Addr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)\"" . into ()) ; }
@@ -13793,36 +13201,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv6Addr {
+    impl ::std::convert::TryFrom<&str> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv6Addr {
+    impl ::std::convert::TryFrom<&String> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv6Addr {
+    impl ::std::convert::TryFrom<String> for Ipv6Addr {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv6Addr {
+    impl<'de> ::serde::Deserialize<'de> for Ipv6Addr {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13850,9 +13258,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Ipv6Prefix(String);
-    impl std::ops::Deref for Ipv6Prefix {
+    impl ::std::ops::Deref for Ipv6Prefix {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -13871,7 +13279,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Ipv6Prefix {
+    impl ::std::str::FromStr for Ipv6Prefix {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/(([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/(([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)\"" . into ()) ; }
@@ -13879,36 +13287,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Ipv6Prefix {
+    impl ::std::convert::TryFrom<&str> for Ipv6Prefix {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Ipv6Prefix {
+    impl ::std::convert::TryFrom<&String> for Ipv6Prefix {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Ipv6Prefix {
+    impl ::std::convert::TryFrom<String> for Ipv6Prefix {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Ipv6Prefix {
+    impl<'de> ::serde::Deserialize<'de> for Ipv6Prefix {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -13923,30 +13331,33 @@ pub mod types {
     ///{
     ///  "description": "Possible values are:\n- DSL: Identifies a DSL line\n-
     /// PON: Identifies a PON line\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "DSL",
-    ///        "PON"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API. \n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "DSL",
+    ///    "PON"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct LineType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<LineTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum LineType {
+        #[serde(rename = "DSL")]
+        Dsl,
+        #[serde(rename = "PON")]
+        Pon,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&LineType> for LineType {
@@ -13955,80 +13366,42 @@ pub mod types {
         }
     }
 
-    ///LineTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "DSL",
-    ///    "PON"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum LineTypeSubtype0 {
-        #[serde(rename = "DSL")]
-        Dsl,
-        #[serde(rename = "PON")]
-        Pon,
-    }
-
-    impl From<&LineTypeSubtype0> for LineTypeSubtype0 {
-        fn from(value: &LineTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for LineTypeSubtype0 {
+    impl ToString for LineType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Dsl => "DSL".to_string(),
                 Self::Pon => "PON".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for LineTypeSubtype0 {
+    impl std::str::FromStr for LineType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "DSL" => Ok(Self::Dsl),
                 "PON" => Ok(Self::Pon),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for LineTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for LineType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for LineTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for LineType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for LineTypeSubtype0 {
+    impl std::convert::TryFrom<String> for LineType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -14062,7 +13435,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct LocationAreaId {
         ///Location Area Code.
         pub lac: LocationAreaIdLac,
@@ -14088,9 +13461,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct LocationAreaIdLac(String);
-    impl std::ops::Deref for LocationAreaIdLac {
+    impl ::std::ops::Deref for LocationAreaIdLac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -14109,7 +13482,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for LocationAreaIdLac {
+    impl ::std::str::FromStr for LocationAreaIdLac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -14123,36 +13496,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for LocationAreaIdLac {
+    impl ::std::convert::TryFrom<&str> for LocationAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for LocationAreaIdLac {
+    impl ::std::convert::TryFrom<&String> for LocationAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for LocationAreaIdLac {
+    impl ::std::convert::TryFrom<String> for LocationAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for LocationAreaIdLac {
+    impl<'de> ::serde::Deserialize<'de> for LocationAreaIdLac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -14166,27 +13539,33 @@ pub mod types {
     ///{
     ///  "description": "Contains the MA PDU session indication, i.e., MA PDU
     /// Request or MA PDU Network-Upgrade Allowed.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MA_PDU_REQUEST",
-    ///        "MA_PDU_NETWORK_UPGRADE_ALLOWED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "MA_PDU_REQUEST",
+    ///    "MA_PDU_NETWORK_UPGRADE_ALLOWED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MaPduIndication {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MaPduIndicationSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MaPduIndication {
+        #[serde(rename = "MA_PDU_REQUEST")]
+        MaPduRequest,
+        #[serde(rename = "MA_PDU_NETWORK_UPGRADE_ALLOWED")]
+        MaPduNetworkUpgradeAllowed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MaPduIndication> for MaPduIndication {
@@ -14195,80 +13574,42 @@ pub mod types {
         }
     }
 
-    ///MaPduIndicationSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "MA_PDU_REQUEST",
-    ///    "MA_PDU_NETWORK_UPGRADE_ALLOWED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MaPduIndicationSubtype0 {
-        #[serde(rename = "MA_PDU_REQUEST")]
-        MaPduRequest,
-        #[serde(rename = "MA_PDU_NETWORK_UPGRADE_ALLOWED")]
-        MaPduNetworkUpgradeAllowed,
-    }
-
-    impl From<&MaPduIndicationSubtype0> for MaPduIndicationSubtype0 {
-        fn from(value: &MaPduIndicationSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MaPduIndicationSubtype0 {
+    impl ToString for MaPduIndication {
         fn to_string(&self) -> String {
             match *self {
                 Self::MaPduRequest => "MA_PDU_REQUEST".to_string(),
                 Self::MaPduNetworkUpgradeAllowed => "MA_PDU_NETWORK_UPGRADE_ALLOWED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MaPduIndicationSubtype0 {
+    impl std::str::FromStr for MaPduIndication {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "MA_PDU_REQUEST" => Ok(Self::MaPduRequest),
                 "MA_PDU_NETWORK_UPGRADE_ALLOWED" => Ok(Self::MaPduNetworkUpgradeAllowed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MaPduIndicationSubtype0 {
+    impl std::convert::TryFrom<&str> for MaPduIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MaPduIndicationSubtype0 {
+    impl std::convert::TryFrom<&String> for MaPduIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MaPduIndicationSubtype0 {
+    impl std::convert::TryFrom<String> for MaPduIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -14290,9 +13631,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct MacAddr48(String);
-    impl std::ops::Deref for MacAddr48 {
+    impl ::std::ops::Deref for MacAddr48 {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -14311,7 +13652,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for MacAddr48 {
+    impl ::std::str::FromStr for MacAddr48 {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$")
@@ -14327,36 +13668,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for MacAddr48 {
+    impl ::std::convert::TryFrom<&str> for MacAddr48 {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MacAddr48 {
+    impl ::std::convert::TryFrom<&String> for MacAddr48 {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MacAddr48 {
+    impl ::std::convert::TryFrom<String> for MacAddr48 {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for MacAddr48 {
+    impl<'de> ::serde::Deserialize<'de> for MacAddr48 {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -14386,7 +13727,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MappingOfSnssai {
         #[serde(rename = "homeSnssai")]
         pub home_snssai: Snssai,
@@ -14416,9 +13757,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MaxDataBurstVol(pub i64);
-    impl std::ops::Deref for MaxDataBurstVol {
+    impl ::std::ops::Deref for MaxDataBurstVol {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -14496,9 +13837,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MaxDataBurstVolRm(pub Option<i64>);
-    impl std::ops::Deref for MaxDataBurstVolRm {
+    impl ::std::ops::Deref for MaxDataBurstVolRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -14566,7 +13907,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsAppSessionCtxt {
         #[serde(
             rename = "areaSessPolId",
@@ -14618,7 +13959,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsAppSessionCtxtPatch {
         #[serde(
             rename = "mbsServInfo",
@@ -14656,7 +13997,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsErrorReport {
         #[serde(rename = "mbsReports", default, skip_serializing_if = "Vec::is_empty")]
         pub mbs_reports: Vec<MbsReport>,
@@ -14688,12 +14029,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum MbsExtProblemDetails {
         Variant0 {
             #[serde(rename = "accMbsServInfo")]
-            acc_mbs_serv_info: std::collections::HashMap<String, MbsMediaComp>,
+            acc_mbs_serv_info: ::std::collections::HashMap<String, MbsMediaComp>,
             #[serde(
                 rename = "accessTokenError",
                 default,
@@ -14832,49 +14173,6 @@ pub mod types {
     /// Decision data.\n- MBS_POLICY_PARAM_ERROR: Indicates that the information
     /// related to the provisioned MBS policy parameter(s) is incorrect,
     /// incomplete or inconsistent.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NF_MALFUNCTION",
-    ///        "NF_RESOURCES_UNAVAILABLE",
-    ///        "RESOURCE_ALLOCATION_FAILURE",
-    ///        "MBS_QOS_VALIDATION_FAILURE",
-    ///        "NO_MBS_QOS_FLOW",
-    ///        "MBS_QOS_DECISION_ERROR",
-    ///        "MBS_POLICY_PARAM_ERROR"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "Represents the reason for the MBS Policy
-    /// Decision(s) enforcement failure or the MBS PCC rule(s) installation
-    /// failure.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MbsFailureCode {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MbsFailureCodeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&MbsFailureCode> for MbsFailureCode {
-        fn from(value: &MbsFailureCode) -> Self {
-            value.clone()
-        }
-    }
-
-    ///MbsFailureCodeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NF_MALFUNCTION",
@@ -14884,23 +14182,23 @@ pub mod types {
     ///    "NO_MBS_QOS_FLOW",
     ///    "MBS_QOS_DECISION_ERROR",
     ///    "MBS_POLICY_PARAM_ERROR"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum MbsFailureCodeSubtype0 {
+    pub enum MbsFailureCode {
         #[serde(rename = "NF_MALFUNCTION")]
         NfMalfunction,
         #[serde(rename = "NF_RESOURCES_UNAVAILABLE")]
@@ -14915,15 +14213,17 @@ pub mod types {
         MbsQosDecisionError,
         #[serde(rename = "MBS_POLICY_PARAM_ERROR")]
         MbsPolicyParamError,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&MbsFailureCodeSubtype0> for MbsFailureCodeSubtype0 {
-        fn from(value: &MbsFailureCodeSubtype0) -> Self {
+    impl From<&MbsFailureCode> for MbsFailureCode {
+        fn from(value: &MbsFailureCode) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for MbsFailureCodeSubtype0 {
+    impl ToString for MbsFailureCode {
         fn to_string(&self) -> String {
             match *self {
                 Self::NfMalfunction => "NF_MALFUNCTION".to_string(),
@@ -14933,11 +14233,12 @@ pub mod types {
                 Self::NoMbsQosFlow => "NO_MBS_QOS_FLOW".to_string(),
                 Self::MbsQosDecisionError => "MBS_QOS_DECISION_ERROR".to_string(),
                 Self::MbsPolicyParamError => "MBS_POLICY_PARAM_ERROR".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MbsFailureCodeSubtype0 {
+    impl std::str::FromStr for MbsFailureCode {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -14948,26 +14249,26 @@ pub mod types {
                 "NO_MBS_QOS_FLOW" => Ok(Self::NoMbsQosFlow),
                 "MBS_QOS_DECISION_ERROR" => Ok(Self::MbsQosDecisionError),
                 "MBS_POLICY_PARAM_ERROR" => Ok(Self::MbsPolicyParamError),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MbsFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&str> for MbsFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MbsFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&String> for MbsFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MbsFailureCodeSubtype0 {
+    impl std::convert::TryFrom<String> for MbsFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -14988,9 +14289,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsMaxDataBurstVol(pub i64);
-    impl std::ops::Deref for MbsMaxDataBurstVol {
+    impl ::std::ops::Deref for MbsMaxDataBurstVol {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -15087,7 +14388,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsMediaComp {
         #[serde(
             rename = "mbsFlowDescs",
@@ -15142,7 +14443,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum MbsMediaCompRm {
         MbsMediaComp(MbsMediaComp),
@@ -15197,7 +14498,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsMediaInfo {
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
         pub codecs: Vec<CodecData>,
@@ -15265,7 +14566,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsPccRule {
         #[serde(
             rename = "mbsDlIpFlowInfo",
@@ -15302,28 +14603,33 @@ pub mod types {
     ///  "description": "Possible values are\n- ACTIVE: Indicates that the MBS
     /// PCC rule(s) are successfully installed.\n- INACTIVE: Indicates that the
     /// MBS PCC rule(s) are removed.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACTIVE",
-    ///        "INACTIVE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "Represents the MBS PCC rule status.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ACTIVE",
+    ///    "INACTIVE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MbsPccRuleStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MbsPccRuleStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MbsPccRuleStatus {
+        #[serde(rename = "ACTIVE")]
+        Active,
+        #[serde(rename = "INACTIVE")]
+        Inactive,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MbsPccRuleStatus> for MbsPccRuleStatus {
@@ -15332,80 +14638,42 @@ pub mod types {
         }
     }
 
-    ///MbsPccRuleStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ACTIVE",
-    ///    "INACTIVE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MbsPccRuleStatusSubtype0 {
-        #[serde(rename = "ACTIVE")]
-        Active,
-        #[serde(rename = "INACTIVE")]
-        Inactive,
-    }
-
-    impl From<&MbsPccRuleStatusSubtype0> for MbsPccRuleStatusSubtype0 {
-        fn from(value: &MbsPccRuleStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MbsPccRuleStatusSubtype0 {
+    impl ToString for MbsPccRuleStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Active => "ACTIVE".to_string(),
                 Self::Inactive => "INACTIVE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MbsPccRuleStatusSubtype0 {
+    impl std::str::FromStr for MbsPccRuleStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ACTIVE" => Ok(Self::Active),
                 "INACTIVE" => Ok(Self::Inactive),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MbsPccRuleStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for MbsPccRuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MbsPccRuleStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for MbsPccRuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MbsPccRuleStatusSubtype0 {
+    impl std::convert::TryFrom<String> for MbsPccRuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -15422,27 +14690,30 @@ pub mod types {
     ///{
     ///  "description": "Possible values are\n- MBS_SESSION_UPDATE: Indicates
     /// the MBS Session Update policy control request trigger.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MBS_SESSION_UPDATE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "Represents MBS Policy Control Request Triggers.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "MBS_SESSION_UPDATE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MbsPcrt {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MbsPcrtSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MbsPcrt {
+        #[serde(rename = "MBS_SESSION_UPDATE")]
+        MbsSessionUpdate,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MbsPcrt> for MbsPcrt {
@@ -15451,75 +14722,40 @@ pub mod types {
         }
     }
 
-    ///MbsPcrtSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "MBS_SESSION_UPDATE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MbsPcrtSubtype0 {
-        #[serde(rename = "MBS_SESSION_UPDATE")]
-        MbsSessionUpdate,
-    }
-
-    impl From<&MbsPcrtSubtype0> for MbsPcrtSubtype0 {
-        fn from(value: &MbsPcrtSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MbsPcrtSubtype0 {
+    impl ToString for MbsPcrt {
         fn to_string(&self) -> String {
             match *self {
                 Self::MbsSessionUpdate => "MBS_SESSION_UPDATE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MbsPcrtSubtype0 {
+    impl std::str::FromStr for MbsPcrt {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "MBS_SESSION_UPDATE" => Ok(Self::MbsSessionUpdate),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MbsPcrtSubtype0 {
+    impl std::convert::TryFrom<&str> for MbsPcrt {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MbsPcrtSubtype0 {
+    impl std::convert::TryFrom<&String> for MbsPcrt {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MbsPcrtSubtype0 {
+    impl std::convert::TryFrom<String> for MbsPcrt {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -15562,7 +14798,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsPolicyCtxtData {
         #[serde(
             rename = "areaSessPolId",
@@ -15620,7 +14856,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsPolicyCtxtDataUpdate {
         #[serde(
             rename = "mbsErrorReport",
@@ -15671,7 +14907,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsPolicyData {
         #[serde(
             rename = "mbsPolicies",
@@ -15754,7 +14990,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsPolicyDecision {
         #[serde(
             rename = "authMbsSessAmbr",
@@ -15771,7 +15007,7 @@ pub mod types {
             default,
             skip_serializing_if = "Option::is_none"
         )]
-        pub mbs_pcc_rules: Option<std::collections::HashMap<String, MbsPccRule>>,
+        pub mbs_pcc_rules: Option<::std::collections::HashMap<String, MbsPccRule>>,
         #[serde(rename = "mbsPcrts", default, skip_serializing_if = "Option::is_none")]
         pub mbs_pcrts: Option<Vec<MbsPcrt>>,
         ///A map of MBS QoS Characteristics set(s) with each map entry
@@ -15781,18 +15017,18 @@ pub mod types {
         #[serde(
             rename = "mbsQosChars",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub mbs_qos_chars: std::collections::HashMap<String, MbsQosChar>,
+        pub mbs_qos_chars: ::std::collections::HashMap<String, MbsQosChar>,
         ///A map of MBS QoS Decision(s) with each map entry containing the
         /// MbsQosDec data structure. The key of the map for each entry is the
         /// mbsQosId attribute of the corresponding MbsQosDec data structure.
         #[serde(
             rename = "mbsQosDecs",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub mbs_qos_decs: std::collections::HashMap<String, MbsQosDec>,
+        pub mbs_qos_decs: ::std::collections::HashMap<String, MbsQosDec>,
     }
 
     impl From<&MbsPolicyDecision> for MbsPolicyDecision {
@@ -15832,16 +15068,16 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsQoSReq {
-        #[serde(rename = "5qi")]
-        pub _5qi: _5qi,
         #[serde(
             rename = "averWindow",
             default,
             skip_serializing_if = "Option::is_none"
         )]
         pub aver_window: Option<AverWindow>,
+        #[serde(rename = "5qi")]
+        pub five_qi: _5qi,
         #[serde(
             rename = "guarBitRate",
             default,
@@ -15908,16 +15144,16 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsQosChar {
-        #[serde(rename = "5qi")]
-        pub _5qi: _5qi,
         #[serde(
             rename = "averWindow",
             default,
             skip_serializing_if = "Option::is_none"
         )]
         pub aver_window: Option<AverWindow>,
+        #[serde(rename = "5qi")]
+        pub five_qi: _5qi,
         #[serde(rename = "mbsMaxDataBurstVol")]
         pub mbs_max_data_burst_vol: MbsMaxDataBurstVol,
         #[serde(rename = "packetDelayBudget")]
@@ -15977,10 +15213,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsQosDec {
-        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
-        pub _5qi: Option<_5qi>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
         #[serde(
@@ -15989,6 +15223,8 @@ pub mod types {
             skip_serializing_if = "Option::is_none"
         )]
         pub aver_window: Option<AverWindow>,
+        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
+        pub five_qi: Option<_5qi>,
         #[serde(rename = "gbrDl", default, skip_serializing_if = "Option::is_none")]
         pub gbr_dl: Option<BitRate>,
         #[serde(rename = "mbrDl", default, skip_serializing_if = "Option::is_none")]
@@ -16043,7 +15279,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsReport {
         #[serde(
             rename = "failureCode",
@@ -16103,12 +15339,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MbsServiceInfo {
         #[serde(rename = "afAppId", default, skip_serializing_if = "Option::is_none")]
         pub af_app_id: Option<AfAppId>,
         #[serde(rename = "mbsMediaComps")]
-        pub mbs_media_comps: std::collections::HashMap<String, MbsMediaCompRm>,
+        pub mbs_media_comps: ::std::collections::HashMap<String, MbsMediaCompRm>,
         #[serde(
             rename = "mbsSdfResPrio",
             default,
@@ -16163,7 +15399,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum MbsSessionId {
         Variant0 {
@@ -16198,9 +15434,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Mcc(String);
-    impl std::ops::Deref for Mcc {
+    impl ::std::ops::Deref for Mcc {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -16219,7 +15455,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Mcc {
+    impl ::std::str::FromStr for Mcc {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d{3}$")
@@ -16233,36 +15469,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Mcc {
+    impl ::std::convert::TryFrom<&str> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Mcc {
+    impl ::std::convert::TryFrom<&String> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Mcc {
+    impl ::std::convert::TryFrom<String> for Mcc {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Mcc {
+    impl<'de> ::serde::Deserialize<'de> for Mcc {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -16416,7 +15652,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaComponent {
         #[serde(rename = "afAppId", default, skip_serializing_if = "Option::is_none")]
         pub af_app_id: Option<AfAppId>,
@@ -16494,9 +15730,9 @@ pub mod types {
         #[serde(
             rename = "medSubComps",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub med_sub_comps: std::collections::HashMap<String, MediaSubComponent>,
+        pub med_sub_comps: ::std::collections::HashMap<String, MediaSubComponent>,
         #[serde(rename = "medType", default, skip_serializing_if = "Option::is_none")]
         pub med_type: Option<MediaType>,
         #[serde(
@@ -16593,27 +15829,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether the media component is active or
     /// inactive.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACTIVE",
-    ///        "INACTIVE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ACTIVE",
+    ///    "INACTIVE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MediaComponentResourcesStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MediaComponentResourcesStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MediaComponentResourcesStatus {
+        #[serde(rename = "ACTIVE")]
+        Active,
+        #[serde(rename = "INACTIVE")]
+        Inactive,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MediaComponentResourcesStatus> for MediaComponentResourcesStatus {
@@ -16622,80 +15864,42 @@ pub mod types {
         }
     }
 
-    ///MediaComponentResourcesStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ACTIVE",
-    ///    "INACTIVE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MediaComponentResourcesStatusSubtype0 {
-        #[serde(rename = "ACTIVE")]
-        Active,
-        #[serde(rename = "INACTIVE")]
-        Inactive,
-    }
-
-    impl From<&MediaComponentResourcesStatusSubtype0> for MediaComponentResourcesStatusSubtype0 {
-        fn from(value: &MediaComponentResourcesStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MediaComponentResourcesStatusSubtype0 {
+    impl ToString for MediaComponentResourcesStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Active => "ACTIVE".to_string(),
                 Self::Inactive => "INACTIVE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MediaComponentResourcesStatusSubtype0 {
+    impl std::str::FromStr for MediaComponentResourcesStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ACTIVE" => Ok(Self::Active),
                 "INACTIVE" => Ok(Self::Inactive),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MediaComponentResourcesStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for MediaComponentResourcesStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MediaComponentResourcesStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for MediaComponentResourcesStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MediaComponentResourcesStatusSubtype0 {
+    impl std::convert::TryFrom<String> for MediaComponentResourcesStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -16869,9 +16073,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaComponentRm(pub Option<MediaComponentRmInner>);
-    impl std::ops::Deref for MediaComponentRm {
+    impl ::std::ops::Deref for MediaComponentRm {
         type Target = Option<MediaComponentRmInner>;
         fn deref(&self) -> &Option<MediaComponentRmInner> {
             &self.0
@@ -17060,7 +16264,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaComponentRmInner {
         #[serde(rename = "afAppId", default, skip_serializing_if = "Option::is_none")]
         pub af_app_id: Option<AfAppId>,
@@ -17142,9 +16346,9 @@ pub mod types {
         #[serde(
             rename = "medSubComps",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub med_sub_comps: std::collections::HashMap<String, MediaSubComponentRm>,
+        pub med_sub_comps: ::std::collections::HashMap<String, MediaSubComponentRm>,
         #[serde(rename = "medType", default, skip_serializing_if = "Option::is_none")]
         pub med_type: Option<MediaType>,
         #[serde(
@@ -17286,7 +16490,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaSubComponent {
         #[serde(
             rename = "afSigProtocol",
@@ -17386,9 +16590,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaSubComponentRm(pub Option<MediaSubComponentRmInner>);
-    impl std::ops::Deref for MediaSubComponentRm {
+    impl ::std::ops::Deref for MediaSubComponentRm {
         type Target = Option<MediaSubComponentRmInner>;
         fn deref(&self) -> &Option<MediaSubComponentRmInner> {
             &self.0
@@ -17478,7 +16682,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MediaSubComponentRmInner {
         #[serde(
             rename = "afSigProtocol",
@@ -17517,47 +16721,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the media type of a media component.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "AUDIO",
-    ///        "VIDEO",
-    ///        "DATA",
-    ///        "APPLICATION",
-    ///        "CONTROL",
-    ///        "TEXT",
-    ///        "MESSAGE",
-    ///        "OTHER"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MediaType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MediaTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&MediaType> for MediaType {
-        fn from(value: &MediaType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///MediaTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "AUDIO",
@@ -17568,23 +16731,23 @@ pub mod types {
     ///    "TEXT",
     ///    "MESSAGE",
     ///    "OTHER"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum MediaTypeSubtype0 {
+    pub enum MediaType {
         #[serde(rename = "AUDIO")]
         Audio,
         #[serde(rename = "VIDEO")]
@@ -17601,15 +16764,17 @@ pub mod types {
         Message,
         #[serde(rename = "OTHER")]
         Other,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&MediaTypeSubtype0> for MediaTypeSubtype0 {
-        fn from(value: &MediaTypeSubtype0) -> Self {
+    impl From<&MediaType> for MediaType {
+        fn from(value: &MediaType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for MediaTypeSubtype0 {
+    impl ToString for MediaType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Audio => "AUDIO".to_string(),
@@ -17620,11 +16785,12 @@ pub mod types {
                 Self::Text => "TEXT".to_string(),
                 Self::Message => "MESSAGE".to_string(),
                 Self::Other => "OTHER".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MediaTypeSubtype0 {
+    impl std::str::FromStr for MediaType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -17636,26 +16802,26 @@ pub mod types {
                 "TEXT" => Ok(Self::Text),
                 "MESSAGE" => Ok(Self::Message),
                 "OTHER" => Ok(Self::Other),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MediaTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for MediaType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MediaTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for MediaType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MediaTypeSubtype0 {
+    impl std::convert::TryFrom<String> for MediaType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -17705,7 +16871,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct MeteringMethod {
         #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
         pub subtype_0: Option<MeteringMethodSubtype0>,
@@ -17738,6 +16904,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -17746,8 +16914,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum MeteringMethodSubtype0 {
         #[serde(rename = "DURATION")]
@@ -17825,9 +16991,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Mnc(String);
-    impl std::ops::Deref for Mnc {
+    impl ::std::ops::Deref for Mnc {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -17846,7 +17012,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Mnc {
+    impl ::std::str::FromStr for Mnc {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^\\d{2,3}$")
@@ -17860,36 +17026,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Mnc {
+    impl ::std::convert::TryFrom<&str> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Mnc {
+    impl ::std::convert::TryFrom<&String> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Mnc {
+    impl ::std::convert::TryFrom<String> for Mnc {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Mnc {
+    impl<'de> ::serde::Deserialize<'de> for Mnc {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -17903,28 +17069,36 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether it is an invocation, a revocation or
     /// an invocation with authorization of the MPS for DTS service.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "DISABLE_MPS_FOR_DTS",
-    ///        "ENABLE_MPS_FOR_DTS",
-    ///        "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "DISABLE_MPS_FOR_DTS",
+    ///    "ENABLE_MPS_FOR_DTS",
+    ///    "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MpsAction {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MpsActionSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MpsAction {
+        #[serde(rename = "DISABLE_MPS_FOR_DTS")]
+        DisableMpsForDts,
+        #[serde(rename = "ENABLE_MPS_FOR_DTS")]
+        EnableMpsForDts,
+        #[serde(rename = "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS")]
+        AuthorizeAndEnableMpsForDts,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MpsAction> for MpsAction {
@@ -17933,85 +17107,44 @@ pub mod types {
         }
     }
 
-    ///MpsActionSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "DISABLE_MPS_FOR_DTS",
-    ///    "ENABLE_MPS_FOR_DTS",
-    ///    "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MpsActionSubtype0 {
-        #[serde(rename = "DISABLE_MPS_FOR_DTS")]
-        DisableMpsForDts,
-        #[serde(rename = "ENABLE_MPS_FOR_DTS")]
-        EnableMpsForDts,
-        #[serde(rename = "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS")]
-        AuthorizeAndEnableMpsForDts,
-    }
-
-    impl From<&MpsActionSubtype0> for MpsActionSubtype0 {
-        fn from(value: &MpsActionSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MpsActionSubtype0 {
+    impl ToString for MpsAction {
         fn to_string(&self) -> String {
             match *self {
                 Self::DisableMpsForDts => "DISABLE_MPS_FOR_DTS".to_string(),
                 Self::EnableMpsForDts => "ENABLE_MPS_FOR_DTS".to_string(),
                 Self::AuthorizeAndEnableMpsForDts => "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MpsActionSubtype0 {
+    impl std::str::FromStr for MpsAction {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "DISABLE_MPS_FOR_DTS" => Ok(Self::DisableMpsForDts),
                 "ENABLE_MPS_FOR_DTS" => Ok(Self::EnableMpsForDts),
                 "AUTHORIZE_AND_ENABLE_MPS_FOR_DTS" => Ok(Self::AuthorizeAndEnableMpsForDts),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MpsActionSubtype0 {
+    impl std::convert::TryFrom<&str> for MpsAction {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MpsActionSubtype0 {
+    impl std::convert::TryFrom<&String> for MpsAction {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MpsActionSubtype0 {
+    impl std::convert::TryFrom<String> for MpsAction {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -18027,27 +17160,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether the service data flow, corresponding
     /// to the service data flow template, is allowed or not allowed.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ALLOWED",
-    ///        "NOT_ALLOWED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ALLOWED",
+    ///    "NOT_ALLOWED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct MulticastAccessControl {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<MulticastAccessControlSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum MulticastAccessControl {
+        #[serde(rename = "ALLOWED")]
+        Allowed,
+        #[serde(rename = "NOT_ALLOWED")]
+        NotAllowed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&MulticastAccessControl> for MulticastAccessControl {
@@ -18056,80 +17195,42 @@ pub mod types {
         }
     }
 
-    ///MulticastAccessControlSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ALLOWED",
-    ///    "NOT_ALLOWED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum MulticastAccessControlSubtype0 {
-        #[serde(rename = "ALLOWED")]
-        Allowed,
-        #[serde(rename = "NOT_ALLOWED")]
-        NotAllowed,
-    }
-
-    impl From<&MulticastAccessControlSubtype0> for MulticastAccessControlSubtype0 {
-        fn from(value: &MulticastAccessControlSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for MulticastAccessControlSubtype0 {
+    impl ToString for MulticastAccessControl {
         fn to_string(&self) -> String {
             match *self {
                 Self::Allowed => "ALLOWED".to_string(),
                 Self::NotAllowed => "NOT_ALLOWED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for MulticastAccessControlSubtype0 {
+    impl std::str::FromStr for MulticastAccessControl {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ALLOWED" => Ok(Self::Allowed),
                 "NOT_ALLOWED" => Ok(Self::NotAllowed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for MulticastAccessControlSubtype0 {
+    impl std::convert::TryFrom<&str> for MulticastAccessControl {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for MulticastAccessControlSubtype0 {
+    impl std::convert::TryFrom<&String> for MulticastAccessControl {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for MulticastAccessControlSubtype0 {
+    impl std::convert::TryFrom<String> for MulticastAccessControl {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -18143,51 +17244,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Enumeration for N1N2Message Transfer Cause",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ATTEMPTING_TO_REACH_UE",
-    ///        "N1_N2_TRANSFER_INITIATED",
-    ///        "WAITING_FOR_ASYNCHRONOUS_TRANSFER",
-    ///        "UE_NOT_RESPONDING",
-    ///        "N1_MSG_NOT_TRANSFERRED",
-    ///        "N2_MSG_NOT_TRANSFERRED",
-    ///        "UE_NOT_REACHABLE_FOR_SESSION",
-    ///        "TEMPORARY_REJECT_REGISTRATION_ONGOING",
-    ///        "TEMPORARY_REJECT_HANDOVER_ONGOING",
-    ///        "REJECTION_DUE_TO_PAGING_RESTRICTION",
-    ///        "AN_NOT_RESPONDING",
-    ///        "FAILURE_CAUSE_UNSPECIFIED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct N1n2MessageTransferCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<N1n2MessageTransferCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&N1n2MessageTransferCause> for N1n2MessageTransferCause {
-        fn from(value: &N1n2MessageTransferCause) -> Self {
-            value.clone()
-        }
-    }
-
-    ///N1n2MessageTransferCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "ATTEMPTING_TO_REACH_UE",
@@ -18202,23 +17258,23 @@ pub mod types {
     ///    "REJECTION_DUE_TO_PAGING_RESTRICTION",
     ///    "AN_NOT_RESPONDING",
     ///    "FAILURE_CAUSE_UNSPECIFIED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum N1n2MessageTransferCauseSubtype0 {
+    pub enum N1n2MessageTransferCause {
         #[serde(rename = "ATTEMPTING_TO_REACH_UE")]
         AttemptingToReachUe,
         #[serde(rename = "N1_N2_TRANSFER_INITIATED")]
@@ -18243,15 +17299,17 @@ pub mod types {
         AnNotResponding,
         #[serde(rename = "FAILURE_CAUSE_UNSPECIFIED")]
         FailureCauseUnspecified,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&N1n2MessageTransferCauseSubtype0> for N1n2MessageTransferCauseSubtype0 {
-        fn from(value: &N1n2MessageTransferCauseSubtype0) -> Self {
+    impl From<&N1n2MessageTransferCause> for N1n2MessageTransferCause {
+        fn from(value: &N1n2MessageTransferCause) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for N1n2MessageTransferCauseSubtype0 {
+    impl ToString for N1n2MessageTransferCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::AttemptingToReachUe => "ATTEMPTING_TO_REACH_UE".to_string(),
@@ -18274,11 +17332,12 @@ pub mod types {
                 }
                 Self::AnNotResponding => "AN_NOT_RESPONDING".to_string(),
                 Self::FailureCauseUnspecified => "FAILURE_CAUSE_UNSPECIFIED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for N1n2MessageTransferCauseSubtype0 {
+    impl std::str::FromStr for N1n2MessageTransferCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -18296,26 +17355,26 @@ pub mod types {
                 "REJECTION_DUE_TO_PAGING_RESTRICTION" => Ok(Self::RejectionDueToPagingRestriction),
                 "AN_NOT_RESPONDING" => Ok(Self::AnNotResponding),
                 "FAILURE_CAUSE_UNSPECIFIED" => Ok(Self::FailureCauseUnspecified),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for N1n2MessageTransferCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for N1n2MessageTransferCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for N1n2MessageTransferCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for N1n2MessageTransferCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for N1n2MessageTransferCauseSubtype0 {
+    impl std::convert::TryFrom<String> for N1n2MessageTransferCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -18348,7 +17407,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct N2InfoContent {
         #[serde(rename = "ngapData")]
         pub ngap_data: RefToBinaryData,
@@ -18397,9 +17456,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct N3IwfId(String);
-    impl std::ops::Deref for N3IwfId {
+    impl ::std::ops::Deref for N3IwfId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -18418,7 +17477,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for N3IwfId {
+    impl ::std::str::FromStr for N3IwfId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -18432,36 +17491,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for N3IwfId {
+    impl ::std::convert::TryFrom<&str> for N3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for N3IwfId {
+    impl ::std::convert::TryFrom<&String> for N3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for N3IwfId {
+    impl ::std::convert::TryFrom<String> for N3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for N3IwfId {
+    impl<'de> ::serde::Deserialize<'de> for N3IwfId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -18524,7 +17583,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct N3gaLocation {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub gci: Option<Gci>,
@@ -18607,9 +17666,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct N3gaLocationN3IwfId(String);
-    impl std::ops::Deref for N3gaLocationN3IwfId {
+    impl ::std::ops::Deref for N3gaLocationN3IwfId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -18628,7 +17687,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for N3gaLocationN3IwfId {
+    impl ::std::str::FromStr for N3gaLocationN3IwfId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -18642,36 +17701,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for N3gaLocationN3IwfId {
+    impl ::std::convert::TryFrom<&str> for N3gaLocationN3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for N3gaLocationN3IwfId {
+    impl ::std::convert::TryFrom<&String> for N3gaLocationN3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for N3gaLocationN3IwfId {
+    impl ::std::convert::TryFrom<String> for N3gaLocationN3IwfId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for N3gaLocationN3IwfId {
+    impl<'de> ::serde::Deserialize<'de> for N3gaLocationN3IwfId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -18703,7 +17762,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Ncgi {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub nid: Option<Nid>,
@@ -18737,31 +17796,36 @@ pub mod types {
     /// does not support the report of UE time zone.\n- LOC_NOT_SUPPORTED:
     /// Indicates that the access network does not support the report of UE
     /// Location (or PLMN Id).\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ANR_NOT_SUPPORTED",
-    ///        "TZR_NOT_SUPPORTED",
-    ///        "LOC_NOT_SUPPORTED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ANR_NOT_SUPPORTED",
+    ///    "TZR_NOT_SUPPORTED",
+    ///    "LOC_NOT_SUPPORTED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NetLocAccessSupport {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NetLocAccessSupportSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum NetLocAccessSupport {
+        #[serde(rename = "ANR_NOT_SUPPORTED")]
+        AnrNotSupported,
+        #[serde(rename = "TZR_NOT_SUPPORTED")]
+        TzrNotSupported,
+        #[serde(rename = "LOC_NOT_SUPPORTED")]
+        LocNotSupported,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&NetLocAccessSupport> for NetLocAccessSupport {
@@ -18770,85 +17834,44 @@ pub mod types {
         }
     }
 
-    ///NetLocAccessSupportSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ANR_NOT_SUPPORTED",
-    ///    "TZR_NOT_SUPPORTED",
-    ///    "LOC_NOT_SUPPORTED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum NetLocAccessSupportSubtype0 {
-        #[serde(rename = "ANR_NOT_SUPPORTED")]
-        AnrNotSupported,
-        #[serde(rename = "TZR_NOT_SUPPORTED")]
-        TzrNotSupported,
-        #[serde(rename = "LOC_NOT_SUPPORTED")]
-        LocNotSupported,
-    }
-
-    impl From<&NetLocAccessSupportSubtype0> for NetLocAccessSupportSubtype0 {
-        fn from(value: &NetLocAccessSupportSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for NetLocAccessSupportSubtype0 {
+    impl ToString for NetLocAccessSupport {
         fn to_string(&self) -> String {
             match *self {
                 Self::AnrNotSupported => "ANR_NOT_SUPPORTED".to_string(),
                 Self::TzrNotSupported => "TZR_NOT_SUPPORTED".to_string(),
                 Self::LocNotSupported => "LOC_NOT_SUPPORTED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NetLocAccessSupportSubtype0 {
+    impl std::str::FromStr for NetLocAccessSupport {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ANR_NOT_SUPPORTED" => Ok(Self::AnrNotSupported),
                 "TZR_NOT_SUPPORTED" => Ok(Self::TzrNotSupported),
                 "LOC_NOT_SUPPORTED" => Ok(Self::LocNotSupported),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NetLocAccessSupportSubtype0 {
+    impl std::convert::TryFrom<&str> for NetLocAccessSupport {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NetLocAccessSupportSubtype0 {
+    impl std::convert::TryFrom<&String> for NetLocAccessSupport {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NetLocAccessSupportSubtype0 {
+    impl std::convert::TryFrom<String> for NetLocAccessSupport {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -18902,7 +17925,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NetworkAreaInfo {
         ///Contains a list of E-UTRA cell identities.
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -18940,9 +17963,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NfInstanceId(pub uuid::Uuid);
-    impl std::ops::Deref for NfInstanceId {
+    impl ::std::ops::Deref for NfInstanceId {
         type Target = uuid::Uuid;
         fn deref(&self) -> &uuid::Uuid {
             &self.0
@@ -19041,10 +18064,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct NfServiceSetId(pub String);
-    impl std::ops::Deref for NfServiceSetId {
+    impl ::std::ops::Deref for NfServiceSetId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -19117,10 +18148,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct NfSetId(pub String);
-    impl std::ops::Deref for NfSetId {
+    impl ::std::ops::Deref for NfSetId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -19165,97 +18204,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "NF types known to NRF",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NRF",
-    ///        "UDM",
-    ///        "AMF",
-    ///        "SMF",
-    ///        "AUSF",
-    ///        "NEF",
-    ///        "PCF",
-    ///        "SMSF",
-    ///        "NSSF",
-    ///        "UDR",
-    ///        "LMF",
-    ///        "GMLC",
-    ///        "5G_EIR",
-    ///        "SEPP",
-    ///        "UPF",
-    ///        "N3IWF",
-    ///        "AF",
-    ///        "UDSF",
-    ///        "BSF",
-    ///        "CHF",
-    ///        "NWDAF",
-    ///        "PCSCF",
-    ///        "CBCF",
-    ///        "HSS",
-    ///        "UCMF",
-    ///        "SOR_AF",
-    ///        "SPAF",
-    ///        "MME",
-    ///        "SCSAS",
-    ///        "SCEF",
-    ///        "SCP",
-    ///        "NSSAAF",
-    ///        "ICSCF",
-    ///        "SCSCF",
-    ///        "DRA",
-    ///        "IMS_AS",
-    ///        "AANF",
-    ///        "5G_DDNMF",
-    ///        "NSACF",
-    ///        "MFAF",
-    ///        "EASDF",
-    ///        "DCCF",
-    ///        "MB_SMF",
-    ///        "TSCTSF",
-    ///        "ADRF",
-    ///        "GBA_BSF",
-    ///        "CEF",
-    ///        "MB_UPF",
-    ///        "NSWOF",
-    ///        "PKMF",
-    ///        "MNPF",
-    ///        "SMS_GMSC",
-    ///        "SMS_IWMSC",
-    ///        "MBSF",
-    ///        "MBSTF",
-    ///        "PANF",
-    ///        "IP_SM_GW",
-    ///        "SMS_ROUTER"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NfType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NfTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&NfType> for NfType {
-        fn from(value: &NfType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///NfTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NRF",
@@ -19316,23 +18264,23 @@ pub mod types {
     ///    "PANF",
     ///    "IP_SM_GW",
     ///    "SMS_ROUTER"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum NfTypeSubtype0 {
+    pub enum NfType {
         #[serde(rename = "NRF")]
         Nrf,
         #[serde(rename = "UDM")]
@@ -19358,7 +18306,7 @@ pub mod types {
         #[serde(rename = "GMLC")]
         Gmlc,
         #[serde(rename = "5G_EIR")]
-        _5gEir,
+        FiveGEir,
         #[serde(rename = "SEPP")]
         Sepp,
         #[serde(rename = "UPF")]
@@ -19408,7 +18356,7 @@ pub mod types {
         #[serde(rename = "AANF")]
         Aanf,
         #[serde(rename = "5G_DDNMF")]
-        _5gDdnmf,
+        FiveGDdnmf,
         #[serde(rename = "NSACF")]
         Nsacf,
         #[serde(rename = "MFAF")]
@@ -19449,15 +18397,17 @@ pub mod types {
         IpSmGw,
         #[serde(rename = "SMS_ROUTER")]
         SmsRouter,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&NfTypeSubtype0> for NfTypeSubtype0 {
-        fn from(value: &NfTypeSubtype0) -> Self {
+    impl From<&NfType> for NfType {
+        fn from(value: &NfType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for NfTypeSubtype0 {
+    impl ToString for NfType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Nrf => "NRF".to_string(),
@@ -19472,7 +18422,7 @@ pub mod types {
                 Self::Udr => "UDR".to_string(),
                 Self::Lmf => "LMF".to_string(),
                 Self::Gmlc => "GMLC".to_string(),
-                Self::_5gEir => "5G_EIR".to_string(),
+                Self::FiveGEir => "5G_EIR".to_string(),
                 Self::Sepp => "SEPP".to_string(),
                 Self::Upf => "UPF".to_string(),
                 Self::N3iwf => "N3IWF".to_string(),
@@ -19497,7 +18447,7 @@ pub mod types {
                 Self::Dra => "DRA".to_string(),
                 Self::ImsAs => "IMS_AS".to_string(),
                 Self::Aanf => "AANF".to_string(),
-                Self::_5gDdnmf => "5G_DDNMF".to_string(),
+                Self::FiveGDdnmf => "5G_DDNMF".to_string(),
                 Self::Nsacf => "NSACF".to_string(),
                 Self::Mfaf => "MFAF".to_string(),
                 Self::Easdf => "EASDF".to_string(),
@@ -19518,11 +18468,12 @@ pub mod types {
                 Self::Panf => "PANF".to_string(),
                 Self::IpSmGw => "IP_SM_GW".to_string(),
                 Self::SmsRouter => "SMS_ROUTER".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NfTypeSubtype0 {
+    impl std::str::FromStr for NfType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -19538,7 +18489,7 @@ pub mod types {
                 "UDR" => Ok(Self::Udr),
                 "LMF" => Ok(Self::Lmf),
                 "GMLC" => Ok(Self::Gmlc),
-                "5G_EIR" => Ok(Self::_5gEir),
+                "5G_EIR" => Ok(Self::FiveGEir),
                 "SEPP" => Ok(Self::Sepp),
                 "UPF" => Ok(Self::Upf),
                 "N3IWF" => Ok(Self::N3iwf),
@@ -19563,7 +18514,7 @@ pub mod types {
                 "DRA" => Ok(Self::Dra),
                 "IMS_AS" => Ok(Self::ImsAs),
                 "AANF" => Ok(Self::Aanf),
-                "5G_DDNMF" => Ok(Self::_5gDdnmf),
+                "5G_DDNMF" => Ok(Self::FiveGDdnmf),
                 "NSACF" => Ok(Self::Nsacf),
                 "MFAF" => Ok(Self::Mfaf),
                 "EASDF" => Ok(Self::Easdf),
@@ -19584,26 +18535,26 @@ pub mod types {
                 "PANF" => Ok(Self::Panf),
                 "IP_SM_GW" => Ok(Self::IpSmGw),
                 "SMS_ROUTER" => Ok(Self::SmsRouter),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NfTypeSubtype0 {
+    impl std::convert::TryFrom<String> for NfType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -19633,7 +18584,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NgApCause {
         pub group: Uinteger,
         pub value: Uinteger,
@@ -19652,57 +18603,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the supported NGAP IE types",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PDU_RES_SETUP_REQ",
-    ///        "PDU_RES_REL_CMD",
-    ///        "PDU_RES_MOD_REQ",
-    ///        "HANDOVER_CMD",
-    ///        "HANDOVER_REQUIRED",
-    ///        "HANDOVER_PREP_FAIL",
-    ///        "SRC_TO_TAR_CONTAINER",
-    ///        "TAR_TO_SRC_CONTAINER",
-    ///        "TAR_TO_SRC_FAIL_CONTAINER",
-    ///        "RAN_STATUS_TRANS_CONTAINER",
-    ///        "SON_CONFIG_TRANSFER",
-    ///        "NRPPA_PDU",
-    ///        "UE_RADIO_CAPABILITY",
-    ///        "RIM_INFO_TRANSFER",
-    ///        "SECONDARY_RAT_USAGE",
-    ///        "PC5_QOS_PARA",
-    ///        "EARLY_STATUS_TRANS_CONTAINER",
-    ///        "UE_RADIO_CAPABILITY_FOR_PAGING"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NgapIeType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NgapIeTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&NgapIeType> for NgapIeType {
-        fn from(value: &NgapIeType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///NgapIeTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "PDU_RES_SETUP_REQ",
@@ -19723,23 +18623,23 @@ pub mod types {
     ///    "PC5_QOS_PARA",
     ///    "EARLY_STATUS_TRANS_CONTAINER",
     ///    "UE_RADIO_CAPABILITY_FOR_PAGING"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum NgapIeTypeSubtype0 {
+    pub enum NgapIeType {
         #[serde(rename = "PDU_RES_SETUP_REQ")]
         PduResSetupReq,
         #[serde(rename = "PDU_RES_REL_CMD")]
@@ -19776,15 +18676,17 @@ pub mod types {
         EarlyStatusTransContainer,
         #[serde(rename = "UE_RADIO_CAPABILITY_FOR_PAGING")]
         UeRadioCapabilityForPaging,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&NgapIeTypeSubtype0> for NgapIeTypeSubtype0 {
-        fn from(value: &NgapIeTypeSubtype0) -> Self {
+    impl From<&NgapIeType> for NgapIeType {
+        fn from(value: &NgapIeType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for NgapIeTypeSubtype0 {
+    impl ToString for NgapIeType {
         fn to_string(&self) -> String {
             match *self {
                 Self::PduResSetupReq => "PDU_RES_SETUP_REQ".to_string(),
@@ -19805,11 +18707,12 @@ pub mod types {
                 Self::Pc5QosPara => "PC5_QOS_PARA".to_string(),
                 Self::EarlyStatusTransContainer => "EARLY_STATUS_TRANS_CONTAINER".to_string(),
                 Self::UeRadioCapabilityForPaging => "UE_RADIO_CAPABILITY_FOR_PAGING".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NgapIeTypeSubtype0 {
+    impl std::str::FromStr for NgapIeType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -19831,26 +18734,26 @@ pub mod types {
                 "PC5_QOS_PARA" => Ok(Self::Pc5QosPara),
                 "EARLY_STATUS_TRANS_CONTAINER" => Ok(Self::EarlyStatusTransContainer),
                 "UE_RADIO_CAPABILITY_FOR_PAGING" => Ok(Self::UeRadioCapabilityForPaging),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NgapIeTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for NgapIeType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NgapIeTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for NgapIeType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NgapIeTypeSubtype0 {
+    impl std::convert::TryFrom<String> for NgapIeType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -19891,9 +18794,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct NgeNbId(String);
-    impl std::ops::Deref for NgeNbId {
+    impl ::std::ops::Deref for NgeNbId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -19912,7 +18815,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for NgeNbId {
+    impl ::std::str::FromStr for NgeNbId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(MacroNGeNB-[A-Fa-f0-9]{5}|LMacroNGeNB-[A-Fa-f0-9]{6}|SMacroNGeNB-[A-Fa-f0-9]{5})$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(MacroNGeNB-[A-Fa-f0-9]{5}|LMacroNGeNB-[A-Fa-f0-9]{6}|SMacroNGeNB-[A-Fa-f0-9]{5})$\"" . into ()) ; }
@@ -19920,36 +18823,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for NgeNbId {
+    impl ::std::convert::TryFrom<&str> for NgeNbId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NgeNbId {
+    impl ::std::convert::TryFrom<&String> for NgeNbId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NgeNbId {
+    impl ::std::convert::TryFrom<String> for NgeNbId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for NgeNbId {
+    impl<'de> ::serde::Deserialize<'de> for NgeNbId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -19970,9 +18873,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Nid(String);
-    impl std::ops::Deref for Nid {
+    impl ::std::ops::Deref for Nid {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -19991,7 +18894,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Nid {
+    impl ::std::str::FromStr for Nid {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{11}$")
@@ -20005,36 +18908,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Nid {
+    impl ::std::convert::TryFrom<&str> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Nid {
+    impl ::std::convert::TryFrom<&String> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Nid {
+    impl ::std::convert::TryFrom<String> for Nid {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Nid {
+    impl<'de> ::serde::Deserialize<'de> for Nid {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -20074,7 +18977,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Notification {
         #[serde(rename = "bdtRefId")]
         pub bdt_ref_id: BdtReferenceId,
@@ -20115,27 +19018,33 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates that the notification of DDD Status is requested and/or that the notification of DDN Failure is requested.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "DDN_FAILURE",
-    ///        "DDD_STATUS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "DDN_FAILURE",
+    ///    "DDD_STATUS"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NotificationControlIndication {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NotificationControlIndicationSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum NotificationControlIndication {
+        #[serde(rename = "DDN_FAILURE")]
+        DdnFailure,
+        #[serde(rename = "DDD_STATUS")]
+        DddStatus,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&NotificationControlIndication> for NotificationControlIndication {
@@ -20144,80 +19053,42 @@ pub mod types {
         }
     }
 
-    ///NotificationControlIndicationSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "DDN_FAILURE",
-    ///    "DDD_STATUS"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum NotificationControlIndicationSubtype0 {
-        #[serde(rename = "DDN_FAILURE")]
-        DdnFailure,
-        #[serde(rename = "DDD_STATUS")]
-        DddStatus,
-    }
-
-    impl From<&NotificationControlIndicationSubtype0> for NotificationControlIndicationSubtype0 {
-        fn from(value: &NotificationControlIndicationSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for NotificationControlIndicationSubtype0 {
+    impl ToString for NotificationControlIndication {
         fn to_string(&self) -> String {
             match *self {
                 Self::DdnFailure => "DDN_FAILURE".to_string(),
                 Self::DddStatus => "DDD_STATUS".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NotificationControlIndicationSubtype0 {
+    impl std::str::FromStr for NotificationControlIndication {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "DDN_FAILURE" => Ok(Self::DdnFailure),
                 "DDD_STATUS" => Ok(Self::DddStatus),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NotificationControlIndicationSubtype0 {
+    impl std::convert::TryFrom<&str> for NotificationControlIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NotificationControlIndicationSubtype0 {
+    impl std::convert::TryFrom<&String> for NotificationControlIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NotificationControlIndicationSubtype0 {
+    impl std::convert::TryFrom<String> for NotificationControlIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -20241,31 +19112,36 @@ pub mod types {
     /// deactivated and shall be muted. The available\n   event(s) shall be
     /// stored.\n- RETRIEVAL: The event notification shall be sent to the NF
     /// service consumer(s),\n  after that, is muted again. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACTIVATE",
-    ///        "DEACTIVATE",
-    ///        "RETRIEVAL"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API. \n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ACTIVATE",
+    ///    "DEACTIVATE",
+    ///    "RETRIEVAL"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NotificationFlag {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NotificationFlagSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum NotificationFlag {
+        #[serde(rename = "ACTIVATE")]
+        Activate,
+        #[serde(rename = "DEACTIVATE")]
+        Deactivate,
+        #[serde(rename = "RETRIEVAL")]
+        Retrieval,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&NotificationFlag> for NotificationFlag {
@@ -20274,85 +19150,44 @@ pub mod types {
         }
     }
 
-    ///NotificationFlagSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ACTIVATE",
-    ///    "DEACTIVATE",
-    ///    "RETRIEVAL"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum NotificationFlagSubtype0 {
-        #[serde(rename = "ACTIVATE")]
-        Activate,
-        #[serde(rename = "DEACTIVATE")]
-        Deactivate,
-        #[serde(rename = "RETRIEVAL")]
-        Retrieval,
-    }
-
-    impl From<&NotificationFlagSubtype0> for NotificationFlagSubtype0 {
-        fn from(value: &NotificationFlagSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for NotificationFlagSubtype0 {
+    impl ToString for NotificationFlag {
         fn to_string(&self) -> String {
             match *self {
                 Self::Activate => "ACTIVATE".to_string(),
                 Self::Deactivate => "DEACTIVATE".to_string(),
                 Self::Retrieval => "RETRIEVAL".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NotificationFlagSubtype0 {
+    impl std::str::FromStr for NotificationFlag {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ACTIVATE" => Ok(Self::Activate),
                 "DEACTIVATE" => Ok(Self::Deactivate),
                 "RETRIEVAL" => Ok(Self::Retrieval),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NotificationFlagSubtype0 {
+    impl std::convert::TryFrom<&str> for NotificationFlag {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NotificationFlagSubtype0 {
+    impl std::convert::TryFrom<&String> for NotificationFlag {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NotificationFlagSubtype0 {
+    impl std::convert::TryFrom<String> for NotificationFlag {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -20370,31 +19205,36 @@ pub mod types {
     ///{
     ///  "description": "Possible values are:\n- PERIODIC\n- ONE_TIME\n-
     /// ON_EVENT_DETECTION\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PERIODIC",
-    ///        "ONE_TIME",
-    ///        "ON_EVENT_DETECTION"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "PERIODIC",
+    ///    "ONE_TIME",
+    ///    "ON_EVENT_DETECTION"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NotificationMethod {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NotificationMethodSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum NotificationMethod {
+        #[serde(rename = "PERIODIC")]
+        Periodic,
+        #[serde(rename = "ONE_TIME")]
+        OneTime,
+        #[serde(rename = "ON_EVENT_DETECTION")]
+        OnEventDetection,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&NotificationMethod> for NotificationMethod {
@@ -20403,85 +19243,44 @@ pub mod types {
         }
     }
 
-    ///NotificationMethodSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "PERIODIC",
-    ///    "ONE_TIME",
-    ///    "ON_EVENT_DETECTION"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum NotificationMethodSubtype0 {
-        #[serde(rename = "PERIODIC")]
-        Periodic,
-        #[serde(rename = "ONE_TIME")]
-        OneTime,
-        #[serde(rename = "ON_EVENT_DETECTION")]
-        OnEventDetection,
-    }
-
-    impl From<&NotificationMethodSubtype0> for NotificationMethodSubtype0 {
-        fn from(value: &NotificationMethodSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for NotificationMethodSubtype0 {
+    impl ToString for NotificationMethod {
         fn to_string(&self) -> String {
             match *self {
                 Self::Periodic => "PERIODIC".to_string(),
                 Self::OneTime => "ONE_TIME".to_string(),
                 Self::OnEventDetection => "ON_EVENT_DETECTION".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NotificationMethodSubtype0 {
+    impl std::str::FromStr for NotificationMethod {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "PERIODIC" => Ok(Self::Periodic),
                 "ONE_TIME" => Ok(Self::OneTime),
                 "ON_EVENT_DETECTION" => Ok(Self::OnEventDetection),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NotificationMethodSubtype0 {
+    impl std::convert::TryFrom<&str> for NotificationMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NotificationMethodSubtype0 {
+    impl std::convert::TryFrom<&String> for NotificationMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NotificationMethodSubtype0 {
+    impl std::convert::TryFrom<String> for NotificationMethod {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -20506,9 +19305,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct NrCellId(String);
-    impl std::ops::Deref for NrCellId {
+    impl ::std::ops::Deref for NrCellId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -20527,7 +19326,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for NrCellId {
+    impl ::std::str::FromStr for NrCellId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{9}$")
@@ -20541,36 +19340,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for NrCellId {
+    impl ::std::convert::TryFrom<&str> for NrCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NrCellId {
+    impl ::std::convert::TryFrom<&String> for NrCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NrCellId {
+    impl ::std::convert::TryFrom<String> for NrCellId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for NrCellId {
+    impl<'de> ::serde::Deserialize<'de> for NrCellId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -20633,7 +19432,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NrLocation {
         ///The value represents the elapsed time in minutes since the last
         /// network contact of the mobile station. Value "0" indicates that the
@@ -20705,9 +19504,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct NrLocationGeodeticInformation(String);
-    impl std::ops::Deref for NrLocationGeodeticInformation {
+    impl ::std::ops::Deref for NrLocationGeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -20726,7 +19525,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for NrLocationGeodeticInformation {
+    impl ::std::str::FromStr for NrLocationGeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -20740,36 +19539,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for NrLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for NrLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NrLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for NrLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NrLocationGeodeticInformation {
+    impl ::std::convert::TryFrom<String> for NrLocationGeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for NrLocationGeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for NrLocationGeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -20790,9 +19589,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct NrLocationGeographicalInformation(String);
-    impl std::ops::Deref for NrLocationGeographicalInformation {
+    impl ::std::ops::Deref for NrLocationGeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -20811,7 +19610,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for NrLocationGeographicalInformation {
+    impl ::std::str::FromStr for NrLocationGeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -20825,36 +19624,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for NrLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for NrLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NrLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for NrLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NrLocationGeographicalInformation {
+    impl ::std::convert::TryFrom<String> for NrLocationGeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for NrLocationGeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for NrLocationGeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -20870,9 +19669,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NullValue(pub ());
-    impl std::ops::Deref for NullValue {
+    impl ::std::ops::Deref for NullValue {
         type Target = ();
         fn deref(&self) -> &() {
             &self.0
@@ -20925,7 +19724,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct NwdafData {
         #[serde(rename = "nwdafEvents", default, skip_serializing_if = "Vec::is_empty")]
         pub nwdaf_events: Vec<NwdafEvent>,
@@ -20998,57 +19797,6 @@ pub mod types {
     /// the event subscribed is WLAN performance.\n- SM_CONGESTION: Indicates
     /// the Session Management Congestion Control Experience information for
     /// specific DNN and/or S-NSSAI.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "SLICE_LOAD_LEVEL",
-    ///        "NETWORK_PERFORMANCE",
-    ///        "NF_LOAD",
-    ///        "SERVICE_EXPERIENCE",
-    ///        "UE_MOBILITY",
-    ///        "UE_COMMUNICATION",
-    ///        "QOS_SUSTAINABILITY",
-    ///        "ABNORMAL_BEHAVIOUR",
-    ///        "USER_DATA_CONGESTION",
-    ///        "NSI_LOAD_LEVEL",
-    ///        "DN_PERFORMANCE",
-    ///        "DISPERSION",
-    ///        "RED_TRANS_EXP",
-    ///        "WLAN_PERFORMANCE",
-    ///        "SM_CONGESTION"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct NwdafEvent {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<NwdafEventSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&NwdafEvent> for NwdafEvent {
-        fn from(value: &NwdafEvent) -> Self {
-            value.clone()
-        }
-    }
-
-    ///NwdafEventSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "SLICE_LOAD_LEVEL",
@@ -21066,23 +19814,23 @@ pub mod types {
     ///    "RED_TRANS_EXP",
     ///    "WLAN_PERFORMANCE",
     ///    "SM_CONGESTION"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum NwdafEventSubtype0 {
+    pub enum NwdafEvent {
         #[serde(rename = "SLICE_LOAD_LEVEL")]
         SliceLoadLevel,
         #[serde(rename = "NETWORK_PERFORMANCE")]
@@ -21113,15 +19861,17 @@ pub mod types {
         WlanPerformance,
         #[serde(rename = "SM_CONGESTION")]
         SmCongestion,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&NwdafEventSubtype0> for NwdafEventSubtype0 {
-        fn from(value: &NwdafEventSubtype0) -> Self {
+    impl From<&NwdafEvent> for NwdafEvent {
+        fn from(value: &NwdafEvent) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for NwdafEventSubtype0 {
+    impl ToString for NwdafEvent {
         fn to_string(&self) -> String {
             match *self {
                 Self::SliceLoadLevel => "SLICE_LOAD_LEVEL".to_string(),
@@ -21139,11 +19889,12 @@ pub mod types {
                 Self::RedTransExp => "RED_TRANS_EXP".to_string(),
                 Self::WlanPerformance => "WLAN_PERFORMANCE".to_string(),
                 Self::SmCongestion => "SM_CONGESTION".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for NwdafEventSubtype0 {
+    impl std::str::FromStr for NwdafEvent {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -21162,26 +19913,26 @@ pub mod types {
                 "RED_TRANS_EXP" => Ok(Self::RedTransExp),
                 "WLAN_PERFORMANCE" => Ok(Self::WlanPerformance),
                 "SM_CONGESTION" => Ok(Self::SmCongestion),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for NwdafEventSubtype0 {
+    impl std::convert::TryFrom<&str> for NwdafEvent {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for NwdafEventSubtype0 {
+    impl std::convert::TryFrom<&String> for NwdafEvent {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for NwdafEventSubtype0 {
+    impl std::convert::TryFrom<String> for NwdafEvent {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -21216,7 +19967,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct OutOfCreditInformation {
         #[serde(rename = "finUnitAct")]
         pub fin_unit_act: FinalUnitAction,
@@ -21245,9 +19996,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PacketDelBudget(pub std::num::NonZeroU64);
-    impl std::ops::Deref for PacketDelBudget {
+    impl ::std::ops::Deref for PacketDelBudget {
         type Target = std::num::NonZeroU64;
         fn deref(&self) -> &std::num::NonZeroU64 {
             &self.0
@@ -21324,9 +20075,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PacketDelBudgetRm(pub Option<std::num::NonZeroU64>);
-    impl std::ops::Deref for PacketDelBudgetRm {
+    impl ::std::ops::Deref for PacketDelBudgetRm {
         type Target = Option<std::num::NonZeroU64>;
         fn deref(&self) -> &Option<std::num::NonZeroU64> {
             &self.0
@@ -21368,9 +20119,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct PacketErrRate(String);
-    impl std::ops::Deref for PacketErrRate {
+    impl ::std::ops::Deref for PacketErrRate {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -21389,7 +20140,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for PacketErrRate {
+    impl ::std::str::FromStr for PacketErrRate {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^([0-9]E-[0-9])$")
@@ -21403,36 +20154,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for PacketErrRate {
+    impl ::std::convert::TryFrom<&str> for PacketErrRate {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PacketErrRate {
+    impl ::std::convert::TryFrom<&String> for PacketErrRate {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PacketErrRate {
+    impl ::std::convert::TryFrom<String> for PacketErrRate {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for PacketErrRate {
+    impl<'de> ::serde::Deserialize<'de> for PacketErrRate {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -21449,10 +20200,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct PacketFilterContent(pub String);
-    impl std::ops::Deref for PacketFilterContent {
+    impl ::std::ops::Deref for PacketFilterContent {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -21528,7 +20287,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PacketFilterInfo {
         #[serde(
             rename = "flowDirection",
@@ -21590,9 +20349,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PacketLossRateRm(pub Option<i64>);
-    impl std::ops::Deref for PacketLossRateRm {
+    impl ::std::ops::Deref for PacketLossRateRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -21678,7 +20437,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PartialSuccessReport {
         #[serde(rename = "failureCause")]
         pub failure_cause: FailureCause,
@@ -21736,47 +20495,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Possible values are:\n- \"TAC\": Type Allocation Code\n- \"SUBPLMN\": Subscriber PLMN ID\n- \"GEOAREA\": Geographical area, i.e. list(s) of TAI(s)\n- \"SNSSAI\": S-NSSAI\n- \"DNN\": DNN\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "TAC",
-    ///        "SUBPLMN",
-    ///        "GEOAREA",
-    ///        "SNSSAI",
-    ///        "DNN"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PartitioningCriteria {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PartitioningCriteriaSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&PartitioningCriteria> for PartitioningCriteria {
-        fn from(value: &PartitioningCriteria) -> Self {
-            value.clone()
-        }
-    }
-
-    ///PartitioningCriteriaSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "TAC",
@@ -21784,23 +20502,23 @@ pub mod types {
     ///    "GEOAREA",
     ///    "SNSSAI",
     ///    "DNN"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum PartitioningCriteriaSubtype0 {
+    pub enum PartitioningCriteria {
         #[serde(rename = "TAC")]
         Tac,
         #[serde(rename = "SUBPLMN")]
@@ -21811,15 +20529,17 @@ pub mod types {
         Snssai,
         #[serde(rename = "DNN")]
         Dnn,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&PartitioningCriteriaSubtype0> for PartitioningCriteriaSubtype0 {
-        fn from(value: &PartitioningCriteriaSubtype0) -> Self {
+    impl From<&PartitioningCriteria> for PartitioningCriteria {
+        fn from(value: &PartitioningCriteria) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for PartitioningCriteriaSubtype0 {
+    impl ToString for PartitioningCriteria {
         fn to_string(&self) -> String {
             match *self {
                 Self::Tac => "TAC".to_string(),
@@ -21827,11 +20547,12 @@ pub mod types {
                 Self::Geoarea => "GEOAREA".to_string(),
                 Self::Snssai => "SNSSAI".to_string(),
                 Self::Dnn => "DNN".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PartitioningCriteriaSubtype0 {
+    impl std::str::FromStr for PartitioningCriteria {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -21840,26 +20561,26 @@ pub mod types {
                 "GEOAREA" => Ok(Self::Geoarea),
                 "SNSSAI" => Ok(Self::Snssai),
                 "DNN" => Ok(Self::Dnn),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PartitioningCriteriaSubtype0 {
+    impl std::convert::TryFrom<&str> for PartitioningCriteria {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PartitioningCriteriaSubtype0 {
+    impl std::convert::TryFrom<&String> for PartitioningCriteria {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PartitioningCriteriaSubtype0 {
+    impl std::convert::TryFrom<String> for PartitioningCriteria {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -21887,7 +20608,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PatchBdtPolicy {
         #[serde(
             rename = "bdtPolData",
@@ -21931,31 +20652,36 @@ pub mod types {
     /// point.\n- LTE_NR_PC5: This value is used to indicate that UE supports
     /// both PC5 LTE and NR RAT for\n  V2X communications over the PC5 reference
     /// point. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "LTE_PC5",
-    ///        "NR_PC5",
-    ///        "LTE_NR_PC5"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "LTE_PC5",
+    ///    "NR_PC5",
+    ///    "LTE_NR_PC5"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct Pc5Capability {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<Pc5CapabilitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum Pc5Capability {
+        #[serde(rename = "LTE_PC5")]
+        LtePc5,
+        #[serde(rename = "NR_PC5")]
+        NrPc5,
+        #[serde(rename = "LTE_NR_PC5")]
+        LteNrPc5,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&Pc5Capability> for Pc5Capability {
@@ -21964,85 +20690,44 @@ pub mod types {
         }
     }
 
-    ///Pc5CapabilitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "LTE_PC5",
-    ///    "NR_PC5",
-    ///    "LTE_NR_PC5"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum Pc5CapabilitySubtype0 {
-        #[serde(rename = "LTE_PC5")]
-        LtePc5,
-        #[serde(rename = "NR_PC5")]
-        NrPc5,
-        #[serde(rename = "LTE_NR_PC5")]
-        LteNrPc5,
-    }
-
-    impl From<&Pc5CapabilitySubtype0> for Pc5CapabilitySubtype0 {
-        fn from(value: &Pc5CapabilitySubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for Pc5CapabilitySubtype0 {
+    impl ToString for Pc5Capability {
         fn to_string(&self) -> String {
             match *self {
                 Self::LtePc5 => "LTE_PC5".to_string(),
                 Self::NrPc5 => "NR_PC5".to_string(),
                 Self::LteNrPc5 => "LTE_NR_PC5".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for Pc5CapabilitySubtype0 {
+    impl std::str::FromStr for Pc5Capability {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "LTE_PC5" => Ok(Self::LtePc5),
                 "NR_PC5" => Ok(Self::NrPc5),
                 "LTE_NR_PC5" => Ok(Self::LteNrPc5),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for Pc5CapabilitySubtype0 {
+    impl std::convert::TryFrom<&str> for Pc5Capability {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Pc5CapabilitySubtype0 {
+    impl std::convert::TryFrom<&String> for Pc5Capability {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Pc5CapabilitySubtype0 {
+    impl std::convert::TryFrom<String> for Pc5Capability {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -22057,36 +20742,100 @@ pub mod types {
     ///{
     ///  "description": "Represents the policy control events that can be
     /// subscribed.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "AC_TY_CH",
-    ///        "PLMN_CH",
-    ///        "SAC_CH",
-    ///        "SAT_CATEGORY_CH",
-    ///        "SUCCESS_UE_POL_DEL_SP",
-    ///        "UNSUCCESS_UE_POL_DEL_SP"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "AC_TY_CH",
+    ///    "PLMN_CH",
+    ///    "SAC_CH",
+    ///    "SAT_CATEGORY_CH",
+    ///    "SUCCESS_UE_POL_DEL_SP",
+    ///    "UNSUCCESS_UE_POL_DEL_SP"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PcEvent {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PcEventSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PcEvent {
+        #[serde(rename = "AC_TY_CH")]
+        AcTyCh,
+        #[serde(rename = "PLMN_CH")]
+        PlmnCh,
+        #[serde(rename = "SAC_CH")]
+        SacCh,
+        #[serde(rename = "SAT_CATEGORY_CH")]
+        SatCategoryCh,
+        #[serde(rename = "SUCCESS_UE_POL_DEL_SP")]
+        SuccessUePolDelSp,
+        #[serde(rename = "UNSUCCESS_UE_POL_DEL_SP")]
+        UnsuccessUePolDelSp,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PcEvent> for PcEvent {
         fn from(value: &PcEvent) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for PcEvent {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::AcTyCh => "AC_TY_CH".to_string(),
+                Self::PlmnCh => "PLMN_CH".to_string(),
+                Self::SacCh => "SAC_CH".to_string(),
+                Self::SatCategoryCh => "SAT_CATEGORY_CH".to_string(),
+                Self::SuccessUePolDelSp => "SUCCESS_UE_POL_DEL_SP".to_string(),
+                Self::UnsuccessUePolDelSp => "UNSUCCESS_UE_POL_DEL_SP".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for PcEvent {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "AC_TY_CH" => Ok(Self::AcTyCh),
+                "PLMN_CH" => Ok(Self::PlmnCh),
+                "SAC_CH" => Ok(Self::SacCh),
+                "SAT_CATEGORY_CH" => Ok(Self::SatCategoryCh),
+                "SUCCESS_UE_POL_DEL_SP" => Ok(Self::SuccessUePolDelSp),
+                "UNSUCCESS_UE_POL_DEL_SP" => Ok(Self::UnsuccessUePolDelSp),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for PcEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for PcEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for PcEvent {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -22119,7 +20868,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcEventExposureNotif {
         #[serde(rename = "eventNotifs")]
         pub event_notifs: Vec<PcEventNotification>,
@@ -22209,7 +20958,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcEventExposureSubsc {
         #[serde(rename = "eventNotifs", default, skip_serializing_if = "Vec::is_empty")]
         pub event_notifs: Vec<PcEventNotification>,
@@ -22316,7 +21065,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcEventNotification {
         #[serde(rename = "accType", default, skip_serializing_if = "Option::is_none")]
         pub acc_type: Option<AccessType>,
@@ -22380,106 +21129,6 @@ pub mod types {
     impl From<&PcEventNotification> for PcEventNotification {
         fn from(value: &PcEventNotification) -> Self {
             value.clone()
-        }
-    }
-
-    ///PcEventSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "AC_TY_CH",
-    ///    "PLMN_CH",
-    ///    "SAC_CH",
-    ///    "SAT_CATEGORY_CH",
-    ///    "SUCCESS_UE_POL_DEL_SP",
-    ///    "UNSUCCESS_UE_POL_DEL_SP"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PcEventSubtype0 {
-        #[serde(rename = "AC_TY_CH")]
-        AcTyCh,
-        #[serde(rename = "PLMN_CH")]
-        PlmnCh,
-        #[serde(rename = "SAC_CH")]
-        SacCh,
-        #[serde(rename = "SAT_CATEGORY_CH")]
-        SatCategoryCh,
-        #[serde(rename = "SUCCESS_UE_POL_DEL_SP")]
-        SuccessUePolDelSp,
-        #[serde(rename = "UNSUCCESS_UE_POL_DEL_SP")]
-        UnsuccessUePolDelSp,
-    }
-
-    impl From<&PcEventSubtype0> for PcEventSubtype0 {
-        fn from(value: &PcEventSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PcEventSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::AcTyCh => "AC_TY_CH".to_string(),
-                Self::PlmnCh => "PLMN_CH".to_string(),
-                Self::SacCh => "SAC_CH".to_string(),
-                Self::SatCategoryCh => "SAT_CATEGORY_CH".to_string(),
-                Self::SuccessUePolDelSp => "SUCCESS_UE_POL_DEL_SP".to_string(),
-                Self::UnsuccessUePolDelSp => "UNSUCCESS_UE_POL_DEL_SP".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for PcEventSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "AC_TY_CH" => Ok(Self::AcTyCh),
-                "PLMN_CH" => Ok(Self::PlmnCh),
-                "SAC_CH" => Ok(Self::SacCh),
-                "SAT_CATEGORY_CH" => Ok(Self::SatCategoryCh),
-                "SUCCESS_UE_POL_DEL_SP" => Ok(Self::SuccessUePolDelSp),
-                "UNSUCCESS_UE_POL_DEL_SP" => Ok(Self::UnsuccessUePolDelSp),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for PcEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for PcEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for PcEventSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
         }
     }
 
@@ -22674,9 +21323,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PccRule(pub Option<PccRuleInner>);
-    impl std::ops::Deref for PccRule {
+    impl ::std::ops::Deref for PccRule {
         type Target = Option<PccRuleInner>;
         fn deref(&self) -> &Option<PccRuleInner> {
             &self.0
@@ -22889,7 +21538,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PccRuleInner {
         #[serde(
             rename = "addrPreserInd",
@@ -23074,7 +21723,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcfAddressingInfo {
         ///contains the binding indications of the PCF.
         #[serde(
@@ -23130,9 +21779,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcfUeCallbackInfo(pub Option<PcfUeCallbackInfoInner>);
-    impl std::ops::Deref for PcfUeCallbackInfo {
+    impl ::std::ops::Deref for PcfUeCallbackInfo {
         type Target = Option<PcfUeCallbackInfoInner>;
         fn deref(&self) -> &Option<PcfUeCallbackInfoInner> {
             &self.0
@@ -23183,7 +21832,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PcfUeCallbackInfoInner {
         #[serde(
             rename = "bindingInfo",
@@ -23244,7 +21893,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum PcscfRestorationRequestData {
         Variant0 {
@@ -23327,7 +21976,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PduSessionEventNotification {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub dnn: Option<Dnn>,
@@ -23374,9 +22023,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PduSessionId(pub u8);
-    impl std::ops::Deref for PduSessionId {
+    impl ::std::ops::Deref for PduSessionId {
         type Target = u8;
         fn deref(&self) -> &u8 {
             &self.0
@@ -23459,7 +22108,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PduSessionInfo {
         pub dnn: Dnn,
         pub snssai: Snssai,
@@ -23527,7 +22176,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum PduSessionInformation {
         Variant0 {
@@ -23612,7 +22261,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum PduSessionInformationVariant1 {
         Variant0(PduSessionInformationVariant1Variant0),
@@ -23738,6 +22387,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -23746,8 +22397,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     #[serde(deny_unknown_fields)]
     pub enum PduSessionInformationVariant1Variant0 {}
@@ -23858,6 +22507,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -23866,8 +22517,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     #[serde(deny_unknown_fields)]
     pub enum PduSessionInformationVariant1Variant1 {}
@@ -23884,27 +22533,33 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Contains the SMF PDU Session release cause.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PS_TO_CS_HO",
-    ///        "RULE_ERROR"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "PS_TO_CS_HO",
+    ///    "RULE_ERROR"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PduSessionRelCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PduSessionRelCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PduSessionRelCause {
+        #[serde(rename = "PS_TO_CS_HO")]
+        PsToCsHo,
+        #[serde(rename = "RULE_ERROR")]
+        RuleError,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PduSessionRelCause> for PduSessionRelCause {
@@ -23913,80 +22568,42 @@ pub mod types {
         }
     }
 
-    ///PduSessionRelCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "PS_TO_CS_HO",
-    ///    "RULE_ERROR"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PduSessionRelCauseSubtype0 {
-        #[serde(rename = "PS_TO_CS_HO")]
-        PsToCsHo,
-        #[serde(rename = "RULE_ERROR")]
-        RuleError,
-    }
-
-    impl From<&PduSessionRelCauseSubtype0> for PduSessionRelCauseSubtype0 {
-        fn from(value: &PduSessionRelCauseSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PduSessionRelCauseSubtype0 {
+    impl ToString for PduSessionRelCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::PsToCsHo => "PS_TO_CS_HO".to_string(),
                 Self::RuleError => "RULE_ERROR".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PduSessionRelCauseSubtype0 {
+    impl std::str::FromStr for PduSessionRelCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "PS_TO_CS_HO" => Ok(Self::PsToCsHo),
                 "RULE_ERROR" => Ok(Self::RuleError),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PduSessionRelCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for PduSessionRelCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PduSessionRelCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for PduSessionRelCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PduSessionRelCauseSubtype0 {
+    impl std::convert::TryFrom<String> for PduSessionRelCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -24001,27 +22618,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether the PDU session is established or
     /// terminated.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ESTABLISHED",
-    ///        "TERMINATED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ESTABLISHED",
+    ///    "TERMINATED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PduSessionStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PduSessionStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PduSessionStatus {
+        #[serde(rename = "ESTABLISHED")]
+        Established,
+        #[serde(rename = "TERMINATED")]
+        Terminated,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PduSessionStatus> for PduSessionStatus {
@@ -24030,80 +22653,42 @@ pub mod types {
         }
     }
 
-    ///PduSessionStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ESTABLISHED",
-    ///    "TERMINATED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PduSessionStatusSubtype0 {
-        #[serde(rename = "ESTABLISHED")]
-        Established,
-        #[serde(rename = "TERMINATED")]
-        Terminated,
-    }
-
-    impl From<&PduSessionStatusSubtype0> for PduSessionStatusSubtype0 {
-        fn from(value: &PduSessionStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PduSessionStatusSubtype0 {
+    impl ToString for PduSessionStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Established => "ESTABLISHED".to_string(),
                 Self::Terminated => "TERMINATED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PduSessionStatusSubtype0 {
+    impl std::str::FromStr for PduSessionStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ESTABLISHED" => Ok(Self::Established),
                 "TERMINATED" => Ok(Self::Terminated),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PduSessionStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for PduSessionStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PduSessionStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for PduSessionStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PduSessionStatusSubtype0 {
+    impl std::convert::TryFrom<String> for PduSessionStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -24159,7 +22744,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PduSessionTsnBridge {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub dnn: Option<Dnn>,
@@ -24217,44 +22802,6 @@ pub mod types {
     ///{
     ///  "description": "PduSessionType indicates the type of a PDU session. It
     /// shall comply with the provisions defined in table 5.4.3.3-1. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "IPV4",
-    ///        "IPV6",
-    ///        "IPV4V6",
-    ///        "UNSTRUCTURED",
-    ///        "ETHERNET"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PduSessionType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PduSessionTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&PduSessionType> for PduSessionType {
-        fn from(value: &PduSessionType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///PduSessionTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "IPV4",
@@ -24262,23 +22809,23 @@ pub mod types {
     ///    "IPV4V6",
     ///    "UNSTRUCTURED",
     ///    "ETHERNET"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum PduSessionTypeSubtype0 {
+    pub enum PduSessionType {
         #[serde(rename = "IPV4")]
         Ipv4,
         #[serde(rename = "IPV6")]
@@ -24289,15 +22836,17 @@ pub mod types {
         Unstructured,
         #[serde(rename = "ETHERNET")]
         Ethernet,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&PduSessionTypeSubtype0> for PduSessionTypeSubtype0 {
-        fn from(value: &PduSessionTypeSubtype0) -> Self {
+    impl From<&PduSessionType> for PduSessionType {
+        fn from(value: &PduSessionType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for PduSessionTypeSubtype0 {
+    impl ToString for PduSessionType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Ipv4 => "IPV4".to_string(),
@@ -24305,11 +22854,12 @@ pub mod types {
                 Self::Ipv4v6 => "IPV4V6".to_string(),
                 Self::Unstructured => "UNSTRUCTURED".to_string(),
                 Self::Ethernet => "ETHERNET".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PduSessionTypeSubtype0 {
+    impl std::str::FromStr for PduSessionType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -24318,26 +22868,26 @@ pub mod types {
                 "IPV4V6" => Ok(Self::Ipv4v6),
                 "UNSTRUCTURED" => Ok(Self::Unstructured),
                 "ETHERNET" => Ok(Self::Ethernet),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PduSessionTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for PduSessionType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PduSessionTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for PduSessionType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PduSessionTypeSubtype0 {
+    impl std::convert::TryFrom<String> for PduSessionType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -24356,10 +22906,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Pduid(pub String);
-    impl std::ops::Deref for Pduid {
+    impl ::std::ops::Deref for Pduid {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -24421,7 +22979,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PduidInformation {
         pub expiry: DateTime,
         pub pduid: Pduid,
@@ -24459,9 +23017,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Pei(String);
-    impl std::ops::Deref for Pei {
+    impl ::std::ops::Deref for Pei {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -24480,7 +23038,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Pei {
+    impl ::std::str::FromStr for Pei {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress :: Regex :: new ("^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$") . unwrap () . find (value) . is_none () { return Err ("doesn't match pattern \"^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$\"" . into ()) ; }
@@ -24488,36 +23046,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Pei {
+    impl ::std::convert::TryFrom<&str> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Pei {
+    impl ::std::convert::TryFrom<&String> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Pei {
+    impl ::std::convert::TryFrom<String> for Pei {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Pei {
+    impl<'de> ::serde::Deserialize<'de> for Pei {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -24549,7 +23107,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PlmnId {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -24590,7 +23148,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PlmnIdNid {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -24688,7 +23246,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociation {
         #[serde(
             rename = "asTimeDisParam",
@@ -24703,8 +23261,8 @@ pub mod types {
         ///Contains the presence reporting area(s) for which reporting was
         /// requested. The praId attribute within the PresenceInfo data type is
         /// the key of the map.
-        #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
-        pub pras: std::collections::HashMap<String, PresenceInfo>,
+        #[serde(default, skip_serializing_if = "::std::collections::HashMap::is_empty")]
+        pub pras: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub request: Option<PolicyAssociationRequest>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -24805,7 +23363,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociation1 {
         #[serde(rename = "n2Pc5Pol", default, skip_serializing_if = "Option::is_none")]
         pub n2_pc5_pol: Option<N2InfoContent>,
@@ -24818,8 +23376,8 @@ pub mod types {
         ///Contains the presence reporting area(s) for which reporting was
         /// requested. The praId attribute within the PresenceInfo data type is
         /// the key of the map.
-        #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
-        pub pras: std::collections::HashMap<String, PresenceInfo>,
+        #[serde(default, skip_serializing_if = "::std::collections::HashMap::is_empty")]
+        pub pras: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub request: Option<PolicyAssociationRequest1>,
         #[serde(rename = "suppFeat")]
@@ -24858,36 +23416,85 @@ pub mod types {
     /// subscription of UE has changed (e.g. was removed).\n- INSUFFICIENT_RES:
     /// This value is used to indicate that the server is overloaded and\n
     /// needs to abort the session.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UNSPECIFIED",
-    ///        "UE_SUBSCRIPTION",
-    ///        "INSUFFICIENT_RES"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UNSPECIFIED",
+    ///    "UE_SUBSCRIPTION",
+    ///    "INSUFFICIENT_RES"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PolicyAssociationReleaseCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PolicyAssociationReleaseCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PolicyAssociationReleaseCause {
+        #[serde(rename = "UNSPECIFIED")]
+        Unspecified,
+        #[serde(rename = "UE_SUBSCRIPTION")]
+        UeSubscription,
+        #[serde(rename = "INSUFFICIENT_RES")]
+        InsufficientRes,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PolicyAssociationReleaseCause> for PolicyAssociationReleaseCause {
         fn from(value: &PolicyAssociationReleaseCause) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for PolicyAssociationReleaseCause {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::Unspecified => "UNSPECIFIED".to_string(),
+                Self::UeSubscription => "UE_SUBSCRIPTION".to_string(),
+                Self::InsufficientRes => "INSUFFICIENT_RES".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for PolicyAssociationReleaseCause {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "UNSPECIFIED" => Ok(Self::Unspecified),
+                "UE_SUBSCRIPTION" => Ok(Self::UeSubscription),
+                "INSUFFICIENT_RES" => Ok(Self::InsufficientRes),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for PolicyAssociationReleaseCause {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for PolicyAssociationReleaseCause {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for PolicyAssociationReleaseCause {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -24911,31 +23518,36 @@ pub mod types {
     /// the subscription of UE has changed (e.g. was removed).\n-
     /// INSUFFICIENT_RES: This value is used to indicate that the server is
     /// overloaded and needs\n  to abort the policy association.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UNSPECIFIED",
-    ///        "UE_SUBSCRIPTION",
-    ///        "INSUFFICIENT_RES"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UNSPECIFIED",
+    ///    "UE_SUBSCRIPTION",
+    ///    "INSUFFICIENT_RES"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PolicyAssociationReleaseCause1 {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PolicyAssociationReleaseCause1Subtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PolicyAssociationReleaseCause1 {
+        #[serde(rename = "UNSPECIFIED")]
+        Unspecified,
+        #[serde(rename = "UE_SUBSCRIPTION")]
+        UeSubscription,
+        #[serde(rename = "INSUFFICIENT_RES")]
+        InsufficientRes,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PolicyAssociationReleaseCause1> for PolicyAssociationReleaseCause1 {
@@ -24944,170 +23556,44 @@ pub mod types {
         }
     }
 
-    ///PolicyAssociationReleaseCause1Subtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UNSPECIFIED",
-    ///    "UE_SUBSCRIPTION",
-    ///    "INSUFFICIENT_RES"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PolicyAssociationReleaseCause1Subtype0 {
-        #[serde(rename = "UNSPECIFIED")]
-        Unspecified,
-        #[serde(rename = "UE_SUBSCRIPTION")]
-        UeSubscription,
-        #[serde(rename = "INSUFFICIENT_RES")]
-        InsufficientRes,
-    }
-
-    impl From<&PolicyAssociationReleaseCause1Subtype0> for PolicyAssociationReleaseCause1Subtype0 {
-        fn from(value: &PolicyAssociationReleaseCause1Subtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PolicyAssociationReleaseCause1Subtype0 {
+    impl ToString for PolicyAssociationReleaseCause1 {
         fn to_string(&self) -> String {
             match *self {
                 Self::Unspecified => "UNSPECIFIED".to_string(),
                 Self::UeSubscription => "UE_SUBSCRIPTION".to_string(),
                 Self::InsufficientRes => "INSUFFICIENT_RES".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PolicyAssociationReleaseCause1Subtype0 {
+    impl std::str::FromStr for PolicyAssociationReleaseCause1 {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "UNSPECIFIED" => Ok(Self::Unspecified),
                 "UE_SUBSCRIPTION" => Ok(Self::UeSubscription),
                 "INSUFFICIENT_RES" => Ok(Self::InsufficientRes),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PolicyAssociationReleaseCause1Subtype0 {
+    impl std::convert::TryFrom<&str> for PolicyAssociationReleaseCause1 {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PolicyAssociationReleaseCause1Subtype0 {
+    impl std::convert::TryFrom<&String> for PolicyAssociationReleaseCause1 {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PolicyAssociationReleaseCause1Subtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    ///PolicyAssociationReleaseCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UNSPECIFIED",
-    ///    "UE_SUBSCRIPTION",
-    ///    "INSUFFICIENT_RES"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PolicyAssociationReleaseCauseSubtype0 {
-        #[serde(rename = "UNSPECIFIED")]
-        Unspecified,
-        #[serde(rename = "UE_SUBSCRIPTION")]
-        UeSubscription,
-        #[serde(rename = "INSUFFICIENT_RES")]
-        InsufficientRes,
-    }
-
-    impl From<&PolicyAssociationReleaseCauseSubtype0> for PolicyAssociationReleaseCauseSubtype0 {
-        fn from(value: &PolicyAssociationReleaseCauseSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PolicyAssociationReleaseCauseSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::Unspecified => "UNSPECIFIED".to_string(),
-                Self::UeSubscription => "UE_SUBSCRIPTION".to_string(),
-                Self::InsufficientRes => "INSUFFICIENT_RES".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for PolicyAssociationReleaseCauseSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "UNSPECIFIED" => Ok(Self::Unspecified),
-                "UE_SUBSCRIPTION" => Ok(Self::UeSubscription),
-                "INSUFFICIENT_RES" => Ok(Self::InsufficientRes),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for PolicyAssociationReleaseCauseSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for PolicyAssociationReleaseCauseSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for PolicyAssociationReleaseCauseSubtype0 {
+    impl std::convert::TryFrom<String> for PolicyAssociationReleaseCause1 {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -25287,7 +23773,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociationRequest {
         #[serde(
             rename = "accessType",
@@ -25522,7 +24008,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociationRequest1 {
         #[serde(
             rename = "accessType",
@@ -25761,7 +24247,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociationUpdateRequest {
         #[serde(rename = "accessTypes", default, skip_serializing_if = "Vec::is_empty")]
         pub access_types: Vec<AccessType>,
@@ -25828,9 +24314,9 @@ pub mod types {
         #[serde(
             rename = "praStatuses",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub pra_statuses: std::collections::HashMap<String, PresenceInfo>,
+        pub pra_statuses: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(rename = "ratTypes", default, skip_serializing_if = "Vec::is_empty")]
         pub rat_types: Vec<RatType>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -25984,7 +24470,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyAssociationUpdateRequest1 {
         ///Alternate or backup FQDN(s) where to send Notifications.
         #[serde(
@@ -26031,9 +24517,9 @@ pub mod types {
         #[serde(
             rename = "praStatuses",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub pra_statuses: std::collections::HashMap<String, PresenceInfo>,
+        pub pra_statuses: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(rename = "proSeCapab", default, skip_serializing_if = "Vec::is_empty")]
         pub pro_se_capab: Vec<ProSeCapability>,
         #[serde(
@@ -26206,90 +24692,6 @@ pub mod types {
     /// NWDAF_DATA_CHG: Indicates that the NWDAF instance IDs used for the PDU
     /// session and/or associated Analytics IDs used for the PDU session and
     /// available in the SMF have changed.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PLMN_CH",
-    ///        "RES_MO_RE",
-    ///        "AC_TY_CH",
-    ///        "UE_IP_CH",
-    ///        "UE_MAC_CH",
-    ///        "AN_CH_COR",
-    ///        "US_RE",
-    ///        "APP_STA",
-    ///        "APP_STO",
-    ///        "AN_INFO",
-    ///        "CM_SES_FAIL",
-    ///        "PS_DA_OFF",
-    ///        "DEF_QOS_CH",
-    ///        "SE_AMBR_CH",
-    ///        "QOS_NOTIF",
-    ///        "NO_CREDIT",
-    ///        "REALLO_OF_CREDIT",
-    ///        "PRA_CH",
-    ///        "SAREA_CH",
-    ///        "SCNN_CH",
-    ///        "RE_TIMEOUT",
-    ///        "RES_RELEASE",
-    ///        "SUCC_RES_ALLO",
-    ///        "RAI_CH",
-    ///        "RAT_TY_CH",
-    ///        "REF_QOS_IND_CH",
-    ///        "NUM_OF_PACKET_FILTER",
-    ///        "UE_STATUS_RESUME",
-    ///        "UE_TZ_CH",
-    ///        "AUTH_PROF_CH",
-    ///        "QOS_MONITORING",
-    ///        "SCELL_CH",
-    ///        "USER_LOCATION_CH",
-    ///        "EPS_FALLBACK",
-    ///        "MA_PDU",
-    ///        "TSN_BRIDGE_INFO",
-    ///        "5G_RG_JOIN",
-    ///        "5G_RG_LEAVE",
-    ///        "DDN_FAILURE",
-    ///        "DDN_DELIVERY_STATUS",
-    ///        "GROUP_ID_LIST_CHG",
-    ///        "DDN_FAILURE_CANCELLATION",
-    ///        "DDN_DELIVERY_STATUS_CANCELLATION",
-    ///        "VPLMN_QOS_CH",
-    ///        "SUCC_QOS_UPDATE",
-    ///        "SAT_CATEGORY_CHG",
-    ///        "PCF_UE_NOTIF_IND",
-    ///        "NWDAF_DATA_CHG"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PolicyControlRequestTrigger {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PolicyControlRequestTriggerSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&PolicyControlRequestTrigger> for PolicyControlRequestTrigger {
-        fn from(value: &PolicyControlRequestTrigger) -> Self {
-            value.clone()
-        }
-    }
-
-    ///PolicyControlRequestTriggerSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "PLMN_CH",
@@ -26340,23 +24742,23 @@ pub mod types {
     ///    "SAT_CATEGORY_CHG",
     ///    "PCF_UE_NOTIF_IND",
     ///    "NWDAF_DATA_CHG"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum PolicyControlRequestTriggerSubtype0 {
+    pub enum PolicyControlRequestTrigger {
         #[serde(rename = "PLMN_CH")]
         PlmnCh,
         #[serde(rename = "RES_MO_RE")]
@@ -26430,9 +24832,9 @@ pub mod types {
         #[serde(rename = "TSN_BRIDGE_INFO")]
         TsnBridgeInfo,
         #[serde(rename = "5G_RG_JOIN")]
-        _5gRgJoin,
+        FiveGRgJoin,
         #[serde(rename = "5G_RG_LEAVE")]
-        _5gRgLeave,
+        FiveGRgLeave,
         #[serde(rename = "DDN_FAILURE")]
         DdnFailure,
         #[serde(rename = "DDN_DELIVERY_STATUS")]
@@ -26453,15 +24855,17 @@ pub mod types {
         PcfUeNotifInd,
         #[serde(rename = "NWDAF_DATA_CHG")]
         NwdafDataChg,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&PolicyControlRequestTriggerSubtype0> for PolicyControlRequestTriggerSubtype0 {
-        fn from(value: &PolicyControlRequestTriggerSubtype0) -> Self {
+    impl From<&PolicyControlRequestTrigger> for PolicyControlRequestTrigger {
+        fn from(value: &PolicyControlRequestTrigger) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for PolicyControlRequestTriggerSubtype0 {
+    impl ToString for PolicyControlRequestTrigger {
         fn to_string(&self) -> String {
             match *self {
                 Self::PlmnCh => "PLMN_CH".to_string(),
@@ -26500,8 +24904,8 @@ pub mod types {
                 Self::EpsFallback => "EPS_FALLBACK".to_string(),
                 Self::MaPdu => "MA_PDU".to_string(),
                 Self::TsnBridgeInfo => "TSN_BRIDGE_INFO".to_string(),
-                Self::_5gRgJoin => "5G_RG_JOIN".to_string(),
-                Self::_5gRgLeave => "5G_RG_LEAVE".to_string(),
+                Self::FiveGRgJoin => "5G_RG_JOIN".to_string(),
+                Self::FiveGRgLeave => "5G_RG_LEAVE".to_string(),
                 Self::DdnFailure => "DDN_FAILURE".to_string(),
                 Self::DdnDeliveryStatus => "DDN_DELIVERY_STATUS".to_string(),
                 Self::GroupIdListChg => "GROUP_ID_LIST_CHG".to_string(),
@@ -26514,11 +24918,12 @@ pub mod types {
                 Self::SatCategoryChg => "SAT_CATEGORY_CHG".to_string(),
                 Self::PcfUeNotifInd => "PCF_UE_NOTIF_IND".to_string(),
                 Self::NwdafDataChg => "NWDAF_DATA_CHG".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PolicyControlRequestTriggerSubtype0 {
+    impl std::str::FromStr for PolicyControlRequestTrigger {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -26558,8 +24963,8 @@ pub mod types {
                 "EPS_FALLBACK" => Ok(Self::EpsFallback),
                 "MA_PDU" => Ok(Self::MaPdu),
                 "TSN_BRIDGE_INFO" => Ok(Self::TsnBridgeInfo),
-                "5G_RG_JOIN" => Ok(Self::_5gRgJoin),
-                "5G_RG_LEAVE" => Ok(Self::_5gRgLeave),
+                "5G_RG_JOIN" => Ok(Self::FiveGRgJoin),
+                "5G_RG_LEAVE" => Ok(Self::FiveGRgLeave),
                 "DDN_FAILURE" => Ok(Self::DdnFailure),
                 "DDN_DELIVERY_STATUS" => Ok(Self::DdnDeliveryStatus),
                 "GROUP_ID_LIST_CHG" => Ok(Self::GroupIdListChg),
@@ -26570,26 +24975,26 @@ pub mod types {
                 "SAT_CATEGORY_CHG" => Ok(Self::SatCategoryChg),
                 "PCF_UE_NOTIF_IND" => Ok(Self::PcfUeNotifInd),
                 "NWDAF_DATA_CHG" => Ok(Self::NwdafDataChg),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PolicyControlRequestTriggerSubtype0 {
+    impl std::convert::TryFrom<&str> for PolicyControlRequestTrigger {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PolicyControlRequestTriggerSubtype0 {
+    impl std::convert::TryFrom<&String> for PolicyControlRequestTrigger {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PolicyControlRequestTriggerSubtype0 {
+    impl std::convert::TryFrom<String> for PolicyControlRequestTrigger {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -26604,46 +25009,6 @@ pub mod types {
     ///{
     ///  "description": "Indicates the type of the failed policy decision and/or
     /// condition data.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "TRA_CTRL_DECS_ERR",
-    ///        "QOS_DECS_ERR",
-    ///        "CHG_DECS_ERR",
-    ///        "USA_MON_DECS_ERR",
-    ///        "QOS_MON_DECS_ERR",
-    ///        "CON_DATA_ERR",
-    ///        "POLICY_PARAM_ERR"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PolicyDecisionFailureCode {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PolicyDecisionFailureCodeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&PolicyDecisionFailureCode> for PolicyDecisionFailureCode {
-        fn from(value: &PolicyDecisionFailureCode) -> Self {
-            value.clone()
-        }
-    }
-
-    ///PolicyDecisionFailureCodeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "TRA_CTRL_DECS_ERR",
@@ -26653,23 +25018,23 @@ pub mod types {
     ///    "QOS_MON_DECS_ERR",
     ///    "CON_DATA_ERR",
     ///    "POLICY_PARAM_ERR"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum PolicyDecisionFailureCodeSubtype0 {
+    pub enum PolicyDecisionFailureCode {
         #[serde(rename = "TRA_CTRL_DECS_ERR")]
         TraCtrlDecsErr,
         #[serde(rename = "QOS_DECS_ERR")]
@@ -26684,15 +25049,17 @@ pub mod types {
         ConDataErr,
         #[serde(rename = "POLICY_PARAM_ERR")]
         PolicyParamErr,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&PolicyDecisionFailureCodeSubtype0> for PolicyDecisionFailureCodeSubtype0 {
-        fn from(value: &PolicyDecisionFailureCodeSubtype0) -> Self {
+    impl From<&PolicyDecisionFailureCode> for PolicyDecisionFailureCode {
+        fn from(value: &PolicyDecisionFailureCode) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for PolicyDecisionFailureCodeSubtype0 {
+    impl ToString for PolicyDecisionFailureCode {
         fn to_string(&self) -> String {
             match *self {
                 Self::TraCtrlDecsErr => "TRA_CTRL_DECS_ERR".to_string(),
@@ -26702,11 +25069,12 @@ pub mod types {
                 Self::QosMonDecsErr => "QOS_MON_DECS_ERR".to_string(),
                 Self::ConDataErr => "CON_DATA_ERR".to_string(),
                 Self::PolicyParamErr => "POLICY_PARAM_ERR".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PolicyDecisionFailureCodeSubtype0 {
+    impl std::str::FromStr for PolicyDecisionFailureCode {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -26717,26 +25085,26 @@ pub mod types {
                 "QOS_MON_DECS_ERR" => Ok(Self::QosMonDecsErr),
                 "CON_DATA_ERR" => Ok(Self::ConDataErr),
                 "POLICY_PARAM_ERR" => Ok(Self::PolicyParamErr),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PolicyDecisionFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&str> for PolicyDecisionFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PolicyDecisionFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&String> for PolicyDecisionFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PolicyDecisionFailureCodeSubtype0 {
+    impl std::convert::TryFrom<String> for PolicyDecisionFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -26831,7 +25199,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyUpdate {
         #[serde(
             rename = "asTimeDisParam",
@@ -26847,7 +25215,7 @@ pub mod types {
         /// requested. The praId attribute within the PresenceInfo data type is
         /// the key of the map.
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub pras: Option<std::collections::HashMap<String, PresenceInfoRm>>,
+        pub pras: Option<::std::collections::HashMap<String, PresenceInfoRm>>,
         #[serde(rename = "resourceUri")]
         pub resource_uri: Uri,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -26949,7 +25317,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PolicyUpdate1 {
         #[serde(rename = "n2Pc5Pol", default, skip_serializing_if = "Option::is_none")]
         pub n2_pc5_pol: Option<N2InfoContent>,
@@ -26963,7 +25331,7 @@ pub mod types {
         /// requested. The praId attribute within the PresenceInfo data type is
         /// the key of the map.
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub pras: Option<std::collections::HashMap<String, PresenceInfo>>,
+        pub pras: Option<::std::collections::HashMap<String, PresenceInfo>>,
         #[serde(rename = "resourceUri")]
         pub resource_uri: Uri,
         ///Request Triggers that the PCF subscribes. Only values "LOC_CH" and
@@ -27004,7 +25372,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PortManagementContainer {
         #[serde(rename = "portManCont")]
         pub port_man_cont: Bytes,
@@ -27031,32 +25399,80 @@ pub mod types {
     /// pre-emption capability of a request on other QoS flows. See clause
     /// 5.7.2.2 of 3GPP TS 23.501. It shall comply with the provisions defined
     /// in table 5.5.3.1-1.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NOT_PREEMPT",
-    ///        "MAY_PREEMPT"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "NOT_PREEMPT",
+    ///    "MAY_PREEMPT"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionCapability {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionCapabilitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PreemptionCapability {
+        #[serde(rename = "NOT_PREEMPT")]
+        NotPreempt,
+        #[serde(rename = "MAY_PREEMPT")]
+        MayPreempt,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PreemptionCapability> for PreemptionCapability {
         fn from(value: &PreemptionCapability) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for PreemptionCapability {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::NotPreempt => "NOT_PREEMPT".to_string(),
+                Self::MayPreempt => "MAY_PREEMPT".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for PreemptionCapability {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "NOT_PREEMPT" => Ok(Self::NotPreempt),
+                "MAY_PREEMPT" => Ok(Self::MayPreempt),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for PreemptionCapability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for PreemptionCapability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for PreemptionCapability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -27082,12 +25498,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionCapabilityRm {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionCapability>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<NullValue>,
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[serde(untagged)]
+    pub enum PreemptionCapabilityRm {
+        PreemptionCapability(PreemptionCapability),
+        NullValue(NullValue),
     }
 
     impl From<&PreemptionCapabilityRm> for PreemptionCapabilityRm {
@@ -27096,83 +25511,15 @@ pub mod types {
         }
     }
 
-    ///PreemptionCapabilitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "NOT_PREEMPT",
-    ///    "MAY_PREEMPT"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PreemptionCapabilitySubtype0 {
-        #[serde(rename = "NOT_PREEMPT")]
-        NotPreempt,
-        #[serde(rename = "MAY_PREEMPT")]
-        MayPreempt,
-    }
-
-    impl From<&PreemptionCapabilitySubtype0> for PreemptionCapabilitySubtype0 {
-        fn from(value: &PreemptionCapabilitySubtype0) -> Self {
-            value.clone()
+    impl From<PreemptionCapability> for PreemptionCapabilityRm {
+        fn from(value: PreemptionCapability) -> Self {
+            Self::PreemptionCapability(value)
         }
     }
 
-    impl ToString for PreemptionCapabilitySubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::NotPreempt => "NOT_PREEMPT".to_string(),
-                Self::MayPreempt => "MAY_PREEMPT".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for PreemptionCapabilitySubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "NOT_PREEMPT" => Ok(Self::NotPreempt),
-                "MAY_PREEMPT" => Ok(Self::MayPreempt),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for PreemptionCapabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for PreemptionCapabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for PreemptionCapabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
+    impl From<NullValue> for PreemptionCapabilityRm {
+        fn from(value: NullValue) -> Self {
+            Self::NullValue(value)
         }
     }
 
@@ -27183,33 +25530,85 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Represents Pre-emption control information.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MOST_RECENT",
-    ///        "LEAST_RECENT",
-    ///        "HIGHEST_BW"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "MOST_RECENT",
+    ///    "LEAST_RECENT",
+    ///    "HIGHEST_BW"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionControlInformation {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionControlInformationSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PreemptionControlInformation {
+        #[serde(rename = "MOST_RECENT")]
+        MostRecent,
+        #[serde(rename = "LEAST_RECENT")]
+        LeastRecent,
+        #[serde(rename = "HIGHEST_BW")]
+        HighestBw,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PreemptionControlInformation> for PreemptionControlInformation {
         fn from(value: &PreemptionControlInformation) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for PreemptionControlInformation {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::MostRecent => "MOST_RECENT".to_string(),
+                Self::LeastRecent => "LEAST_RECENT".to_string(),
+                Self::HighestBw => "HIGHEST_BW".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for PreemptionControlInformation {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "MOST_RECENT" => Ok(Self::MostRecent),
+                "LEAST_RECENT" => Ok(Self::LeastRecent),
+                "HIGHEST_BW" => Ok(Self::HighestBw),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for PreemptionControlInformation {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for PreemptionControlInformation {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for PreemptionControlInformation {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -27235,12 +25634,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionControlInformationRm {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionControlInformation>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<NullValue>,
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[serde(untagged)]
+    pub enum PreemptionControlInformationRm {
+        PreemptionControlInformation(PreemptionControlInformation),
+        NullValue(NullValue),
     }
 
     impl From<&PreemptionControlInformationRm> for PreemptionControlInformationRm {
@@ -27249,88 +25647,15 @@ pub mod types {
         }
     }
 
-    ///PreemptionControlInformationSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "MOST_RECENT",
-    ///    "LEAST_RECENT",
-    ///    "HIGHEST_BW"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PreemptionControlInformationSubtype0 {
-        #[serde(rename = "MOST_RECENT")]
-        MostRecent,
-        #[serde(rename = "LEAST_RECENT")]
-        LeastRecent,
-        #[serde(rename = "HIGHEST_BW")]
-        HighestBw,
-    }
-
-    impl From<&PreemptionControlInformationSubtype0> for PreemptionControlInformationSubtype0 {
-        fn from(value: &PreemptionControlInformationSubtype0) -> Self {
-            value.clone()
+    impl From<PreemptionControlInformation> for PreemptionControlInformationRm {
+        fn from(value: PreemptionControlInformation) -> Self {
+            Self::PreemptionControlInformation(value)
         }
     }
 
-    impl ToString for PreemptionControlInformationSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::MostRecent => "MOST_RECENT".to_string(),
-                Self::LeastRecent => "LEAST_RECENT".to_string(),
-                Self::HighestBw => "HIGHEST_BW".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for PreemptionControlInformationSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "MOST_RECENT" => Ok(Self::MostRecent),
-                "LEAST_RECENT" => Ok(Self::LeastRecent),
-                "HIGHEST_BW" => Ok(Self::HighestBw),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for PreemptionControlInformationSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for PreemptionControlInformationSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for PreemptionControlInformationSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
+    impl From<NullValue> for PreemptionControlInformationRm {
+        fn from(value: NullValue) -> Self {
+            Self::NullValue(value)
         }
     }
 
@@ -27347,32 +25672,80 @@ pub mod types {
     /// pre-emption vulnerability of the QoS flow to pre-emption from other QoS
     /// flows. See clause 5.7.2.2 of 3GPP TS 23.501. It shall comply with the
     /// provisions defined in table 5.5.3.2-1\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NOT_PREEMPTABLE",
-    ///        "PREEMPTABLE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "NOT_PREEMPTABLE",
+    ///    "PREEMPTABLE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionVulnerability {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionVulnerabilitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PreemptionVulnerability {
+        #[serde(rename = "NOT_PREEMPTABLE")]
+        NotPreemptable,
+        #[serde(rename = "PREEMPTABLE")]
+        Preemptable,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PreemptionVulnerability> for PreemptionVulnerability {
         fn from(value: &PreemptionVulnerability) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for PreemptionVulnerability {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::NotPreemptable => "NOT_PREEMPTABLE".to_string(),
+                Self::Preemptable => "PREEMPTABLE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for PreemptionVulnerability {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "NOT_PREEMPTABLE" => Ok(Self::NotPreemptable),
+                "PREEMPTABLE" => Ok(Self::Preemptable),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for PreemptionVulnerability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for PreemptionVulnerability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for PreemptionVulnerability {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -27398,12 +25771,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PreemptionVulnerabilityRm {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PreemptionVulnerability>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<NullValue>,
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[serde(untagged)]
+    pub enum PreemptionVulnerabilityRm {
+        PreemptionVulnerability(PreemptionVulnerability),
+        NullValue(NullValue),
     }
 
     impl From<&PreemptionVulnerabilityRm> for PreemptionVulnerabilityRm {
@@ -27412,83 +25784,15 @@ pub mod types {
         }
     }
 
-    ///PreemptionVulnerabilitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "NOT_PREEMPTABLE",
-    ///    "PREEMPTABLE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PreemptionVulnerabilitySubtype0 {
-        #[serde(rename = "NOT_PREEMPTABLE")]
-        NotPreemptable,
-        #[serde(rename = "PREEMPTABLE")]
-        Preemptable,
-    }
-
-    impl From<&PreemptionVulnerabilitySubtype0> for PreemptionVulnerabilitySubtype0 {
-        fn from(value: &PreemptionVulnerabilitySubtype0) -> Self {
-            value.clone()
+    impl From<PreemptionVulnerability> for PreemptionVulnerabilityRm {
+        fn from(value: PreemptionVulnerability) -> Self {
+            Self::PreemptionVulnerability(value)
         }
     }
 
-    impl ToString for PreemptionVulnerabilitySubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::NotPreemptable => "NOT_PREEMPTABLE".to_string(),
-                Self::Preemptable => "PREEMPTABLE".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for PreemptionVulnerabilitySubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "NOT_PREEMPTABLE" => Ok(Self::NotPreemptable),
-                "PREEMPTABLE" => Ok(Self::Preemptable),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for PreemptionVulnerabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for PreemptionVulnerabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for PreemptionVulnerabilitySubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
+    impl From<NullValue> for PreemptionVulnerabilityRm {
+        fn from(value: NullValue) -> Self {
+            Self::NullValue(value)
         }
     }
 
@@ -27586,7 +25890,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PresenceInfo {
         ///This IE may be present if the praId IE is present and if it contains
         /// a PRA identifier referring to a set of Core Network predefined
@@ -27761,9 +26065,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PresenceInfoRm(pub Option<PresenceInfoRmInner>);
-    impl std::ops::Deref for PresenceInfoRm {
+    impl ::std::ops::Deref for PresenceInfoRm {
         type Target = Option<PresenceInfoRmInner>;
         fn deref(&self) -> &Option<PresenceInfoRmInner> {
             &self.0
@@ -27885,7 +26189,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct PresenceInfoRmInner {
         ///This IE may be present if the praId IE is present and if it contains
         /// a PRA identifier referring to a set of Core Network predefined
@@ -27981,66 +26285,29 @@ pub mod types {
     /// area\n-UNKNOW: Indicates it is unknown whether the UE is in the presence
     /// reporting area or not\n-INACTIVE: Indicates that the presence reporting
     /// area is inactive in the serving node. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "IN_AREA",
-    ///        "OUT_OF_AREA",
-    ///        "UNKNOWN",
-    ///        "INACTIVE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PresenceState {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PresenceStateSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&PresenceState> for PresenceState {
-        fn from(value: &PresenceState) -> Self {
-            value.clone()
-        }
-    }
-
-    ///PresenceStateSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "IN_AREA",
     ///    "OUT_OF_AREA",
     ///    "UNKNOWN",
     ///    "INACTIVE"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum PresenceStateSubtype0 {
+    pub enum PresenceState {
         #[serde(rename = "IN_AREA")]
         InArea,
         #[serde(rename = "OUT_OF_AREA")]
@@ -28049,26 +26316,29 @@ pub mod types {
         Unknown,
         #[serde(rename = "INACTIVE")]
         Inactive,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&PresenceStateSubtype0> for PresenceStateSubtype0 {
-        fn from(value: &PresenceStateSubtype0) -> Self {
+    impl From<&PresenceState> for PresenceState {
+        fn from(value: &PresenceState) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for PresenceStateSubtype0 {
+    impl ToString for PresenceState {
         fn to_string(&self) -> String {
             match *self {
                 Self::InArea => "IN_AREA".to_string(),
                 Self::OutOfArea => "OUT_OF_AREA".to_string(),
                 Self::Unknown => "UNKNOWN".to_string(),
                 Self::Inactive => "INACTIVE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PresenceStateSubtype0 {
+    impl std::str::FromStr for PresenceState {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -28076,26 +26346,26 @@ pub mod types {
                 "OUT_OF_AREA" => Ok(Self::OutOfArea),
                 "UNKNOWN" => Ok(Self::Unknown),
                 "INACTIVE" => Ok(Self::Inactive),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PresenceStateSubtype0 {
+    impl std::convert::TryFrom<&str> for PresenceState {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PresenceStateSubtype0 {
+    impl std::convert::TryFrom<&String> for PresenceState {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PresenceStateSubtype0 {
+    impl std::convert::TryFrom<String> for PresenceState {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -28109,27 +26379,33 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Represents the Priority sharing indicator.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ENABLED",
-    ///        "DISABLED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ENABLED",
+    ///    "DISABLED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct PrioritySharingIndicator {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<PrioritySharingIndicatorSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum PrioritySharingIndicator {
+        #[serde(rename = "ENABLED")]
+        Enabled,
+        #[serde(rename = "DISABLED")]
+        Disabled,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&PrioritySharingIndicator> for PrioritySharingIndicator {
@@ -28138,80 +26414,42 @@ pub mod types {
         }
     }
 
-    ///PrioritySharingIndicatorSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ENABLED",
-    ///    "DISABLED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum PrioritySharingIndicatorSubtype0 {
-        #[serde(rename = "ENABLED")]
-        Enabled,
-        #[serde(rename = "DISABLED")]
-        Disabled,
-    }
-
-    impl From<&PrioritySharingIndicatorSubtype0> for PrioritySharingIndicatorSubtype0 {
-        fn from(value: &PrioritySharingIndicatorSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for PrioritySharingIndicatorSubtype0 {
+    impl ToString for PrioritySharingIndicator {
         fn to_string(&self) -> String {
             match *self {
                 Self::Enabled => "ENABLED".to_string(),
                 Self::Disabled => "DISABLED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for PrioritySharingIndicatorSubtype0 {
+    impl std::str::FromStr for PrioritySharingIndicator {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ENABLED" => Ok(Self::Enabled),
                 "DISABLED" => Ok(Self::Disabled),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for PrioritySharingIndicatorSubtype0 {
+    impl std::convert::TryFrom<&str> for PrioritySharingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for PrioritySharingIndicatorSubtype0 {
+    impl std::convert::TryFrom<&String> for PrioritySharingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for PrioritySharingIndicatorSubtype0 {
+    impl std::convert::TryFrom<String> for PrioritySharingIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -28253,48 +26491,6 @@ pub mod types {
     /// Layer-2 5G ProSe Remote UE is\n  supported by the UE.\n-
     /// PROSE_L3_REMOTE_UE: This value is used to indicate that Layer-3 5G ProSe
     /// Remote UE is\n  supported by the UE.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PROSE_DD",
-    ///        "PROSE_DC",
-    ///        "PROSE_L2_U2N_RELAY",
-    ///        "PROSE_L3_U2N_RELAY",
-    ///        "PROSE_L2_REMOTE_UE",
-    ///        "PROSE_L3_REMOTE_UE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode the
-    /// content defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ProSeCapability {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ProSeCapabilitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&ProSeCapability> for ProSeCapability {
-        fn from(value: &ProSeCapability) -> Self {
-            value.clone()
-        }
-    }
-
-    ///ProSeCapabilitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "PROSE_DD",
@@ -28303,23 +26499,23 @@ pub mod types {
     ///    "PROSE_L3_U2N_RELAY",
     ///    "PROSE_L2_REMOTE_UE",
     ///    "PROSE_L3_REMOTE_UE"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum ProSeCapabilitySubtype0 {
+    pub enum ProSeCapability {
         #[serde(rename = "PROSE_DD")]
         ProseDd,
         #[serde(rename = "PROSE_DC")]
@@ -28332,15 +26528,17 @@ pub mod types {
         ProseL2RemoteUe,
         #[serde(rename = "PROSE_L3_REMOTE_UE")]
         ProseL3RemoteUe,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&ProSeCapabilitySubtype0> for ProSeCapabilitySubtype0 {
-        fn from(value: &ProSeCapabilitySubtype0) -> Self {
+    impl From<&ProSeCapability> for ProSeCapability {
+        fn from(value: &ProSeCapability) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for ProSeCapabilitySubtype0 {
+    impl ToString for ProSeCapability {
         fn to_string(&self) -> String {
             match *self {
                 Self::ProseDd => "PROSE_DD".to_string(),
@@ -28349,11 +26547,12 @@ pub mod types {
                 Self::ProseL3U2nRelay => "PROSE_L3_U2N_RELAY".to_string(),
                 Self::ProseL2RemoteUe => "PROSE_L2_REMOTE_UE".to_string(),
                 Self::ProseL3RemoteUe => "PROSE_L3_REMOTE_UE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ProSeCapabilitySubtype0 {
+    impl std::str::FromStr for ProSeCapability {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -28363,26 +26562,26 @@ pub mod types {
                 "PROSE_L3_U2N_RELAY" => Ok(Self::ProseL3U2nRelay),
                 "PROSE_L2_REMOTE_UE" => Ok(Self::ProseL2RemoteUe),
                 "PROSE_L3_REMOTE_UE" => Ok(Self::ProseL3RemoteUe),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ProSeCapabilitySubtype0 {
+    impl std::convert::TryFrom<&str> for ProSeCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ProSeCapabilitySubtype0 {
+    impl std::convert::TryFrom<&String> for ProSeCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ProSeCapabilitySubtype0 {
+    impl std::convert::TryFrom<String> for ProSeCapability {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -28444,7 +26643,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ProblemDetails {
         #[serde(
             rename = "accessTokenError",
@@ -28543,10 +26742,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosCharacteristics {
-        #[serde(rename = "5qi")]
-        pub _5qi: _5qi,
         #[serde(
             rename = "averagingWindow",
             default,
@@ -28559,6 +26756,8 @@ pub mod types {
             skip_serializing_if = "Option::is_none"
         )]
         pub ext_max_data_burst_vol: Option<ExtMaxDataBurstVol>,
+        #[serde(rename = "5qi")]
+        pub five_qi: _5qi,
         #[serde(
             rename = "maxDataBurstVol",
             default,
@@ -28674,9 +26873,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosData(pub Option<QosDataInner>);
-    impl std::ops::Deref for QosData {
+    impl ::std::ops::Deref for QosData {
         type Target = Option<QosDataInner>;
         fn deref(&self) -> &Option<QosDataInner> {
             &self.0
@@ -28791,10 +26990,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosDataInner {
-        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
-        pub _5qi: Option<_5qi>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
         #[serde(
@@ -28817,6 +27014,8 @@ pub mod types {
             skip_serializing_if = "Option::is_none"
         )]
         pub ext_max_data_burst_vol: Option<ExtMaxDataBurstVolRm>,
+        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
+        pub five_qi: Option<_5qi>,
         #[serde(rename = "gbrDl", default, skip_serializing_if = "Option::is_none")]
         pub gbr_dl: Option<BitRateRm>,
         #[serde(rename = "gbrUl", default, skip_serializing_if = "Option::is_none")]
@@ -28913,30 +27112,33 @@ pub mod types {
     ///  "description": "Possible values are\n- GENERAL: Indicate no specific
     /// QoS flow usage information is available. \n- IMS_SIG: Indicate that the
     /// QoS flow is used for IMS signalling only.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "GENERAL",
-    ///        "IMS_SIG"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "GENERAL",
+    ///    "IMS_SIG"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct QosFlowUsage {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<QosFlowUsageSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum QosFlowUsage {
+        #[serde(rename = "GENERAL")]
+        General,
+        #[serde(rename = "IMS_SIG")]
+        ImsSig,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&QosFlowUsage> for QosFlowUsage {
@@ -28945,80 +27147,42 @@ pub mod types {
         }
     }
 
-    ///QosFlowUsageSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "GENERAL",
-    ///    "IMS_SIG"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum QosFlowUsageSubtype0 {
-        #[serde(rename = "GENERAL")]
-        General,
-        #[serde(rename = "IMS_SIG")]
-        ImsSig,
-    }
-
-    impl From<&QosFlowUsageSubtype0> for QosFlowUsageSubtype0 {
-        fn from(value: &QosFlowUsageSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for QosFlowUsageSubtype0 {
+    impl ToString for QosFlowUsage {
         fn to_string(&self) -> String {
             match *self {
                 Self::General => "GENERAL".to_string(),
                 Self::ImsSig => "IMS_SIG".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for QosFlowUsageSubtype0 {
+    impl std::str::FromStr for QosFlowUsage {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "GENERAL" => Ok(Self::General),
                 "IMS_SIG" => Ok(Self::ImsSig),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for QosFlowUsageSubtype0 {
+    impl std::convert::TryFrom<&str> for QosFlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for QosFlowUsageSubtype0 {
+    impl std::convert::TryFrom<&String> for QosFlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for QosFlowUsageSubtype0 {
+    impl std::convert::TryFrom<String> for QosFlowUsage {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -29114,9 +27278,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringData(pub Option<QosMonitoringDataInner>);
-    impl std::ops::Deref for QosMonitoringData {
+    impl ::std::ops::Deref for QosMonitoringData {
         type Target = Option<QosMonitoringDataInner>;
         fn deref(&self) -> &Option<QosMonitoringDataInner> {
             &self.0
@@ -29227,7 +27391,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringDataInner {
         ///Indicates that the direct event notification sent by UPF to the
         /// Local NEF or AF is requested if it is included and set to true.
@@ -29316,7 +27480,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringInformation {
         #[serde(
             rename = "repThreshDl",
@@ -29373,9 +27537,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringInformationRm(pub Option<QosMonitoringInformationRmInner>);
-    impl std::ops::Deref for QosMonitoringInformationRm {
+    impl ::std::ops::Deref for QosMonitoringInformationRm {
         type Target = Option<QosMonitoringInformationRmInner>;
         fn deref(&self) -> &Option<QosMonitoringInformationRmInner> {
             &self.0
@@ -29426,7 +27590,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringInformationRmInner {
         #[serde(
             rename = "repThreshDl",
@@ -29505,7 +27669,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringReport {
         #[serde(rename = "dlDelays", default, skip_serializing_if = "Vec::is_empty")]
         pub dl_delays: Vec<i64>,
@@ -29574,7 +27738,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosMonitoringReport1 {
         #[serde(rename = "dlDelays", default, skip_serializing_if = "Vec::is_empty")]
         pub dl_delays: Vec<i64>,
@@ -29603,27 +27767,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates the notification type for QoS Notification
     /// Control.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "GUARANTEED",
-    ///        "NOT_GUARANTEED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "GUARANTEED",
+    ///    "NOT_GUARANTEED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct QosNotifType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<QosNotifTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum QosNotifType {
+        #[serde(rename = "GUARANTEED")]
+        Guaranteed,
+        #[serde(rename = "NOT_GUARANTEED")]
+        NotGuaranteed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&QosNotifType> for QosNotifType {
@@ -29632,80 +27802,42 @@ pub mod types {
         }
     }
 
-    ///QosNotifTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "GUARANTEED",
-    ///    "NOT_GUARANTEED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum QosNotifTypeSubtype0 {
-        #[serde(rename = "GUARANTEED")]
-        Guaranteed,
-        #[serde(rename = "NOT_GUARANTEED")]
-        NotGuaranteed,
-    }
-
-    impl From<&QosNotifTypeSubtype0> for QosNotifTypeSubtype0 {
-        fn from(value: &QosNotifTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for QosNotifTypeSubtype0 {
+    impl ToString for QosNotifType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Guaranteed => "GUARANTEED".to_string(),
                 Self::NotGuaranteed => "NOT_GUARANTEED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for QosNotifTypeSubtype0 {
+    impl std::str::FromStr for QosNotifType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "GUARANTEED" => Ok(Self::Guaranteed),
                 "NOT_GUARANTEED" => Ok(Self::NotGuaranteed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for QosNotifTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for QosNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for QosNotifTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for QosNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for QosNotifTypeSubtype0 {
+    impl std::convert::TryFrom<String> for QosNotifType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -29747,7 +27879,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosNotificationControlInfo {
         #[serde(
             rename = "altQosParamId",
@@ -29802,7 +27934,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct QosNotificationControlInfo1 {
         #[serde(rename = "altSerReq", default, skip_serializing_if = "Option::is_none")]
         pub alt_ser_req: Option<String>,
@@ -29831,28 +27963,36 @@ pub mod types {
     /// Flow is non-GBR, delay critical GBR, or non-delay critical GBR (see
     /// clauses 5.7.3.4 and 5.7.3.5 of 3GPP TS 23.501). It shall comply with the
     /// provisions defined in table 5.5.3.6-1. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NON_GBR",
-    ///        "NON_CRITICAL_GBR",
-    ///        "CRITICAL_GBR"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "NON_GBR",
+    ///    "NON_CRITICAL_GBR",
+    ///    "CRITICAL_GBR"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct QosResourceType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<QosResourceTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum QosResourceType {
+        #[serde(rename = "NON_GBR")]
+        NonGbr,
+        #[serde(rename = "NON_CRITICAL_GBR")]
+        NonCriticalGbr,
+        #[serde(rename = "CRITICAL_GBR")]
+        CriticalGbr,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&QosResourceType> for QosResourceType {
@@ -29861,85 +28001,44 @@ pub mod types {
         }
     }
 
-    ///QosResourceTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "NON_GBR",
-    ///    "NON_CRITICAL_GBR",
-    ///    "CRITICAL_GBR"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum QosResourceTypeSubtype0 {
-        #[serde(rename = "NON_GBR")]
-        NonGbr,
-        #[serde(rename = "NON_CRITICAL_GBR")]
-        NonCriticalGbr,
-        #[serde(rename = "CRITICAL_GBR")]
-        CriticalGbr,
-    }
-
-    impl From<&QosResourceTypeSubtype0> for QosResourceTypeSubtype0 {
-        fn from(value: &QosResourceTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for QosResourceTypeSubtype0 {
+    impl ToString for QosResourceType {
         fn to_string(&self) -> String {
             match *self {
                 Self::NonGbr => "NON_GBR".to_string(),
                 Self::NonCriticalGbr => "NON_CRITICAL_GBR".to_string(),
                 Self::CriticalGbr => "CRITICAL_GBR".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for QosResourceTypeSubtype0 {
+    impl std::str::FromStr for QosResourceType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "NON_GBR" => Ok(Self::NonGbr),
                 "NON_CRITICAL_GBR" => Ok(Self::NonCriticalGbr),
                 "CRITICAL_GBR" => Ok(Self::CriticalGbr),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for QosResourceTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for QosResourceType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for QosResourceTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for QosResourceType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for QosResourceTypeSubtype0 {
+    impl std::convert::TryFrom<String> for QosResourceType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -29971,14 +28070,14 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RanNasRelCause {
-        #[serde(rename = "5gMmCause", default, skip_serializing_if = "Option::is_none")]
-        pub _5g_mm_cause: Option<Uinteger>,
-        #[serde(rename = "5gSmCause", default, skip_serializing_if = "Option::is_none")]
-        pub _5g_sm_cause: Option<Uinteger>,
         #[serde(rename = "epsCause", default, skip_serializing_if = "Option::is_none")]
         pub eps_cause: Option<EpsRanNasRelCause>,
+        #[serde(rename = "5gMmCause", default, skip_serializing_if = "Option::is_none")]
+        pub five_g_mm_cause: Option<Uinteger>,
+        #[serde(rename = "5gSmCause", default, skip_serializing_if = "Option::is_none")]
+        pub five_g_sm_cause: Option<Uinteger>,
         #[serde(rename = "ngApCause", default, skip_serializing_if = "Option::is_none")]
         pub ng_ap_cause: Option<NgApCause>,
     }
@@ -29996,71 +28095,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the radio access used.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NR",
-    ///        "EUTRA",
-    ///        "WLAN",
-    ///        "VIRTUAL",
-    ///        "NBIOT",
-    ///        "WIRELINE",
-    ///        "WIRELINE_CABLE",
-    ///        "WIRELINE_BBF",
-    ///        "LTE-M",
-    ///        "NR_U",
-    ///        "EUTRA_U",
-    ///        "TRUSTED_N3GA",
-    ///        "TRUSTED_WLAN",
-    ///        "UTRA",
-    ///        "GERA",
-    ///        "NR_LEO",
-    ///        "NR_MEO",
-    ///        "NR_GEO",
-    ///        "NR_OTHER_SAT",
-    ///        "NR_REDCAP",
-    ///        "WB_E_UTRAN_LEO",
-    ///        "WB_E_UTRAN_MEO",
-    ///        "WB_E_UTRAN_GEO",
-    ///        "WB_E_UTRAN_OTHERSAT",
-    ///        "NB_IOT_LEO",
-    ///        "NB_IOT_MEO",
-    ///        "NB_IOT_GEO",
-    ///        "NB_IOT_OTHERSAT",
-    ///        "LTE_M_LEO",
-    ///        "LTE_M_MEO",
-    ///        "LTE_M_GEO",
-    ///        "LTE_M_OTHERSAT"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RatType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RatTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&RatType> for RatType {
-        fn from(value: &RatType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///RatTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NR",
@@ -30095,23 +28129,23 @@ pub mod types {
     ///    "LTE_M_MEO",
     ///    "LTE_M_GEO",
     ///    "LTE_M_OTHERSAT"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum RatTypeSubtype0 {
+    pub enum RatType {
         #[serde(rename = "NR")]
         Nr,
         #[serde(rename = "EUTRA")]
@@ -30176,15 +28210,17 @@ pub mod types {
         LteMGeo,
         #[serde(rename = "LTE_M_OTHERSAT")]
         LteMOthersat,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&RatTypeSubtype0> for RatTypeSubtype0 {
-        fn from(value: &RatTypeSubtype0) -> Self {
+    impl From<&RatType> for RatType {
+        fn from(value: &RatType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for RatTypeSubtype0 {
+    impl ToString for RatType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Nr => "NR".to_string(),
@@ -30219,11 +28255,12 @@ pub mod types {
                 Self::LteMMeo => "LTE_M_MEO".to_string(),
                 Self::LteMGeo => "LTE_M_GEO".to_string(),
                 Self::LteMOthersat => "LTE_M_OTHERSAT".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RatTypeSubtype0 {
+    impl std::str::FromStr for RatType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -30259,26 +28296,26 @@ pub mod types {
                 "LTE_M_MEO" => Ok(Self::LteMMeo),
                 "LTE_M_GEO" => Ok(Self::LteMGeo),
                 "LTE_M_OTHERSAT" => Ok(Self::LteMOthersat),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RatTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for RatType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RatTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for RatType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RatTypeSubtype0 {
+    impl std::convert::TryFrom<String> for RatType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -30305,69 +28342,29 @@ pub mod types {
     /// address.\n- URL: Indicates that the address type is in the form of
     /// Uniform Resource Locator.\n- SIP_URI: Indicates that the address type is
     /// in the form of SIP Uniform Resource Identifier.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "IPV4_ADDR",
-    ///        "IPV6_ADDR",
-    ///        "URL",
-    ///        "SIP_URI"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RedirectAddressType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RedirectAddressTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&RedirectAddressType> for RedirectAddressType {
-        fn from(value: &RedirectAddressType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///RedirectAddressTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "IPV4_ADDR",
     ///    "IPV6_ADDR",
     ///    "URL",
     ///    "SIP_URI"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum RedirectAddressTypeSubtype0 {
+    pub enum RedirectAddressType {
         #[serde(rename = "IPV4_ADDR")]
         Ipv4Addr,
         #[serde(rename = "IPV6_ADDR")]
@@ -30376,26 +28373,29 @@ pub mod types {
         Url,
         #[serde(rename = "SIP_URI")]
         SipUri,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&RedirectAddressTypeSubtype0> for RedirectAddressTypeSubtype0 {
-        fn from(value: &RedirectAddressTypeSubtype0) -> Self {
+    impl From<&RedirectAddressType> for RedirectAddressType {
+        fn from(value: &RedirectAddressType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for RedirectAddressTypeSubtype0 {
+    impl ToString for RedirectAddressType {
         fn to_string(&self) -> String {
             match *self {
                 Self::Ipv4Addr => "IPV4_ADDR".to_string(),
                 Self::Ipv6Addr => "IPV6_ADDR".to_string(),
                 Self::Url => "URL".to_string(),
                 Self::SipUri => "SIP_URI".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RedirectAddressTypeSubtype0 {
+    impl std::str::FromStr for RedirectAddressType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -30403,26 +28403,26 @@ pub mod types {
                 "IPV6_ADDR" => Ok(Self::Ipv6Addr),
                 "URL" => Ok(Self::Url),
                 "SIP_URI" => Ok(Self::SipUri),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RedirectAddressTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for RedirectAddressType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RedirectAddressTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for RedirectAddressType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RedirectAddressTypeSubtype0 {
+    impl std::convert::TryFrom<String> for RedirectAddressType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -30453,7 +28453,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RedirectInformation {
         #[serde(
             rename = "redirectAddressType",
@@ -30518,7 +28518,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RedirectResponse {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub cause: Option<String>,
@@ -30561,7 +28561,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RefToBinaryData {
         ///This IE shall contain the value of the Content-ID header of the
         /// referenced binary body part.
@@ -30582,27 +28582,33 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the frequency for the reporting.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "EVENT_TRIGGERED",
-    ///        "PERIODIC"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "EVENT_TRIGGERED",
+    ///    "PERIODIC"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ReportingFrequency {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ReportingFrequencySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum ReportingFrequency {
+        #[serde(rename = "EVENT_TRIGGERED")]
+        EventTriggered,
+        #[serde(rename = "PERIODIC")]
+        Periodic,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&ReportingFrequency> for ReportingFrequency {
@@ -30611,80 +28617,42 @@ pub mod types {
         }
     }
 
-    ///ReportingFrequencySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "EVENT_TRIGGERED",
-    ///    "PERIODIC"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum ReportingFrequencySubtype0 {
-        #[serde(rename = "EVENT_TRIGGERED")]
-        EventTriggered,
-        #[serde(rename = "PERIODIC")]
-        Periodic,
-    }
-
-    impl From<&ReportingFrequencySubtype0> for ReportingFrequencySubtype0 {
-        fn from(value: &ReportingFrequencySubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for ReportingFrequencySubtype0 {
+    impl ToString for ReportingFrequency {
         fn to_string(&self) -> String {
             match *self {
                 Self::EventTriggered => "EVENT_TRIGGERED".to_string(),
                 Self::Periodic => "PERIODIC".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ReportingFrequencySubtype0 {
+    impl std::str::FromStr for ReportingFrequency {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "EVENT_TRIGGERED" => Ok(Self::EventTriggered),
                 "PERIODIC" => Ok(Self::Periodic),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ReportingFrequencySubtype0 {
+    impl std::convert::TryFrom<&str> for ReportingFrequency {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ReportingFrequencySubtype0 {
+    impl std::convert::TryFrom<&String> for ReportingFrequency {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ReportingFrequencySubtype0 {
+    impl std::convert::TryFrom<String> for ReportingFrequency {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -30738,7 +28706,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ReportingInformation {
         #[serde(
             rename = "grpRepTime",
@@ -30823,7 +28791,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ReportingLevel {
         #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
         pub subtype_0: Option<ReportingLevelSubtype0>,
@@ -30855,6 +28823,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -30863,8 +28833,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     pub enum ReportingLevelSubtype0 {
         #[serde(rename = "SER_ID_LEVEL")]
@@ -30992,44 +28960,125 @@ pub mod types {
     /// used for the UE and available in the AMF\n  have changed.\n-
     /// TARGET_NSSAI: Generation of Target NSSAI. The NF service consumer
     /// notifies that the\n  Target NSSAI was generated.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "LOC_CH",
-    ///        "PRA_CH",
-    ///        "SERV_AREA_CH",
-    ///        "RFSP_CH",
-    ///        "ALLOWED_NSSAI_CH",
-    ///        "UE_AMBR_CH",
-    ///        "UE_SLICE_MBR_CH",
-    ///        "SMF_SELECT_CH",
-    ///        "ACCESS_TYPE_CH",
-    ///        "NWDAF_DATA_CH",
-    ///        "TARGET_NSSAI"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "LOC_CH",
+    ///    "PRA_CH",
+    ///    "SERV_AREA_CH",
+    ///    "RFSP_CH",
+    ///    "ALLOWED_NSSAI_CH",
+    ///    "UE_AMBR_CH",
+    ///    "UE_SLICE_MBR_CH",
+    ///    "SMF_SELECT_CH",
+    ///    "ACCESS_TYPE_CH",
+    ///    "NWDAF_DATA_CH",
+    ///    "TARGET_NSSAI"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RequestTrigger {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RequestTriggerSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum RequestTrigger {
+        #[serde(rename = "LOC_CH")]
+        LocCh,
+        #[serde(rename = "PRA_CH")]
+        PraCh,
+        #[serde(rename = "SERV_AREA_CH")]
+        ServAreaCh,
+        #[serde(rename = "RFSP_CH")]
+        RfspCh,
+        #[serde(rename = "ALLOWED_NSSAI_CH")]
+        AllowedNssaiCh,
+        #[serde(rename = "UE_AMBR_CH")]
+        UeAmbrCh,
+        #[serde(rename = "UE_SLICE_MBR_CH")]
+        UeSliceMbrCh,
+        #[serde(rename = "SMF_SELECT_CH")]
+        SmfSelectCh,
+        #[serde(rename = "ACCESS_TYPE_CH")]
+        AccessTypeCh,
+        #[serde(rename = "NWDAF_DATA_CH")]
+        NwdafDataCh,
+        #[serde(rename = "TARGET_NSSAI")]
+        TargetNssai,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&RequestTrigger> for RequestTrigger {
         fn from(value: &RequestTrigger) -> Self {
             value.clone()
+        }
+    }
+
+    impl ToString for RequestTrigger {
+        fn to_string(&self) -> String {
+            match *self {
+                Self::LocCh => "LOC_CH".to_string(),
+                Self::PraCh => "PRA_CH".to_string(),
+                Self::ServAreaCh => "SERV_AREA_CH".to_string(),
+                Self::RfspCh => "RFSP_CH".to_string(),
+                Self::AllowedNssaiCh => "ALLOWED_NSSAI_CH".to_string(),
+                Self::UeAmbrCh => "UE_AMBR_CH".to_string(),
+                Self::UeSliceMbrCh => "UE_SLICE_MBR_CH".to_string(),
+                Self::SmfSelectCh => "SMF_SELECT_CH".to_string(),
+                Self::AccessTypeCh => "ACCESS_TYPE_CH".to_string(),
+                Self::NwdafDataCh => "NWDAF_DATA_CH".to_string(),
+                Self::TargetNssai => "TARGET_NSSAI".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
+            }
+        }
+    }
+
+    impl std::str::FromStr for RequestTrigger {
+        type Err = self::error::ConversionError;
+        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
+            match value {
+                "LOC_CH" => Ok(Self::LocCh),
+                "PRA_CH" => Ok(Self::PraCh),
+                "SERV_AREA_CH" => Ok(Self::ServAreaCh),
+                "RFSP_CH" => Ok(Self::RfspCh),
+                "ALLOWED_NSSAI_CH" => Ok(Self::AllowedNssaiCh),
+                "UE_AMBR_CH" => Ok(Self::UeAmbrCh),
+                "UE_SLICE_MBR_CH" => Ok(Self::UeSliceMbrCh),
+                "SMF_SELECT_CH" => Ok(Self::SmfSelectCh),
+                "ACCESS_TYPE_CH" => Ok(Self::AccessTypeCh),
+                "NWDAF_DATA_CH" => Ok(Self::NwdafDataCh),
+                "TARGET_NSSAI" => Ok(Self::TargetNssai),
+                _ => Ok(Self::UnknownOther(value.to_string())),
+            }
+        }
+    }
+
+    impl std::convert::TryFrom<&str> for RequestTrigger {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<&String> for RequestTrigger {
+        type Error = self::error::ConversionError;
+        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
+        }
+    }
+
+    impl std::convert::TryFrom<String> for RequestTrigger {
+        type Error = self::error::ConversionError;
+        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
+            value.parse()
         }
     }
 
@@ -31075,49 +29124,6 @@ pub mod types {
     /// subscription\n- UE_CAP_CH: UE Capabilities change: the UE provided 5G
     /// ProSe capabilities have changed.\n  This policy control request trigger
     /// does not require subscription. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "LOC_CH",
-    ///        "PRA_CH",
-    ///        "UE_POLICY",
-    ///        "PLMN_CH",
-    ///        "CON_STATE_CH",
-    ///        "GROUP_ID_LIST_CHG",
-    ///        "UE_CAP_CH"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RequestTrigger1 {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RequestTrigger1Subtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&RequestTrigger1> for RequestTrigger1 {
-        fn from(value: &RequestTrigger1) -> Self {
-            value.clone()
-        }
-    }
-
-    ///RequestTrigger1Subtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "LOC_CH",
@@ -31127,23 +29133,23 @@ pub mod types {
     ///    "CON_STATE_CH",
     ///    "GROUP_ID_LIST_CHG",
     ///    "UE_CAP_CH"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum RequestTrigger1Subtype0 {
+    pub enum RequestTrigger1 {
         #[serde(rename = "LOC_CH")]
         LocCh,
         #[serde(rename = "PRA_CH")]
@@ -31158,15 +29164,17 @@ pub mod types {
         GroupIdListChg,
         #[serde(rename = "UE_CAP_CH")]
         UeCapCh,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&RequestTrigger1Subtype0> for RequestTrigger1Subtype0 {
-        fn from(value: &RequestTrigger1Subtype0) -> Self {
+    impl From<&RequestTrigger1> for RequestTrigger1 {
+        fn from(value: &RequestTrigger1) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for RequestTrigger1Subtype0 {
+    impl ToString for RequestTrigger1 {
         fn to_string(&self) -> String {
             match *self {
                 Self::LocCh => "LOC_CH".to_string(),
@@ -31176,11 +29184,12 @@ pub mod types {
                 Self::ConStateCh => "CON_STATE_CH".to_string(),
                 Self::GroupIdListChg => "GROUP_ID_LIST_CHG".to_string(),
                 Self::UeCapCh => "UE_CAP_CH".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RequestTrigger1Subtype0 {
+    impl std::str::FromStr for RequestTrigger1 {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -31191,151 +29200,26 @@ pub mod types {
                 "CON_STATE_CH" => Ok(Self::ConStateCh),
                 "GROUP_ID_LIST_CHG" => Ok(Self::GroupIdListChg),
                 "UE_CAP_CH" => Ok(Self::UeCapCh),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RequestTrigger1Subtype0 {
+    impl std::convert::TryFrom<&str> for RequestTrigger1 {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RequestTrigger1Subtype0 {
+    impl std::convert::TryFrom<&String> for RequestTrigger1 {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RequestTrigger1Subtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    ///RequestTriggerSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "LOC_CH",
-    ///    "PRA_CH",
-    ///    "SERV_AREA_CH",
-    ///    "RFSP_CH",
-    ///    "ALLOWED_NSSAI_CH",
-    ///    "UE_AMBR_CH",
-    ///    "UE_SLICE_MBR_CH",
-    ///    "SMF_SELECT_CH",
-    ///    "ACCESS_TYPE_CH",
-    ///    "NWDAF_DATA_CH",
-    ///    "TARGET_NSSAI"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum RequestTriggerSubtype0 {
-        #[serde(rename = "LOC_CH")]
-        LocCh,
-        #[serde(rename = "PRA_CH")]
-        PraCh,
-        #[serde(rename = "SERV_AREA_CH")]
-        ServAreaCh,
-        #[serde(rename = "RFSP_CH")]
-        RfspCh,
-        #[serde(rename = "ALLOWED_NSSAI_CH")]
-        AllowedNssaiCh,
-        #[serde(rename = "UE_AMBR_CH")]
-        UeAmbrCh,
-        #[serde(rename = "UE_SLICE_MBR_CH")]
-        UeSliceMbrCh,
-        #[serde(rename = "SMF_SELECT_CH")]
-        SmfSelectCh,
-        #[serde(rename = "ACCESS_TYPE_CH")]
-        AccessTypeCh,
-        #[serde(rename = "NWDAF_DATA_CH")]
-        NwdafDataCh,
-        #[serde(rename = "TARGET_NSSAI")]
-        TargetNssai,
-    }
-
-    impl From<&RequestTriggerSubtype0> for RequestTriggerSubtype0 {
-        fn from(value: &RequestTriggerSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for RequestTriggerSubtype0 {
-        fn to_string(&self) -> String {
-            match *self {
-                Self::LocCh => "LOC_CH".to_string(),
-                Self::PraCh => "PRA_CH".to_string(),
-                Self::ServAreaCh => "SERV_AREA_CH".to_string(),
-                Self::RfspCh => "RFSP_CH".to_string(),
-                Self::AllowedNssaiCh => "ALLOWED_NSSAI_CH".to_string(),
-                Self::UeAmbrCh => "UE_AMBR_CH".to_string(),
-                Self::UeSliceMbrCh => "UE_SLICE_MBR_CH".to_string(),
-                Self::SmfSelectCh => "SMF_SELECT_CH".to_string(),
-                Self::AccessTypeCh => "ACCESS_TYPE_CH".to_string(),
-                Self::NwdafDataCh => "NWDAF_DATA_CH".to_string(),
-                Self::TargetNssai => "TARGET_NSSAI".to_string(),
-            }
-        }
-    }
-
-    impl std::str::FromStr for RequestTriggerSubtype0 {
-        type Err = self::error::ConversionError;
-        fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-            match value {
-                "LOC_CH" => Ok(Self::LocCh),
-                "PRA_CH" => Ok(Self::PraCh),
-                "SERV_AREA_CH" => Ok(Self::ServAreaCh),
-                "RFSP_CH" => Ok(Self::RfspCh),
-                "ALLOWED_NSSAI_CH" => Ok(Self::AllowedNssaiCh),
-                "UE_AMBR_CH" => Ok(Self::UeAmbrCh),
-                "UE_SLICE_MBR_CH" => Ok(Self::UeSliceMbrCh),
-                "SMF_SELECT_CH" => Ok(Self::SmfSelectCh),
-                "ACCESS_TYPE_CH" => Ok(Self::AccessTypeCh),
-                "NWDAF_DATA_CH" => Ok(Self::NwdafDataCh),
-                "TARGET_NSSAI" => Ok(Self::TargetNssai),
-                _ => Err("invalid value".into()),
-            }
-        }
-    }
-
-    impl std::convert::TryFrom<&str> for RequestTriggerSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<&String> for RequestTriggerSubtype0 {
-        type Error = self::error::ConversionError;
-        fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-            value.parse()
-        }
-    }
-
-    impl std::convert::TryFrom<String> for RequestTriggerSubtype0 {
+    impl std::convert::TryFrom<String> for RequestTrigger1 {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -31367,10 +29251,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RequestedQos {
         #[serde(rename = "5qi")]
-        pub _5qi: _5qi,
+        pub five_qi: _5qi,
         #[serde(rename = "gbrDl", default, skip_serializing_if = "Option::is_none")]
         pub gbr_dl: Option<BitRate>,
         #[serde(rename = "gbrUl", default, skip_serializing_if = "Option::is_none")]
@@ -31391,28 +29275,36 @@ pub mod types {
     ///{
     ///  "description": "Indicates the requested QoS monitoring parameters to be
     /// measured.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "DOWNLINK",
-    ///        "UPLINK",
-    ///        "ROUND_TRIP"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "DOWNLINK",
+    ///    "UPLINK",
+    ///    "ROUND_TRIP"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RequestedQosMonitoringParameter {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RequestedQosMonitoringParameterSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum RequestedQosMonitoringParameter {
+        #[serde(rename = "DOWNLINK")]
+        Downlink,
+        #[serde(rename = "UPLINK")]
+        Uplink,
+        #[serde(rename = "ROUND_TRIP")]
+        RoundTrip,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&RequestedQosMonitoringParameter> for RequestedQosMonitoringParameter {
@@ -31421,85 +29313,44 @@ pub mod types {
         }
     }
 
-    ///RequestedQosMonitoringParameterSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "DOWNLINK",
-    ///    "UPLINK",
-    ///    "ROUND_TRIP"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum RequestedQosMonitoringParameterSubtype0 {
-        #[serde(rename = "DOWNLINK")]
-        Downlink,
-        #[serde(rename = "UPLINK")]
-        Uplink,
-        #[serde(rename = "ROUND_TRIP")]
-        RoundTrip,
-    }
-
-    impl From<&RequestedQosMonitoringParameterSubtype0> for RequestedQosMonitoringParameterSubtype0 {
-        fn from(value: &RequestedQosMonitoringParameterSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for RequestedQosMonitoringParameterSubtype0 {
+    impl ToString for RequestedQosMonitoringParameter {
         fn to_string(&self) -> String {
             match *self {
                 Self::Downlink => "DOWNLINK".to_string(),
                 Self::Uplink => "UPLINK".to_string(),
                 Self::RoundTrip => "ROUND_TRIP".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RequestedQosMonitoringParameterSubtype0 {
+    impl std::str::FromStr for RequestedQosMonitoringParameter {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "DOWNLINK" => Ok(Self::Downlink),
                 "UPLINK" => Ok(Self::Uplink),
                 "ROUND_TRIP" => Ok(Self::RoundTrip),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RequestedQosMonitoringParameterSubtype0 {
+    impl std::convert::TryFrom<&str> for RequestedQosMonitoringParameter {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RequestedQosMonitoringParameterSubtype0 {
+    impl std::convert::TryFrom<&String> for RequestedQosMonitoringParameter {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RequestedQosMonitoringParameterSubtype0 {
+    impl std::convert::TryFrom<String> for RequestedQosMonitoringParameter {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -31544,7 +29395,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RequestedRuleData {
         ///An array of PCC rule id references to the PCC rules associated with
         /// the control data.
@@ -31589,48 +29440,6 @@ pub mod types {
     /// SUCC_RES_ALLO: Indicates that the requested rule data is the successful
     /// resource allocation.\n- EPS_FALLBACK: Indicates that the requested rule
     /// data is the report of QoS flow rejection due to EPS fallback.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "CH_ID",
-    ///        "MS_TIME_ZONE",
-    ///        "USER_LOC_INFO",
-    ///        "RES_RELEASE",
-    ///        "SUCC_RES_ALLO",
-    ///        "EPS_FALLBACK"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RequestedRuleDataType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RequestedRuleDataTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&RequestedRuleDataType> for RequestedRuleDataType {
-        fn from(value: &RequestedRuleDataType) -> Self {
-            value.clone()
-        }
-    }
-
-    ///RequestedRuleDataTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "CH_ID",
@@ -31639,23 +29448,23 @@ pub mod types {
     ///    "RES_RELEASE",
     ///    "SUCC_RES_ALLO",
     ///    "EPS_FALLBACK"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum RequestedRuleDataTypeSubtype0 {
+    pub enum RequestedRuleDataType {
         #[serde(rename = "CH_ID")]
         ChId,
         #[serde(rename = "MS_TIME_ZONE")]
@@ -31668,15 +29477,17 @@ pub mod types {
         SuccResAllo,
         #[serde(rename = "EPS_FALLBACK")]
         EpsFallback,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&RequestedRuleDataTypeSubtype0> for RequestedRuleDataTypeSubtype0 {
-        fn from(value: &RequestedRuleDataTypeSubtype0) -> Self {
+    impl From<&RequestedRuleDataType> for RequestedRuleDataType {
+        fn from(value: &RequestedRuleDataType) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for RequestedRuleDataTypeSubtype0 {
+    impl ToString for RequestedRuleDataType {
         fn to_string(&self) -> String {
             match *self {
                 Self::ChId => "CH_ID".to_string(),
@@ -31685,11 +29496,12 @@ pub mod types {
                 Self::ResRelease => "RES_RELEASE".to_string(),
                 Self::SuccResAllo => "SUCC_RES_ALLO".to_string(),
                 Self::EpsFallback => "EPS_FALLBACK".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RequestedRuleDataTypeSubtype0 {
+    impl std::str::FromStr for RequestedRuleDataType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -31699,26 +29511,26 @@ pub mod types {
                 "RES_RELEASE" => Ok(Self::ResRelease),
                 "SUCC_RES_ALLO" => Ok(Self::SuccResAllo),
                 "EPS_FALLBACK" => Ok(Self::EpsFallback),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RequestedRuleDataTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for RequestedRuleDataType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RequestedRuleDataTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for RequestedRuleDataType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RequestedRuleDataTypeSubtype0 {
+    impl std::convert::TryFrom<String> for RequestedRuleDataType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -31757,7 +29569,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RequestedUsageData {
         ///This boolean indicates whether requested usage data applies to all
         /// usage monitoring data instances. When it's not included, it means
@@ -31787,27 +29599,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates the access network information required for
     /// an AF session.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "USER_LOCATION",
-    ///        "UE_TIME_ZONE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "USER_LOCATION",
+    ///    "UE_TIME_ZONE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RequiredAccessInfo {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RequiredAccessInfoSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum RequiredAccessInfo {
+        #[serde(rename = "USER_LOCATION")]
+        UserLocation,
+        #[serde(rename = "UE_TIME_ZONE")]
+        UeTimeZone,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&RequiredAccessInfo> for RequiredAccessInfo {
@@ -31816,80 +29634,42 @@ pub mod types {
         }
     }
 
-    ///RequiredAccessInfoSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "USER_LOCATION",
-    ///    "UE_TIME_ZONE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum RequiredAccessInfoSubtype0 {
-        #[serde(rename = "USER_LOCATION")]
-        UserLocation,
-        #[serde(rename = "UE_TIME_ZONE")]
-        UeTimeZone,
-    }
-
-    impl From<&RequiredAccessInfoSubtype0> for RequiredAccessInfoSubtype0 {
-        fn from(value: &RequiredAccessInfoSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for RequiredAccessInfoSubtype0 {
+    impl ToString for RequiredAccessInfo {
         fn to_string(&self) -> String {
             match *self {
                 Self::UserLocation => "USER_LOCATION".to_string(),
                 Self::UeTimeZone => "UE_TIME_ZONE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RequiredAccessInfoSubtype0 {
+    impl std::str::FromStr for RequiredAccessInfo {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "USER_LOCATION" => Ok(Self::UserLocation),
                 "UE_TIME_ZONE" => Ok(Self::UeTimeZone),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RequiredAccessInfoSubtype0 {
+    impl std::convert::TryFrom<&str> for RequiredAccessInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RequiredAccessInfoSubtype0 {
+    impl std::convert::TryFrom<&String> for RequiredAccessInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RequiredAccessInfoSubtype0 {
+    impl std::convert::TryFrom<String> for RequiredAccessInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -31903,55 +29683,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the reservation priority.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "PRIO_1",
-    ///        "PRIO_2",
-    ///        "PRIO_3",
-    ///        "PRIO_4",
-    ///        "PRIO_5",
-    ///        "PRIO_6",
-    ///        "PRIO_7",
-    ///        "PRIO_8",
-    ///        "PRIO_9",
-    ///        "PRIO_10",
-    ///        "PRIO_11",
-    ///        "PRIO_12",
-    ///        "PRIO_13",
-    ///        "PRIO_14",
-    ///        "PRIO_15",
-    ///        "PRIO_16"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ReservPriority {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ReservPrioritySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&ReservPriority> for ReservPriority {
-        fn from(value: &ReservPriority) -> Self {
-            value.clone()
-        }
-    }
-
-    ///ReservPrioritySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "PRIO_1",
@@ -31970,23 +29701,23 @@ pub mod types {
     ///    "PRIO_14",
     ///    "PRIO_15",
     ///    "PRIO_16"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum ReservPrioritySubtype0 {
+    pub enum ReservPriority {
         #[serde(rename = "PRIO_1")]
         Prio1,
         #[serde(rename = "PRIO_2")]
@@ -32019,15 +29750,17 @@ pub mod types {
         Prio15,
         #[serde(rename = "PRIO_16")]
         Prio16,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&ReservPrioritySubtype0> for ReservPrioritySubtype0 {
-        fn from(value: &ReservPrioritySubtype0) -> Self {
+    impl From<&ReservPriority> for ReservPriority {
+        fn from(value: &ReservPriority) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for ReservPrioritySubtype0 {
+    impl ToString for ReservPriority {
         fn to_string(&self) -> String {
             match *self {
                 Self::Prio1 => "PRIO_1".to_string(),
@@ -32046,11 +29779,12 @@ pub mod types {
                 Self::Prio14 => "PRIO_14".to_string(),
                 Self::Prio15 => "PRIO_15".to_string(),
                 Self::Prio16 => "PRIO_16".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ReservPrioritySubtype0 {
+    impl std::str::FromStr for ReservPriority {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -32070,26 +29804,26 @@ pub mod types {
                 "PRIO_14" => Ok(Self::Prio14),
                 "PRIO_15" => Ok(Self::Prio15),
                 "PRIO_16" => Ok(Self::Prio16),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ReservPrioritySubtype0 {
+    impl std::convert::TryFrom<&str> for ReservPriority {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ReservPrioritySubtype0 {
+    impl std::convert::TryFrom<&String> for ReservPriority {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ReservPrioritySubtype0 {
+    impl std::convert::TryFrom<String> for ReservPriority {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -32124,7 +29858,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ResourcesAllocationInfo {
         #[serde(rename = "altSerReq", default, skip_serializing_if = "Option::is_none")]
         pub alt_ser_req: Option<String>,
@@ -32152,27 +29886,33 @@ pub mod types {
     ///{
     ///  "description": "It contains the restriction type ALLOWED_AREAS or
     /// NOT_ALLOWED_AREAS.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ALLOWED_AREAS",
-    ///        "NOT_ALLOWED_AREAS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ALLOWED_AREAS",
+    ///    "NOT_ALLOWED_AREAS"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RestrictionType {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RestrictionTypeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum RestrictionType {
+        #[serde(rename = "ALLOWED_AREAS")]
+        AllowedAreas,
+        #[serde(rename = "NOT_ALLOWED_AREAS")]
+        NotAllowedAreas,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&RestrictionType> for RestrictionType {
@@ -32181,80 +29921,42 @@ pub mod types {
         }
     }
 
-    ///RestrictionTypeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ALLOWED_AREAS",
-    ///    "NOT_ALLOWED_AREAS"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum RestrictionTypeSubtype0 {
-        #[serde(rename = "ALLOWED_AREAS")]
-        AllowedAreas,
-        #[serde(rename = "NOT_ALLOWED_AREAS")]
-        NotAllowedAreas,
-    }
-
-    impl From<&RestrictionTypeSubtype0> for RestrictionTypeSubtype0 {
-        fn from(value: &RestrictionTypeSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for RestrictionTypeSubtype0 {
+    impl ToString for RestrictionType {
         fn to_string(&self) -> String {
             match *self {
                 Self::AllowedAreas => "ALLOWED_AREAS".to_string(),
                 Self::NotAllowedAreas => "NOT_ALLOWED_AREAS".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RestrictionTypeSubtype0 {
+    impl std::str::FromStr for RestrictionType {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ALLOWED_AREAS" => Ok(Self::AllowedAreas),
                 "NOT_ALLOWED_AREAS" => Ok(Self::NotAllowedAreas),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RestrictionTypeSubtype0 {
+    impl std::convert::TryFrom<&str> for RestrictionType {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RestrictionTypeSubtype0 {
+    impl std::convert::TryFrom<&String> for RestrictionType {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RestrictionTypeSubtype0 {
+    impl std::convert::TryFrom<String> for RestrictionType {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -32276,9 +29978,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RfspIndex(pub i64);
-    impl std::ops::Deref for RfspIndex {
+    impl ::std::ops::Deref for RfspIndex {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -32368,9 +30070,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RouteInformation(pub Option<RouteInformationInner>);
-    impl std::ops::Deref for RouteInformation {
+    impl ::std::ops::Deref for RouteInformation {
         type Target = Option<RouteInformationInner>;
         fn deref(&self) -> &Option<RouteInformationInner> {
             &self.0
@@ -32423,7 +30125,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RouteInformationInner {
         #[serde(rename = "ipv4Addr", default, skip_serializing_if = "Option::is_none")]
         pub ipv4_addr: Option<Ipv4Addr>,
@@ -32486,9 +30188,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RouteToLocation(pub Option<RouteToLocationInner>);
-    impl std::ops::Deref for RouteToLocation {
+    impl ::std::ops::Deref for RouteToLocation {
         type Target = Option<RouteToLocationInner>;
         fn deref(&self) -> &Option<RouteToLocationInner> {
             &self.0
@@ -32557,7 +30259,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum RouteToLocationInner {
         Variant0 {
@@ -32612,7 +30314,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RoutingAreaId {
         ///Location Area Code
         pub lac: RoutingAreaIdLac,
@@ -32640,9 +30342,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct RoutingAreaIdLac(String);
-    impl std::ops::Deref for RoutingAreaIdLac {
+    impl ::std::ops::Deref for RoutingAreaIdLac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -32661,7 +30363,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for RoutingAreaIdLac {
+    impl ::std::str::FromStr for RoutingAreaIdLac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -32675,36 +30377,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for RoutingAreaIdLac {
+    impl ::std::convert::TryFrom<&str> for RoutingAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RoutingAreaIdLac {
+    impl ::std::convert::TryFrom<&String> for RoutingAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RoutingAreaIdLac {
+    impl ::std::convert::TryFrom<String> for RoutingAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for RoutingAreaIdLac {
+    impl<'de> ::serde::Deserialize<'de> for RoutingAreaIdLac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -32721,9 +30423,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct RoutingAreaIdRac(String);
-    impl std::ops::Deref for RoutingAreaIdRac {
+    impl ::std::ops::Deref for RoutingAreaIdRac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -32742,7 +30444,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for RoutingAreaIdRac {
+    impl ::std::str::FromStr for RoutingAreaIdRac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{2}$")
@@ -32756,36 +30458,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for RoutingAreaIdRac {
+    impl ::std::convert::TryFrom<&str> for RoutingAreaIdRac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RoutingAreaIdRac {
+    impl ::std::convert::TryFrom<&String> for RoutingAreaIdRac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RoutingAreaIdRac {
+    impl ::std::convert::TryFrom<String> for RoutingAreaIdRac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for RoutingAreaIdRac {
+    impl<'de> ::serde::Deserialize<'de> for RoutingAreaIdRac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -32820,48 +30522,6 @@ pub mod types {
     /// deleting the existing packet filter(s).\n-
     /// MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS: Indicates to modify the
     /// PCC rule by modifying the QoS of the PCC rule.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "CREATE_PCC_RULE",
-    ///        "DELETE_PCC_RULE",
-    ///        "MODIFY_PCC_RULE_AND_ADD_PACKET_FILTERS",
-    ///        "MODIFY_ PCC_RULE_AND_REPLACE_PACKET_FILTERS",
-    ///        "MODIFY_ PCC_RULE_AND_DELETE_PACKET_FILTERS",
-    ///        "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RuleOperation {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RuleOperationSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&RuleOperation> for RuleOperation {
-        fn from(value: &RuleOperation) -> Self {
-            value.clone()
-        }
-    }
-
-    ///RuleOperationSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "CREATE_PCC_RULE",
@@ -32870,23 +30530,23 @@ pub mod types {
     ///    "MODIFY_ PCC_RULE_AND_REPLACE_PACKET_FILTERS",
     ///    "MODIFY_ PCC_RULE_AND_DELETE_PACKET_FILTERS",
     ///    "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum RuleOperationSubtype0 {
+    pub enum RuleOperation {
         #[serde(rename = "CREATE_PCC_RULE")]
         CreatePccRule,
         #[serde(rename = "DELETE_PCC_RULE")]
@@ -32899,15 +30559,17 @@ pub mod types {
         ModifyPccRuleAndDeletePacketFilters,
         #[serde(rename = "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS")]
         ModifyPccRuleWithoutModifyPacketFilters,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&RuleOperationSubtype0> for RuleOperationSubtype0 {
-        fn from(value: &RuleOperationSubtype0) -> Self {
+    impl From<&RuleOperation> for RuleOperation {
+        fn from(value: &RuleOperation) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for RuleOperationSubtype0 {
+    impl ToString for RuleOperation {
         fn to_string(&self) -> String {
             match *self {
                 Self::CreatePccRule => "CREATE_PCC_RULE".to_string(),
@@ -32924,11 +30586,12 @@ pub mod types {
                 Self::ModifyPccRuleWithoutModifyPacketFilters => {
                     "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS".to_string()
                 }
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RuleOperationSubtype0 {
+    impl std::str::FromStr for RuleOperation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -32946,26 +30609,26 @@ pub mod types {
                 "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS" => {
                     Ok(Self::ModifyPccRuleWithoutModifyPacketFilters)
                 }
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RuleOperationSubtype0 {
+    impl std::convert::TryFrom<&str> for RuleOperation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RuleOperationSubtype0 {
+    impl std::convert::TryFrom<&String> for RuleOperation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RuleOperationSubtype0 {
+    impl std::convert::TryFrom<String> for RuleOperation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -33027,7 +30690,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct RuleReport {
         #[serde(
             rename = "altQosParamId",
@@ -33088,30 +30751,33 @@ pub mod types {
     /// successfully installed \n- INACTIVE: Indicates that the PCC rule(s) are
     /// removed (for those provisioned from PCF) or inactive (for those
     /// pre-defined in SMF) or the session rule(s) are removed.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACTIVE",
-    ///        "INACTIVE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "ACTIVE",
+    ///    "INACTIVE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct RuleStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<RuleStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum RuleStatus {
+        #[serde(rename = "ACTIVE")]
+        Active,
+        #[serde(rename = "INACTIVE")]
+        Inactive,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&RuleStatus> for RuleStatus {
@@ -33120,80 +30786,42 @@ pub mod types {
         }
     }
 
-    ///RuleStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "ACTIVE",
-    ///    "INACTIVE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum RuleStatusSubtype0 {
-        #[serde(rename = "ACTIVE")]
-        Active,
-        #[serde(rename = "INACTIVE")]
-        Inactive,
-    }
-
-    impl From<&RuleStatusSubtype0> for RuleStatusSubtype0 {
-        fn from(value: &RuleStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for RuleStatusSubtype0 {
+    impl ToString for RuleStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Active => "ACTIVE".to_string(),
                 Self::Inactive => "INACTIVE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for RuleStatusSubtype0 {
+    impl std::str::FromStr for RuleStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "ACTIVE" => Ok(Self::Active),
                 "INACTIVE" => Ok(Self::Inactive),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for RuleStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for RuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for RuleStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for RuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for RuleStatusSubtype0 {
+    impl std::convert::TryFrom<String> for RuleStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -33215,9 +30843,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SamplingRatio(pub i64);
-    impl std::ops::Deref for SamplingRatio {
+    impl ::std::ops::Deref for SamplingRatio {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -33283,44 +30911,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Indicates the satellite backhaul used.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "GEO",
-    ///        "MEO",
-    ///        "LEO",
-    ///        "OTHER_SAT",
-    ///        "NON_SATELLITE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SatelliteBackhaulCategory {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SatelliteBackhaulCategorySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&SatelliteBackhaulCategory> for SatelliteBackhaulCategory {
-        fn from(value: &SatelliteBackhaulCategory) -> Self {
-            value.clone()
-        }
-    }
-
-    ///SatelliteBackhaulCategorySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "GEO",
@@ -33328,23 +30918,23 @@ pub mod types {
     ///    "LEO",
     ///    "OTHER_SAT",
     ///    "NON_SATELLITE"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum SatelliteBackhaulCategorySubtype0 {
+    pub enum SatelliteBackhaulCategory {
         #[serde(rename = "GEO")]
         Geo,
         #[serde(rename = "MEO")]
@@ -33355,15 +30945,17 @@ pub mod types {
         OtherSat,
         #[serde(rename = "NON_SATELLITE")]
         NonSatellite,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&SatelliteBackhaulCategorySubtype0> for SatelliteBackhaulCategorySubtype0 {
-        fn from(value: &SatelliteBackhaulCategorySubtype0) -> Self {
+    impl From<&SatelliteBackhaulCategory> for SatelliteBackhaulCategory {
+        fn from(value: &SatelliteBackhaulCategory) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for SatelliteBackhaulCategorySubtype0 {
+    impl ToString for SatelliteBackhaulCategory {
         fn to_string(&self) -> String {
             match *self {
                 Self::Geo => "GEO".to_string(),
@@ -33371,11 +30963,12 @@ pub mod types {
                 Self::Leo => "LEO".to_string(),
                 Self::OtherSat => "OTHER_SAT".to_string(),
                 Self::NonSatellite => "NON_SATELLITE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SatelliteBackhaulCategorySubtype0 {
+    impl std::str::FromStr for SatelliteBackhaulCategory {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -33384,26 +30977,26 @@ pub mod types {
                 "LEO" => Ok(Self::Leo),
                 "OTHER_SAT" => Ok(Self::OtherSat),
                 "NON_SATELLITE" => Ok(Self::NonSatellite),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SatelliteBackhaulCategorySubtype0 {
+    impl std::convert::TryFrom<&str> for SatelliteBackhaulCategory {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SatelliteBackhaulCategorySubtype0 {
+    impl std::convert::TryFrom<&String> for SatelliteBackhaulCategory {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SatelliteBackhaulCategorySubtype0 {
+    impl std::convert::TryFrom<String> for SatelliteBackhaulCategory {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -33442,7 +31035,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum SchemasAnGwAddress {
         Variant0 {
@@ -33474,9 +31067,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasDateTime(pub chrono::DateTime<chrono::offset::Utc>);
-    impl std::ops::Deref for SchemasDateTime {
+    impl ::std::ops::Deref for SchemasDateTime {
         type Target = chrono::DateTime<chrono::offset::Utc>;
         fn deref(&self) -> &chrono::DateTime<chrono::offset::Utc> {
             &self.0
@@ -33548,9 +31141,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasDurationSec(pub u64);
-    impl std::ops::Deref for SchemasDurationSec {
+    impl ::std::ops::Deref for SchemasDurationSec {
         type Target = u64;
         fn deref(&self) -> &u64 {
             &self.0
@@ -33626,9 +31219,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasDurationSecRm(pub Option<u64>);
-    impl std::ops::Deref for SchemasDurationSecRm {
+    impl ::std::ops::Deref for SchemasDurationSecRm {
         type Target = Option<u64>;
         fn deref(&self) -> &Option<u64> {
             &self.0
@@ -33698,7 +31291,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasEthFlowDescription {
         #[serde(
             rename = "destMacAddr",
@@ -33752,10 +31345,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct SchemasFlowDescription(pub String);
-    impl std::ops::Deref for SchemasFlowDescription {
+    impl ::std::ops::Deref for SchemasFlowDescription {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -33821,7 +31422,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasNwdafData {
         #[serde(rename = "nwdafEvents", default, skip_serializing_if = "Vec::is_empty")]
         pub nwdaf_events: Vec<NwdafEvent>,
@@ -33863,7 +31464,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasServiceAreaCoverageInfo {
         #[serde(
             rename = "servingNetwork",
@@ -33891,26 +31492,30 @@ pub mod types {
     ///{
     ///  "description": "Types of transport protocol used in a given IP endpoint
     /// of an NF Service Instance",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "TCP"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "TCP"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SchemasTransportProtocol {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SchemasTransportProtocolSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum SchemasTransportProtocol {
+        #[serde(rename = "TCP")]
+        Tcp,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&SchemasTransportProtocol> for SchemasTransportProtocol {
@@ -33919,75 +31524,40 @@ pub mod types {
         }
     }
 
-    ///SchemasTransportProtocolSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "TCP"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum SchemasTransportProtocolSubtype0 {
-        #[serde(rename = "TCP")]
-        Tcp,
-    }
-
-    impl From<&SchemasTransportProtocolSubtype0> for SchemasTransportProtocolSubtype0 {
-        fn from(value: &SchemasTransportProtocolSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for SchemasTransportProtocolSubtype0 {
+    impl ToString for SchemasTransportProtocol {
         fn to_string(&self) -> String {
             match *self {
                 Self::Tcp => "TCP".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SchemasTransportProtocolSubtype0 {
+    impl std::str::FromStr for SchemasTransportProtocol {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "TCP" => Ok(Self::Tcp),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SchemasTransportProtocolSubtype0 {
+    impl std::convert::TryFrom<&str> for SchemasTransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SchemasTransportProtocolSubtype0 {
+    impl std::convert::TryFrom<&String> for SchemasTransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SchemasTransportProtocolSubtype0 {
+    impl std::convert::TryFrom<String> for SchemasTransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -34022,9 +31592,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasTscaiInputContainer(pub Option<SchemasTscaiInputContainerInner>);
-    impl std::ops::Deref for SchemasTscaiInputContainer {
+    impl ::std::ops::Deref for SchemasTscaiInputContainer {
         type Target = Option<SchemasTscaiInputContainerInner>;
         fn deref(&self) -> &Option<SchemasTscaiInputContainerInner> {
             &self.0
@@ -34074,7 +31644,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SchemasTscaiInputContainerInner {
         #[serde(
             rename = "burstArrivalTime",
@@ -34113,66 +31683,29 @@ pub mod types {
     ///{
     ///  "description": "Indicates the result of the Policy Authorization
     /// service request from the AF.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "TP_NOT_KNOWN",
-    ///        "TP_EXPIRED",
-    ///        "TP_NOT_YET_OCURRED",
-    ///        "ROUT_REQ_NOT_AUTHORIZED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ServAuthInfo {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ServAuthInfoSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&ServAuthInfo> for ServAuthInfo {
-        fn from(value: &ServAuthInfo) -> Self {
-            value.clone()
-        }
-    }
-
-    ///ServAuthInfoSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "TP_NOT_KNOWN",
     ///    "TP_EXPIRED",
     ///    "TP_NOT_YET_OCURRED",
     ///    "ROUT_REQ_NOT_AUTHORIZED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum ServAuthInfoSubtype0 {
+    pub enum ServAuthInfo {
         #[serde(rename = "TP_NOT_KNOWN")]
         TpNotKnown,
         #[serde(rename = "TP_EXPIRED")]
@@ -34181,26 +31714,29 @@ pub mod types {
         TpNotYetOcurred,
         #[serde(rename = "ROUT_REQ_NOT_AUTHORIZED")]
         RoutReqNotAuthorized,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&ServAuthInfoSubtype0> for ServAuthInfoSubtype0 {
-        fn from(value: &ServAuthInfoSubtype0) -> Self {
+    impl From<&ServAuthInfo> for ServAuthInfo {
+        fn from(value: &ServAuthInfo) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for ServAuthInfoSubtype0 {
+    impl ToString for ServAuthInfo {
         fn to_string(&self) -> String {
             match *self {
                 Self::TpNotKnown => "TP_NOT_KNOWN".to_string(),
                 Self::TpExpired => "TP_EXPIRED".to_string(),
                 Self::TpNotYetOcurred => "TP_NOT_YET_OCURRED".to_string(),
                 Self::RoutReqNotAuthorized => "ROUT_REQ_NOT_AUTHORIZED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ServAuthInfoSubtype0 {
+    impl std::str::FromStr for ServAuthInfo {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -34208,26 +31744,26 @@ pub mod types {
                 "TP_EXPIRED" => Ok(Self::TpExpired),
                 "TP_NOT_YET_OCURRED" => Ok(Self::TpNotYetOcurred),
                 "ROUT_REQ_NOT_AUTHORIZED" => Ok(Self::RoutReqNotAuthorized),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServAuthInfoSubtype0 {
+    impl std::convert::TryFrom<&str> for ServAuthInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServAuthInfoSubtype0 {
+    impl std::convert::TryFrom<&String> for ServAuthInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServAuthInfoSubtype0 {
+    impl std::convert::TryFrom<String> for ServAuthInfo {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -34286,7 +31822,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum ServerAddressingInfo {
         Variant0 {
@@ -34337,7 +31873,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ServiceAreaCoverageInfo {
         #[serde(
             rename = "servingNetwork",
@@ -34389,7 +31925,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ServiceAreaId {
         ///Location Area Code.
         pub lac: ServiceAreaIdLac,
@@ -34417,9 +31953,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct ServiceAreaIdLac(String);
-    impl std::ops::Deref for ServiceAreaIdLac {
+    impl ::std::ops::Deref for ServiceAreaIdLac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -34438,7 +31974,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for ServiceAreaIdLac {
+    impl ::std::str::FromStr for ServiceAreaIdLac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -34452,36 +31988,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServiceAreaIdLac {
+    impl ::std::convert::TryFrom<&str> for ServiceAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServiceAreaIdLac {
+    impl ::std::convert::TryFrom<&String> for ServiceAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServiceAreaIdLac {
+    impl ::std::convert::TryFrom<String> for ServiceAreaIdLac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for ServiceAreaIdLac {
+    impl<'de> ::serde::Deserialize<'de> for ServiceAreaIdLac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -34498,9 +32034,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct ServiceAreaIdSac(String);
-    impl std::ops::Deref for ServiceAreaIdSac {
+    impl ::std::ops::Deref for ServiceAreaIdSac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -34519,7 +32055,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for ServiceAreaIdSac {
+    impl ::std::str::FromStr for ServiceAreaIdSac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{4}$")
@@ -34533,36 +32069,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServiceAreaIdSac {
+    impl ::std::convert::TryFrom<&str> for ServiceAreaIdSac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServiceAreaIdSac {
+    impl ::std::convert::TryFrom<&String> for ServiceAreaIdSac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServiceAreaIdSac {
+    impl ::std::convert::TryFrom<String> for ServiceAreaIdSac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for ServiceAreaIdSac {
+    impl<'de> ::serde::Deserialize<'de> for ServiceAreaIdSac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -34666,7 +32202,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum ServiceAreaRestriction {
         Variant0(ServiceAreaRestrictionVariant0),
@@ -35581,6 +33117,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -35589,8 +33127,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     #[serde(deny_unknown_fields)]
     pub enum ServiceAreaRestrictionVariant0 {}
@@ -36490,6 +34026,8 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
         Copy,
         Debug,
@@ -36498,8 +34036,6 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
     #[serde(deny_unknown_fields)]
     pub enum ServiceAreaRestrictionVariant1 {}
@@ -36569,7 +34105,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ServiceIdentification {
         #[serde(rename = "afAppId")]
         pub af_app_id: AfAppId,
@@ -36589,27 +34125,33 @@ pub mod types {
     ///{
     ///  "description": "Represents the preliminary or final service information
     /// status.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "FINAL",
-    ///        "PRELIMINARY"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "FINAL",
+    ///    "PRELIMINARY"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ServiceInfoStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ServiceInfoStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum ServiceInfoStatus {
+        #[serde(rename = "FINAL")]
+        Final,
+        #[serde(rename = "PRELIMINARY")]
+        Preliminary,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&ServiceInfoStatus> for ServiceInfoStatus {
@@ -36618,80 +34160,42 @@ pub mod types {
         }
     }
 
-    ///ServiceInfoStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "FINAL",
-    ///    "PRELIMINARY"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum ServiceInfoStatusSubtype0 {
-        #[serde(rename = "FINAL")]
-        Final,
-        #[serde(rename = "PRELIMINARY")]
-        Preliminary,
-    }
-
-    impl From<&ServiceInfoStatusSubtype0> for ServiceInfoStatusSubtype0 {
-        fn from(value: &ServiceInfoStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for ServiceInfoStatusSubtype0 {
+    impl ToString for ServiceInfoStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::Final => "FINAL".to_string(),
                 Self::Preliminary => "PRELIMINARY".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ServiceInfoStatusSubtype0 {
+    impl std::str::FromStr for ServiceInfoStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "FINAL" => Ok(Self::Final),
                 "PRELIMINARY" => Ok(Self::Preliminary),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServiceInfoStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for ServiceInfoStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServiceInfoStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for ServiceInfoStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServiceInfoStatusSubtype0 {
+    impl std::convert::TryFrom<String> for ServiceInfoStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -36705,164 +34209,6 @@ pub mod types {
     /// ```json
     ///{
     ///  "description": "Service names known to NRF",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "nnrf-nfm",
-    ///        "nnrf-disc",
-    ///        "nnrf-oauth2",
-    ///        "nudm-sdm",
-    ///        "nudm-uecm",
-    ///        "nudm-ueau",
-    ///        "nudm-ee",
-    ///        "nudm-pp",
-    ///        "nudm-niddau",
-    ///        "nudm-mt",
-    ///        "nudm-ssau",
-    ///        "nudm-rsds",
-    ///        "nudm-ueid",
-    ///        "namf-comm",
-    ///        "namf-evts",
-    ///        "namf-mt",
-    ///        "namf-loc",
-    ///        "namf-mbs-comm",
-    ///        "namf-mbs-bc",
-    ///        "nsmf-pdusession",
-    ///        "nsmf-event-exposure",
-    ///        "nsmf-nidd",
-    ///        "nausf-auth",
-    ///        "nausf-sorprotection",
-    ///        "nausf-upuprotection",
-    ///        "nnef-pfdmanagement",
-    ///        "nnef-smcontext",
-    ///        "nnef-eventexposure",
-    ///        "nnef-eas-deployment",
-    ///        "3gpp-cp-parameter-provisioning",
-    ///        "3gpp-device-triggering",
-    ///        "3gpp-bdt",
-    ///        "3gpp-traffic-influence",
-    ///        "3gpp-chargeable-party",
-    ///        "3gpp-as-session-with-qos",
-    ///        "3gpp-msisdn-less-mo-sms",
-    ///        "3gpp-service-parameter",
-    ///        "3gpp-monitoring-event",
-    ///        "3gpp-nidd-configuration-trigger",
-    ///        "3gpp-nidd",
-    ///        "3gpp-analyticsexposure",
-    ///        "3gpp-racs-parameter-provisioning",
-    ///        "3gpp-ecr-control",
-    ///        "3gpp-applying-bdt-policy",
-    ///        "3gpp-mo-lcs-notify",
-    ///        "3gpp-time-sync",
-    ///        "3gpp-am-influence",
-    ///        "3gpp-am-policyauthorization",
-    ///        "3gpp-akma",
-    ///        "3gpp-eas-deployment",
-    ///        "3gpp-iptvconfiguration",
-    ///        "3gpp-mbs-tmgi",
-    ///        "3gpp-mbs-session",
-    ///        "3gpp-authentication",
-    ///        "3gpp-asti",
-    ///        "npcf-am-policy-control",
-    ///        "npcf-smpolicycontrol",
-    ///        "npcf-policyauthorization",
-    ///        "npcf-bdtpolicycontrol",
-    ///        "npcf-eventexposure",
-    ///        "npcf-ue-policy-control",
-    ///        "npcf-am-policyauthorization",
-    ///        "npcf-mbspolicycontrol",
-    ///        "npcf-mbspolicyauth",
-    ///        "nsmsf-sms",
-    ///        "nnssf-nsselection",
-    ///        "nnssf-nssaiavailability",
-    ///        "nudr-dr",
-    ///        "nudr-group-id-map",
-    ///        "nlmf-loc",
-    ///        "n5g-eir-eic",
-    ///        "nbsf-management",
-    ///        "nchf-spendinglimitcontrol",
-    ///        "nchf-convergedcharging",
-    ///        "nchf-offlineonlycharging",
-    ///        "nnwdaf-eventssubscription",
-    ///        "nnwdaf-analyticsinfo",
-    ///        "nnwdaf-datamanagement",
-    ///        "nnwdaf-mlmodelprovision",
-    ///        "ngmlc-loc",
-    ///        "nucmf-provisioning",
-    ///        "nucmf-uecapabilitymanagement",
-    ///        "nhss-sdm",
-    ///        "nhss-uecm",
-    ///        "nhss-ueau",
-    ///        "nhss-ee",
-    ///        "nhss-ims-sdm",
-    ///        "nhss-ims-uecm",
-    ///        "nhss-ims-ueau",
-    ///        "nhss-gba-sdm",
-    ///        "nhss-gba-ueau",
-    ///        "nsepp-telescopic",
-    ///        "nsoraf-sor",
-    ///        "nspaf-secured-packet",
-    ///        "nudsf-dr",
-    ///        "nudsf-timer",
-    ///        "nnssaaf-nssaa",
-    ///        "nnssaaf-aiw",
-    ///        "naanf-akma",
-    ///        "n5gddnmf-discovery",
-    ///        "nmfaf-3dadatamanagement",
-    ///        "nmfaf-3cadatamanagement",
-    ///        "neasdf-dnscontext",
-    ///        "neasdf-baselinednspattern",
-    ///        "ndccf-datamanagement",
-    ///        "ndccf-contextmanagement",
-    ///        "nnsacf-nsac",
-    ///        "nnsacf-slice-ee",
-    ///        "nmbsmf-tmgi",
-    ///        "nmbsmf-mbssession",
-    ///        "nadrf-datamanagement",
-    ///        "nbsp-gba",
-    ///        "ntsctsf-time-sync",
-    ///        "ntsctsf-qos-tscai",
-    ///        "ntsctsf-asti",
-    ///        "npkmf-keyreq",
-    ///        "npkmf-userid",
-    ///        "npkmf-discovery",
-    ///        "nmnpf-npstatus",
-    ///        "niwmsc-smservice",
-    ///        "nmbsf-mbs-us",
-    ///        "nmbsf-mbs-ud-ingest",
-    ///        "nmbstf-distsession",
-    ///        "npanf-prosekey",
-    ///        "npanf-userid"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct ServiceName {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<ServiceNameSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&ServiceName> for ServiceName {
-        fn from(value: &ServiceName) -> Self {
-            value.clone()
-        }
-    }
-
-    ///ServiceNameSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "nnrf-nfm",
@@ -36990,23 +34336,23 @@ pub mod types {
     ///    "nmbstf-distsession",
     ///    "npanf-prosekey",
     ///    "npanf-userid"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum ServiceNameSubtype0 {
+    pub enum ServiceName {
         #[serde(rename = "nnrf-nfm")]
         NnrfNfm,
         #[serde(rename = "nnrf-disc")]
@@ -37066,57 +34412,57 @@ pub mod types {
         #[serde(rename = "nnef-eas-deployment")]
         NnefEasDeployment,
         #[serde(rename = "3gpp-cp-parameter-provisioning")]
-        _3gppCpParameterProvisioning,
+        ThreeGppCpParameterProvisioning,
         #[serde(rename = "3gpp-device-triggering")]
-        _3gppDeviceTriggering,
+        ThreeGppDeviceTriggering,
         #[serde(rename = "3gpp-bdt")]
-        _3gppBdt,
+        ThreeGppBdt,
         #[serde(rename = "3gpp-traffic-influence")]
-        _3gppTrafficInfluence,
+        ThreeGppTrafficInfluence,
         #[serde(rename = "3gpp-chargeable-party")]
-        _3gppChargeableParty,
+        ThreeGppChargeableParty,
         #[serde(rename = "3gpp-as-session-with-qos")]
-        _3gppAsSessionWithQos,
+        ThreeGppAsSessionWithQos,
         #[serde(rename = "3gpp-msisdn-less-mo-sms")]
-        _3gppMsisdnLessMoSms,
+        ThreeGppMsisdnLessMoSms,
         #[serde(rename = "3gpp-service-parameter")]
-        _3gppServiceParameter,
+        ThreeGppServiceParameter,
         #[serde(rename = "3gpp-monitoring-event")]
-        _3gppMonitoringEvent,
+        ThreeGppMonitoringEvent,
         #[serde(rename = "3gpp-nidd-configuration-trigger")]
-        _3gppNiddConfigurationTrigger,
+        ThreeGppNiddConfigurationTrigger,
         #[serde(rename = "3gpp-nidd")]
-        _3gppNidd,
+        ThreeGppNidd,
         #[serde(rename = "3gpp-analyticsexposure")]
-        _3gppAnalyticsexposure,
+        ThreeGppAnalyticsexposure,
         #[serde(rename = "3gpp-racs-parameter-provisioning")]
-        _3gppRacsParameterProvisioning,
+        ThreeGppRacsParameterProvisioning,
         #[serde(rename = "3gpp-ecr-control")]
-        _3gppEcrControl,
+        ThreeGppEcrControl,
         #[serde(rename = "3gpp-applying-bdt-policy")]
-        _3gppApplyingBdtPolicy,
+        ThreeGppApplyingBdtPolicy,
         #[serde(rename = "3gpp-mo-lcs-notify")]
-        _3gppMoLcsNotify,
+        ThreeGppMoLcsNotify,
         #[serde(rename = "3gpp-time-sync")]
-        _3gppTimeSync,
+        ThreeGppTimeSync,
         #[serde(rename = "3gpp-am-influence")]
-        _3gppAmInfluence,
+        ThreeGppAmInfluence,
         #[serde(rename = "3gpp-am-policyauthorization")]
-        _3gppAmPolicyauthorization,
+        ThreeGppAmPolicyauthorization,
         #[serde(rename = "3gpp-akma")]
-        _3gppAkma,
+        ThreeGppAkma,
         #[serde(rename = "3gpp-eas-deployment")]
-        _3gppEasDeployment,
+        ThreeGppEasDeployment,
         #[serde(rename = "3gpp-iptvconfiguration")]
-        _3gppIptvconfiguration,
+        ThreeGppIptvconfiguration,
         #[serde(rename = "3gpp-mbs-tmgi")]
-        _3gppMbsTmgi,
+        ThreeGppMbsTmgi,
         #[serde(rename = "3gpp-mbs-session")]
-        _3gppMbsSession,
+        ThreeGppMbsSession,
         #[serde(rename = "3gpp-authentication")]
-        _3gppAuthentication,
+        ThreeGppAuthentication,
         #[serde(rename = "3gpp-asti")]
-        _3gppAsti,
+        ThreeGppAsti,
         #[serde(rename = "npcf-am-policy-control")]
         NpcfAmPolicyControl,
         #[serde(rename = "npcf-smpolicycontrol")]
@@ -37257,15 +34603,17 @@ pub mod types {
         NpanfProsekey,
         #[serde(rename = "npanf-userid")]
         NpanfUserid,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&ServiceNameSubtype0> for ServiceNameSubtype0 {
-        fn from(value: &ServiceNameSubtype0) -> Self {
+    impl From<&ServiceName> for ServiceName {
+        fn from(value: &ServiceName) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for ServiceNameSubtype0 {
+    impl ToString for ServiceName {
         fn to_string(&self) -> String {
             match *self {
                 Self::NnrfNfm => "nnrf-nfm".to_string(),
@@ -37297,36 +34645,38 @@ pub mod types {
                 Self::NnefSmcontext => "nnef-smcontext".to_string(),
                 Self::NnefEventexposure => "nnef-eventexposure".to_string(),
                 Self::NnefEasDeployment => "nnef-eas-deployment".to_string(),
-                Self::_3gppCpParameterProvisioning => "3gpp-cp-parameter-provisioning".to_string(),
-                Self::_3gppDeviceTriggering => "3gpp-device-triggering".to_string(),
-                Self::_3gppBdt => "3gpp-bdt".to_string(),
-                Self::_3gppTrafficInfluence => "3gpp-traffic-influence".to_string(),
-                Self::_3gppChargeableParty => "3gpp-chargeable-party".to_string(),
-                Self::_3gppAsSessionWithQos => "3gpp-as-session-with-qos".to_string(),
-                Self::_3gppMsisdnLessMoSms => "3gpp-msisdn-less-mo-sms".to_string(),
-                Self::_3gppServiceParameter => "3gpp-service-parameter".to_string(),
-                Self::_3gppMonitoringEvent => "3gpp-monitoring-event".to_string(),
-                Self::_3gppNiddConfigurationTrigger => {
+                Self::ThreeGppCpParameterProvisioning => {
+                    "3gpp-cp-parameter-provisioning".to_string()
+                }
+                Self::ThreeGppDeviceTriggering => "3gpp-device-triggering".to_string(),
+                Self::ThreeGppBdt => "3gpp-bdt".to_string(),
+                Self::ThreeGppTrafficInfluence => "3gpp-traffic-influence".to_string(),
+                Self::ThreeGppChargeableParty => "3gpp-chargeable-party".to_string(),
+                Self::ThreeGppAsSessionWithQos => "3gpp-as-session-with-qos".to_string(),
+                Self::ThreeGppMsisdnLessMoSms => "3gpp-msisdn-less-mo-sms".to_string(),
+                Self::ThreeGppServiceParameter => "3gpp-service-parameter".to_string(),
+                Self::ThreeGppMonitoringEvent => "3gpp-monitoring-event".to_string(),
+                Self::ThreeGppNiddConfigurationTrigger => {
                     "3gpp-nidd-configuration-trigger".to_string()
                 }
-                Self::_3gppNidd => "3gpp-nidd".to_string(),
-                Self::_3gppAnalyticsexposure => "3gpp-analyticsexposure".to_string(),
-                Self::_3gppRacsParameterProvisioning => {
+                Self::ThreeGppNidd => "3gpp-nidd".to_string(),
+                Self::ThreeGppAnalyticsexposure => "3gpp-analyticsexposure".to_string(),
+                Self::ThreeGppRacsParameterProvisioning => {
                     "3gpp-racs-parameter-provisioning".to_string()
                 }
-                Self::_3gppEcrControl => "3gpp-ecr-control".to_string(),
-                Self::_3gppApplyingBdtPolicy => "3gpp-applying-bdt-policy".to_string(),
-                Self::_3gppMoLcsNotify => "3gpp-mo-lcs-notify".to_string(),
-                Self::_3gppTimeSync => "3gpp-time-sync".to_string(),
-                Self::_3gppAmInfluence => "3gpp-am-influence".to_string(),
-                Self::_3gppAmPolicyauthorization => "3gpp-am-policyauthorization".to_string(),
-                Self::_3gppAkma => "3gpp-akma".to_string(),
-                Self::_3gppEasDeployment => "3gpp-eas-deployment".to_string(),
-                Self::_3gppIptvconfiguration => "3gpp-iptvconfiguration".to_string(),
-                Self::_3gppMbsTmgi => "3gpp-mbs-tmgi".to_string(),
-                Self::_3gppMbsSession => "3gpp-mbs-session".to_string(),
-                Self::_3gppAuthentication => "3gpp-authentication".to_string(),
-                Self::_3gppAsti => "3gpp-asti".to_string(),
+                Self::ThreeGppEcrControl => "3gpp-ecr-control".to_string(),
+                Self::ThreeGppApplyingBdtPolicy => "3gpp-applying-bdt-policy".to_string(),
+                Self::ThreeGppMoLcsNotify => "3gpp-mo-lcs-notify".to_string(),
+                Self::ThreeGppTimeSync => "3gpp-time-sync".to_string(),
+                Self::ThreeGppAmInfluence => "3gpp-am-influence".to_string(),
+                Self::ThreeGppAmPolicyauthorization => "3gpp-am-policyauthorization".to_string(),
+                Self::ThreeGppAkma => "3gpp-akma".to_string(),
+                Self::ThreeGppEasDeployment => "3gpp-eas-deployment".to_string(),
+                Self::ThreeGppIptvconfiguration => "3gpp-iptvconfiguration".to_string(),
+                Self::ThreeGppMbsTmgi => "3gpp-mbs-tmgi".to_string(),
+                Self::ThreeGppMbsSession => "3gpp-mbs-session".to_string(),
+                Self::ThreeGppAuthentication => "3gpp-authentication".to_string(),
+                Self::ThreeGppAsti => "3gpp-asti".to_string(),
                 Self::NpcfAmPolicyControl => "npcf-am-policy-control".to_string(),
                 Self::NpcfSmpolicycontrol => "npcf-smpolicycontrol".to_string(),
                 Self::NpcfPolicyauthorization => "npcf-policyauthorization".to_string(),
@@ -37397,11 +34747,12 @@ pub mod types {
                 Self::NmbstfDistsession => "nmbstf-distsession".to_string(),
                 Self::NpanfProsekey => "npanf-prosekey".to_string(),
                 Self::NpanfUserid => "npanf-userid".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for ServiceNameSubtype0 {
+    impl std::str::FromStr for ServiceName {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -37434,32 +34785,32 @@ pub mod types {
                 "nnef-smcontext" => Ok(Self::NnefSmcontext),
                 "nnef-eventexposure" => Ok(Self::NnefEventexposure),
                 "nnef-eas-deployment" => Ok(Self::NnefEasDeployment),
-                "3gpp-cp-parameter-provisioning" => Ok(Self::_3gppCpParameterProvisioning),
-                "3gpp-device-triggering" => Ok(Self::_3gppDeviceTriggering),
-                "3gpp-bdt" => Ok(Self::_3gppBdt),
-                "3gpp-traffic-influence" => Ok(Self::_3gppTrafficInfluence),
-                "3gpp-chargeable-party" => Ok(Self::_3gppChargeableParty),
-                "3gpp-as-session-with-qos" => Ok(Self::_3gppAsSessionWithQos),
-                "3gpp-msisdn-less-mo-sms" => Ok(Self::_3gppMsisdnLessMoSms),
-                "3gpp-service-parameter" => Ok(Self::_3gppServiceParameter),
-                "3gpp-monitoring-event" => Ok(Self::_3gppMonitoringEvent),
-                "3gpp-nidd-configuration-trigger" => Ok(Self::_3gppNiddConfigurationTrigger),
-                "3gpp-nidd" => Ok(Self::_3gppNidd),
-                "3gpp-analyticsexposure" => Ok(Self::_3gppAnalyticsexposure),
-                "3gpp-racs-parameter-provisioning" => Ok(Self::_3gppRacsParameterProvisioning),
-                "3gpp-ecr-control" => Ok(Self::_3gppEcrControl),
-                "3gpp-applying-bdt-policy" => Ok(Self::_3gppApplyingBdtPolicy),
-                "3gpp-mo-lcs-notify" => Ok(Self::_3gppMoLcsNotify),
-                "3gpp-time-sync" => Ok(Self::_3gppTimeSync),
-                "3gpp-am-influence" => Ok(Self::_3gppAmInfluence),
-                "3gpp-am-policyauthorization" => Ok(Self::_3gppAmPolicyauthorization),
-                "3gpp-akma" => Ok(Self::_3gppAkma),
-                "3gpp-eas-deployment" => Ok(Self::_3gppEasDeployment),
-                "3gpp-iptvconfiguration" => Ok(Self::_3gppIptvconfiguration),
-                "3gpp-mbs-tmgi" => Ok(Self::_3gppMbsTmgi),
-                "3gpp-mbs-session" => Ok(Self::_3gppMbsSession),
-                "3gpp-authentication" => Ok(Self::_3gppAuthentication),
-                "3gpp-asti" => Ok(Self::_3gppAsti),
+                "3gpp-cp-parameter-provisioning" => Ok(Self::ThreeGppCpParameterProvisioning),
+                "3gpp-device-triggering" => Ok(Self::ThreeGppDeviceTriggering),
+                "3gpp-bdt" => Ok(Self::ThreeGppBdt),
+                "3gpp-traffic-influence" => Ok(Self::ThreeGppTrafficInfluence),
+                "3gpp-chargeable-party" => Ok(Self::ThreeGppChargeableParty),
+                "3gpp-as-session-with-qos" => Ok(Self::ThreeGppAsSessionWithQos),
+                "3gpp-msisdn-less-mo-sms" => Ok(Self::ThreeGppMsisdnLessMoSms),
+                "3gpp-service-parameter" => Ok(Self::ThreeGppServiceParameter),
+                "3gpp-monitoring-event" => Ok(Self::ThreeGppMonitoringEvent),
+                "3gpp-nidd-configuration-trigger" => Ok(Self::ThreeGppNiddConfigurationTrigger),
+                "3gpp-nidd" => Ok(Self::ThreeGppNidd),
+                "3gpp-analyticsexposure" => Ok(Self::ThreeGppAnalyticsexposure),
+                "3gpp-racs-parameter-provisioning" => Ok(Self::ThreeGppRacsParameterProvisioning),
+                "3gpp-ecr-control" => Ok(Self::ThreeGppEcrControl),
+                "3gpp-applying-bdt-policy" => Ok(Self::ThreeGppApplyingBdtPolicy),
+                "3gpp-mo-lcs-notify" => Ok(Self::ThreeGppMoLcsNotify),
+                "3gpp-time-sync" => Ok(Self::ThreeGppTimeSync),
+                "3gpp-am-influence" => Ok(Self::ThreeGppAmInfluence),
+                "3gpp-am-policyauthorization" => Ok(Self::ThreeGppAmPolicyauthorization),
+                "3gpp-akma" => Ok(Self::ThreeGppAkma),
+                "3gpp-eas-deployment" => Ok(Self::ThreeGppEasDeployment),
+                "3gpp-iptvconfiguration" => Ok(Self::ThreeGppIptvconfiguration),
+                "3gpp-mbs-tmgi" => Ok(Self::ThreeGppMbsTmgi),
+                "3gpp-mbs-session" => Ok(Self::ThreeGppMbsSession),
+                "3gpp-authentication" => Ok(Self::ThreeGppAuthentication),
+                "3gpp-asti" => Ok(Self::ThreeGppAsti),
                 "npcf-am-policy-control" => Ok(Self::NpcfAmPolicyControl),
                 "npcf-smpolicycontrol" => Ok(Self::NpcfSmpolicycontrol),
                 "npcf-policyauthorization" => Ok(Self::NpcfPolicyauthorization),
@@ -37530,26 +34881,26 @@ pub mod types {
                 "nmbstf-distsession" => Ok(Self::NmbstfDistsession),
                 "npanf-prosekey" => Ok(Self::NpanfProsekey),
                 "npanf-userid" => Ok(Self::NpanfUserid),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for ServiceNameSubtype0 {
+    impl std::convert::TryFrom<&str> for ServiceName {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for ServiceNameSubtype0 {
+    impl std::convert::TryFrom<&String> for ServiceName {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for ServiceNameSubtype0 {
+    impl std::convert::TryFrom<String> for ServiceName {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -37569,10 +34920,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct ServiceUrn(pub String);
-    impl std::ops::Deref for ServiceUrn {
+    impl ::std::ops::Deref for ServiceUrn {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -37635,7 +34994,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ServingNfIdentity {
         #[serde(rename = "anGwAddr", default, skip_serializing_if = "Option::is_none")]
         pub an_gw_addr: Option<SchemasAnGwAddress>,
@@ -37712,9 +35071,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SessionRule(pub Option<SessionRuleInner>);
-    impl std::ops::Deref for SessionRule {
+    impl ::std::ops::Deref for SessionRule {
         type Target = Option<SessionRuleInner>;
         fn deref(&self) -> &Option<SessionRuleInner> {
             &self.0
@@ -37803,52 +35162,6 @@ pub mod types {
     /// S-GW has been recovered. This value shall not be used if the SM Policy
     /// association modification procedure is initiated for session rule removal
     /// only.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "NF_MAL",
-    ///        "RES_LIM",
-    ///        "SESSION_RESOURCE_ALLOCATION_FAILURE",
-    ///        "UNSUCC_QOS_VAL",
-    ///        "INCORRECT_UM",
-    ///        "UE_STA_SUSP",
-    ///        "UNKNOWN_REF_ID",
-    ///        "INCORRECT_COND_DATA",
-    ///        "REF_ID_COLLISION",
-    ///        "AN_GW_FAILED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SessionRuleFailureCode {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SessionRuleFailureCodeSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&SessionRuleFailureCode> for SessionRuleFailureCode {
-        fn from(value: &SessionRuleFailureCode) -> Self {
-            value.clone()
-        }
-    }
-
-    ///SessionRuleFailureCodeSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "NF_MAL",
@@ -37861,23 +35174,23 @@ pub mod types {
     ///    "INCORRECT_COND_DATA",
     ///    "REF_ID_COLLISION",
     ///    "AN_GW_FAILED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum SessionRuleFailureCodeSubtype0 {
+    pub enum SessionRuleFailureCode {
         #[serde(rename = "NF_MAL")]
         NfMal,
         #[serde(rename = "RES_LIM")]
@@ -37898,15 +35211,17 @@ pub mod types {
         RefIdCollision,
         #[serde(rename = "AN_GW_FAILED")]
         AnGwFailed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&SessionRuleFailureCodeSubtype0> for SessionRuleFailureCodeSubtype0 {
-        fn from(value: &SessionRuleFailureCodeSubtype0) -> Self {
+    impl From<&SessionRuleFailureCode> for SessionRuleFailureCode {
+        fn from(value: &SessionRuleFailureCode) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for SessionRuleFailureCodeSubtype0 {
+    impl ToString for SessionRuleFailureCode {
         fn to_string(&self) -> String {
             match *self {
                 Self::NfMal => "NF_MAL".to_string(),
@@ -37921,11 +35236,12 @@ pub mod types {
                 Self::IncorrectCondData => "INCORRECT_COND_DATA".to_string(),
                 Self::RefIdCollision => "REF_ID_COLLISION".to_string(),
                 Self::AnGwFailed => "AN_GW_FAILED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SessionRuleFailureCodeSubtype0 {
+    impl std::str::FromStr for SessionRuleFailureCode {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -37939,26 +35255,26 @@ pub mod types {
                 "INCORRECT_COND_DATA" => Ok(Self::IncorrectCondData),
                 "REF_ID_COLLISION" => Ok(Self::RefIdCollision),
                 "AN_GW_FAILED" => Ok(Self::AnGwFailed),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SessionRuleFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&str> for SessionRuleFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SessionRuleFailureCodeSubtype0 {
+    impl std::convert::TryFrom<&String> for SessionRuleFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SessionRuleFailureCodeSubtype0 {
+    impl std::convert::TryFrom<String> for SessionRuleFailureCode {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -38017,7 +35333,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SessionRuleInner {
         #[serde(
             rename = "authDefQos",
@@ -38103,7 +35419,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SessionRuleReport {
         ///Contains the type(s) of failed policy decision and/or condition
         /// data.
@@ -38163,7 +35479,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum SgsnAddress {
         Variant0 {
@@ -38191,27 +35507,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether several SIP dialogues are related to
     /// an \"Individual Application Session Context\" resource.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "SINGLE_DIALOGUE",
-    ///        "SEVERAL_DIALOGUES"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "SINGLE_DIALOGUE",
+    ///    "SEVERAL_DIALOGUES"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SipForkingIndication {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SipForkingIndicationSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum SipForkingIndication {
+        #[serde(rename = "SINGLE_DIALOGUE")]
+        SingleDialogue,
+        #[serde(rename = "SEVERAL_DIALOGUES")]
+        SeveralDialogues,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&SipForkingIndication> for SipForkingIndication {
@@ -38220,80 +35542,42 @@ pub mod types {
         }
     }
 
-    ///SipForkingIndicationSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "SINGLE_DIALOGUE",
-    ///    "SEVERAL_DIALOGUES"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum SipForkingIndicationSubtype0 {
-        #[serde(rename = "SINGLE_DIALOGUE")]
-        SingleDialogue,
-        #[serde(rename = "SEVERAL_DIALOGUES")]
-        SeveralDialogues,
-    }
-
-    impl From<&SipForkingIndicationSubtype0> for SipForkingIndicationSubtype0 {
-        fn from(value: &SipForkingIndicationSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for SipForkingIndicationSubtype0 {
+    impl ToString for SipForkingIndication {
         fn to_string(&self) -> String {
             match *self {
                 Self::SingleDialogue => "SINGLE_DIALOGUE".to_string(),
                 Self::SeveralDialogues => "SEVERAL_DIALOGUES".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SipForkingIndicationSubtype0 {
+    impl std::str::FromStr for SipForkingIndication {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "SINGLE_DIALOGUE" => Ok(Self::SingleDialogue),
                 "SEVERAL_DIALOGUES" => Ok(Self::SeveralDialogues),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SipForkingIndicationSubtype0 {
+    impl std::convert::TryFrom<&str> for SipForkingIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SipForkingIndicationSubtype0 {
+    impl std::convert::TryFrom<&String> for SipForkingIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SipForkingIndicationSubtype0 {
+    impl std::convert::TryFrom<String> for SipForkingIndication {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -38323,7 +35607,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SliceMbr {
         pub downlink: BitRate,
         pub uplink: BitRate,
@@ -38344,44 +35628,6 @@ pub mod types {
     ///{
     ///  "description": "Represents the cause due to which the PCF requests the
     /// termination of the SM policy association.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UNSPECIFIED",
-    ///        "UE_SUBSCRIPTION",
-    ///        "INSUFFICIENT_RES",
-    ///        "VALIDATION_CONDITION_NOT_MET",
-    ///        "REACTIVATION_REQUESTED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SmPolicyAssociationReleaseCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SmPolicyAssociationReleaseCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&SmPolicyAssociationReleaseCause> for SmPolicyAssociationReleaseCause {
-        fn from(value: &SmPolicyAssociationReleaseCause) -> Self {
-            value.clone()
-        }
-    }
-
-    ///SmPolicyAssociationReleaseCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "UNSPECIFIED",
@@ -38389,23 +35635,23 @@ pub mod types {
     ///    "INSUFFICIENT_RES",
     ///    "VALIDATION_CONDITION_NOT_MET",
     ///    "REACTIVATION_REQUESTED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum SmPolicyAssociationReleaseCauseSubtype0 {
+    pub enum SmPolicyAssociationReleaseCause {
         #[serde(rename = "UNSPECIFIED")]
         Unspecified,
         #[serde(rename = "UE_SUBSCRIPTION")]
@@ -38416,15 +35662,17 @@ pub mod types {
         ValidationConditionNotMet,
         #[serde(rename = "REACTIVATION_REQUESTED")]
         ReactivationRequested,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&SmPolicyAssociationReleaseCauseSubtype0> for SmPolicyAssociationReleaseCauseSubtype0 {
-        fn from(value: &SmPolicyAssociationReleaseCauseSubtype0) -> Self {
+    impl From<&SmPolicyAssociationReleaseCause> for SmPolicyAssociationReleaseCause {
+        fn from(value: &SmPolicyAssociationReleaseCause) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for SmPolicyAssociationReleaseCauseSubtype0 {
+    impl ToString for SmPolicyAssociationReleaseCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::Unspecified => "UNSPECIFIED".to_string(),
@@ -38432,11 +35680,12 @@ pub mod types {
                 Self::InsufficientRes => "INSUFFICIENT_RES".to_string(),
                 Self::ValidationConditionNotMet => "VALIDATION_CONDITION_NOT_MET".to_string(),
                 Self::ReactivationRequested => "REACTIVATION_REQUESTED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SmPolicyAssociationReleaseCauseSubtype0 {
+    impl std::str::FromStr for SmPolicyAssociationReleaseCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -38445,26 +35694,26 @@ pub mod types {
                 "INSUFFICIENT_RES" => Ok(Self::InsufficientRes),
                 "VALIDATION_CONDITION_NOT_MET" => Ok(Self::ValidationConditionNotMet),
                 "REACTIVATION_REQUESTED" => Ok(Self::ReactivationRequested),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SmPolicyAssociationReleaseCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for SmPolicyAssociationReleaseCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SmPolicyAssociationReleaseCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for SmPolicyAssociationReleaseCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SmPolicyAssociationReleaseCauseSubtype0 {
+    impl std::convert::TryFrom<String> for SmPolicyAssociationReleaseCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -38673,16 +35922,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyContextData {
-        ///If it is included and set to true, the 3GPP PS Data Off is activated
-        /// by the UE.
-        #[serde(
-            rename = "3gppPsDataOffStatus",
-            default,
-            skip_serializing_if = "Option::is_none"
-        )]
-        pub _3gpp_ps_data_off_status: Option<bool>,
         #[serde(
             rename = "accNetChId",
             default,
@@ -38866,6 +36107,14 @@ pub mod types {
         pub supi: Supi,
         #[serde(rename = "suppFeat", default, skip_serializing_if = "Option::is_none")]
         pub supp_feat: Option<SupportedFeatures>,
+        ///If it is included and set to true, the 3GPP PS Data Off is activated
+        /// by the UE.
+        #[serde(
+            rename = "3gppPsDataOffStatus",
+            default,
+            skip_serializing_if = "Option::is_none"
+        )]
+        pub three_gpp_ps_data_off_status: Option<bool>,
         #[serde(rename = "traceReq", default, skip_serializing_if = "Option::is_none")]
         pub trace_req: Option<TraceData>,
         #[serde(
@@ -38915,7 +36164,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyControl {
         pub context: SmPolicyContextData,
         pub policy: SmPolicyDecision,
@@ -39144,7 +36393,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyDecision {
         #[serde(
             rename = "chargingInfo",
@@ -39155,12 +36404,12 @@ pub mod types {
         ///Map of Charging data policy decisions. The key used in this map for
         /// each entry is the chgId attribute of the corresponding ChargingData.
         #[serde(rename = "chgDecs", default, skip_serializing_if = "Option::is_none")]
-        pub chg_decs: Option<std::collections::HashMap<String, ChargingData>>,
+        pub chg_decs: Option<::std::collections::HashMap<String, ChargingData>>,
         ///A map of condition data with the content being as described in
         /// clause 5.6.2.9. The key used in this map for each entry is the
         /// condId attribute of the corresponding ConditionData.
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub conds: Option<std::collections::HashMap<String, ConditionData>>,
+        pub conds: Option<::std::collections::HashMap<String, ConditionData>>,
         #[serde(rename = "ipv4Index", default, skip_serializing_if = "Option::is_none")]
         pub ipv4_index: Option<IpIndex>,
         #[serde(rename = "ipv6Index", default, skip_serializing_if = "Option::is_none")]
@@ -39194,7 +36443,7 @@ pub mod types {
         /// in  clause 5.6.2.6. The key used in this map for each entry is the
         /// pccRuleId attribute of the corresponding PccRule.
         #[serde(rename = "pccRules", default, skip_serializing_if = "Option::is_none")]
-        pub pcc_rules: Option<std::collections::HashMap<String, PccRule>>,
+        pub pcc_rules: Option<::std::collections::HashMap<String, PccRule>>,
         ///If it is included and set to true, it indicates the P-CSCF
         /// Restoration is requested.
         #[serde(
@@ -39213,23 +36462,23 @@ pub mod types {
         ///Map of PRA information. The praId attribute within the PresenceInfo
         /// data type is the key of the map.
         #[serde(rename = "praInfos", default, skip_serializing_if = "Option::is_none")]
-        pub pra_infos: Option<std::collections::HashMap<String, PresenceInfoRm>>,
+        pub pra_infos: Option<::std::collections::HashMap<String, PresenceInfoRm>>,
         ///Map of QoS characteristics for non standard 5QIs. This map uses the
         /// 5QI values as keys.
         #[serde(
             rename = "qosChars",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub qos_chars: std::collections::HashMap<String, QosCharacteristics>,
+        pub qos_chars: ::std::collections::HashMap<String, QosCharacteristics>,
         ///Map of QoS data policy decisions. The key used in this map for each
         /// entry is the qosId attribute of the corresponding QosData.
         #[serde(
             rename = "qosDecs",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub qos_decs: std::collections::HashMap<String, QosData>,
+        pub qos_decs: ::std::collections::HashMap<String, QosData>,
         #[serde(
             rename = "qosFlowUsage",
             default,
@@ -39244,7 +36493,7 @@ pub mod types {
             default,
             skip_serializing_if = "Option::is_none"
         )]
-        pub qos_mon_decs: Option<std::collections::HashMap<String, QosMonitoringData>>,
+        pub qos_mon_decs: Option<::std::collections::HashMap<String, QosMonitoringData>>,
         ///Indicates whether the PDU session is a redundant PDU session. If
         /// absent it means the PDU session is not a redundant PDU session.
         #[serde(
@@ -39273,9 +36522,9 @@ pub mod types {
         #[serde(
             rename = "sessRules",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub sess_rules: std::collections::HashMap<String, SessionRule>,
+        pub sess_rules: ::std::collections::HashMap<String, SessionRule>,
         #[serde(rename = "suppFeat", default, skip_serializing_if = "Option::is_none")]
         pub supp_feat: Option<SupportedFeatures>,
         ///Map of Traffic Control data policy decisions. The key used in this
@@ -39284,9 +36533,9 @@ pub mod types {
         #[serde(
             rename = "traffContDecs",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub traff_cont_decs: std::collections::HashMap<String, TrafficControlData>,
+        pub traff_cont_decs: ::std::collections::HashMap<String, TrafficControlData>,
         #[serde(
             rename = "tsnBridgeManCont",
             default,
@@ -39309,7 +36558,7 @@ pub mod types {
         /// map for each entry is the umId attribute of the corresponding
         /// UsageMonitoringData.
         #[serde(rename = "umDecs", default, skip_serializing_if = "Option::is_none")]
-        pub um_decs: Option<std::collections::HashMap<String, UsageMonitoringData>>,
+        pub um_decs: Option<::std::collections::HashMap<String, UsageMonitoringData>>,
     }
 
     impl From<&SmPolicyDecision> for SmPolicyDecision {
@@ -39364,7 +36613,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyDeleteData {
         ///Contains the usage report
         #[serde(
@@ -39438,7 +36687,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyNotification {
         #[serde(
             rename = "resourceUri",
@@ -39749,16 +36998,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmPolicyUpdateContextData {
-        ///If it is included and set to true, the 3GPP PS Data Off is activated
-        /// by the UE.
-        #[serde(
-            rename = "3gppPsDataOffStatus",
-            default,
-            skip_serializing_if = "Option::is_none"
-        )]
-        pub _3gpp_ps_data_off_status: Option<bool>,
         ///Indicates the access network charging identifier for the PCC rule(s)
         /// or whole PDU session.
         #[serde(rename = "accNetChIds", default, skip_serializing_if = "Vec::is_empty")]
@@ -39950,9 +37191,9 @@ pub mod types {
         #[serde(
             rename = "repPraInfos",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub rep_pra_infos: std::collections::HashMap<String, PresenceInfo>,
+        pub rep_pra_infos: ::std::collections::HashMap<String, PresenceInfo>,
         ///Used to report the PCC rule failure.
         #[serde(rename = "ruleReports", default, skip_serializing_if = "Vec::is_empty")]
         pub rule_reports: Vec<RuleReport>,
@@ -39989,6 +37230,14 @@ pub mod types {
             skip_serializing_if = "Option::is_none"
         )]
         pub subs_sess_ambr: Option<Ambr>,
+        ///If it is included and set to true, the 3GPP PS Data Off is activated
+        /// by the UE.
+        #[serde(
+            rename = "3gppPsDataOffStatus",
+            default,
+            skip_serializing_if = "Option::is_none"
+        )]
+        pub three_gpp_ps_data_off_status: Option<bool>,
         #[serde(rename = "traceReq", default, skip_serializing_if = "Option::is_none")]
         pub trace_req: Option<TraceData>,
         #[serde(
@@ -40114,9 +37363,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmfSelectionData(pub Option<SmfSelectionDataInner>);
-    impl std::ops::Deref for SmfSelectionData {
+    impl ::std::ops::Deref for SmfSelectionData {
         type Target = Option<SmfSelectionDataInner>;
         fn deref(&self) -> &Option<SmfSelectionDataInner> {
             &self.0
@@ -40181,13 +37430,13 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SmfSelectionDataInner {
         ///Contains the list of DNNs per S-NSSAI that are candidates for
         /// replacement. The snssai attribute within the CandidateForReplacement
         /// data type is the key of the map.
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub candidates: Option<std::collections::HashMap<String, CandidateForReplacement>>,
+        pub candidates: Option<::std::collections::HashMap<String, CandidateForReplacement>>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub dnn: Option<Dnn>,
         #[serde(
@@ -40255,7 +37504,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Snssai {
         ///3-octet string, representing the Slice Differentiator, in
         /// hexadecimal representation. Each character in the string shall take
@@ -40308,7 +37557,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SnssaiDnnCombination {
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
         pub dnns: Vec<Dnn>,
@@ -40352,9 +37601,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SnssaiSd(String);
-    impl std::ops::Deref for SnssaiSd {
+    impl ::std::ops::Deref for SnssaiSd {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -40373,7 +37622,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SnssaiSd {
+    impl ::std::str::FromStr for SnssaiSd {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{6}$")
@@ -40387,36 +37636,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SnssaiSd {
+    impl ::std::convert::TryFrom<&str> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SnssaiSd {
+    impl ::std::convert::TryFrom<&String> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SnssaiSd {
+    impl ::std::convert::TryFrom<String> for SnssaiSd {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SnssaiSd {
+    impl<'de> ::serde::Deserialize<'de> for SnssaiSd {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -40448,12 +37697,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SpatialValidity {
         ///Defines the presence information provisioned by the AF. The praId
         /// attribute within the PresenceInfo data type is the key of the map.
         #[serde(rename = "presenceInfoList")]
-        pub presence_info_list: std::collections::HashMap<String, PresenceInfo>,
+        pub presence_info_list: ::std::collections::HashMap<String, PresenceInfo>,
     }
 
     impl From<&SpatialValidity> for SpatialValidity {
@@ -40494,9 +37743,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SpatialValidityRm(pub Option<SpatialValidityRmInner>);
-    impl std::ops::Deref for SpatialValidityRm {
+    impl ::std::ops::Deref for SpatialValidityRm {
         type Target = Option<SpatialValidityRmInner>;
         fn deref(&self) -> &Option<SpatialValidityRmInner> {
             &self.0
@@ -40550,12 +37799,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SpatialValidityRmInner {
         ///Defines the presence information provisioned by the AF. The praId
         /// attribute within the PresenceInfo data type is the key of the map.
         #[serde(rename = "presenceInfoList")]
-        pub presence_info_list: std::collections::HashMap<String, PresenceInfo>,
+        pub presence_info_list: ::std::collections::HashMap<String, PresenceInfo>,
     }
 
     impl From<&SpatialValidityRmInner> for SpatialValidityRmInner {
@@ -40576,10 +37825,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct SponId(pub String);
-    impl std::ops::Deref for SponId {
+    impl ::std::ops::Deref for SponId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -40626,27 +37883,33 @@ pub mod types {
     ///{
     ///  "description": "Indicates whether sponsored data connectivity is
     /// enabled or disabled/not enabled.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "SPONSOR_DISABLED",
-    ///        "SPONSOR_ENABLED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "SPONSOR_DISABLED",
+    ///    "SPONSOR_ENABLED"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SponsoringStatus {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SponsoringStatusSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum SponsoringStatus {
+        #[serde(rename = "SPONSOR_DISABLED")]
+        SponsorDisabled,
+        #[serde(rename = "SPONSOR_ENABLED")]
+        SponsorEnabled,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&SponsoringStatus> for SponsoringStatus {
@@ -40655,80 +37918,42 @@ pub mod types {
         }
     }
 
-    ///SponsoringStatusSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "SPONSOR_DISABLED",
-    ///    "SPONSOR_ENABLED"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum SponsoringStatusSubtype0 {
-        #[serde(rename = "SPONSOR_DISABLED")]
-        SponsorDisabled,
-        #[serde(rename = "SPONSOR_ENABLED")]
-        SponsorEnabled,
-    }
-
-    impl From<&SponsoringStatusSubtype0> for SponsoringStatusSubtype0 {
-        fn from(value: &SponsoringStatusSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for SponsoringStatusSubtype0 {
+    impl ToString for SponsoringStatus {
         fn to_string(&self) -> String {
             match *self {
                 Self::SponsorDisabled => "SPONSOR_DISABLED".to_string(),
                 Self::SponsorEnabled => "SPONSOR_ENABLED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SponsoringStatusSubtype0 {
+    impl std::str::FromStr for SponsoringStatus {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "SPONSOR_DISABLED" => Ok(Self::SponsorDisabled),
                 "SPONSOR_ENABLED" => Ok(Self::SponsorEnabled),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SponsoringStatusSubtype0 {
+    impl std::convert::TryFrom<&str> for SponsoringStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SponsoringStatusSubtype0 {
+    impl std::convert::TryFrom<&String> for SponsoringStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SponsoringStatusSubtype0 {
+    impl std::convert::TryFrom<String> for SponsoringStatus {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -40758,7 +37983,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Ssm {
         #[serde(rename = "destIpAddr")]
         pub dest_ip_addr: IpAddr,
@@ -40780,27 +38005,33 @@ pub mod types {
     ///{
     ///  "description": "Contains Autonomous load-balance indicator or
     /// UE-assistance indicator.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "AUTO_LOAD_BALANCE",
-    ///        "UE_ASSISTANCE"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "AUTO_LOAD_BALANCE",
+    ///    "UE_ASSISTANCE"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SteerModeIndicator {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SteerModeIndicatorSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum SteerModeIndicator {
+        #[serde(rename = "AUTO_LOAD_BALANCE")]
+        AutoLoadBalance,
+        #[serde(rename = "UE_ASSISTANCE")]
+        UeAssistance,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&SteerModeIndicator> for SteerModeIndicator {
@@ -40809,80 +38040,42 @@ pub mod types {
         }
     }
 
-    ///SteerModeIndicatorSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "AUTO_LOAD_BALANCE",
-    ///    "UE_ASSISTANCE"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum SteerModeIndicatorSubtype0 {
-        #[serde(rename = "AUTO_LOAD_BALANCE")]
-        AutoLoadBalance,
-        #[serde(rename = "UE_ASSISTANCE")]
-        UeAssistance,
-    }
-
-    impl From<&SteerModeIndicatorSubtype0> for SteerModeIndicatorSubtype0 {
-        fn from(value: &SteerModeIndicatorSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for SteerModeIndicatorSubtype0 {
+    impl ToString for SteerModeIndicator {
         fn to_string(&self) -> String {
             match *self {
                 Self::AutoLoadBalance => "AUTO_LOAD_BALANCE".to_string(),
                 Self::UeAssistance => "UE_ASSISTANCE".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SteerModeIndicatorSubtype0 {
+    impl std::str::FromStr for SteerModeIndicator {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "AUTO_LOAD_BALANCE" => Ok(Self::AutoLoadBalance),
                 "UE_ASSISTANCE" => Ok(Self::UeAssistance),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SteerModeIndicatorSubtype0 {
+    impl std::convert::TryFrom<&str> for SteerModeIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SteerModeIndicatorSubtype0 {
+    impl std::convert::TryFrom<&String> for SteerModeIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SteerModeIndicatorSubtype0 {
+    impl std::convert::TryFrom<String> for SteerModeIndicator {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -40897,66 +38090,29 @@ pub mod types {
     ///{
     ///  "description": "Indicates the steering mode value determined by the
     /// PCF.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ACTIVE_STANDBY",
-    ///        "LOAD_BALANCING",
-    ///        "SMALLEST_DELAY",
-    ///        "PRIORITY_BASED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SteerModeValue {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SteerModeValueSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&SteerModeValue> for SteerModeValue {
-        fn from(value: &SteerModeValue) -> Self {
-            value.clone()
-        }
-    }
-
-    ///SteerModeValueSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "ACTIVE_STANDBY",
     ///    "LOAD_BALANCING",
     ///    "SMALLEST_DELAY",
     ///    "PRIORITY_BASED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum SteerModeValueSubtype0 {
+    pub enum SteerModeValue {
         #[serde(rename = "ACTIVE_STANDBY")]
         ActiveStandby,
         #[serde(rename = "LOAD_BALANCING")]
@@ -40965,26 +38121,29 @@ pub mod types {
         SmallestDelay,
         #[serde(rename = "PRIORITY_BASED")]
         PriorityBased,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&SteerModeValueSubtype0> for SteerModeValueSubtype0 {
-        fn from(value: &SteerModeValueSubtype0) -> Self {
+    impl From<&SteerModeValue> for SteerModeValue {
+        fn from(value: &SteerModeValue) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for SteerModeValueSubtype0 {
+    impl ToString for SteerModeValue {
         fn to_string(&self) -> String {
             match *self {
                 Self::ActiveStandby => "ACTIVE_STANDBY".to_string(),
                 Self::LoadBalancing => "LOAD_BALANCING".to_string(),
                 Self::SmallestDelay => "SMALLEST_DELAY".to_string(),
                 Self::PriorityBased => "PRIORITY_BASED".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SteerModeValueSubtype0 {
+    impl std::str::FromStr for SteerModeValue {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -40992,26 +38151,26 @@ pub mod types {
                 "LOAD_BALANCING" => Ok(Self::LoadBalancing),
                 "SMALLEST_DELAY" => Ok(Self::SmallestDelay),
                 "PRIORITY_BASED" => Ok(Self::PriorityBased),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SteerModeValueSubtype0 {
+    impl std::convert::TryFrom<&str> for SteerModeValue {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SteerModeValueSubtype0 {
+    impl std::convert::TryFrom<&String> for SteerModeValue {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SteerModeValueSubtype0 {
+    impl std::convert::TryFrom<String> for SteerModeValue {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -41033,30 +38192,33 @@ pub mod types {
     /// switching and splitting.\n  - ATSSS_LL: Indicates that PCF authorizes
     /// the ATSSS-LL functionality to support traffic steering, switching and
     /// splitting.\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MPTCP",
-    ///        "ATSSS_LL"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API.\n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "MPTCP",
+    ///    "ATSSS_LL"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct SteeringFunctionality {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<SteeringFunctionalitySubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum SteeringFunctionality {
+        #[serde(rename = "MPTCP")]
+        Mptcp,
+        #[serde(rename = "ATSSS_LL")]
+        AtsssLl,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&SteeringFunctionality> for SteeringFunctionality {
@@ -41065,80 +38227,42 @@ pub mod types {
         }
     }
 
-    ///SteeringFunctionalitySubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "MPTCP",
-    ///    "ATSSS_LL"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum SteeringFunctionalitySubtype0 {
-        #[serde(rename = "MPTCP")]
-        Mptcp,
-        #[serde(rename = "ATSSS_LL")]
-        AtsssLl,
-    }
-
-    impl From<&SteeringFunctionalitySubtype0> for SteeringFunctionalitySubtype0 {
-        fn from(value: &SteeringFunctionalitySubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for SteeringFunctionalitySubtype0 {
+    impl ToString for SteeringFunctionality {
         fn to_string(&self) -> String {
             match *self {
                 Self::Mptcp => "MPTCP".to_string(),
                 Self::AtsssLl => "ATSSS_LL".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for SteeringFunctionalitySubtype0 {
+    impl std::str::FromStr for SteeringFunctionality {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "MPTCP" => Ok(Self::Mptcp),
                 "ATSSS_LL" => Ok(Self::AtsssLl),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for SteeringFunctionalitySubtype0 {
+    impl std::convert::TryFrom<&str> for SteeringFunctionality {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SteeringFunctionalitySubtype0 {
+    impl std::convert::TryFrom<&String> for SteeringFunctionality {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SteeringFunctionalitySubtype0 {
+    impl std::convert::TryFrom<String> for SteeringFunctionality {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -41183,10 +38307,8 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SteeringMode {
-        #[serde(rename = "3gLoad", default, skip_serializing_if = "Option::is_none")]
-        pub _3g_load: Option<Uinteger>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub active: Option<AccessType>,
         #[serde(rename = "prioAcc", default, skip_serializing_if = "Option::is_none")]
@@ -41201,6 +38323,8 @@ pub mod types {
         pub steer_mode_ind: Option<SteerModeIndicator>,
         #[serde(rename = "steerModeValue")]
         pub steer_mode_value: SteerModeValue,
+        #[serde(rename = "3gLoad", default, skip_serializing_if = "Option::is_none")]
+        pub three_g_load: Option<Uinteger>,
         #[serde(
             rename = "thresValue",
             default,
@@ -41243,11 +38367,11 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct SubscribedDefaultQos {
-        #[serde(rename = "5qi")]
-        pub _5qi: _5qi,
         pub arp: Arp,
+        #[serde(rename = "5qi")]
+        pub five_qi: _5qi,
         #[serde(
             rename = "priorityLevel",
             default,
@@ -41303,9 +38427,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Supi(String);
-    impl std::ops::Deref for Supi {
+    impl ::std::ops::Deref for Supi {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -41324,7 +38448,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Supi {
+    impl ::std::str::FromStr for Supi {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$")
@@ -41340,36 +38464,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Supi {
+    impl ::std::convert::TryFrom<&str> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Supi {
+    impl ::std::convert::TryFrom<&String> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Supi {
+    impl ::std::convert::TryFrom<String> for Supi {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Supi {
+    impl<'de> ::serde::Deserialize<'de> for Supi {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -41398,9 +38522,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct SupportedFeatures(String);
-    impl std::ops::Deref for SupportedFeatures {
+    impl ::std::ops::Deref for SupportedFeatures {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -41419,7 +38543,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for SupportedFeatures {
+    impl ::std::str::FromStr for SupportedFeatures {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]*$")
@@ -41433,36 +38557,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for SupportedFeatures {
+    impl ::std::convert::TryFrom<&str> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for SupportedFeatures {
+    impl ::std::convert::TryFrom<&String> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for SupportedFeatures {
+    impl ::std::convert::TryFrom<String> for SupportedFeatures {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for SupportedFeatures {
+    impl<'de> ::serde::Deserialize<'de> for SupportedFeatures {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -41492,9 +38616,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct Tac(String);
-    impl std::ops::Deref for Tac {
+    impl ::std::ops::Deref for Tac {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -41513,7 +38637,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for Tac {
+    impl ::std::str::FromStr for Tac {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)")
@@ -41529,36 +38653,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for Tac {
+    impl ::std::convert::TryFrom<&str> for Tac {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for Tac {
+    impl ::std::convert::TryFrom<&String> for Tac {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for Tac {
+    impl ::std::convert::TryFrom<String> for Tac {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for Tac {
+    impl<'de> ::serde::Deserialize<'de> for Tac {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -41590,7 +38714,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Tai {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub nid: Option<Nid>,
@@ -41626,7 +38750,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TemporalValidity {
         #[serde(rename = "startTime", default, skip_serializing_if = "Option::is_none")]
         pub start_time: Option<DateTime>,
@@ -41649,45 +38773,6 @@ pub mod types {
     ///{
     ///  "description": "Indicates the cause behind requesting the deletion of
     /// the Individual Application Session Context resource.",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "ALL_SDF_DEACTIVATION",
-    ///        "PDU_SESSION_TERMINATION",
-    ///        "PS_TO_CS_HO",
-    ///        "INSUFFICIENT_SERVER_RESOURCES",
-    ///        "INSUFFICIENT_QOS_FLOW_RESOURCES",
-    ///        "SPONSORED_DATA_CONNECTIVITY_DISALLOWED"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct TerminationCause {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<TerminationCauseSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&TerminationCause> for TerminationCause {
-        fn from(value: &TerminationCause) -> Self {
-            value.clone()
-        }
-    }
-
-    ///TerminationCauseSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "ALL_SDF_DEACTIVATION",
@@ -41696,23 +38781,23 @@ pub mod types {
     ///    "INSUFFICIENT_SERVER_RESOURCES",
     ///    "INSUFFICIENT_QOS_FLOW_RESOURCES",
     ///    "SPONSORED_DATA_CONNECTIVITY_DISALLOWED"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum TerminationCauseSubtype0 {
+    pub enum TerminationCause {
         #[serde(rename = "ALL_SDF_DEACTIVATION")]
         AllSdfDeactivation,
         #[serde(rename = "PDU_SESSION_TERMINATION")]
@@ -41725,15 +38810,17 @@ pub mod types {
         InsufficientQosFlowResources,
         #[serde(rename = "SPONSORED_DATA_CONNECTIVITY_DISALLOWED")]
         SponsoredDataConnectivityDisallowed,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&TerminationCauseSubtype0> for TerminationCauseSubtype0 {
-        fn from(value: &TerminationCauseSubtype0) -> Self {
+    impl From<&TerminationCause> for TerminationCause {
+        fn from(value: &TerminationCause) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for TerminationCauseSubtype0 {
+    impl ToString for TerminationCause {
         fn to_string(&self) -> String {
             match *self {
                 Self::AllSdfDeactivation => "ALL_SDF_DEACTIVATION".to_string(),
@@ -41744,11 +38831,12 @@ pub mod types {
                 Self::SponsoredDataConnectivityDisallowed => {
                     "SPONSORED_DATA_CONNECTIVITY_DISALLOWED".to_string()
                 }
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for TerminationCauseSubtype0 {
+    impl std::str::FromStr for TerminationCause {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -41760,26 +38848,26 @@ pub mod types {
                 "SPONSORED_DATA_CONNECTIVITY_DISALLOWED" => {
                     Ok(Self::SponsoredDataConnectivityDisallowed)
                 }
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for TerminationCauseSubtype0 {
+    impl std::convert::TryFrom<&str> for TerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TerminationCauseSubtype0 {
+    impl std::convert::TryFrom<&String> for TerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TerminationCauseSubtype0 {
+    impl std::convert::TryFrom<String> for TerminationCause {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -41811,7 +38899,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TerminationInfo {
         #[serde(rename = "resUri")]
         pub res_uri: Uri,
@@ -41850,7 +38938,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TerminationNotification {
         pub cause: PolicyAssociationReleaseCause,
         #[serde(rename = "resourceUri")]
@@ -41886,7 +38974,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TerminationNotification1 {
         pub cause: SmPolicyAssociationReleaseCause,
         #[serde(rename = "resourceUri")]
@@ -41924,7 +39012,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TerminationNotification2 {
         pub cause: PolicyAssociationReleaseCause1,
         #[serde(rename = "resourceUri")]
@@ -41960,9 +39048,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ThresholdValue(pub Option<ThresholdValueInner>);
-    impl std::ops::Deref for ThresholdValue {
+    impl ::std::ops::Deref for ThresholdValue {
         type Target = Option<ThresholdValueInner>;
         fn deref(&self) -> &Option<ThresholdValueInner> {
             &self.0
@@ -42007,7 +39095,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ThresholdValueInner {
         #[serde(rename = "plrThres", default, skip_serializing_if = "Option::is_none")]
         pub plr_thres: Option<PacketLossRateRm>,
@@ -42045,7 +39133,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TimeWindow {
         #[serde(rename = "startTime")]
         pub start_time: SchemasDateTime,
@@ -42090,10 +39178,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct TimeZone(pub String);
-    impl std::ops::Deref for TimeZone {
+    impl ::std::ops::Deref for TimeZone {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42156,7 +39252,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Tmgi {
         ///MBS Service ID
         #[serde(rename = "mbsServiceId")]
@@ -42183,9 +39279,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TmgiMbsServiceId(String);
-    impl std::ops::Deref for TmgiMbsServiceId {
+    impl ::std::ops::Deref for TmgiMbsServiceId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42204,7 +39300,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TmgiMbsServiceId {
+    impl ::std::str::FromStr for TmgiMbsServiceId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]{6}$")
@@ -42218,36 +39314,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TmgiMbsServiceId {
+    impl ::std::convert::TryFrom<&str> for TmgiMbsServiceId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TmgiMbsServiceId {
+    impl ::std::convert::TryFrom<&String> for TmgiMbsServiceId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TmgiMbsServiceId {
+    impl ::std::convert::TryFrom<String> for TmgiMbsServiceId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TmgiMbsServiceId {
+    impl<'de> ::serde::Deserialize<'de> for TmgiMbsServiceId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -42282,7 +39378,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TnapId {
         ///When present, it shall contain the BSSID of the access point to
         /// which the UE is attached, that is received over NGAP, see IEEE Std
@@ -42334,9 +39430,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TngfId(String);
-    impl std::ops::Deref for TngfId {
+    impl ::std::ops::Deref for TngfId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42355,7 +39451,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TngfId {
+    impl ::std::str::FromStr for TngfId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -42369,36 +39465,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TngfId {
+    impl ::std::convert::TryFrom<&str> for TngfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TngfId {
+    impl ::std::convert::TryFrom<&String> for TngfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TngfId {
+    impl ::std::convert::TryFrom<String> for TngfId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TngfId {
+    impl<'de> ::serde::Deserialize<'de> for TngfId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -42421,10 +39517,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct TosTrafficClass(pub String);
-    impl std::ops::Deref for TosTrafficClass {
+    impl ::std::ops::Deref for TosTrafficClass {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42479,9 +39583,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TosTrafficClassRm(pub Option<String>);
-    impl std::ops::Deref for TosTrafficClassRm {
+    impl ::std::ops::Deref for TosTrafficClassRm {
         type Target = Option<String>;
         fn deref(&self) -> &Option<String> {
             &self.0
@@ -42591,9 +39695,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TraceData(pub Option<TraceDataInner>);
-    impl std::ops::Deref for TraceData {
+    impl ::std::ops::Deref for TraceData {
         type Target = Option<TraceDataInner>;
         fn deref(&self) -> &Option<TraceDataInner> {
             &self.0
@@ -42700,7 +39804,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TraceDataInner {
         #[serde(
             rename = "collectionEntityIpv4Addr",
@@ -42802,9 +39906,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerEventList(String);
-    impl std::ops::Deref for TraceDataInnerEventList {
+    impl ::std::ops::Deref for TraceDataInnerEventList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42823,7 +39927,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerEventList {
+    impl ::std::str::FromStr for TraceDataInnerEventList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -42837,36 +39941,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerEventList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerEventList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerEventList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerEventList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -42900,9 +40004,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerInterfaceList(String);
-    impl std::ops::Deref for TraceDataInnerInterfaceList {
+    impl ::std::ops::Deref for TraceDataInnerInterfaceList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -42921,7 +40025,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerInterfaceList {
+    impl ::std::str::FromStr for TraceDataInnerInterfaceList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -42935,36 +40039,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerInterfaceList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerInterfaceList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerInterfaceList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerInterfaceList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -42994,9 +40098,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerNeTypeList(String);
-    impl std::ops::Deref for TraceDataInnerNeTypeList {
+    impl ::std::ops::Deref for TraceDataInnerNeTypeList {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -43015,7 +40119,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerNeTypeList {
+    impl ::std::str::FromStr for TraceDataInnerNeTypeList {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -43029,36 +40133,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerNeTypeList {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerNeTypeList {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerNeTypeList {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerNeTypeList {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -43091,9 +40195,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct TraceDataInnerTraceRef(String);
-    impl std::ops::Deref for TraceDataInnerTraceRef {
+    impl ::std::ops::Deref for TraceDataInnerTraceRef {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -43112,7 +40216,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for TraceDataInnerTraceRef {
+    impl ::std::str::FromStr for TraceDataInnerTraceRef {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9]{3}[0-9]{2,3}-[A-Fa-f0-9]{6}$")
@@ -43126,36 +40230,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<&str> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<&String> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDataInnerTraceRef {
+    impl ::std::convert::TryFrom<String> for TraceDataInnerTraceRef {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for TraceDataInnerTraceRef {
+    impl<'de> ::serde::Deserialize<'de> for TraceDataInnerTraceRef {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -43172,45 +40276,6 @@ pub mod types {
     /// information should be recorded in the trace. See 3GPP TS 32.422 for
     /// further description of the values. It shall comply with the provisions
     /// defined in table 5.6.3.1-1\n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "MINIMUM",
-    ///        "MEDIUM",
-    ///        "MAXIMUM",
-    ///        "MINIMUM_WO_VENDOR_EXTENSION",
-    ///        "MEDIUM_WO_VENDOR_EXTENSION",
-    ///        "MAXIMUM_WO_VENDOR_EXTENSION"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "type": "string"
-    ///    }
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct TraceDepth {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<TraceDepthSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
-    }
-
-    impl From<&TraceDepth> for TraceDepth {
-        fn from(value: &TraceDepth) -> Self {
-            value.clone()
-        }
-    }
-
-    ///TraceDepthSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
     ///  "type": "string",
     ///  "enum": [
     ///    "MINIMUM",
@@ -43219,23 +40284,23 @@ pub mod types {
     ///    "MINIMUM_WO_VENDOR_EXTENSION",
     ///    "MEDIUM_WO_VENDOR_EXTENSION",
     ///    "MAXIMUM_WO_VENDOR_EXTENSION"
-    ///  ]
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
     #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
         Clone,
-        Copy,
         Debug,
         Eq,
         Hash,
         Ord,
         PartialEq,
         PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
     )]
-    pub enum TraceDepthSubtype0 {
+    pub enum TraceDepth {
         #[serde(rename = "MINIMUM")]
         Minimum,
         #[serde(rename = "MEDIUM")]
@@ -43248,15 +40313,17 @@ pub mod types {
         MediumWoVendorExtension,
         #[serde(rename = "MAXIMUM_WO_VENDOR_EXTENSION")]
         MaximumWoVendorExtension,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
-    impl From<&TraceDepthSubtype0> for TraceDepthSubtype0 {
-        fn from(value: &TraceDepthSubtype0) -> Self {
+    impl From<&TraceDepth> for TraceDepth {
+        fn from(value: &TraceDepth) -> Self {
             value.clone()
         }
     }
 
-    impl ToString for TraceDepthSubtype0 {
+    impl ToString for TraceDepth {
         fn to_string(&self) -> String {
             match *self {
                 Self::Minimum => "MINIMUM".to_string(),
@@ -43265,11 +40332,12 @@ pub mod types {
                 Self::MinimumWoVendorExtension => "MINIMUM_WO_VENDOR_EXTENSION".to_string(),
                 Self::MediumWoVendorExtension => "MEDIUM_WO_VENDOR_EXTENSION".to_string(),
                 Self::MaximumWoVendorExtension => "MAXIMUM_WO_VENDOR_EXTENSION".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for TraceDepthSubtype0 {
+    impl std::str::FromStr for TraceDepth {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
@@ -43279,26 +40347,26 @@ pub mod types {
                 "MINIMUM_WO_VENDOR_EXTENSION" => Ok(Self::MinimumWoVendorExtension),
                 "MEDIUM_WO_VENDOR_EXTENSION" => Ok(Self::MediumWoVendorExtension),
                 "MAXIMUM_WO_VENDOR_EXTENSION" => Ok(Self::MaximumWoVendorExtension),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<&str> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<&String> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TraceDepthSubtype0 {
+    impl std::convert::TryFrom<String> for TraceDepth {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -43417,9 +40485,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TrafficControlData(pub Option<TrafficControlDataInner>);
-    impl std::ops::Deref for TrafficControlData {
+    impl ::std::ops::Deref for TrafficControlData {
         type Target = Option<TrafficControlDataInner>;
         fn deref(&self) -> &Option<TrafficControlDataInner> {
             &self.0
@@ -43553,7 +40621,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TrafficControlDataInner {
         #[serde(
             rename = "addRedirectInfo",
@@ -43686,10 +40754,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct TrafficDescriptor(pub String);
-    impl std::ops::Deref for TrafficDescriptor {
+    impl ::std::ops::Deref for TrafficDescriptor {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -43763,7 +40839,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TransferPolicy {
         #[serde(
             rename = "maxBitRateDl",
@@ -43803,30 +40879,33 @@ pub mod types {
     ///{
     ///  "description": "Possible values are:\n- UDP: User Datagram Protocol.\n-
     /// TCP: Transmission Control Protocol. \n",
-    ///  "anyOf": [
-    ///    {
-    ///      "type": "string",
-    ///      "enum": [
-    ///        "UDP",
-    ///        "TCP"
-    ///      ]
-    ///    },
-    ///    {
-    ///      "description": "This string provides forward-compatibility with
-    /// future extensions to the enumeration but is not used to encode content
-    /// defined in the present version of this API. \n",
-    ///      "type": "string"
-    ///    }
-    ///  ]
+    ///  "type": "string",
+    ///  "enum": [
+    ///    "UDP",
+    ///    "TCP"
+    ///  ],
+    ///  "x-allow-unknown": true
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
-    pub struct TransportProtocol {
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_0: Option<TransportProtocolSubtype0>,
-        #[serde(flatten, default, skip_serializing_if = "Option::is_none")]
-        pub subtype_1: Option<String>,
+    #[derive(
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
+    )]
+    pub enum TransportProtocol {
+        #[serde(rename = "UDP")]
+        Udp,
+        #[serde(rename = "TCP")]
+        Tcp,
+        #[serde(untagged)]
+        UnknownOther(String),
     }
 
     impl From<&TransportProtocol> for TransportProtocol {
@@ -43835,80 +40914,42 @@ pub mod types {
         }
     }
 
-    ///TransportProtocolSubtype0
-    ///
-    /// <details><summary>JSON schema</summary>
-    ///
-    /// ```json
-    ///{
-    ///  "type": "string",
-    ///  "enum": [
-    ///    "UDP",
-    ///    "TCP"
-    ///  ]
-    ///}
-    /// ```
-    /// </details>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        Eq,
-        Hash,
-        Ord,
-        PartialEq,
-        PartialOrd,
-        serde :: Deserialize,
-        serde :: Serialize,
-    )]
-    pub enum TransportProtocolSubtype0 {
-        #[serde(rename = "UDP")]
-        Udp,
-        #[serde(rename = "TCP")]
-        Tcp,
-    }
-
-    impl From<&TransportProtocolSubtype0> for TransportProtocolSubtype0 {
-        fn from(value: &TransportProtocolSubtype0) -> Self {
-            value.clone()
-        }
-    }
-
-    impl ToString for TransportProtocolSubtype0 {
+    impl ToString for TransportProtocol {
         fn to_string(&self) -> String {
             match *self {
                 Self::Udp => "UDP".to_string(),
                 Self::Tcp => "TCP".to_string(),
+                Self::UnknownOther(ref value) => value.clone(),
             }
         }
     }
 
-    impl std::str::FromStr for TransportProtocolSubtype0 {
+    impl std::str::FromStr for TransportProtocol {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             match value {
                 "UDP" => Ok(Self::Udp),
                 "TCP" => Ok(Self::Tcp),
-                _ => Err("invalid value".into()),
+                _ => Ok(Self::UnknownOther(value.to_string())),
             }
         }
     }
 
-    impl std::convert::TryFrom<&str> for TransportProtocolSubtype0 {
+    impl std::convert::TryFrom<&str> for TransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for TransportProtocolSubtype0 {
+    impl std::convert::TryFrom<&String> for TransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for TransportProtocolSubtype0 {
+    impl std::convert::TryFrom<String> for TransportProtocol {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
@@ -43928,9 +40969,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TscPriorityLevel(pub i64);
-    impl std::ops::Deref for TscPriorityLevel {
+    impl ::std::ops::Deref for TscPriorityLevel {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -44008,9 +41049,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TscPriorityLevelRm(pub Option<i64>);
-    impl std::ops::Deref for TscPriorityLevelRm {
+    impl ::std::ops::Deref for TscPriorityLevelRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -44063,9 +41104,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TscaiInputContainer(pub Option<TscaiInputContainerInner>);
-    impl std::ops::Deref for TscaiInputContainer {
+    impl ::std::ops::Deref for TscaiInputContainer {
         type Target = Option<TscaiInputContainerInner>;
         fn deref(&self) -> &Option<TscaiInputContainerInner> {
             &self.0
@@ -44115,7 +41156,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TscaiInputContainerInner {
         #[serde(
             rename = "burstArrivalTime",
@@ -44171,7 +41212,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TsnBridgeInfo {
         #[serde(rename = "bridgeId", default, skip_serializing_if = "Option::is_none")]
         pub bridge_id: Option<Uint64>,
@@ -44207,9 +41248,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TsnPortNumber(pub Uinteger);
-    impl std::ops::Deref for TsnPortNumber {
+    impl ::std::ops::Deref for TsnPortNumber {
         type Target = Uinteger;
         fn deref(&self) -> &Uinteger {
             &self.0
@@ -44290,7 +41331,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TsnQosContainer {
         #[serde(
             rename = "maxTscBurstSize",
@@ -44343,9 +41384,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TsnQosContainerRm(pub Option<TsnQosContainerRmInner>);
-    impl std::ops::Deref for TsnQosContainerRm {
+    impl ::std::ops::Deref for TsnQosContainerRm {
         type Target = Option<TsnQosContainerRmInner>;
         fn deref(&self) -> &Option<TsnQosContainerRmInner> {
             &self.0
@@ -44392,7 +41433,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TsnQosContainerRmInner {
         #[serde(
             rename = "maxTscBurstSize",
@@ -44455,7 +41496,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct TwapId {
         ///When present, it shall contain the BSSID of the access point to
         /// which the UE is attached, for trusted WLAN access, see IEEE Std
@@ -44519,7 +41560,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeCampingRep {
         #[serde(
             rename = "accessType",
@@ -44608,7 +41649,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum UeIdentityInfo {
         Variant0 { gpsi: Gpsi },
@@ -44659,7 +41700,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeInitiatedResourceRequest {
         #[serde(rename = "packFiltInfo")]
         pub pack_filt_info: Vec<PacketFilterInfo>,
@@ -44689,9 +41730,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UePolicy(pub Bytes);
-    impl std::ops::Deref for UePolicy {
+    impl ::std::ops::Deref for UePolicy {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -44760,9 +41801,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UePolicyDeliveryResult(pub Bytes);
-    impl std::ops::Deref for UePolicyDeliveryResult {
+    impl ::std::ops::Deref for UePolicyDeliveryResult {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -44831,9 +41872,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UePolicyRequest(pub Bytes);
-    impl std::ops::Deref for UePolicyRequest {
+    impl ::std::ops::Deref for UePolicyRequest {
         type Target = Bytes;
         fn deref(&self) -> &Bytes {
             &self.0
@@ -44921,7 +41962,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UePolicyTransferFailureNotification {
         pub cause: N1n2MessageTransferCause,
         pub ptis: Vec<Uinteger>,
@@ -44967,7 +42008,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeRequestedValueRep {
         #[serde(
             rename = "connectState",
@@ -44982,9 +42023,9 @@ pub mod types {
         #[serde(
             rename = "praStatuses",
             default,
-            skip_serializing_if = "std::collections::HashMap::is_empty"
+            skip_serializing_if = "::std::collections::HashMap::is_empty"
         )]
-        pub pra_statuses: std::collections::HashMap<String, PresenceInfo>,
+        pub pra_statuses: ::std::collections::HashMap<String, PresenceInfo>,
         #[serde(rename = "userLoc", default, skip_serializing_if = "Option::is_none")]
         pub user_loc: Option<UserLocation>,
     }
@@ -45030,9 +42071,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeSliceMbr(pub Option<UeSliceMbrInner>);
-    impl std::ops::Deref for UeSliceMbr {
+    impl ::std::ops::Deref for UeSliceMbr {
         type Target = Option<UeSliceMbrInner>;
         fn deref(&self) -> &Option<UeSliceMbrInner> {
             &self.0
@@ -45089,7 +42130,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UeSliceMbrInner {
         #[serde(
             rename = "mappedHomeSnssai",
@@ -45101,7 +42142,7 @@ pub mod types {
         pub serving_snssai: Snssai,
         ///Contains the MBR for uplink and the MBR for downlink.
         #[serde(rename = "sliceMbr")]
-        pub slice_mbr: std::collections::HashMap<String, SliceMbr>,
+        pub slice_mbr: ::std::collections::HashMap<String, SliceMbr>,
     }
 
     impl From<&UeSliceMbrInner> for UeSliceMbrInner {
@@ -45125,9 +42166,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Uint16(pub u16);
-    impl std::ops::Deref for Uint16 {
+    impl ::std::ops::Deref for Uint16 {
         type Target = u16;
         fn deref(&self) -> &u16 {
             &self.0
@@ -45201,9 +42242,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Uint32(pub u32);
-    impl std::ops::Deref for Uint32 {
+    impl ::std::ops::Deref for Uint32 {
         type Target = u32;
         fn deref(&self) -> &u32 {
             &self.0
@@ -45282,9 +42323,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Uint32Rm(pub Option<u32>);
-    impl std::ops::Deref for Uint32Rm {
+    impl ::std::ops::Deref for Uint32Rm {
         type Target = Option<u32>;
         fn deref(&self) -> &Option<u32> {
             &self.0
@@ -45324,9 +42365,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Uint64(pub u64);
-    impl std::ops::Deref for Uint64 {
+    impl ::std::ops::Deref for Uint64 {
         type Target = u64;
         fn deref(&self) -> &u64 {
             &self.0
@@ -45399,9 +42440,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Uinteger(pub u64);
-    impl std::ops::Deref for Uinteger {
+    impl ::std::ops::Deref for Uinteger {
         type Target = u64;
         fn deref(&self) -> &u64 {
             &self.0
@@ -45477,9 +42518,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UintegerRm(pub Option<u64>);
-    impl std::ops::Deref for UintegerRm {
+    impl ::std::ops::Deref for UintegerRm {
         type Target = Option<u64>;
         fn deref(&self) -> &Option<u64> {
             &self.0
@@ -45540,9 +42581,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpPathChgEvent(pub Option<UpPathChgEventInner>);
-    impl std::ops::Deref for UpPathChgEvent {
+    impl ::std::ops::Deref for UpPathChgEvent {
         type Target = Option<UpPathChgEventInner>;
         fn deref(&self) -> &Option<UpPathChgEventInner> {
             &self.0
@@ -45600,7 +42641,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UpPathChgEventInner {
         #[serde(rename = "afAckInd", default, skip_serializing_if = "Option::is_none")]
         pub af_ack_ind: Option<bool>,
@@ -45633,10 +42674,18 @@ pub mod types {
     /// ```
     /// </details>
     #[derive(
-        Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Deserialize, serde :: Serialize,
+        :: serde :: Deserialize,
+        :: serde :: Serialize,
+        Clone,
+        Debug,
+        Eq,
+        Hash,
+        Ord,
+        PartialEq,
+        PartialOrd,
     )]
     pub struct Uri(pub String);
-    impl std::ops::Deref for Uri {
+    impl ::std::ops::Deref for Uri {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -45690,9 +42739,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UriRm(pub Option<String>);
-    impl std::ops::Deref for UriRm {
+    impl ::std::ops::Deref for UriRm {
         type Target = Option<String>;
         fn deref(&self) -> &Option<String> {
             &self.0
@@ -45786,9 +42835,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UsageMonitoringData(pub Option<UsageMonitoringDataInner>);
-    impl std::ops::Deref for UsageMonitoringData {
+    impl ::std::ops::Deref for UsageMonitoringData {
         type Target = Option<UsageMonitoringDataInner>;
         fn deref(&self) -> &Option<UsageMonitoringDataInner> {
             &self.0
@@ -45879,7 +42928,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UsageMonitoringDataInner {
         ///Contains the PCC rule identifier(s) which corresponding service data
         /// flow(s) shall be excluded from PDU Session usage monitoring. It is
@@ -45988,7 +43037,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UsageThreshold {
         #[serde(
             rename = "downlinkVolume",
@@ -46048,9 +43097,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UsageThresholdRm(pub Option<UsageThresholdRmInner>);
-    impl std::ops::Deref for UsageThresholdRm {
+    impl ::std::ops::Deref for UsageThresholdRm {
         type Target = Option<UsageThresholdRmInner>;
         fn deref(&self) -> &Option<UsageThresholdRmInner> {
             &self.0
@@ -46102,7 +43151,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UsageThresholdRmInner {
         #[serde(
             rename = "downlinkVolume",
@@ -46162,7 +43211,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct UserLocation {
         #[serde(
             rename = "eutraLocation",
@@ -46274,7 +43323,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(untagged)]
     pub enum UtraLocation {
         Variant0 {
@@ -46430,9 +43479,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant0GeodeticInformation(String);
-    impl std::ops::Deref for UtraLocationVariant0GeodeticInformation {
+    impl ::std::ops::Deref for UtraLocationVariant0GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46451,7 +43500,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant0GeodeticInformation {
+    impl ::std::str::FromStr for UtraLocationVariant0GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -46465,36 +43514,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant0GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant0GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant0GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant0GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46515,9 +43564,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant0GeographicalInformation(String);
-    impl std::ops::Deref for UtraLocationVariant0GeographicalInformation {
+    impl ::std::ops::Deref for UtraLocationVariant0GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46538,7 +43587,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant0GeographicalInformation {
+    impl ::std::str::FromStr for UtraLocationVariant0GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -46552,36 +43601,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant0GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant0GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant0GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant0GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46602,9 +43651,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant1GeodeticInformation(String);
-    impl std::ops::Deref for UtraLocationVariant1GeodeticInformation {
+    impl ::std::ops::Deref for UtraLocationVariant1GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46623,7 +43672,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant1GeodeticInformation {
+    impl ::std::str::FromStr for UtraLocationVariant1GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -46637,36 +43686,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant1GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant1GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant1GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant1GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46687,9 +43736,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant1GeographicalInformation(String);
-    impl std::ops::Deref for UtraLocationVariant1GeographicalInformation {
+    impl ::std::ops::Deref for UtraLocationVariant1GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46710,7 +43759,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant1GeographicalInformation {
+    impl ::std::str::FromStr for UtraLocationVariant1GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -46724,36 +43773,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant1GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant1GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant1GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant1GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46774,9 +43823,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant2GeodeticInformation(String);
-    impl std::ops::Deref for UtraLocationVariant2GeodeticInformation {
+    impl ::std::ops::Deref for UtraLocationVariant2GeodeticInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46795,7 +43844,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant2GeodeticInformation {
+    impl ::std::str::FromStr for UtraLocationVariant2GeodeticInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{20}$")
@@ -46809,36 +43858,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant2GeodeticInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant2GeodeticInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant2GeodeticInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant2GeodeticInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46859,9 +43908,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct UtraLocationVariant2GeographicalInformation(String);
-    impl std::ops::Deref for UtraLocationVariant2GeographicalInformation {
+    impl ::std::ops::Deref for UtraLocationVariant2GeographicalInformation {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -46882,7 +43931,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for UtraLocationVariant2GeographicalInformation {
+    impl ::std::str::FromStr for UtraLocationVariant2GeographicalInformation {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[0-9A-F]{16}$")
@@ -46896,36 +43945,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for UtraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<&str> for UtraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for UtraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<&String> for UtraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for UtraLocationVariant2GeographicalInformation {
+    impl ::std::convert::TryFrom<String> for UtraLocationVariant2GeographicalInformation {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for UtraLocationVariant2GeographicalInformation {
+    impl<'de> ::serde::Deserialize<'de> for UtraLocationVariant2GeographicalInformation {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -46944,9 +43993,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct Volume(pub i64);
-    impl std::ops::Deref for Volume {
+    impl ::std::ops::Deref for Volume {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -47023,9 +44072,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct VolumeRm(pub Option<i64>);
-    impl std::ops::Deref for VolumeRm {
+    impl ::std::ops::Deref for VolumeRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0
@@ -47084,12 +44133,12 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct VplmnQos {
-        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
-        pub _5qi: Option<_5qi>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
+        #[serde(rename = "5qi", default, skip_serializing_if = "Option::is_none")]
+        pub five_qi: Option<_5qi>,
         #[serde(rename = "guaFbrDl", default, skip_serializing_if = "Option::is_none")]
         pub gua_fbr_dl: Option<BitRate>,
         #[serde(rename = "guaFbrUl", default, skip_serializing_if = "Option::is_none")]
@@ -47137,9 +44186,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde :: Serialize)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     pub struct WAgfId(String);
-    impl std::ops::Deref for WAgfId {
+    impl ::std::ops::Deref for WAgfId {
         type Target = String;
         fn deref(&self) -> &String {
             &self.0
@@ -47158,7 +44207,7 @@ pub mod types {
         }
     }
 
-    impl std::str::FromStr for WAgfId {
+    impl ::std::str::FromStr for WAgfId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
             if regress::Regex::new("^[A-Fa-f0-9]+$")
@@ -47172,36 +44221,36 @@ pub mod types {
         }
     }
 
-    impl std::convert::TryFrom<&str> for WAgfId {
+    impl ::std::convert::TryFrom<&str> for WAgfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<&String> for WAgfId {
+    impl ::std::convert::TryFrom<&String> for WAgfId {
         type Error = self::error::ConversionError;
         fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl std::convert::TryFrom<String> for WAgfId {
+    impl ::std::convert::TryFrom<String> for WAgfId {
         type Error = self::error::ConversionError;
         fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
             value.parse()
         }
     }
 
-    impl<'de> serde::Deserialize<'de> for WAgfId {
+    impl<'de> ::serde::Deserialize<'de> for WAgfId {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
-            D: serde::Deserializer<'de>,
+            D: ::serde::Deserializer<'de>,
         {
             String::deserialize(deserializer)?
                 .parse()
                 .map_err(|e: self::error::ConversionError| {
-                    <D::Error as serde::de::Error>::custom(e.to_string())
+                    <D::Error as ::serde::de::Error>::custom(e.to_string())
                 })
         }
     }
@@ -47243,7 +44292,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct WirelineArea {
         #[serde(rename = "areaCodeB", default, skip_serializing_if = "Option::is_none")]
         pub area_code_b: Option<AreaCode>,
@@ -47291,7 +44340,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct WirelineServiceAreaRestriction {
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
         pub areas: Vec<WirelineArea>,
@@ -47319,9 +44368,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct _5gSmCause(pub Uinteger);
-    impl std::ops::Deref for _5gSmCause {
+    impl ::std::ops::Deref for _5gSmCause {
         type Target = Uinteger;
         fn deref(&self) -> &Uinteger {
             &self.0
@@ -47395,9 +44444,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct _5qi(pub u8);
-    impl std::ops::Deref for _5qi {
+    impl ::std::ops::Deref for _5qi {
         type Target = u8;
         fn deref(&self) -> &u8 {
             &self.0
@@ -47475,9 +44524,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct _5qiPriorityLevel(pub i64);
-    impl std::ops::Deref for _5qiPriorityLevel {
+    impl ::std::ops::Deref for _5qiPriorityLevel {
         type Target = i64;
         fn deref(&self) -> &i64 {
             &self.0
@@ -47555,9 +44604,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(Clone, Debug, serde :: Deserialize, serde :: Serialize)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct _5qiPriorityLevelRm(pub Option<i64>);
-    impl std::ops::Deref for _5qiPriorityLevelRm {
+    impl ::std::ops::Deref for _5qiPriorityLevelRm {
         type Target = Option<i64>;
         fn deref(&self) -> &Option<i64> {
             &self.0

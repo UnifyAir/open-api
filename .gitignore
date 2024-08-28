@@ -41,6 +41,7 @@ build/
 /src/bootstrap/target
 /src/tools/x/target
 Cargo.lock
+**/Cargo.lock
 
 # Created by default with `src/ci/docker/run.sh`
 /obj/
