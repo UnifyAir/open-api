@@ -1,0 +1,698 @@
+openapi: 3.0.3
+info:
+  description: "Merged Apis. \xA9 2024, 3GPP Organizational Partners (ARIB, ATIS,\
+    \ CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved. "
+  title: Openapi-5GC
+  version: 1.2.6
+servers:
+- url: '{apiRoot}'
+  variables:
+    apiRoot:
+      default: https://example.com
+      description: apiRoot as defined in clause 4.4 of 3GPP TS 29.501.
+security:
+- {}
+- oAuth2ClientCredentials:
+  - nudr-dr
+externalDocs:
+  description: 3GPP TS 29.504 V17.14.0; 5G System; Unified Data Repository Services;
+    Stage 3
+  url: https://www.3gpp.org/ftp/Specs/archive/29_series/29.504/
+paths:
+  /nudr-dr/v2/data-restoration-events:
+    post:
+      summary: subscribe to data restoration notifications
+      operationId: CreateIndividualSubcription
+      tags:
+      - Subscriptions (Collection)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {}
+      responses:
+        default:
+          $ref: '#/components/responses/default'
+      callbacks:
+        restorationNotification:
+          '{dataRestorationCallbackUri}':
+            post:
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/DataRestorationNotification'
+              responses:
+                '204':
+                  description: No Content, Notification was succesfull
+                '307':
+                  description: Temporary Redirect
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/RedirectResponse'
+                  headers:
+                    Location:
+                      description: The URI pointing to the resource located on the
+                        redirect target NF service consumer
+                      required: true
+                      schema:
+                        type: string
+                '308':
+                  description: Permanent Redirect
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/RedirectResponse'
+                  headers:
+                    Location:
+                      description: The URI pointing to the resource located on the
+                        redirect target NF service consumer
+                      required: true
+                      schema:
+                        type: string
+                '404':
+                  $ref: '#/components/responses/404'
+                default:
+                  $ref: '#/components/responses/default'
+  /nudr-group-id-map/v1/nf-group-ids:
+    get:
+      summary: Retrieves NF-Group IDs for provided Subscriber and NF types
+      operationId: GetNfGroupIDs
+      tags:
+      - NF Group IDs (Document)
+      parameters:
+      - name: nf-type
+        in: query
+        description: Type of NF
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/NFType'
+          minItems: 1
+      - name: subscriberId
+        in: query
+        description: Identifier of the subscriber
+        required: true
+        schema:
+          $ref: '#/components/schemas/SubscriberId'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NfGroupIdMapResult'
+        '404':
+          $ref: '#/components/responses/404'
+        default:
+          description: Unexpected error
+components:
+  schemas:
+    DataRestorationNotification:
+      description: Contains identities representing those UEs potentially affected
+        by a data-loss event at the UDR
+      type: object
+      properties:
+        supiRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupiRange'
+          minItems: 1
+        gpsiRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityRange'
+          minItems: 1
+        resetIds:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        sNssaiList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snssai'
+          minItems: 1
+        dnnList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dnn'
+          minItems: 1
+        udrGroupId:
+          $ref: '#/components/schemas/NfGroupId'
+    NfGroupIdMapResult:
+      description: Contains the NFGroupIds for the requested NF types. The NFType
+        is the key of the map.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/NfGroupId'
+      minProperties: 1
+    SubscriberId:
+      description: Represents the Subscription Identifier SUPI or GPSI or IMPI or
+        IMPU.
+      type: string
+      pattern: ^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|impi-.+|impu-.+|.+)$
+    SupiRange:
+      description: 'A range of SUPIs (subscriber identities), either based on a numeric
+        range, or based on regular-expression matching
+
+        '
+      type: object
+      properties:
+        start:
+          type: string
+          pattern: ^[0-9]+$
+        end:
+          type: string
+          pattern: ^[0-9]+$
+        pattern:
+          type: string
+    IdentityRange:
+      description: 'A range of GPSIs (subscriber identities), either based on a numeric
+        range, or based on regular-expression matching
+
+        '
+      type: object
+      properties:
+        start:
+          type: string
+          pattern: ^[0-9]+$
+        end:
+          type: string
+          pattern: ^[0-9]+$
+        pattern:
+          type: string
+    Snssai:
+      type: object
+      properties:
+        sst:
+          type: integer
+          minimum: 0
+          maximum: 255
+          description: "Unsigned integer, within the range 0 to 255, representing\
+            \ the Slice/Service Type.  It indicates the expected Network Slice behaviour\
+            \ in terms of features and services. Values 0 to 127 correspond to the\
+            \ standardized SST range. Values 128 to 255 correspond  to the Operator-specific\
+            \ range. See clause 28.4.2 of 3GPP TS 23.003. Standardized values are\
+            \ defined in clause 5.15.2.2 of 3GPP TS 23.501. \n"
+        sd:
+          type: string
+          pattern: ^[A-Fa-f0-9]{6}$
+          description: '3-octet string, representing the Slice Differentiator, in
+            hexadecimal representation. Each character in the string shall take a
+            value of "0" to "9", "a" to "f" or "A" to "F" and shall represent 4 bits.
+            The most significant character representing the 4 most significant bits
+            of the SD shall appear first in the string, and the character representing
+            the 4 least significant bit of the SD shall appear last in the string.
+            This is an optional parameter that complements the Slice/Service type(s)
+            to allow to  differentiate amongst multiple Network Slices of the same
+            Slice/Service type. This IE shall be absent if no SD value is associated
+            with the SST.
+
+            '
+      description: 'When Snssai needs to be converted to string (e.g. when used in
+        maps as key), the string shall be composed of one to three digits "sst" optionally
+        followed by "-" and 6 hexadecimal digits "sd".
+
+        '
+      required:
+      - sst
+    Dnn:
+      type: string
+      description: 'String representing a Data Network as defined in clause 9A of
+        3GPP TS 23.003;  it shall contain either a DNN Network Identifier, or a full
+        DNN with both the Network  Identifier and Operator Identifier, as specified
+        in 3GPP TS 23.003 clause 9.1.1 and 9.1.2. It shall be coded as string in which
+        the labels are separated by dots  (e.g. "Label1.Label2.Label3").
+
+        '
+    NfGroupId:
+      type: string
+      description: Identifier of a group of NFs.
+    Uri:
+      type: string
+      description: String providing an URI formatted according to RFC 3986.
+    RedirectResponse:
+      description: 'The response shall include a Location header field containing
+        a different URI  (pointing to a different URI of an other service instance),
+        or the same URI if a request  is redirected to the same target resource via
+        a different SCP.
+
+        '
+      type: object
+      properties:
+        cause:
+          type: string
+        targetScp:
+          $ref: '#/components/schemas/Uri'
+        targetSepp:
+          $ref: '#/components/schemas/Uri'
+    InvalidParam:
+      type: object
+      properties:
+        param:
+          type: string
+          description: 'If the invalid parameter is an attribute in a JSON body, this
+            IE shall contain the  attribute''s name and shall be encoded as a JSON
+            Pointer. If the invalid parameter is  an HTTP header, this IE shall be
+            formatted as the concatenation of the string "header "  plus the name
+            of such header. If the invalid parameter is a query parameter, this IE  shall
+            be formatted as the concatenation of the string "query " plus the name
+            of such  query parameter. If the invalid parameter is a variable part
+            in the path of a resource  URI, this IE shall contain the name of the
+            variable, including the symbols "{" and "}"  used in OpenAPI specification
+            as the notation to represent variable path segments.
+
+            '
+        reason:
+          type: string
+          description: 'A human-readable reason, e.g. "must be a positive integer".
+            In cases involving failed  operations in a PATCH request, the reason string
+            should identify the operation that  failed using the operation''s array
+            index to assist in correlation of the invalid  parameter with the failed
+            operation, e.g." Replacement value invalid for attribute  (failed operation
+            index= 4)"
+
+            '
+      required:
+      - param
+      description: It contains an invalid parameter and a related description.
+    SupportedFeatures:
+      type: string
+      pattern: ^[A-Fa-f0-9]*$
+      description: "A string used to indicate the features supported by an API that\
+        \ is used as defined in clause  6.6 in 3GPP TS 29.500. The string shall contain\
+        \ a bitmask indicating supported features in  hexadecimal representation Each\
+        \ character in the string shall take a value of \"0\" to \"9\",  \"a\" to\
+        \ \"f\" or \"A\" to \"F\" and shall represent the support of 4 features as\
+        \ described in  table\_5.2.2-3. The most significant character representing\
+        \ the highest-numbered features shall  appear first in the string, and the\
+        \ character representing features 1 to 4 shall appear last  in the string.\
+        \ The list of features and their numbering (starting with 1) are defined \
+        \ separately for each API. If the string contains a lower number of characters\
+        \ than there are  defined features for an API, all features that would be\
+        \ represented by characters that are not  present in the string are not supported.\n"
+    AccessTokenErr:
+      description: Error returned in the access token response message
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          enum:
+          - invalid_request
+          - invalid_client
+          - invalid_grant
+          - unauthorized_client
+          - unsupported_grant_type
+          - invalid_scope
+        error_description:
+          type: string
+        error_uri:
+          type: string
+    NfInstanceId:
+      type: string
+      format: uuid
+      description: "String uniquely identifying a NF instance. The format of the NF\
+        \ Instance ID shall be a  Universally Unique Identifier (UUID) version 4,\
+        \ as described in IETF RFC 4122. \n"
+    NFType:
+      description: NF types known to NRF
+      anyOf:
+      - type: string
+        enum:
+        - NRF
+        - UDM
+        - AMF
+        - SMF
+        - AUSF
+        - NEF
+        - PCF
+        - SMSF
+        - NSSF
+        - UDR
+        - LMF
+        - GMLC
+        - 5G_EIR
+        - SEPP
+        - UPF
+        - N3IWF
+        - AF
+        - UDSF
+        - BSF
+        - CHF
+        - NWDAF
+        - PCSCF
+        - CBCF
+        - HSS
+        - UCMF
+        - SOR_AF
+        - SPAF
+        - MME
+        - SCSAS
+        - SCEF
+        - SCP
+        - NSSAAF
+        - ICSCF
+        - SCSCF
+        - DRA
+        - IMS_AS
+        - AANF
+        - 5G_DDNMF
+        - NSACF
+        - MFAF
+        - EASDF
+        - DCCF
+        - MB_SMF
+        - TSCTSF
+        - ADRF
+        - GBA_BSF
+        - CEF
+        - MB_UPF
+        - NSWOF
+        - PKMF
+        - MNPF
+        - SMS_GMSC
+        - SMS_IWMSC
+        - MBSF
+        - MBSTF
+        - PANF
+        - IP_SM_GW
+        - SMS_ROUTER
+      - type: string
+    Mcc:
+      type: string
+      pattern: ^\d{3}$
+      description: "Mobile Country Code part of the PLMN, comprising 3 digits, as\
+        \ defined in clause 9.3.3.5 of 3GPP TS 38.413. \n"
+    Mnc:
+      type: string
+      pattern: ^\d{2,3}$
+      description: Mobile Network Code part of the PLMN, comprising 2 or 3 digits,
+        as defined in clause 9.3.3.5 of 3GPP TS 38.413.
+    PlmnId:
+      type: object
+      properties:
+        mcc:
+          $ref: '#/components/schemas/Mcc'
+        mnc:
+          $ref: '#/components/schemas/Mnc'
+      description: 'When PlmnId needs to be converted to string (e.g. when used in
+        maps as key), the string  shall be composed of three digits "mcc" followed
+        by "-" and two or three digits "mnc".
+
+        '
+      required:
+      - mcc
+      - mnc
+    Fqdn:
+      description: Fully Qualified Domain Name
+      type: string
+      pattern: ^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\.)+[A-Za-z]{2,63}\.?$
+      minLength: 4
+      maxLength: 253
+    Nid:
+      type: string
+      pattern: ^[A-Fa-f0-9]{11}$
+      description: "This represents the Network Identifier, which together with a\
+        \ PLMN ID is used to identify an SNPN (see 3GPP TS 23.003 and 3GPP TS 23.501\
+        \ clause 5.30.2.1). \n"
+    PlmnIdNid:
+      description: 'Contains the serving core network operator PLMN ID and, for an
+        SNPN, the NID that together with the PLMN ID identifies the SNPN.
+
+        '
+      type: object
+      required:
+      - mcc
+      - mnc
+      properties:
+        mcc:
+          $ref: '#/components/schemas/Mcc'
+        mnc:
+          $ref: '#/components/schemas/Mnc'
+        nid:
+          $ref: '#/components/schemas/Nid'
+    NfSetId:
+      type: string
+      description: "NF Set Identifier (see clause 28.12 of 3GPP TS 23.003), formatted\
+        \ as the following string \"set<Set ID>.<nftype>set.5gc.mnc<MNC>.mcc<MCC>\"\
+        , or  \"set<SetID>.<NFType>set.5gc.nid<NID>.mnc<MNC>.mcc<MCC>\" with  <MCC>\
+        \ encoded as defined in clause 5.4.2 (\"Mcc\" data type definition)  <MNC>\
+        \ encoding the Mobile Network Code part of the PLMN, comprising 3 digits.\
+        \ \n  If there are only 2 significant digits in the MNC, one \"0\" digit shall\
+        \ be inserted \n  at the left side to fill the 3 digits coding of MNC.  Pattern:\
+        \ '^[0-9]{3}$'\n<NFType> encoded as a value defined in Table 6.1.6.3.3-1 of\
+        \ 3GPP TS 29.510 but \n  with lower case characters <Set ID> encoded as a\
+        \ string of characters consisting of \n  alphabetic characters (A-Z and a-z),\
+        \ digits (0-9) and/or the hyphen (-) and that \n  shall end with either an\
+        \ alphabetic character or a digit. \n"
+    NfServiceSetId:
+      type: string
+      description: "NF Service Set Identifier (see clause 28.12 of 3GPP TS 23.003)\
+        \ formatted as the following  string \"set<Set ID>.sn<Service Name>.nfi<NF\
+        \ Instance ID>.5gc.mnc<MNC>.mcc<MCC>\", or  \"set<SetID>.sn<ServiceName>.nfi<NFInstanceID>.5gc.nid<NID>.mnc<MNC>.mcc<MCC>\"\
+        \ with  <MCC> encoded as defined in clause 5.4.2 (\"Mcc\" data type definition)\
+        \   <MNC> encoding the Mobile Network Code part of the PLMN, comprising 3\
+        \ digits. \n  If there are only 2 significant digits in the MNC, one \"0\"\
+        \ digit shall be inserted \n  at the left side to fill the 3 digits coding\
+        \ of MNC.  Pattern: '^[0-9]{3}$'\n<NID> encoded as defined in clause\_5.4.2\
+        \ (\"Nid\" data type definition)  <NFInstanceId> encoded as defined in clause\
+        \ 5.3.2  <ServiceName> encoded as defined in 3GPP TS 29.510  <Set ID> encoded\
+        \ as a string of characters consisting of alphabetic \n  characters (A-Z and\
+        \ a-z), digits (0-9) and/or the hyphen (-) and that shall end \n  with either\
+        \ an alphabetic character or a digit.\n"
+    AccessTokenReq:
+      description: Contains information related to the access token request
+      type: object
+      required:
+      - grant_type
+      - nfInstanceId
+      - scope
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+        nfInstanceId:
+          $ref: '#/components/schemas/NfInstanceId'
+        nfType:
+          $ref: '#/components/schemas/NFType'
+        targetNfType:
+          $ref: '#/components/schemas/NFType'
+        scope:
+          type: string
+          pattern: ^([a-zA-Z0-9_:-]+)( [a-zA-Z0-9_:-]+)*$
+        targetNfInstanceId:
+          $ref: '#/components/schemas/NfInstanceId'
+        requesterPlmn:
+          $ref: '#/components/schemas/PlmnId'
+        requesterPlmnList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlmnId'
+          minItems: 2
+        requesterSnssaiList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snssai'
+          minItems: 1
+        requesterFqdn:
+          $ref: '#/components/schemas/Fqdn'
+        requesterSnpnList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlmnIdNid'
+          minItems: 1
+        targetPlmn:
+          $ref: '#/components/schemas/PlmnId'
+        targetSnpn:
+          $ref: '#/components/schemas/PlmnIdNid'
+        targetSnssaiList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snssai'
+          minItems: 1
+        targetNsiList:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        targetNfSetId:
+          $ref: '#/components/schemas/NfSetId'
+        targetNfServiceSetId:
+          $ref: '#/components/schemas/NfServiceSetId'
+        hnrfAccessTokenUri:
+          $ref: '#/components/schemas/Uri'
+        sourceNfInstanceId:
+          $ref: '#/components/schemas/NfInstanceId'
+    ProblemDetails:
+      description: Provides additional information in an error response.
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/Uri'
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of
+            the problem.
+        instance:
+          $ref: '#/components/schemas/Uri'
+        cause:
+          type: string
+          description: 'A machine-readable application error cause specific to this
+            occurrence of the problem.  This IE should be present and provide application-related
+            error information, if available.
+
+            '
+        invalidParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidParam'
+          minItems: 1
+        supportedFeatures:
+          $ref: '#/components/schemas/SupportedFeatures'
+        accessTokenError:
+          $ref: '#/components/schemas/AccessTokenErr'
+        accessTokenRequest:
+          $ref: '#/components/schemas/AccessTokenReq'
+        nrfId:
+          $ref: '#/components/schemas/Fqdn'
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{nrfApiRoot}/oauth2/token'
+          scopes:
+            nudr-dr: Access to the Nudr_DataRepository API
+            nudr-dr:subscription-data: Access to the SubscriptionData data set
+            nudr-dr:subscription-data:authentication-subscription:read: Access to
+              read the AuthenticationSubscription resource of the SubscriptionData
+              data set
+            nudr-dr:subscription-data:authentication-subscription:modify: Access to
+              update the AuthenticationSubscription resource of the SubscriptionData
+              data set
+            nudr-dr:subscription-data:registrations:write: Write access to NF registration
+              resources of the SubscriptionData data set
+            nudr-dr:policy-data: Access to the PolicyData data set
+            nudr-dr:policy-data:ues:read: Access to read the UEs resource
+            nudr-dr:policy-data:ues:am-data:read: Access to read the UEs Access and
+              Mobility policy data
+            nudr-dr:policy-data:ues:ue-policy-set:read: Access to read the UEs Policy
+              Set data
+            nudr-dr:policy-data:ues:ue-policy-set:create: Access to create the UEs
+              Policy Set data
+            nudr-dr:policy-data:ues:ue-policy-set:modify: Access to update the UEs
+              Policy Set data
+            nudr-dr:policy-data:ues:sm-data:read: Access to read the UEs Session Management
+              Policy data
+            nudr-dr:policy-data:ues:sm-data:modify: Access to update the UEs Session
+              Management Policy data
+            nudr-dr:policy-data:ues:sm-data:create: Access to create the UEs Session
+              Management Policy data
+            nudr-dr:policy-data:sponsor-connectivity-data:read: Access to read the
+              sponsored Connectivity Data
+            nudr-dr:policy-data:bdt-data:read: Access to read the BDT data resource
+            nudr-dr:policy-data:bdt-data:create: Access to create the BDT data resource
+            nudr-dr:policy-data:bdt-data:modify: Access to update the BDT data resource
+            nudr-dr:policy-data:subs-to-notify:create: Access to create Subscriptions
+              resources
+            nudr-dr:policy-data:subs-to-notify:modify: Access to update Subscriptions
+              resources
+            nudr-dr:policy-data:ues:operator-specific-data:read: Access to read the
+              UEs operator specific policy data
+            nudr-dr:policy-data:ues:operator-specific-data:modify: Access to update
+              the UEs operator specific policy data
+            nudr-dr:policy-data:ues:operator-specific-data:create: Access to create
+              the UEs operator specific policy data
+            nudr-dr:policy-data:slice-control-data:read: Access to read Slice specific
+              Policy Control Data
+            nudr-dr:policy-data:slice-control-data:modify: Access to update Slice
+              specific Policy Control Data
+            nudr-dr:exposure-data: Access to the ExposureData data set
+            nudr-dr:exposure-data:access-and-mobility-data:create: Access to create
+              ExposureData
+            nudr-dr:exposure-data:access-and-mobility-data:read: Access to read ExposureData
+            nudr-dr:exposure-data:access-and-mobility-data:modify: Access to update
+              ExposureData
+            nudr-dr:exposure-data:session-management-data:create: Access to create
+              ExposureData
+            nudr-dr:exposure-data:session-management-data:read: Access to read ExposureData
+            nudr-dr:exposure-data:session-management-data:modify: Access to update
+              ExposureData
+            nudr-dr:exposure-data:subs-to-notify:create: Access to create Subscriptions
+              resources
+            nudr-dr:exposure-data:subs-to-notify:modify: Access to update Subscriptions
+              resources
+            nudr-dr:application-data: Access to the ApplicationData data set
+            nudr-dr:application-data:pfds:read: Access to read PFDData
+            nudr-dr:application-data:pfds:modify: Access to update PFDData
+            nudr-dr:application-data:pfds:create: Access to create PFDData
+            nudr-dr:application-data:influence-data:read: Access to read Traffic Influence
+              Data
+            nudr-dr:application-data:influence-data:create: Access to create Traffic
+              Influence Data.
+            nudr-dr:application-data:influence-data:modify: Access to update Traffic
+              Influence Data
+            nudr-dr:application-data:influence-data:subscriptions:read: Access to
+              read Traffic Influence Data Subscriptions
+            nudr-dr:application-data:influence-data:subscriptions:create: Access to
+              create Traffic Influence Data Subscriptions
+            nudr-dr:application-data:influence-data:subscriptions:modify: Access to
+              update Traffic Influence Data Subscriptions
+            nudr-dr:application-data:bdt-policy-data:read: Access to read BDT Policy
+              Data
+            nudr-dr:application-data:bdt-policy-data:create: Access to create BDT
+              Policy Data
+            nudr-dr:application-data:bdt-policy-data:modify: Access to update BDT
+              Policy Data
+            nudr-dr:application-data:iptv-config-data:read: Access to read IPTV Configuration
+              Data
+            nudr-dr:application-data:iptv-config-data:create: Access to create IPTV
+              Configuration Data
+            nudr-dr:application-data:iptv-config-data:modify: Access to update IPTV
+              Configuration Data
+            nudr-dr:application-data:service-param-data:read: Access to read Service
+              Parameter Data
+            nudr-dr:application-data:service-param-data:create: Access to create Service
+              Parameter Data
+            nudr-dr:application-data:service-param-data:modify: Access to update Service
+              Parameter Data
+            nudr-dr:application-data:am-influence-data:read: Access to read AM Influence
+              Data
+            nudr-dr:application-data:am-influence-data:create: Access to create AM
+              Influence Data
+            nudr-dr:application-data:am-influence-data:modify: Access to update AM
+              Influence Data
+            nudr-dr:application-data:subs-to-notify:create: Access to create Subscriptions
+              resources
+            nudr-dr:application-data:subs-to-notify:read: Access to read Subscriptions
+              resources
+            nudr-dr:application-data:subs-to-notify:modify: Access to update Subscriptions
+              resources
+            nudr-dr:application-data:eas-deploy-data:read: Access to read EAS Deployment
+              Information Data
+            nudr-dr:application-data:eas-deploy-data:create: Access to create EAS
+              Deployment Information Data
+            nudr-dr:application-data:eas-deploy-data:modify: Access to update EAS
+              Deployment Information Data
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    default:
+      description: Generic Error
