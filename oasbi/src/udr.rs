@@ -70,7 +70,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessTokenErr {
         pub error: AccessTokenErrError,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -114,8 +114,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessTokenErrError {
+        #[default]
         #[serde(rename = "invalid_request")]
         InvalidRequest,
         #[serde(rename = "invalid_client")]
@@ -285,7 +287,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessTokenReq {
         pub grant_type: AccessTokenReqGrantType,
         #[serde(
@@ -415,8 +417,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessTokenReqGrantType {
+        #[default]
         #[serde(rename = "client_credentials")]
         ClientCredentials,
     }
@@ -477,7 +481,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct AccessTokenReqScope(String);
     impl ::std::ops::Deref for AccessTokenReqScope {
         type Target = String;
@@ -601,7 +605,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct DataRestorationNotification {
         #[serde(rename = "dnnList", default, skip_serializing_if = "Vec::is_empty")]
         pub dnn_list: Vec<Dnn>,
@@ -657,6 +661,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Dnn(pub String);
     impl ::std::ops::Deref for Dnn {
@@ -712,7 +717,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Fqdn(String);
     impl ::std::ops::Deref for Fqdn {
         type Target = String;
@@ -815,7 +820,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct IdentityRange {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub end: Option<IdentityRangeEnd>,
@@ -842,7 +847,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct IdentityRangeEnd(String);
     impl ::std::ops::Deref for IdentityRangeEnd {
         type Target = String;
@@ -922,7 +927,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct IdentityRangeStart(String);
     impl ::std::ops::Deref for IdentityRangeStart {
         type Target = String;
@@ -1031,7 +1036,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct InvalidParam {
         ///If the invalid parameter is an attribute in a JSON body, this IE
         /// shall contain the  attribute's name and shall be encoded as a JSON
@@ -1075,7 +1080,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Mcc(String);
     impl ::std::ops::Deref for Mcc {
         type Target = String;
@@ -1158,7 +1163,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Mnc(String);
     impl ::std::ops::Deref for Mnc {
         type Target = String;
@@ -1248,6 +1253,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NfGroupId(pub String);
     impl ::std::ops::Deref for NfGroupId {
@@ -1305,7 +1311,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NfGroupIdMapResult(pub ::std::collections::HashMap<String, NfGroupId>);
     impl ::std::ops::Deref for NfGroupIdMapResult {
         type Target = ::std::collections::HashMap<String, NfGroupId>;
@@ -1348,7 +1354,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NfInstanceId(pub uuid::Uuid);
     impl ::std::ops::Deref for NfInstanceId {
         type Target = uuid::Uuid;
@@ -1458,6 +1464,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NfServiceSetId(pub String);
     impl ::std::ops::Deref for NfServiceSetId {
@@ -1542,6 +1549,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NfSetId(pub String);
     impl ::std::ops::Deref for NfSetId {
@@ -1664,8 +1672,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NfType {
+        #[default]
         #[serde(rename = "NRF")]
         Nrf,
         #[serde(rename = "UDM")]
@@ -1962,7 +1972,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Nid(String);
     impl ::std::ops::Deref for Nid {
         type Target = String;
@@ -2058,7 +2068,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PlmnId {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -2099,7 +2109,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PlmnIdNid {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -2168,7 +2178,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ProblemDetails {
         #[serde(
             rename = "accessTokenError",
@@ -2249,7 +2259,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RedirectResponse {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub cause: Option<String>,
@@ -2316,7 +2326,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Snssai {
         ///3-octet string, representing the Slice Differentiator, in
         /// hexadecimal representation. Each character in the string shall take
@@ -2376,7 +2386,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SnssaiSd(String);
     impl ::std::ops::Deref for SnssaiSd {
         type Target = String;
@@ -2460,7 +2470,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SubscriberId(String);
     impl ::std::ops::Deref for SubscriberId {
         type Target = String;
@@ -2549,7 +2559,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SupiRange {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub end: Option<SupiRangeEnd>,
@@ -2576,7 +2586,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SupiRangeEnd(String);
     impl ::std::ops::Deref for SupiRangeEnd {
         type Target = String;
@@ -2656,7 +2666,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SupiRangeStart(String);
     impl ::std::ops::Deref for SupiRangeStart {
         type Target = String;
@@ -2749,7 +2759,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SupportedFeatures(String);
     impl ::std::ops::Deref for SupportedFeatures {
         type Target = String;
@@ -2840,6 +2850,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Uri(pub String);
     impl ::std::ops::Deref for Uri {

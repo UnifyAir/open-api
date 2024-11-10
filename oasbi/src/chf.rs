@@ -62,7 +62,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessNetworkInfoChange {
         #[serde(
             rename = "accessNetworkInformation",
@@ -123,7 +123,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessTokenErr {
         pub error: AccessTokenErrError,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -167,8 +167,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessTokenErrError {
+        #[default]
         #[serde(rename = "invalid_request")]
         InvalidRequest,
         #[serde(rename = "invalid_client")]
@@ -338,7 +340,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessTokenReq {
         pub grant_type: AccessTokenReqGrantType,
         #[serde(
@@ -468,8 +470,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessTokenReqGrantType {
+        #[default]
         #[serde(rename = "client_credentials")]
         ClientCredentials,
     }
@@ -530,7 +534,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct AccessTokenReqScope(String);
     impl ::std::ops::Deref for AccessTokenReqScope {
         type Target = String;
@@ -644,7 +648,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AccessTransferInformation {
         #[serde(
             rename = "accessNetworkInformation",
@@ -735,8 +739,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessTransferType {
+        #[default]
         #[serde(rename = "PS_TO_CS")]
         PsToCs,
         #[serde(rename = "CS_TO_PS")]
@@ -828,8 +834,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AccessType {
+        #[default]
         #[serde(rename = "3GPP_ACCESS")]
         ThreeGppAccess,
         #[serde(rename = "NON_3GPP_ACCESS")]
@@ -903,9 +911,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum AccessTypeRm {
+        #[default]
         AccessType(AccessType),
         NullValue(NullValue),
     }
@@ -948,7 +957,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AddrFqdn {
         ///Indicates an FQDN.
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -988,8 +997,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AdministrativeState {
+        #[default]
         #[serde(rename = "LOCKED")]
         Locked,
         #[serde(rename = "UNLOCKED")]
@@ -1067,7 +1078,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AffinityAntiAffinity {
         #[serde(rename = "affinityEAS", default, skip_serializing_if = "Vec::is_empty")]
         pub affinity_eas: Vec<String>,
@@ -1109,7 +1120,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Ambr {
         pub downlink: BitRate,
         pub uplink: BitRate,
@@ -1139,7 +1150,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct AmfId(String);
     impl ::std::ops::Deref for AmfId {
         type Target = String;
@@ -1251,7 +1262,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AnnouncementInformation {
         #[serde(
             rename = "announcementIdentifier",
@@ -1336,8 +1347,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum AnnouncementPrivacyIndicator {
+        #[default]
         #[serde(rename = "NOT_PRIVATE")]
         NotPrivate,
         #[serde(rename = "PRIVATE")]
@@ -1419,8 +1432,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ApiDirection {
+        #[default]
         #[serde(rename = "INVOCATION")]
         Invocation,
         #[serde(rename = "NOTIFICATION")]
@@ -1500,6 +1515,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct ApplicationChargingId(pub String);
     impl ::std::ops::Deref for ApplicationChargingId {
@@ -1561,6 +1577,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct ApplicationId(pub String);
     impl ::std::ops::Deref for ApplicationId {
@@ -1636,9 +1653,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum Area {
+        #[default]
         Variant0 {
             tacs: Vec<Tac>,
         },
@@ -1675,6 +1693,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct AreaCode(pub String);
     impl ::std::ops::Deref for AreaCode {
@@ -1733,7 +1752,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ArfcnValueNr(pub i64);
     impl ::std::ops::Deref for ArfcnValueNr {
         type Target = i64;
@@ -1822,7 +1841,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Arp {
         #[serde(rename = "preemptCap")]
         pub preempt_cap: PreemptionCapability,
@@ -1862,7 +1881,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ArpPriorityLevel(pub Option<i64>);
     impl ::std::ops::Deref for ArpPriorityLevel {
         type Target = Option<i64>;
@@ -1928,7 +1947,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AtsssCapability {
         ///Indicates the ATSSS-LL capability to support procedures related to
         /// Access Traffic Steering, Switching, Splitting (see clauses 4.2.10,
@@ -1998,7 +2017,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AuthorizedDefaultQos {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
@@ -2061,7 +2080,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AverWindow(pub i64);
     impl ::std::ops::Deref for AverWindow {
         type Target = i64;
@@ -2142,7 +2161,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct AverWindowRm(pub Option<i64>);
     impl ::std::ops::Deref for AverWindowRm {
         type Target = Option<i64>;
@@ -2187,7 +2206,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct BitRate(String);
     impl ::std::ops::Deref for BitRate {
         type Target = String;
@@ -2274,7 +2293,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct BitRateRm(pub Option<BitRateRmInner>);
     impl ::std::ops::Deref for BitRateRm {
         type Target = Option<BitRateRmInner>;
@@ -2314,7 +2333,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct BitRateRmInner(String);
     impl ::std::ops::Deref for BitRateRmInner {
         type Target = String;
@@ -2407,6 +2426,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Bytes(pub String);
     impl ::std::ops::Deref for Bytes {
@@ -2465,7 +2485,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct CalledIdentityChange {
         #[serde(
             rename = "calledIdentity",
@@ -2518,7 +2538,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct CellGlobalId {
         #[serde(rename = "cellId")]
         pub cell_id: CellGlobalIdCellId,
@@ -2544,7 +2564,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct CellGlobalIdCellId(String);
     impl ::std::ops::Deref for CellGlobalIdCellId {
         type Target = String;
@@ -2624,7 +2644,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct CellGlobalIdLac(String);
     impl ::std::ops::Deref for CellGlobalIdLac {
         type Target = String;
@@ -2719,8 +2739,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ChargingCharacteristicsSelectionMode {
+        #[default]
         #[serde(rename = "HOME_DEFAULT")]
         HomeDefault,
         #[serde(rename = "ROAMING_DEFAULT")]
@@ -2912,7 +2934,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ChargingDataRequest {
         #[serde(rename = "aMFId", default, skip_serializing_if = "Option::is_none")]
         pub a_mf_id: Option<AmfId>,
@@ -3155,7 +3177,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ChargingDataResponse {
         #[serde(
             rename = "invocationResult",
@@ -3229,7 +3251,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ChargingId(pub u32);
     impl ::std::ops::Deref for ChargingId {
         type Target = u32;
@@ -3315,7 +3337,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ChargingNotifyRequest {
         #[serde(rename = "notificationType")]
         pub notification_type: NotificationType,
@@ -3348,7 +3370,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ChargingNotifyResponse {
         #[serde(
             rename = "invocationResult",
@@ -3391,8 +3413,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ClassIdentifier {
+        #[default]
         #[serde(rename = "PERSONAL")]
         Personal,
         #[serde(rename = "ADVERTISEMENT")]
@@ -3483,8 +3507,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum CoreNetworkType {
+        #[default]
         #[serde(rename = "5GC")]
         FiveGc,
         #[serde(rename = "EPC")]
@@ -3566,7 +3592,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct CoverageInfo {
         #[serde(
             rename = "changeTime",
@@ -3606,7 +3632,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct DateTime(pub chrono::DateTime<chrono::offset::Utc>);
     impl ::std::ops::Deref for DateTime {
         type Target = chrono::DateTime<chrono::offset::Utc>;
@@ -3692,8 +3718,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum DeliveryReportRequested {
+        #[default]
         #[serde(rename = "YES")]
         Yes,
         #[serde(rename = "NO")]
@@ -3760,7 +3788,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Diagnostics(pub i64);
     impl ::std::ops::Deref for Diagnostics {
         type Target = i64;
@@ -3846,8 +3874,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum DirectDiscoveryModel {
+        #[default]
         #[serde(rename = "MODEL_A")]
         ModelA,
         #[serde(rename = "MODEL_B")]
@@ -3927,6 +3957,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Dnai(pub String);
     impl ::std::ops::Deref for Dnai {
@@ -3997,6 +4028,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Dnn(pub String);
     impl ::std::ops::Deref for Dnn {
@@ -4063,8 +4095,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum DnnSelectionMode {
+        #[default]
         #[serde(rename = "VERIFIED")]
         Verified,
         #[serde(rename = "UE_DNN_NOT_VERIFIED")]
@@ -4136,7 +4170,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct DurationSec(pub i64);
     impl ::std::ops::Deref for DurationSec {
         type Target = i64;
@@ -4208,7 +4242,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct E164(String);
     impl ::std::ops::Deref for E164 {
         type Target = String;
@@ -4315,7 +4349,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct ENbId(String);
     impl ::std::ops::Deref for ENbId {
         type Target = String;
@@ -4407,7 +4441,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EarlyMediaDescription {
         #[serde(
             rename = "sDPMediaComponent",
@@ -4459,7 +4493,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EasDeploymentChargingInformation {
         #[serde(
             rename = "eEASDeploymentRequirements",
@@ -4520,7 +4554,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EasRequirements {
         #[serde(
             rename = "affinityAntiAffinity",
@@ -4588,7 +4622,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Ecgi {
         #[serde(rename = "eutraCellId")]
         pub eutra_cell_id: EutraCellId,
@@ -4637,7 +4671,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EdgeInfrastructureUsageChargingInformation {
         #[serde(
             rename = "durationEndTime",
@@ -4701,7 +4735,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EnhancedDiagnostics5G(pub RanNasCauseList);
     impl ::std::ops::Deref for EnhancedDiagnostics5G {
         type Target = RanNasCauseList;
@@ -4749,6 +4783,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct EpsRanNasRelCause(pub String);
     impl ::std::ops::Deref for EpsRanNasRelCause {
@@ -4814,7 +4849,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct EutraCellId(String);
     impl ::std::ops::Deref for EutraCellId {
         type Target = String;
@@ -4951,7 +4986,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct EutraLocation {
         ///The value represents the elapsed time in minutes since the last
         /// network contact of the mobile station.  Value "0" indicates that the
@@ -5034,7 +5069,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct EutraLocationGeodeticInformation(String);
     impl ::std::ops::Deref for EutraLocationGeodeticInformation {
         type Target = String;
@@ -5119,7 +5154,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct EutraLocationGeographicalInformation(String);
     impl ::std::ops::Deref for EutraLocationGeographicalInformation {
         type Target = String;
@@ -5204,7 +5239,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ExtMaxDataBurstVol(pub i64);
     impl ::std::ops::Deref for ExtMaxDataBurstVol {
         type Target = i64;
@@ -5284,7 +5319,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ExtMaxDataBurstVolRm(pub Option<i64>);
     impl ::std::ops::Deref for ExtMaxDataBurstVolRm {
         type Target = Option<i64>;
@@ -5325,7 +5360,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct ExternalGroupId(String);
     impl ::std::ops::Deref for ExternalGroupId {
         type Target = String;
@@ -5420,8 +5455,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum FailureHandling {
+        #[default]
         #[serde(rename = "TERMINATE")]
         Terminate,
         #[serde(rename = "CONTINUE")]
@@ -5508,8 +5545,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum FinalUnitAction {
+        #[default]
         #[serde(rename = "TERMINATE")]
         Terminate,
         #[serde(rename = "REDIRECT")]
@@ -5611,7 +5650,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct FinalUnitIndication {
         #[serde(rename = "filterId", default, skip_serializing_if = "Option::is_none")]
         pub filter_id: Option<String>,
@@ -5661,7 +5700,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Float(pub f32);
     impl ::std::ops::Deref for Float {
         type Target = f32;
@@ -5737,7 +5776,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Fqdn(String);
     impl ::std::ops::Deref for Fqdn {
         type Target = String;
@@ -5852,7 +5891,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct GNbId {
         ///Unsigned integer representing the bit length of the gNB ID as
         /// defined in clause 9.3.1.6 of 3GPP TS 38.413 [11], within the range
@@ -5905,7 +5944,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GNbIdGNbValue(String);
     impl ::std::ops::Deref for GNbIdGNbValue {
         type Target = String;
@@ -6005,6 +6044,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Gci(pub String);
     impl ::std::ops::Deref for Gci {
@@ -6063,7 +6103,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct GeoLoc {
         #[serde(
             rename = "civicLocation",
@@ -6103,7 +6143,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct GeographicalCoordinates {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub lattitude: Option<i64>,
@@ -6195,9 +6235,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum GeraLocation {
+        #[default]
         Variant0 {
             ///The value represents the elapsed time in minutes since the last
             /// network contact of the mobile station. Value "0" indicates that
@@ -6390,7 +6431,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant0GeodeticInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant0GeodeticInformation {
         type Target = String;
@@ -6475,7 +6516,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant0GeographicalInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant0GeographicalInformation {
         type Target = String;
@@ -6562,7 +6603,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant1GeodeticInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant1GeodeticInformation {
         type Target = String;
@@ -6647,7 +6688,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant1GeographicalInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant1GeographicalInformation {
         type Target = String;
@@ -6734,7 +6775,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant2GeodeticInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant2GeodeticInformation {
         type Target = String;
@@ -6819,7 +6860,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GeraLocationVariant2GeographicalInformation(String);
     impl ::std::ops::Deref for GeraLocationVariant2GeographicalInformation {
         type Target = String;
@@ -6964,9 +7005,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum GlobalRanNodeId {
+        #[default]
         Variant0 {
             #[serde(rename = "n3IwfId")]
             n3_iwf_id: N3IwfId,
@@ -7042,7 +7084,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Gpsi(String);
     impl ::std::ops::Deref for Gpsi {
         type Target = String;
@@ -7143,7 +7185,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct GrantedUnit {
         #[serde(
             rename = "downlinkVolume",
@@ -7202,7 +7244,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct GroupId(String);
     impl ::std::ops::Deref for GroupId {
         type Target = String;
@@ -7290,7 +7332,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct HfcNId(String);
     impl ::std::ops::Deref for HfcNId {
         type Target = String;
@@ -7374,7 +7416,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct HfcNodeId {
         #[serde(rename = "hfcNId")]
         pub hfc_n_id: HfcNId,
@@ -7424,9 +7466,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum ImsAddress {
+        #[default]
         Variant0 {
             #[serde(rename = "ipv4Addr")]
             ipv4_addr: Ipv4Addr,
@@ -7697,7 +7740,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ImsChargingInformation {
         #[serde(
             rename = "accessNetworkInfoChange",
@@ -8079,8 +8122,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ImsNodeFunctionality {
+        #[default]
         #[serde(rename = "S_CSCF")]
         SCscf,
         #[serde(rename = "P_CSCF")]
@@ -8249,8 +8294,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ImsSessionPriority {
+        #[default]
         #[serde(rename = "PRIORITY_0")]
         Priority0,
         #[serde(rename = "PRIORITY_1")]
@@ -8337,7 +8384,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct InterOperatorIdentifier {
         #[serde(
             rename = "originatingIOI",
@@ -8387,8 +8434,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum InterfaceType {
+        #[default]
         #[serde(rename = "UNKNOWN")]
         Unknown,
         #[serde(rename = "MOBILE_ORIGINATING")]
@@ -8497,7 +8546,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct InvalidParam {
         ///If the invalid parameter is an attribute in a JSON body, this IE
         /// shall contain the  attribute's name and shall be encoded as a JSON
@@ -8545,7 +8594,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct InvocationResult {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub error: Option<ProblemDetails>,
@@ -8602,9 +8651,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum IpAddr {
+        #[default]
         Variant0 {
             #[serde(rename = "ipv4Addr")]
             ipv4_addr: Ipv4Addr,
@@ -8645,6 +8695,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct IpFilterRule(pub String);
     impl ::std::ops::Deref for IpFilterRule {
@@ -8704,7 +8755,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Ipv4Addr(String);
     impl ::std::ops::Deref for Ipv4Addr {
         type Target = String;
@@ -8789,7 +8840,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Ipv6Addr(String);
     impl ::std::ops::Deref for Ipv6Addr {
         type Target = String;
@@ -8875,7 +8926,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Ipv6Prefix(String);
     impl ::std::ops::Deref for Ipv6Prefix {
         type Target = String;
@@ -8959,7 +9010,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct IsupCause {
         #[serde(
             rename = "iSUPCauseDiagnostics",
@@ -9007,6 +9058,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Language(pub String);
     impl ::std::ops::Deref for Language {
@@ -9076,8 +9128,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum LineType {
+        #[default]
         #[serde(rename = "DSL")]
         Dsl,
         #[serde(rename = "PON")]
@@ -9147,7 +9201,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct LoadLevelInformation(pub i64);
     impl ::std::ops::Deref for LoadLevelInformation {
         type Target = i64;
@@ -9235,7 +9289,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct LocationAreaId {
         ///Location Area Code.
         pub lac: LocationAreaIdLac,
@@ -9261,7 +9315,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct LocationAreaIdLac(String);
     impl ::std::ops::Deref for LocationAreaIdLac {
         type Target = String;
@@ -9355,7 +9409,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct LocationInfo {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub confidence: Option<Uinteger>,
@@ -9410,7 +9464,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct LocationReportingChargingInformation {
         #[serde(rename = "locationReportingMessageType")]
         pub location_reporting_message_type: LocationReportingMessageType,
@@ -9464,7 +9518,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct LocationReportingMessageType(pub i64);
     impl ::std::ops::Deref for LocationReportingMessageType {
         type Target = i64;
@@ -9553,8 +9607,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum MaPduIndication {
+        #[default]
         #[serde(rename = "MA_PDU_REQUEST")]
         MaPduRequest,
         #[serde(rename = "MA_PDU_NETWORK_UPGRADE_ALLOWED")]
@@ -9643,8 +9699,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ManagementOperation {
+        #[default]
         #[serde(rename = "CreateMOI")]
         CreateMoi,
         #[serde(rename = "ModifyMOIAttributes")]
@@ -9754,8 +9812,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ManagementOperationStatus {
+        #[default]
         #[serde(rename = "OPERATION_SUCCEEDED")]
         OperationSucceeded,
         #[serde(rename = "OPERATION_FAILED")]
@@ -9830,7 +9890,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MapduSessionInformation {
         #[serde(
             rename = "aTSSSCapability",
@@ -9886,8 +9946,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum MatchingDirection {
+        #[default]
         #[serde(rename = "ASCENDING")]
         Ascending,
         #[serde(rename = "DESCENDING")]
@@ -9964,7 +10026,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MaxDataBurstVol(pub i64);
     impl ::std::ops::Deref for MaxDataBurstVol {
         type Target = i64;
@@ -10044,7 +10106,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MaxDataBurstVolRm(pub Option<i64>);
     impl ::std::ops::Deref for MaxDataBurstVolRm {
         type Target = Option<i64>;
@@ -10085,7 +10147,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Mcc(String);
     impl ::std::ops::Deref for Mcc {
         type Target = String;
@@ -10180,8 +10242,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum MediaInitiatorFlag {
+        #[default]
         #[serde(rename = "CALLED_PARTY")]
         CalledParty,
         #[serde(rename = "CALLING_PARTY")]
@@ -10270,7 +10334,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MessageBody {
         #[serde(
             rename = "contentDisposition",
@@ -10310,7 +10374,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MessageClass {
         #[serde(
             rename = "classIdentifier",
@@ -10353,8 +10417,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum MicoModeIndication {
+        #[default]
         #[serde(rename = "MICO_MODE")]
         MicoMode,
         #[serde(rename = "NO_MICO_MODE")]
@@ -10430,7 +10496,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MmTelChargingInformation {
         #[serde(
             rename = "supplementaryServices",
@@ -10460,7 +10526,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Mnc(String);
     impl ::std::ops::Deref for Mnc {
         type Target = String;
@@ -10572,7 +10638,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MultipleQfIcontainer {
         #[serde(
             rename = "downlinkVolume",
@@ -10673,7 +10739,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MultipleUnitInformation {
         #[serde(
             rename = "announcementInformation",
@@ -10777,7 +10843,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct MultipleUnitUsage {
         #[serde(
             rename = "multihomedPDUAddress",
@@ -10890,7 +10956,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct N2ConnectionChargingInformation {
         #[serde(
             rename = "allowedNSSAI",
@@ -10989,7 +11055,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct N2ConnectionChargingInformationRrcEstCause(String);
     impl ::std::ops::Deref for N2ConnectionChargingInformationRrcEstCause {
         type Target = String;
@@ -11070,7 +11136,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct N2ConnectionMessageType(pub i64);
     impl ::std::ops::Deref for N2ConnectionMessageType {
         type Target = i64;
@@ -11156,7 +11222,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct N3IwfId(String);
     impl ::std::ops::Deref for N3IwfId {
         type Target = String;
@@ -11283,7 +11349,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct N3gaLocation {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub gci: Option<Gci>,
@@ -11366,7 +11432,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct N3gaLocationN3IwfId(String);
     impl ::std::ops::Deref for N3gaLocationN3IwfId {
         type Target = String;
@@ -11462,7 +11528,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Ncgi {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub nid: Option<Nid>,
@@ -11527,7 +11593,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NefChargingInformation {
         #[serde(
             rename = "aPIContent",
@@ -11640,7 +11706,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NetworkAreaInfo {
         ///Contains a list of E-UTRA cell identities.
         #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -11680,7 +11746,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NetworkSlicingInfo {
         #[serde(rename = "sNSSAI")]
         pub s_nssai: Snssai,
@@ -11725,7 +11791,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NfIdentification {
         #[serde(rename = "nFFqdn", default, skip_serializing_if = "Option::is_none")]
         pub n_f_fqdn: Option<String>,
@@ -11771,7 +11837,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NfInstanceId(pub uuid::Uuid);
     impl ::std::ops::Deref for NfInstanceId {
         type Target = uuid::Uuid;
@@ -11881,6 +11947,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NfServiceSetId(pub String);
     impl ::std::ops::Deref for NfServiceSetId {
@@ -11965,6 +12032,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NfSetId(pub String);
     impl ::std::ops::Deref for NfSetId {
@@ -12087,8 +12155,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NfType {
+        #[default]
         #[serde(rename = "NRF")]
         Nrf,
         #[serde(rename = "UDM")]
@@ -12392,7 +12462,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NgApCause {
         pub group: Uinteger,
         pub value: Uinteger,
@@ -12438,7 +12508,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct NgeNbId(String);
     impl ::std::ops::Deref for NgeNbId {
         type Target = String;
@@ -12517,7 +12587,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Nid(String);
     impl ::std::ops::Deref for Nid {
         type Target = String;
@@ -12610,7 +12680,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NniInformation {
         #[serde(rename = "nNIType", default, skip_serializing_if = "Option::is_none")]
         pub n_ni_type: Option<NniType>,
@@ -12665,8 +12735,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NniRelationshipMode {
+        #[default]
         #[serde(rename = "TRUSTED")]
         Trusted,
         #[serde(rename = "NON_TRUSTED")]
@@ -12748,8 +12820,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NniSessionDirection {
+        #[default]
         #[serde(rename = "INBOUND")]
         Inbound,
         #[serde(rename = "OUTBOUND")]
@@ -12832,8 +12906,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NniType {
+        #[default]
         #[serde(rename = "NON_ROAMING")]
         NonRoaming,
         #[serde(rename = "ROAMING_NO_LOOPBACK")]
@@ -12937,8 +13013,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NodeFunctionality {
+        #[default]
         #[serde(rename = "AMF")]
         Amf,
         #[serde(rename = "SMF")]
@@ -13092,8 +13170,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum NotificationType {
+        #[default]
         #[serde(rename = "REAUTHORIZATION")]
         Reauthorization,
         #[serde(rename = "ABORT_CHARGING")]
@@ -13168,7 +13248,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct NrCellId(String);
     impl ::std::ops::Deref for NrCellId {
         type Target = String;
@@ -13295,7 +13375,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NrLocation {
         ///The value represents the elapsed time in minutes since the last
         /// network contact of the mobile station. Value "0" indicates that the
@@ -13367,7 +13447,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct NrLocationGeodeticInformation(String);
     impl ::std::ops::Deref for NrLocationGeodeticInformation {
         type Target = String;
@@ -13452,7 +13532,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct NrLocationGeographicalInformation(String);
     impl ::std::ops::Deref for NrLocationGeographicalInformation {
         type Target = String;
@@ -13543,6 +13623,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct NsiId(pub String);
     impl ::std::ops::Deref for NsiId {
@@ -13648,7 +13729,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NsiLoadLevelInfo {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub confidence: Option<Uinteger>,
@@ -13748,7 +13829,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NsmChargingInformation {
         #[serde(
             rename = "idNetworkSliceInstance",
@@ -13808,7 +13889,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NspaChargingInformation {
         #[serde(rename = "singleNSSAI")]
         pub single_nssai: Snssai,
@@ -13871,7 +13952,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NspaContainerInformation {
         #[serde(
             rename = "downlinkLatency",
@@ -13969,7 +14050,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NssaiMap {
         #[serde(rename = "homeSnssai")]
         pub home_snssai: Snssai,
@@ -13994,7 +14075,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NullValue(pub ());
     impl ::std::ops::Deref for NullValue {
         type Target = ();
@@ -14047,7 +14128,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct NumberAverage {
         pub number: Float,
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -14072,7 +14153,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct OctetString(String);
     impl ::std::ops::Deref for OctetString {
         type Target = String;
@@ -14166,8 +14247,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum OneTimeEventType {
+        #[default]
         #[serde(rename = "IEC")]
         Iec,
         #[serde(rename = "PEC")]
@@ -14249,8 +14332,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum OperationalState {
+        #[default]
         #[serde(rename = "ENABLED")]
         Enabled,
         #[serde(rename = "DISABLED")]
@@ -14337,7 +14422,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct OriginatorInfo {
         #[serde(
             rename = "originatorGPSI",
@@ -14414,8 +14499,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum OriginatorPartyType {
+        #[default]
         #[serde(rename = "CALLING")]
         Calling,
         #[serde(rename = "CALLED")]
@@ -14487,8 +14574,9 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
-    pub struct PacketDelBudget(pub std::num::NonZeroU64);
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
+    pub struct PacketDelBudget(#[default(_code = "unsafe {std::num::NonZeroU64::new_unchecked(1)}")]
+	pub std::num::NonZeroU64);
     impl ::std::ops::Deref for PacketDelBudget {
         type Target = std::num::NonZeroU64;
         fn deref(&self) -> &std::num::NonZeroU64 {
@@ -14565,7 +14653,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct PacketErrRate(String);
     impl ::std::ops::Deref for PacketErrRate {
         type Target = String;
@@ -14650,7 +14738,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PacketLossRate(pub i64);
     impl ::std::ops::Deref for PacketLossRate {
         type Target = i64;
@@ -14730,7 +14818,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PacketLossRateRm(pub Option<i64>);
     impl ::std::ops::Deref for PacketLossRateRm {
         type Target = Option<i64>;
@@ -14782,8 +14870,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PartialRecordMethod {
+        #[default]
         #[serde(rename = "DEFAULT")]
         Default,
         #[serde(rename = "INDIVIDUAL")]
@@ -14867,8 +14957,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ParticipantActionType {
+        #[default]
         #[serde(rename = "CREATE")]
         Create,
         #[serde(rename = "JOIN")]
@@ -14970,7 +15062,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Pc5ContainerInformation {
         #[serde(
             rename = "coverageInfoList",
@@ -15049,7 +15141,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Pc5DataContainer {
         #[serde(
             rename = "changeCondition",
@@ -15149,7 +15241,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PduAddress {
         #[serde(
             rename = "addIpv6AddrPrefixList",
@@ -15282,7 +15374,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PduContainerInformation {
         #[serde(
             rename = "afChargingIdString",
@@ -15460,7 +15552,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PduSessionChargingInformation {
         #[serde(
             rename = "chargingId",
@@ -15571,7 +15663,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PduSessionId(pub u8);
     impl ::std::ops::Deref for PduSessionId {
         type Target = u8;
@@ -15742,7 +15834,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PduSessionInformation {
         #[serde(
             rename = "authorizedQoSInformation",
@@ -15913,7 +16005,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct PduSessionInformationChargingCharacteristics(String);
     impl ::std::ops::Deref for PduSessionInformationChargingCharacteristics {
         type Target = String;
@@ -16015,8 +16107,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PduSessionType {
+        #[default]
         #[serde(rename = "IPV4")]
         Ipv4,
         #[serde(rename = "IPV6")]
@@ -16111,7 +16205,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Pei(String);
     impl ::std::ops::Deref for Pei {
         type Target = String;
@@ -16204,7 +16298,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PendingPolicyCounterStatus {
         #[serde(rename = "activationTime")]
         pub activation_time: DateTime,
@@ -16266,7 +16360,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PfiContainerInformation {
         #[serde(rename = "pFI", default, skip_serializing_if = "Option::is_none")]
         pub p_fi: Option<String>,
@@ -16351,8 +16445,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PlayToParty {
+        #[default]
         #[serde(rename = "SERVED")]
         Served,
         #[serde(rename = "REMOTE")]
@@ -16436,7 +16532,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PlmnId {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -16477,7 +16573,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PlmnIdNid {
         pub mcc: Mcc,
         pub mnc: Mnc,
@@ -16512,6 +16608,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct PolicyCounterId(pub String);
     impl ::std::ops::Deref for PolicyCounterId {
@@ -16589,7 +16686,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PolicyCounterInfo {
         ///Identifies the policy counter status applicable for a specific
         /// policy counter identified by the policyCounterId. The values (e.g.
@@ -16647,8 +16744,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PreemptionCapability {
+        #[default]
         #[serde(rename = "NOT_PREEMPT")]
         NotPreempt,
         #[serde(rename = "MAY_PREEMPT")]
@@ -16737,8 +16836,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PreemptionVulnerability {
+        #[default]
         #[serde(rename = "NOT_PREEMPTABLE")]
         NotPreemptable,
         #[serde(rename = "PREEMPTABLE")]
@@ -16889,7 +16990,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PresenceInfo {
         ///This IE may be present if the praId IE is present and if it contains
         /// a PRA identifier referring to a set of Core Network predefined
@@ -17003,8 +17104,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum PresenceState {
+        #[default]
         #[serde(rename = "IN_AREA")]
         InArea,
         #[serde(rename = "OUT_OF_AREA")]
@@ -17124,7 +17227,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ProblemDetails {
         #[serde(
             rename = "accessTokenError",
@@ -17307,7 +17410,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ProseChargingInformation {
         #[serde(rename = "aPIName")]
         pub a_pi_name: ::serde_json::Value,
@@ -17539,8 +17642,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ProseEventType {
+        #[default]
         #[serde(rename = "ANNOUNCING")]
         Announcing,
         #[serde(rename = "MONITORING")]
@@ -17626,8 +17731,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ProseFunctionality {
+        #[default]
         #[serde(rename = "DIRECT_DISCOVERY")]
         DirectDiscovery,
         #[serde(rename = "DIRECT_COMMUNICATION")]
@@ -17702,7 +17809,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct PsCellInformation {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub ecgi: Option<Ecgi>,
@@ -17730,7 +17837,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Qfi(pub i64);
     impl ::std::ops::Deref for Qfi {
         type Target = i64;
@@ -17862,7 +17969,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QfiContainerInformation {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub diagnostics: Option<Diagnostics>,
@@ -17992,7 +18099,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QosCharacteristics {
         #[serde(
             rename = "averagingWindow",
@@ -18123,7 +18230,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QosData(pub Option<QosDataInner>);
     impl ::std::ops::Deref for QosData {
         type Target = Option<QosDataInner>;
@@ -18240,7 +18347,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QosDataInner {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub arp: Option<Arp>,
@@ -18378,7 +18485,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QosFlowsUsageReport {
         #[serde(
             rename = "downlinkVolume",
@@ -18448,7 +18555,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct QosMonitoringReport {
         #[serde(rename = "dlDelays", default, skip_serializing_if = "Vec::is_empty")]
         pub dl_delays: Vec<i64>,
@@ -18497,8 +18604,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum QosResourceType {
+        #[default]
         #[serde(rename = "NON_GBR")]
         NonGbr,
         #[serde(rename = "NON_CRITICAL_GBR")]
@@ -18584,8 +18693,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum QuotaConsumptionIndicator {
+        #[default]
         #[serde(rename = "QUOTA_NOT_USED")]
         QuotaNotUsed,
         #[serde(rename = "QUOTA_IS_USED")]
@@ -18668,8 +18779,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum QuotaManagementIndicator {
+        #[default]
         #[serde(rename = "ONLINE_CHARGING")]
         OnlineCharging,
         #[serde(rename = "OFFLINE_CHARGING")]
@@ -18752,7 +18865,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RadioParameterSetInfo {
         #[serde(
             rename = "changeTimestamp",
@@ -18799,8 +18912,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RadioResourcesId {
+        #[default]
         #[serde(rename = "OPERATOR_PROVIDED")]
         OperatorProvided,
         #[serde(rename = "CONFIGURED")]
@@ -18870,7 +18985,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RanNasCauseList(pub Vec<RanNasRelCause>);
     impl ::std::ops::Deref for RanNasCauseList {
         type Target = Vec<RanNasRelCause>;
@@ -18922,7 +19037,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RanNasRelCause {
         #[serde(rename = "epsCause", default, skip_serializing_if = "Option::is_none")]
         pub eps_cause: Option<EpsRanNasRelCause>,
@@ -18961,7 +19076,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RanSecondaryRatUsageReport {
         #[serde(
             rename = "qosFlowsUsageReports",
@@ -19013,8 +19128,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RangeClass {
+        #[default]
         #[serde(rename = "RESERVED")]
         Reserved,
         #[serde(rename = "50_METER")]
@@ -19130,7 +19247,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RatFreqInformation {
         ///Set to "true" to indicate to handle all the frequencies the NWDAF
         /// received, otherwise set to "false" or omit. The "allFreq" attribute
@@ -19222,8 +19339,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RatType {
+        #[default]
         #[serde(rename = "NR")]
         Nr,
         #[serde(rename = "EUTRA")]
@@ -19421,7 +19540,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ReauthorizationDetails {
         #[serde(
             rename = "quotaManagementIndicator",
@@ -19463,7 +19582,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RecipientAddress {
         #[serde(
             rename = "recipientAddressInfo",
@@ -19518,7 +19637,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RecipientInfo {
         #[serde(
             rename = "recipientGPSI",
@@ -19597,8 +19716,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RedirectAddressType {
+        #[default]
         #[serde(rename = "IPV4")]
         Ipv4,
         #[serde(rename = "IPV6")]
@@ -19691,7 +19812,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RedirectResponse {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub cause: Option<String>,
@@ -19733,7 +19854,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RedirectServer {
         #[serde(rename = "redirectAddressType")]
         pub redirect_address_type: RedirectAddressType,
@@ -19774,8 +19895,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RedundantTransmissionType {
+        #[default]
         #[serde(rename = "NON_TRANSMISSION")]
         NonTransmission,
         #[serde(rename = "END_TO_END_USER_PLANE_PATHS")]
@@ -19933,7 +20056,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RegistrationChargingInformation {
         #[serde(
             rename = "allowedNSSAI",
@@ -20063,8 +20186,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RegistrationMessageType {
+        #[default]
         #[serde(rename = "INITIAL")]
         Initial,
         #[serde(rename = "MOBILITY")]
@@ -20158,8 +20283,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ReplyPathRequested {
+        #[default]
         #[serde(rename = "NO_REPLY_PATH_SET")]
         NoReplyPathSet,
         #[serde(rename = "REPLY_PATH_SET")]
@@ -20243,7 +20370,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RequestedUnit {
         #[serde(
             rename = "downlinkVolume",
@@ -20302,7 +20429,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ResourceUsage {
         #[serde(rename = "cpuUsage", default, skip_serializing_if = "Option::is_none")]
         pub cpu_usage: Option<Uinteger>,
@@ -20353,8 +20480,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RestrictionType {
+        #[default]
         #[serde(rename = "ALLOWED_AREAS")]
         AllowedAreas,
         #[serde(rename = "NOT_ALLOWED_AREAS")]
@@ -20442,8 +20571,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ResultCode {
+        #[default]
         #[serde(rename = "SUCCESS")]
         Success,
         #[serde(rename = "END_USER_SERVICE_DENIED")]
@@ -20549,8 +20680,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RoamerInOut {
+        #[default]
         #[serde(rename = "IN_BOUND")]
         InBound,
         #[serde(rename = "OUT_BOUND")]
@@ -20629,7 +20762,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RoamingChargingProfile {
         #[serde(
             rename = "partialRecordMethod",
@@ -20672,7 +20805,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RoamingQbcInformation {
         #[serde(
             rename = "multipleQFIcontainer",
@@ -20722,8 +20855,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RoleOfImsNode {
+        #[default]
         #[serde(rename = "ORIGINATING")]
         Originating,
         #[serde(rename = "TERMINATING")]
@@ -20811,8 +20946,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum RoleOfUe {
+        #[default]
         #[serde(rename = "ANNOUNCING_UE")]
         AnnouncingUe,
         #[serde(rename = "MONITORING_UE")]
@@ -20910,7 +21047,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct RoutingAreaId {
         ///Location Area Code
         pub lac: RoutingAreaIdLac,
@@ -20938,7 +21075,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct RoutingAreaIdLac(String);
     impl ::std::ops::Deref for RoutingAreaIdLac {
         type Target = String;
@@ -21019,7 +21156,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct RoutingAreaIdRac(String);
     impl ::std::ops::Deref for RoutingAreaIdRac {
         type Target = String;
@@ -21103,7 +21240,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SamplingRatio(pub i64);
     impl ::std::ops::Deref for SamplingRatio {
         type Target = i64;
@@ -21177,7 +21314,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SchemasDateTime(pub chrono::DateTime<chrono::offset::Utc>);
     impl ::std::ops::Deref for SchemasDateTime {
         type Target = chrono::DateTime<chrono::offset::Utc>;
@@ -21249,7 +21386,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SchemasMcc(String);
     impl ::std::ops::Deref for SchemasMcc {
         type Target = String;
@@ -21329,7 +21466,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SchemasMnc(String);
     impl ::std::ops::Deref for SchemasMnc {
         type Target = String;
@@ -21416,7 +21553,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SchemasPlmnId {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub mcc: Option<SchemasMcc>,
@@ -21441,7 +21578,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SchemasTac(String);
     impl ::std::ops::Deref for SchemasTac {
         type Target = String;
@@ -21533,7 +21670,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SchemasTai {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub mcc: Option<SchemasMcc>,
@@ -21595,7 +21732,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SdpMediaComponent {
         #[serde(
             rename = "accessNetworkChargingIdentifierValue",
@@ -21679,7 +21816,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SdpTimeStamps {
         #[serde(
             rename = "sDPAnswerTimestamp",
@@ -21726,8 +21863,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SdpType {
+        #[default]
         #[serde(rename = "OFFER")]
         Offer,
         #[serde(rename = "ANSWER")]
@@ -21817,7 +21956,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServerCapabilities {
         #[serde(
             rename = "mandatoryCapability",
@@ -21874,7 +22013,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServiceAreaId {
         ///Location Area Code.
         pub lac: ServiceAreaIdLac,
@@ -21902,7 +22041,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct ServiceAreaIdLac(String);
     impl ::std::ops::Deref for ServiceAreaIdLac {
         type Target = String;
@@ -21983,7 +22122,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct ServiceAreaIdSac(String);
     impl ::std::ops::Deref for ServiceAreaIdSac {
         type Target = String;
@@ -22151,9 +22290,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum ServiceAreaRestriction {
+        #[default]
         Variant0(ServiceAreaRestrictionVariant0),
         Variant1(ServiceAreaRestrictionVariant1),
     }
@@ -23076,9 +23216,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     #[serde(deny_unknown_fields)]
-    pub enum ServiceAreaRestrictionVariant0 {}
+    pub enum ServiceAreaRestrictionVariant0 {#[default] None }
     impl From<&ServiceAreaRestrictionVariant0> for ServiceAreaRestrictionVariant0 {
         fn from(value: &ServiceAreaRestrictionVariant0) -> Self {
             value.clone()
@@ -23985,9 +24126,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     #[serde(deny_unknown_fields)]
-    pub enum ServiceAreaRestrictionVariant1 {}
+    pub enum ServiceAreaRestrictionVariant1 {#[default] None }
     impl From<&ServiceAreaRestrictionVariant1> for ServiceAreaRestrictionVariant1 {
         fn from(value: &ServiceAreaRestrictionVariant1) -> Self {
             value.clone()
@@ -24066,7 +24208,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServiceExperienceInfo {
         #[serde(rename = "appId", default, skip_serializing_if = "Option::is_none")]
         pub app_id: Option<ApplicationId>,
@@ -24161,8 +24303,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum ServiceExperienceType {
+        #[default]
         #[serde(rename = "VOICE")]
         Voice,
         #[serde(rename = "VIDEO")]
@@ -24293,7 +24437,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServiceProfileChargingInformation {
         #[serde(
             rename = "addServiceProfileInfo",
@@ -24405,7 +24549,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServingLocation {
         #[serde(
             rename = "geographicalLocation",
@@ -24448,7 +24592,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ServingNetworkFunctionId {
         #[serde(rename = "aMFId", default, skip_serializing_if = "Option::is_none")]
         pub a_mf_id: Option<AmfId>,
@@ -24492,9 +24636,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum ServingNodeAddress {
+        #[default]
         Variant0 {
             #[serde(rename = "ipv4Addr")]
             ipv4_addr: Ipv4Addr,
@@ -24536,8 +24681,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SessionFailover {
+        #[default]
         #[serde(rename = "FAILOVER_NOT_SUPPORTED")]
         FailoverNotSupported,
         #[serde(rename = "FAILOVER_SUPPORTED")]
@@ -24619,8 +24766,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SharingLevel {
+        #[default]
         #[serde(rename = "SHARED")]
         Shared,
         #[serde(rename = "NON_SHARED")]
@@ -24695,7 +24844,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SipEventType {
         #[serde(
             rename = "eventHeader",
@@ -24737,7 +24886,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SmAddressDomain {
         #[serde(
             rename = "domainName",
@@ -24780,7 +24929,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SmAddressInfo {
         #[serde(
             rename = "sMaddressData",
@@ -24839,8 +24988,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmAddressType {
+        #[default]
         #[serde(rename = "EMAIL_ADDRESS")]
         EmailAddress,
         #[serde(rename = "MSISDN")]
@@ -24947,8 +25098,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmAddresseeType {
+        #[default]
         #[serde(rename = "TO")]
         To,
         #[serde(rename = "CC")]
@@ -25033,7 +25186,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SmInterface {
         #[serde(
             rename = "interfaceId",
@@ -25094,8 +25247,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmMessageType {
+        #[default]
         #[serde(rename = "SUBMISSION")]
         Submission,
         #[serde(rename = "DELIVERY_REPORT")]
@@ -25186,8 +25341,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmPriority {
+        #[default]
         #[serde(rename = "LOW")]
         Low,
         #[serde(rename = "NORMAL")]
@@ -25282,8 +25439,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmServiceType {
+        #[default]
         #[serde(rename = "VAS4SMS_SHORT_MESSAGE_CONTENT_PROCESSING")]
         Vas4smsShortMessageContentProcessing,
         #[serde(rename = "VAS4SMS_SHORT_MESSAGE_FORWARDING")]
@@ -25497,7 +25656,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SmsChargingInformation {
         #[serde(
             rename = "deliveryReportRequested",
@@ -25650,7 +25809,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SmsChargingInformationSMStatus(String);
     impl ::std::ops::Deref for SmsChargingInformationSMStatus {
         type Target = String;
@@ -25744,8 +25903,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SmsIndication {
+        #[default]
         #[serde(rename = "SMS_SUPPORTED")]
         SmsSupported,
         #[serde(rename = "SMS_NOT_SUPPORTED")]
@@ -25849,7 +26010,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Snssai {
         ///3-octet string, representing the Slice Differentiator, in
         /// hexadecimal representation. Each character in the string shall take
@@ -25909,7 +26070,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SnssaiSd(String);
     impl ::std::ops::Deref for SnssaiSd {
         type Target = String;
@@ -26005,7 +26166,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SoftwareImageInfo {
         #[serde(
             rename = "discFormat",
@@ -26088,7 +26249,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SpendingLimitContext {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub expiry: Option<DateTime>,
@@ -26158,7 +26319,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SpendingLimitStatus {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub expiry: Option<DateTime>,
@@ -26217,8 +26378,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SscMode {
+        #[default]
         #[serde(rename = "SSC_MODE_1")]
         SscMode1,
         #[serde(rename = "SSC_MODE_2")]
@@ -26291,7 +26454,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Sst(pub u8);
     impl ::std::ops::Deref for Sst {
         type Target = u8;
@@ -26379,8 +26542,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SteerModeIndicator {
+        #[default]
         #[serde(rename = "AUTO_LOAD_BALANCE")]
         AutoLoadBalance,
         #[serde(rename = "UE_ASSISTANCE")]
@@ -26466,8 +26631,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SteerModeValue {
+        #[default]
         #[serde(rename = "ACTIVE_STANDBY")]
         ActiveStandby,
         #[serde(rename = "LOAD_BALANCING")]
@@ -26566,8 +26733,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SteeringFunctionality {
+        #[default]
         #[serde(rename = "MPTCP")]
         Mptcp,
         #[serde(rename = "ATSSS_LL")]
@@ -26662,7 +26831,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SteeringMode {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub active: Option<AccessType>,
@@ -26722,7 +26891,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SubscribedDefaultQos {
         pub arp: Arp,
         #[serde(rename = "5qi")]
@@ -26768,7 +26937,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SubscriptionTerminationInfo {
         #[serde(rename = "notifId", default, skip_serializing_if = "Option::is_none")]
         pub notif_id: Option<String>,
@@ -26824,7 +26993,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Supi(String);
     impl ::std::ops::Deref for Supi {
         type Target = String;
@@ -26934,7 +27103,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SupplementaryService {
         #[serde(
             rename = "associatedPartyAddress",
@@ -27032,8 +27201,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SupplementaryServiceMode {
+        #[default]
         #[serde(rename = "CFU")]
         Cfu,
         #[serde(rename = "CFB")]
@@ -27168,8 +27339,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum SupplementaryServiceType {
+        #[default]
         #[serde(rename = "OIP")]
         Oip,
         #[serde(rename = "OIR")]
@@ -27318,7 +27491,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct SupportedFeatures(String);
     impl ::std::ops::Deref for SupportedFeatures {
         type Target = String;
@@ -27410,7 +27583,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct SvcExperience {
         #[serde(
             rename = "lowerRange",
@@ -27459,7 +27632,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct Tac(String);
     impl ::std::ops::Deref for Tac {
         type Target = String;
@@ -27555,8 +27728,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TadIdentifier {
+        #[default]
         #[serde(rename = "CS")]
         Cs,
         #[serde(rename = "PS")]
@@ -27640,7 +27815,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Tai {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub nid: Option<Nid>,
@@ -27668,7 +27843,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TaiList(pub Vec<SchemasTai>);
     impl ::std::ops::Deref for TaiList {
         type Target = Vec<SchemasTai>;
@@ -27722,8 +27897,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TerminationCause {
+        #[default]
         #[serde(rename = "REMOVED_SUBSCRIBER")]
         RemovedSubscriber,
         #[serde(untagged)]
@@ -27822,7 +27999,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ThresholdLevel {
         #[serde(
             rename = "avgPacketDelay",
@@ -27917,7 +28094,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ThresholdValue(pub Option<ThresholdValueInner>);
     impl ::std::ops::Deref for ThresholdValue {
         type Target = Option<ThresholdValueInner>;
@@ -27964,7 +28141,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct ThresholdValueInner {
         #[serde(rename = "plrThres", default, skip_serializing_if = "Option::is_none")]
         pub plr_thres: Option<PacketLossRateRm>,
@@ -27996,7 +28173,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Throughput {
         #[serde(
             rename = "guaranteedThpt",
@@ -28042,7 +28219,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TimeWindow {
         #[serde(rename = "startTime")]
         pub start_time: SchemasDateTime,
@@ -28096,6 +28273,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct TimeZone(pub String);
     impl ::std::ops::Deref for TimeZone {
@@ -28166,7 +28344,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TnapId {
         ///When present, it shall contain the BSSID of the access point to
         /// which the UE is attached, that is received over NGAP, see IEEE Std
@@ -28218,7 +28396,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct TngfId(String);
     impl ::std::ops::Deref for TngfId {
         type Target = String;
@@ -28311,7 +28489,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TopologicalServiceArea {
         #[serde(rename = "cellIdList", default, skip_serializing_if = "Vec::is_empty")]
         pub cell_id_list: Vec<i64>,
@@ -28361,8 +28539,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TrafficForwardingWay {
+        #[default]
         N6,
         N19,
         #[serde(rename = "LOCAL_SWITCH")]
@@ -28439,7 +28619,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TransmitterInfo {
         #[serde(
             rename = "proseSourceIPAddress",
@@ -28490,8 +28670,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TransportProtocol {
+        #[default]
         #[serde(rename = "UDP")]
         Udp,
         #[serde(rename = "TCP")]
@@ -28587,7 +28769,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Trigger {
         #[serde(
             rename = "eventLimit",
@@ -28662,8 +28844,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TriggerCategory {
+        #[default]
         #[serde(rename = "IMMEDIATE_REPORT")]
         ImmediateReport,
         #[serde(rename = "DEFERRED_REPORT")]
@@ -28787,8 +28971,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum TriggerType {
+        #[default]
         #[serde(rename = "QUOTA_THRESHOLD")]
         QuotaThreshold,
         #[serde(rename = "QHT")]
@@ -29041,7 +29227,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TrunkGroupId {
         #[serde(
             rename = "incomingTrunkGroupID",
@@ -29098,7 +29284,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct TwapId {
         ///When present, it shall contain the BSSID of the access point to
         /// which the UE is attached, for trusted WLAN access, see IEEE Std
@@ -29148,8 +29334,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum UeTransferType {
+        #[default]
         #[serde(rename = "INTRA_UE")]
         IntraUe,
         #[serde(rename = "INTER_UE")]
@@ -29221,7 +29409,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Uint32(pub u32);
     impl ::std::ops::Deref for Uint32 {
         type Target = u32;
@@ -29297,7 +29485,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Uint64(pub u64);
     impl ::std::ops::Deref for Uint64 {
         type Target = u64;
@@ -29372,7 +29560,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct Uinteger(pub u64);
     impl ::std::ops::Deref for Uinteger {
         type Target = u64;
@@ -29450,7 +29638,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct UintegerRm(pub Option<u64>);
     impl ::std::ops::Deref for UintegerRm {
         type Target = Option<u64>;
@@ -29496,7 +29684,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct UpfInformation {
         #[serde(rename = "upfAddr", default, skip_serializing_if = "Option::is_none")]
         pub upf_addr: Option<AddrFqdn>,
@@ -29532,6 +29720,7 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub struct Uri(pub String);
     impl ::std::ops::Deref for Uri {
@@ -29637,7 +29826,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct UsedUnitContainer {
         #[serde(
             rename = "downlinkVolume",
@@ -29739,7 +29928,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct UserInformation {
         #[serde(
             rename = "roamerInOut",
@@ -29799,7 +29988,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct UserLocation {
         #[serde(
             rename = "eutraLocation",
@@ -29911,9 +30100,10 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     #[serde(untagged)]
     pub enum UtraLocation {
+        #[default]
         Variant0 {
             ///The value represents the elapsed time in minutes since the last
             /// network contact of the mobile station.  Value "0" indicates that
@@ -30067,7 +30257,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant0GeodeticInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant0GeodeticInformation {
         type Target = String;
@@ -30152,7 +30342,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant0GeographicalInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant0GeographicalInformation {
         type Target = String;
@@ -30239,7 +30429,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant1GeodeticInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant1GeodeticInformation {
         type Target = String;
@@ -30324,7 +30514,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant1GeographicalInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant1GeographicalInformation {
         type Target = String;
@@ -30411,7 +30601,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant2GeodeticInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant2GeodeticInformation {
         type Target = String;
@@ -30496,7 +30686,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct UtraLocationVariant2GeographicalInformation(String);
     impl ::std::ops::Deref for UtraLocationVariant2GeographicalInformation {
         type Target = String;
@@ -30596,7 +30786,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct VariablePart {
         #[serde(
             rename = "variablePartOrder",
@@ -30644,8 +30834,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum VariablePartType {
+        #[default]
         #[serde(rename = "INTEGER")]
         Integer,
         #[serde(rename = "NUMBER")]
@@ -30735,7 +30927,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct VirtualResource {
         #[serde(
             rename = "virtualDisk",
@@ -30788,7 +30980,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+    #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, smart_default::SmartDefault)]
     pub struct WAgfId(String);
     impl ::std::ops::Deref for WAgfId {
         type Target = String;
@@ -30882,8 +31074,10 @@ pub mod types {
         Ord,
         PartialEq,
         PartialOrd,
+        smart_default::SmartDefault,
     )]
     pub enum _3gpppsDataOffStatus {
+        #[default]
         #[serde(rename = "ACTIVE")]
         Active,
         #[serde(rename = "INACTIVE")]
@@ -30955,7 +31149,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct _5glanTypeService {
         #[serde(
             rename = "internalGroupIdentifier",
@@ -30986,7 +31180,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct _5qi(pub u8);
     impl ::std::ops::Deref for _5qi {
         type Target = u8;
@@ -31066,7 +31260,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct _5qiPriorityLevel(pub i64);
     impl ::std::ops::Deref for _5qiPriorityLevel {
         type Target = i64;
@@ -31146,7 +31340,7 @@ pub mod types {
     ///}
     /// ```
     /// </details>
-    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
+    #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, smart_default::SmartDefault)]
     pub struct _5qiPriorityLevelRm(pub Option<i64>);
     impl ::std::ops::Deref for _5qiPriorityLevelRm {
         type Target = Option<i64>;

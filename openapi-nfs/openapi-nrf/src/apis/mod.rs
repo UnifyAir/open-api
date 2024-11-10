@@ -1,0 +1,11 @@
+pub mod access_token_request;
+pub mod bootstrapping_request;
+pub mod complete_stored_search_document;
+pub mod individual_scp_domain_routing_information_subscription_document;
+pub mod nf_instance_id_document;
+pub mod nf_instances_store;
+pub mod scp_domain_routing_information_document;
+pub mod scp_domain_routing_information_subscriptions_collection;
+pub mod stored_search_document;
+pub mod subscription_id_document;
+pub mod subscriptions_collection;
