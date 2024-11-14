@@ -14,6 +14,8 @@ pub mod smf;
 pub mod udm;
 pub mod udr;
 pub mod upf;
+pub mod common;
+pub mod service_properties;
 
 #[derive(Debug, Error)]
 pub enum ReqError {
@@ -40,3 +42,4 @@ pub trait DeserResponse {
     where Self: Sized;
 
 }
+
