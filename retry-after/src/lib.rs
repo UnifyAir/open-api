@@ -26,7 +26,7 @@ use std::{
 
 use chrono::{offset::Utc, DateTime, TimeZone};
 use reqwest::header::HeaderValue;
-use serde::{de::DeserializeOwned, ser::Serialize, Deserialize, Deserializer, Serializer};
+use serde::{ser::Serialize, Deserialize, Deserializer, Serializer};
 use thiserror::Error;
 
 pub const HEADER_NAME: &str = "Retry-After";

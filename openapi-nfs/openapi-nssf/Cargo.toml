@@ -1,0 +1,49 @@
+[package]
+name = "openapi-nssf"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+publish = { workspace = true }
+
+[features]
+default = ["server"]
+server = []
+conversion = [
+    "frunk",
+    "frunk_derives",
+    "frunk_core",
+    "frunk-enum-core",
+    "frunk-enum-derive",
+]
+
+[dependencies]
+async-trait.workspace = true
+axum.workspace = true
+axum-extra.workspace = true
+base64.workspace = true
+bytes.workspace = true
+chrono.workspace = true
+http.workspace = true
+lazy_static.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_urlencoded.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+validator.workspace = true
+frunk = { workspace = true, optional = true }
+frunk-enum-core = { workspace = true, optional = true }
+frunk-enum-derive = { workspace = true, optional = true }
+frunk_core = { workspace = true, optional = true }
+frunk_derives = { workspace = true, optional = true }
+oasbi = { path = "../../oasbi" }
+reqwest.workspace = true
+serde_with.workspace = true
+smart-default.workspace = true
+
+
+[dev-dependencies]
+tracing-subscriber.workspace = true
+

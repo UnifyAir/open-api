@@ -17,6 +17,7 @@ conversion = [
 ]
 
 [dependencies]
+smart-default.workspace = true
 async-trait.workspace = true
 axum.workspace = true
 axum-extra.workspace = true

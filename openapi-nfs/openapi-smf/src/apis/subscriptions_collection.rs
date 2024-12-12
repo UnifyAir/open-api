@@ -25,7 +25,7 @@ pub enum CreateIndividualSubcriptionResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

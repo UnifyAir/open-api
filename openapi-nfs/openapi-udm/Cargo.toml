@@ -17,6 +17,7 @@ conversion = [
 ]
 
 [dependencies]
+smart-default.workspace = true
 async-trait.workspace = true
 axum.workspace = true
 axum-extra.workspace = true
@@ -40,7 +41,6 @@ frunk_core = { workspace = true, optional = true }
 frunk_derives = { workspace = true, optional = true }
 oasbi = { path = "../../oasbi" }
 reqwest.workspace = true
-smart-default.workspace = true
 serde_with.workspace = true
 
 [dev-dependencies]

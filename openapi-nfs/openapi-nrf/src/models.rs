@@ -6,7 +6,14 @@ use serde_with::skip_serializing_none;
 use crate::types::*;
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct AccessTokenRequestHeaderParams {
 	pub content_encoding: Option<String>,
@@ -14,48 +21,97 @@ pub struct AccessTokenRequestHeaderParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct BootstrappingInfoRequestHeaderParams {
 	pub if_none_match: Option<String>,
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RetrieveCompleteSearchHeaderParams {
 	pub accept_encoding: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RetrieveCompleteSearchPathParams {
 	/// Id of a stored search
 	pub search_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ScpDomainRoutingInfoUnsubscribePathParams {
 	/// Unique ID of the subscription to remove
 	pub subscription_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DeregisterNfInstancePathParams {
 	/// Unique ID of the NF Instance to deregister
 	pub nf_instance_id: uuid::Uuid,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNfInstancePathParams {
 	/// Unique ID of the NF Instance
 	pub nf_instance_id: uuid::Uuid,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNfInstanceQueryParams {
 	/// Features supported by the NF Service Consumer
@@ -72,14 +128,28 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RegisterNfInstanceHeaderParams {
 	pub content_encoding: Option<String>,
 	pub accept_encoding: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RegisterNfInstancePathParams {
 	/// Unique ID of the NF Instance to register
@@ -87,7 +157,14 @@ pub struct RegisterNfInstancePathParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNfInstanceHeaderParams {
 	pub content_encoding: Option<String>,
@@ -95,14 +172,28 @@ pub struct UpdateNfInstanceHeaderParams {
 	pub if_match: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNfInstancePathParams {
 	/// Unique ID of the NF Instance to update
 	pub nf_instance_id: uuid::Uuid,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNfInstancesQueryParams {
 	/// Type of NF
@@ -127,14 +218,21 @@ pub struct GetNfInstancesQueryParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SearchNfInstancesHeaderParams {
 	pub accept_encoding: Option<String>,
 	pub if_none_match: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SearchNfInstancesQueryParams {
 	/// Type of the target NF
@@ -256,7 +354,7 @@ pub struct SearchNfInstancesQueryParams {
 	/// Guami used to search for an appropriate AMF
 	#[serde(rename = "guami")]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub guami: Option<crate::types::Object>,
+	pub guami: Option<common_models::Guami>,
 	/// SUPI of the user
 	#[serde(rename = "supi")]
 	#[validate(
@@ -842,13 +940,27 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SCpDomainRoutingInfoGetHeaderParams {
 	pub accept_encoding: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SCpDomainRoutingInfoGetQueryParams {
 	/// Indication of local SCP Domain Routing Information
@@ -858,7 +970,14 @@ pub struct SCpDomainRoutingInfoGetQueryParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ScpDomainRoutingInfoSubscribeHeaderParams {
 	pub content_encoding: Option<String>,
@@ -866,20 +985,41 @@ pub struct ScpDomainRoutingInfoSubscribeHeaderParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RetrieveStoredSearchHeaderParams {
 	pub accept_encoding: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RetrieveStoredSearchPathParams {
 	/// Id of a stored search
 	pub search_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RemoveSubscriptionPathParams {
 	/// Unique ID of the subscription to remove
@@ -894,14 +1034,28 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateSubscriptionHeaderParams {
 	pub content_encoding: Option<String>,
 	pub accept_encoding: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateSubscriptionPathParams {
 	/// Unique ID of the subscription to update
@@ -916,7 +1070,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(
+	Debug,
+	Clone,
+	serde::Serialize,
+	serde::Deserialize,
+	validator::Validate,
+	smart_default::SmartDefault,
+)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct CreateSubscriptionHeaderParams {
 	pub content_encoding: Option<String>,

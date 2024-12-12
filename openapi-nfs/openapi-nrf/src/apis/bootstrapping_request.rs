@@ -32,9 +32,9 @@ pub enum BootstrappingInfoRequestResponse {
 		location: String,
 	} = 308,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -106,14 +106,14 @@ impl DeserResponse for BootstrappingInfoRequestResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, BootstrappingInfoRequestResponse::Status400(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, BootstrappingInfoRequestResponse::Status500(body)))
 			}

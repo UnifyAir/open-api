@@ -35,7 +35,7 @@ pub enum PostSmContextsResponse {
 	/// unsuccessful creation of an SM context - not found
 	Status404_UnsuccessfulCreationOfAnSMContext(models::SmContextCreateError),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

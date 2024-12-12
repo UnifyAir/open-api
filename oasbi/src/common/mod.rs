@@ -1,20 +1,35 @@
 mod uri;
+
 pub use uri::Uri;
+
 mod nf_type;
+
 pub use nf_type::NfType;
+
+mod generated;
+
+pub use generated::types as common_models;
 
 pub mod error {
 	/// Error from a TryFrom or FromStr implementation.
 	pub struct ConversionError(::std::borrow::Cow<'static, str>);
+
 	impl ::std::error::Error for ConversionError {}
+
 	impl ::std::fmt::Display for ConversionError {
-		fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+		fn fmt(
+			&self,
+			f: &mut ::std::fmt::Formatter<'_>,
+		) -> Result<(), ::std::fmt::Error> {
 			::std::fmt::Display::fmt(&self.0, f)
 		}
 	}
 
 	impl ::std::fmt::Debug for ConversionError {
-		fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> Result<(), ::std::fmt::Error> {
+		fn fmt(
+			&self,
+			f: &mut ::std::fmt::Formatter<'_>,
+		) -> Result<(), ::std::fmt::Error> {
 			::std::fmt::Debug::fmt(&self.0, f)
 		}
 	}

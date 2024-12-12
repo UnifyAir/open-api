@@ -1,15 +1,11 @@
-use std::ops::{Deref, DerefMut};
+use std::{
+	ops::{Deref, DerefMut},
+	str::FromStr,
+};
+
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
-use std::str::FromStr;
 
-
-#[derive(
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	PartialEq,
-)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct Uri(http::Uri);
 
 impl From<http::Uri> for Uri {
@@ -25,9 +21,12 @@ impl From<Uri> for http::Uri {
 }
 
 impl Serialize for Uri {
-	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-										  where
-											  S: Serializer,
+	fn serialize<S>(
+		&self,
+		serializer: S,
+	) -> Result<S::Ok, S::Error>
+	where
+		S: Serializer,
 	{
 		serializer.serialize_str(self.0.to_string().as_str())
 	}
@@ -35,8 +34,8 @@ impl Serialize for Uri {
 
 impl<'de> Deserialize<'de> for Uri {
 	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-									   where
-										   D: Deserializer<'de>,
+	where
+		D: Deserializer<'de>,
 	{
 		let uri_str = String::deserialize(deserializer)?;
 		http::Uri::from_str(&uri_str)
@@ -44,7 +43,6 @@ impl<'de> Deserialize<'de> for Uri {
 			.map_err(serde::de::Error::custom)
 	}
 }
-
 
 impl Default for Uri {
 	fn default() -> Self {
@@ -56,7 +54,6 @@ impl Default for Uri {
 			.unwrap())
 	}
 }
-
 
 impl FromStr for Uri {
 	type Err = http::uri::InvalidUri;
@@ -71,8 +68,6 @@ impl ToString for Uri {
 	}
 }
 
-
-
 impl Deref for Uri {
 	type Target = http::Uri;
 	fn deref(&self) -> &Self::Target {
@@ -86,12 +81,11 @@ impl DerefMut for Uri {
 	}
 }
 
-
-
 #[cfg(test)]
 mod tests {
-	use super::Uri;
 	use serde_json;
+
+	use super::Uri;
 
 	#[test]
 	fn test_serialize_deserialize() {

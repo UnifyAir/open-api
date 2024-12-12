@@ -10,7 +10,7 @@ use validator::Validate;
 use crate::header;
 use crate::types::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -24,7 +24,7 @@ lazy_static::lazy_static! {
 	static ref RE_GET3GPPREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get3GppRegistrationQueryParams {
 	#[serde(rename = "supported-features")]
@@ -39,7 +39,7 @@ lazy_static::lazy_static! {
 	static ref RE_GET3GPPREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNon3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -53,7 +53,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNON3GPPREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNon3GppRegistrationQueryParams {
 	#[serde(rename = "supported-features")]
@@ -68,7 +68,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNON3GPPREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Call3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -82,7 +82,7 @@ lazy_static::lazy_static! {
 	static ref RE_CALL3GPPREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Non3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -97,14 +97,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetAmDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetAmDataPathParams {
 	/// Identifier of the UE
@@ -118,7 +118,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETAMDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetAmDataQueryParams {
 	/// Supported Features
@@ -147,7 +147,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETAMDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct AuthorizeNiddDataPathParams {
 	/// Represents the scope of the UE for which the NIDD configuration are
@@ -162,7 +162,7 @@ lazy_static::lazy_static! {
 	static ref RE_AUTHORIZENIDDDATAPATHPARAMS_UE_IDENTITY: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|.+|extid-[^@]+@[^@]+|extgroupid-[^@]+@[^@]+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Create5GMbsGroupPathParams {
 	/// External Identifier of the Group
@@ -176,7 +176,7 @@ lazy_static::lazy_static! {
 	static ref RE_CREATE5GMBSGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Delete5GMbsGroupPathParams {
 	/// External Identifier of the Group
@@ -190,7 +190,7 @@ lazy_static::lazy_static! {
 	static ref RE_DELETE5GMBSGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get5GMbsGroupPathParams {
 	/// External Identifier of the group
@@ -204,7 +204,7 @@ lazy_static::lazy_static! {
 	static ref RE_GET5GMBSGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Modify5GMbsGroupPathParams {
 	/// External Identifier of the group
@@ -218,7 +218,7 @@ lazy_static::lazy_static! {
 	static ref RE_MODIFY5GMBSGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Modify5GMbsGroupQueryParams {
 	/// Features required to be supported by the target NF
@@ -234,7 +234,7 @@ lazy_static::lazy_static! {
 	static ref RE_MODIFY5GMBSGROUPQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Create5GVnGroupPathParams {
 	/// External Identifier of the Group
@@ -248,7 +248,7 @@ lazy_static::lazy_static! {
 	static ref RE_CREATE5GVNGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Delete5GVnGroupPathParams {
 	/// External Identifier of the Group
@@ -262,7 +262,7 @@ lazy_static::lazy_static! {
 	static ref RE_DELETE5GVNGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Delete5GVnGroupQueryParams {
 	/// MTC Provider Information that originated the service operation
@@ -275,7 +275,7 @@ pub struct Delete5GVnGroupQueryParams {
 	pub af_id: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get5GVnGroupPathParams {
 	/// External Identifier of the group
@@ -289,7 +289,7 @@ lazy_static::lazy_static! {
 	static ref RE_GET5GVNGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Modify5GVnGroupPathParams {
 	/// External Identifier of the group
@@ -303,7 +303,7 @@ lazy_static::lazy_static! {
 	static ref RE_MODIFY5GVNGROUPPATHPARAMS_EXT_GROUP_ID: regex::Regex = regex::Regex::new(r"^extgroupid-[^@]+@[^@]+$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Modify5GVnGroupQueryParams {
 	/// Features required to be supported by the target NF
@@ -320,14 +320,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetMbsDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetMbsDataPathParams {
 	/// Identifier of the UE
@@ -341,7 +341,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETMBSDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetMbsDataQueryParams {
 	/// Supported Features
@@ -357,7 +357,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETMBSDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ConfirmAuthPathParams {
 	/// SUPI of the user
@@ -371,7 +371,7 @@ lazy_static::lazy_static! {
 	static ref RE_CONFIRMAUTHPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct CreateEeSubscriptionPathParams {
 	/// Represents the scope of the UE for which the subscription is applied.
@@ -386,7 +386,7 @@ lazy_static::lazy_static! {
 	static ref RE_CREATEEESUBSCRIPTIONPATHPARAMS_UE_IDENTITY: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|.+|extid-[^@]+@[^@]+|extgroupid-[^@]+@[^@]+|anyUE)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DeleteAuthPathParams {
 	/// SUPI of the user
@@ -402,7 +402,7 @@ lazy_static::lazy_static! {
 	static ref RE_DELETEAUTHPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DeleteEeSubscriptionPathParams {
 	/// Represents the scope of the UE for which the subscription is applied.
@@ -420,14 +420,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetEcrDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetEcrDataPathParams {
 	/// Identifier of the UE
@@ -441,7 +441,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETECRDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetEcrDataQueryParams {
 	/// Supported Features
@@ -458,14 +458,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSupiOrGpsiHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSupiOrGpsiPathParams {
 	/// Identifier of the UE
@@ -479,7 +479,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSUPIORGPSIPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSupiOrGpsiQueryParams {
 	/// Supported Features
@@ -515,7 +515,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSUPIORGPSIQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GenerateAuthDataPathParams {
 	/// SUPI or SUCI of the user
@@ -529,7 +529,7 @@ lazy_static::lazy_static! {
 	static ref RE_GENERATEAUTHDATAPATHPARAMS_SUPI_OR_SUCI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gli-.+|gci-.+|suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.*|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GenerateGbaAvPathParams {
 	/// SUPI of the user
@@ -543,7 +543,7 @@ lazy_static::lazy_static! {
 	static ref RE_GENERATEGBAAVPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GenerateAvPathParams {
 	/// SUPI of the user
@@ -559,7 +559,7 @@ lazy_static::lazy_static! {
 	static ref RE_GENERATEAVPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GenerateProseAvPathParams {
 	/// SUPI or SUCI of the user
@@ -574,14 +574,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetRgAuthDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetRgAuthDataPathParams {
 	/// SUPI or SUCI of the user
@@ -595,7 +595,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETRGAUTHDATAPATHPARAMS_SUPI_OR_SUCI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gli-.+|gci-.+|suci-(0-[0-9]{3}-[0-9]{2,3}|[1-7]-.+)-[0-9]{1,4}-(0-0-.*|[a-fA-F1-9]-([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])-[a-fA-F0-9]+)|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetRgAuthDataQueryParams {
 	/// Authenticated indication
@@ -619,14 +619,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetGroupIdentifiersHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetGroupIdentifiersQueryParams {
 	/// External Group Identifier
@@ -670,7 +670,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETGROUPIDENTIFIERSQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct IpSmGwDeregistrationPathParams {
 	/// Identifier of the UE
@@ -684,7 +684,7 @@ lazy_static::lazy_static! {
 	static ref RE_IPSMGWDEREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct IpSmGwRegistrationPathParams {
 	/// Identifier of the UE
@@ -698,7 +698,7 @@ lazy_static::lazy_static! {
 	static ref RE_IPSMGWREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetIpSmGwRegistrationPathParams {
 	/// Identifier of the UE
@@ -713,14 +713,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsBcaDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsBcaDataPathParams {
 	/// Identifier of the UE
@@ -734,7 +734,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLCSBCADATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsBcaDataQueryParams {
 	/// Supported Features
@@ -754,14 +754,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsMoDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsMoDataPathParams {
 	/// Identifier of the UE
@@ -775,7 +775,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLCSMODATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsMoDataQueryParams {
 	/// Supported Features
@@ -792,14 +792,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsPrivacyDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsPrivacyDataPathParams {
 	/// Identifier of the UE
@@ -813,7 +813,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLCSPRIVACYDATAPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLcsPrivacyDataQueryParams {
 	/// Supported Features
@@ -829,7 +829,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLCSPRIVACYDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetMultipleIdentifiersQueryParams {
 	/// Supported Features
@@ -849,7 +849,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETMULTIPLEIDENTIFIERSQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct NwdafDeregistrationPathParams {
 	/// Identifier of the UE
@@ -865,7 +865,7 @@ lazy_static::lazy_static! {
 	static ref RE_NWDAFDEREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct NwdafRegistrationPathParams {
 	/// Identifier of the UE
@@ -881,7 +881,7 @@ lazy_static::lazy_static! {
 	static ref RE_NWDAFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNwdafRegistrationPathParams {
 	/// Identifier of the UE
@@ -895,7 +895,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNWDAFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNwdafRegistrationQueryParams {
 	/// List of analytics Id(s) provided by the consumers of NWDAF.
@@ -915,7 +915,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNWDAFREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct PeiUpdatePathParams {
 	/// Identifier of the UE
@@ -929,7 +929,7 @@ lazy_static::lazy_static! {
 	static ref RE_PEIUPDATEPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct CreatePpDataEntryPathParams {
 	/// Identifier of the UE
@@ -939,7 +939,7 @@ pub struct CreatePpDataEntryPathParams {
 	pub af_instance_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DeletePpDataEntryPathParams {
 	/// Identifier of the UE
@@ -949,7 +949,7 @@ pub struct DeletePpDataEntryPathParams {
 	pub af_instance_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetPpDataEntryPathParams {
 	/// Identifier of the UE
@@ -959,7 +959,7 @@ pub struct GetPpDataEntryPathParams {
 	pub af_instance_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetPpDataEntryQueryParams {
 	/// Features required to be supported by the target NF
@@ -975,7 +975,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETPPDATAENTRYQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Update3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -989,7 +989,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATE3GPPREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Update3GppRegistrationQueryParams {
 	/// Features required to be supported by the target NF
@@ -1005,7 +1005,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATE3GPPREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNon3GppRegistrationPathParams {
 	/// Identifier of the UE
@@ -1019,7 +1019,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATENON3GPPREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNon3GppRegistrationQueryParams {
 	/// Features required to be supported by the target NF
@@ -1035,7 +1035,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATENON3GPPREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNwdafRegistrationPathParams {
 	/// Identifier of the UE
@@ -1051,7 +1051,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATENWDAFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateNwdafRegistrationQueryParams {
 	/// Supported Features
@@ -1067,7 +1067,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATENWDAFREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateSmfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1084,7 +1084,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATESMFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateSmfRegistrationQueryParams {
 	/// Features required to be supported by the target NF
@@ -1101,14 +1101,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetProseDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetProseDataPathParams {
 	/// Identifier of the UE
@@ -1122,7 +1122,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETPROSEDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetProseDataQueryParams {
 	/// Supported Features
@@ -1138,7 +1138,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETPROSEDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ProvideLocationInfoPathParams {
 	/// Identifier of the UE
@@ -1152,7 +1152,7 @@ lazy_static::lazy_static! {
 	static ref RE_PROVIDELOCATIONINFOPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct CAgAckPathParams {
 	/// Identifier of the UE
@@ -1166,7 +1166,7 @@ lazy_static::lazy_static! {
 	static ref RE_CAGACKPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SNssaisAckPathParams {
 	/// Identifier of the UE
@@ -1180,7 +1180,7 @@ lazy_static::lazy_static! {
 	static ref RE_SNSSAISACKPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SorAckInfoPathParams {
 	/// Identifier of the UE
@@ -1194,7 +1194,7 @@ lazy_static::lazy_static! {
 	static ref RE_SORACKINFOPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpuAckPathParams {
 	/// Identifier of the UE
@@ -1208,7 +1208,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPUACKPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct QueryUeInfoPathParams {
 	/// Identifier of the UE
@@ -1222,7 +1222,7 @@ lazy_static::lazy_static! {
 	static ref RE_QUERYUEINFOPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct QueryUeInfoQueryParams {
 	/// attributes to be retrieved
@@ -1242,7 +1242,7 @@ lazy_static::lazy_static! {
 	static ref RE_QUERYUEINFOQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ReportSmDeliveryStatusPathParams {
 	/// Represents the scope of the UE for which the Service Specific Parameters
@@ -1258,14 +1258,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetDataSetsHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetDataSetsPathParams {
 	/// Identifier of the UE
@@ -1279,7 +1279,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETDATASETSPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetDataSetsQueryParams {
 	/// List of dataset names
@@ -1308,14 +1308,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSharedDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSharedDataQueryParams {
 	/// List of shared data ids
@@ -1346,14 +1346,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetIndividualSharedDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetIndividualSharedDataPathParams {
 	/// Id of the Shared data
@@ -1361,7 +1361,7 @@ pub struct GetIndividualSharedDataPathParams {
 	pub shared_data_id: Vec<models::SharedDataId>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetIndividualSharedDataQueryParams {
 	/// Supported Features
@@ -1377,7 +1377,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETINDIVIDUALSHAREDDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RetrieveSmfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1394,7 +1394,7 @@ lazy_static::lazy_static! {
 	static ref RE_RETRIEVESMFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateRoamingInformationPathParams {
 	/// Identifier of the UE
@@ -1408,7 +1408,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATEROAMINGINFORMATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SmfDeregistrationPathParams {
 	/// Identifier of the UE
@@ -1425,7 +1425,7 @@ lazy_static::lazy_static! {
 	static ref RE_SMFDEREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SmfDeregistrationQueryParams {
 	#[serde(rename = "smf-set-id")]
@@ -1437,14 +1437,14 @@ pub struct SmfDeregistrationQueryParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmfSelDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmfSelDataPathParams {
 	/// Identifier of the UE
@@ -1458,7 +1458,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMFSELDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmfSelDataQueryParams {
 	/// Supported Features
@@ -1482,7 +1482,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMFSELDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1496,7 +1496,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmfRegistrationQueryParams {
 	#[serde(rename = "single-nssai")]
@@ -1517,7 +1517,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMFREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct RegistrationPathParams {
 	/// Identifier of the UE
@@ -1534,7 +1534,7 @@ lazy_static::lazy_static! {
 	static ref RE_REGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get3GppSmsfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1548,7 +1548,7 @@ lazy_static::lazy_static! {
 	static ref RE_GET3GPPSMSFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Get3GppSmsfRegistrationQueryParams {
 	#[serde(rename = "supported-features")]
@@ -1564,13 +1564,13 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Call3GppSmsfDeregistrationHeaderParams {
 	pub if_match: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Call3GppSmsfDeregistrationPathParams {
 	/// Identifier of the UE
@@ -1584,7 +1584,7 @@ lazy_static::lazy_static! {
 	static ref RE_CALL3GPPSMSFDEREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Call3GppSmsfDeregistrationQueryParams {
 	#[serde(rename = "smsf-set-id")]
@@ -1593,13 +1593,13 @@ pub struct Call3GppSmsfDeregistrationQueryParams {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Non3GppSmsfDeregistrationHeaderParams {
 	pub if_match: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Non3GppSmsfDeregistrationPathParams {
 	/// Identifier of the UE
@@ -1613,7 +1613,7 @@ lazy_static::lazy_static! {
 	static ref RE_NON3GPPSMSFDEREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Non3GppSmsfDeregistrationQueryParams {
 	#[serde(rename = "smsf-set-id")]
@@ -1621,7 +1621,7 @@ pub struct Non3GppSmsfDeregistrationQueryParams {
 	pub smsf_set_id: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNon3GppSmsfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1635,7 +1635,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNON3GPPSMSFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNon3GppSmsfRegistrationQueryParams {
 	#[serde(rename = "supported-features")]
@@ -1650,7 +1650,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNON3GPPSMSFREGISTRATIONQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Call3GppSmsfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1664,7 +1664,7 @@ lazy_static::lazy_static! {
 	static ref RE_CALL3GPPSMSFREGISTRATIONPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct Non3GppSmsfRegistrationPathParams {
 	/// Identifier of the UE
@@ -1679,14 +1679,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsMngtDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsMngtDataPathParams {
 	/// Identifier of the UE
@@ -1700,7 +1700,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMSMNGTDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsMngtDataQueryParams {
 	/// Supported Features
@@ -1720,14 +1720,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsDataPathParams {
 	/// Identifier of the UE
@@ -1741,7 +1741,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMSDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmsDataQueryParams {
 	/// Supported Features
@@ -1760,7 +1760,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMSDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SendRoutingInfoSmPathParams {
 	/// Identifier of the UE
@@ -1774,7 +1774,7 @@ lazy_static::lazy_static! {
 	static ref RE_SENDROUTINGINFOSMPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ServiceSpecificAuthorizationRemovalPathParams {
 	/// Represents the scope of the UE for which the Service Specific
@@ -1793,7 +1793,7 @@ lazy_static::lazy_static! {
 	static ref RE_SERVICESPECIFICAUTHORIZATIONREMOVALPATHPARAMS_UE_IDENTITY: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|.+|extid-[^@]+@[^@]+|extgroupid-[^@]+@[^@]+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ServiceSpecificAuthorizationPathParams {
 	/// Represents the scope of the UE for which the Service Specific Parameters
@@ -1812,14 +1812,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmDataPathParams {
 	/// Identifier of the UE
@@ -1833,7 +1833,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETSMDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetSmDataQueryParams {
 	/// Supported Features
@@ -1859,14 +1859,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNssaiHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNssaiPathParams {
 	/// Identifier of the UE
@@ -1880,7 +1880,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNSSAIPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetNssaiQueryParams {
 	/// Supported Features
@@ -1904,7 +1904,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETNSSAIQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct SubscribePathParams {
 	/// Identity of the user
@@ -1918,7 +1918,7 @@ lazy_static::lazy_static! {
 	static ref RE_SUBSCRIBEPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdatePathParams {
 	/// Identifier of the UE
@@ -1926,7 +1926,7 @@ pub struct UpdatePathParams {
 	pub ue_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateQueryParams {
 	/// Features required to be supported by the target NF
@@ -1942,7 +1942,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATEQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UnsubscribePathParams {
 	/// Identity of the user
@@ -1958,14 +1958,14 @@ lazy_static::lazy_static! {
 	static ref RE_UNSUBSCRIBEPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UnsubscribeForSharedDataPathParams {
 	/// Id of the Shared data Subscription
 	pub subscription_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ModifyPathParams {
 	/// Identity of the user
@@ -1981,7 +1981,7 @@ lazy_static::lazy_static! {
 	static ref RE_MODIFYPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ModifyQueryParams {
 	/// Features required to be supported by the target NF
@@ -1997,14 +1997,14 @@ lazy_static::lazy_static! {
 	static ref RE_MODIFYQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ModifySharedDataSubsPathParams {
 	/// Id of the SDM Subscription
 	pub subscription_id: String,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ModifySharedDataSubsQueryParams {
 	/// Features required to be supported by the target NF
@@ -2021,14 +2021,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetTraceConfigDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetTraceConfigDataPathParams {
 	/// Identifier of the UE
@@ -2042,7 +2042,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETTRACECONFIGDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetTraceConfigDataQueryParams {
 	/// Supported Features
@@ -2062,7 +2062,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETTRACECONFIGDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DeregAmfPathParams {
 	/// Identifier of the UE
@@ -2076,7 +2076,7 @@ lazy_static::lazy_static! {
 	static ref RE_DEREGAMFPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateSorInfoPathParams {
 	/// Identifier of the UE
@@ -2090,7 +2090,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATESORINFOPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetRegistrationsPathParams {
 	/// Identifier of the UE
@@ -2104,7 +2104,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETREGISTRATIONSPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetRegistrationsQueryParams {
 	#[serde(rename = "supported-features")]
@@ -2129,7 +2129,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETREGISTRATIONSQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInAmfDataPathParams {
 	/// Identifier of the UE
@@ -2143,7 +2143,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINAMFDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInAmfDataQueryParams {
 	/// Supported Features
@@ -2159,7 +2159,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINAMFDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInSmfDataPathParams {
 	/// Identifier of the UE
@@ -2173,7 +2173,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINSMFDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInSmfDataQueryParams {
 	/// Supported Features
@@ -2189,7 +2189,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINSMFDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInSmsfDataPathParams {
 	/// Identifier of the UE
@@ -2203,7 +2203,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINSMSFDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUeCtxInSmsfDataQueryParams {
 	/// Supported Features
@@ -2219,7 +2219,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUECTXINSMSFDATAQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLocationInfoPathParams {
 	/// Identifier of the UE
@@ -2233,7 +2233,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLOCATIONINFOPATHPARAMS_UE_ID: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetLocationInfoQueryParams {
 	#[serde(rename = "supported-features")]
@@ -2248,7 +2248,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETLOCATIONINFOQUERYPARAMS_SUPPORTED_FEATURES: regex::Regex = regex::Regex::new(r"^[A-Fa-f0-9]*$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateEeSubscriptionPathParams {
 	/// Represents the scope of the UE for which the subscription is applied.
@@ -2265,7 +2265,7 @@ lazy_static::lazy_static! {
 	static ref RE_UPDATEEESUBSCRIPTIONPATHPARAMS_UE_IDENTITY: regex::Regex = regex::Regex::new(r"^(msisdn-[0-9]{5,15}|.+|extid-[^@]+@[^@]+|extgroupid-[^@]+@[^@]+|anyUE)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct UpdateEeSubscriptionQueryParams {
 	/// Features required to be supported by the target NF
@@ -2282,14 +2282,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUcDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUcDataPathParams {
 	/// Identifier of the UE
@@ -2303,7 +2303,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETUCDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetUcDataQueryParams {
 	/// Supported Features
@@ -2324,14 +2324,14 @@ lazy_static::lazy_static! {
 }
 
 #[skip_serializing_none]
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetV2xDataHeaderParams {
 	pub if_none_match: Option<String>,
 	pub if_modified_since: Option<String>,
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetV2xDataPathParams {
 	/// Identifier of the UE
@@ -2345,7 +2345,7 @@ lazy_static::lazy_static! {
 	static ref RE_GETV2XDATAPATHPARAMS_SUPI: regex::Regex = regex::Regex::new(r"^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$").unwrap();
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, validator::Validate, smart_default::SmartDefault)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetV2xDataQueryParams {
 	/// Supported Features

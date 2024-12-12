@@ -18,15 +18,15 @@ pub enum GetSmfRegistrationResponse {
 	/// Expected response to a valid request
 	Status200(models::SmfRegistrationInfo) = 200,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Forbidden
-	Status403(models::ProblemDetails) = 403,
+	Status403(models::common_models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::ProblemDetails) = 404,
+	Status404(models::common_models::ProblemDetails) = 404,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::ProblemDetails) = 503,
+	Status503(models::common_models::ProblemDetails) = 503,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -46,35 +46,35 @@ impl DeserResponse for GetSmfRegistrationResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetSmfRegistrationResponse::Status400(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetSmfRegistrationResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetSmfRegistrationResponse::Status404(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetSmfRegistrationResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetSmfRegistrationResponse::Status503(body)))
 			}
@@ -103,15 +103,15 @@ pub enum RegistrationResponse {
 	/// No content
 	Status204 = 204,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Forbidden
-	Status403(models::ProblemDetails) = 403,
+	Status403(models::common_models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::ProblemDetails) = 404,
+	Status404(models::common_models::ProblemDetails) = 404,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::ProblemDetails) = 503,
+	Status503(models::common_models::ProblemDetails) = 503,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -152,35 +152,35 @@ impl DeserResponse for RegistrationResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, RegistrationResponse::Status400(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, RegistrationResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, RegistrationResponse::Status404(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, RegistrationResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, RegistrationResponse::Status503(body)))
 			}

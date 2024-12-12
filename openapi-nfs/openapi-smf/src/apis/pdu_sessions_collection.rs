@@ -35,7 +35,7 @@ pub enum PostPduSessionsResponse {
 	/// unsuccessful creation of a PDU session
 	Status404_UnsuccessfulCreationOfAPDUSession(models::PduSessionCreateError),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

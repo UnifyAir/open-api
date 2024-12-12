@@ -31,21 +31,21 @@ pub enum DeleteIndMbsPolicyResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::ProblemDetails) = 401,
+	Status401(models::common_models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::ProblemDetails) = 403,
+	Status403(models::common_models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::ProblemDetails) = 404,
+	Status404(models::common_models::ProblemDetails) = 404,
 	/// 406 Not Acceptable
 	Status406 = 406,
 	/// Too Many Requests
-	Status429(models::ProblemDetails) = 429,
+	Status429(models::common_models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::ProblemDetails) = 503,
+	Status503(models::common_models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -72,7 +72,7 @@ impl DeserResponse for DeleteIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -97,7 +97,7 @@ impl DeserResponse for DeleteIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -113,28 +113,28 @@ impl DeserResponse for DeleteIndMbsPolicyResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status400(body)))
 			}
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status401(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status404(body)))
 			}
@@ -146,21 +146,21 @@ impl DeserResponse for DeleteIndMbsPolicyResponse {
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status429(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, DeleteIndMbsPolicyResponse::Status503(body)))
 			}
@@ -195,21 +195,21 @@ pub enum GetIndMbsPolicyResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::ProblemDetails) = 401,
+	Status401(models::common_models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::ProblemDetails) = 403,
+	Status403(models::common_models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::ProblemDetails) = 404,
+	Status404(models::common_models::ProblemDetails) = 404,
 	/// 406 Not Acceptable
 	Status406 = 406,
 	/// Too Many Requests
-	Status429(models::ProblemDetails) = 429,
+	Status429(models::common_models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::ProblemDetails) = 503,
+	Status503(models::common_models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -238,7 +238,7 @@ impl DeserResponse for GetIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -263,7 +263,7 @@ impl DeserResponse for GetIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -279,28 +279,28 @@ impl DeserResponse for GetIndMbsPolicyResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status400(body)))
 			}
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status401(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status404(body)))
 			}
@@ -312,21 +312,21 @@ impl DeserResponse for GetIndMbsPolicyResponse {
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status429(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, GetIndMbsPolicyResponse::Status503(body)))
 			}
@@ -360,25 +360,25 @@ pub enum UpdateIndMbsPolicyResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Bad request
-	Status400(models::ProblemDetails) = 400,
+	Status400(models::common_models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::ProblemDetails) = 401,
+	Status401(models::common_models::ProblemDetails) = 401,
 	/// Forbidden.
 	Status403(models::MbsExtProblemDetails) = 403,
 	/// Not Found
-	Status404(models::ProblemDetails) = 404,
+	Status404(models::common_models::ProblemDetails) = 404,
 	/// Length Required
-	Status411(models::ProblemDetails) = 411,
+	Status411(models::common_models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::ProblemDetails) = 413,
+	Status413(models::common_models::ProblemDetails) = 413,
 	/// Unsupported Media Type
-	Status415(models::ProblemDetails) = 415,
+	Status415(models::common_models::ProblemDetails) = 415,
 	/// Too Many Requests
-	Status429(models::ProblemDetails) = 429,
+	Status429(models::common_models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::ProblemDetails) = 500,
+	Status500(models::common_models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::ProblemDetails) = 503,
+	Status503(models::common_models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -407,7 +407,7 @@ impl DeserResponse for UpdateIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -432,7 +432,7 @@ impl DeserResponse for UpdateIndMbsPolicyResponse {
 					.to_owned();
 				let param_3gpp_sbi_target_nf_id: Option<String> = resp
 					.headers()
-					.get(crate::PARAM3GPP_SBI_TARGET_NF_ID)
+					.get(oasbi::PARAM3GPP_SBI_TARGET_NF_ID)
 					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
 					.flatten();
 				let data = resp.text().await?;
@@ -448,14 +448,14 @@ impl DeserResponse for UpdateIndMbsPolicyResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status400(body)))
 			}
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status401(body)))
 			}
@@ -469,49 +469,49 @@ impl DeserResponse for UpdateIndMbsPolicyResponse {
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status404(body)))
 			}
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status411(body)))
 			}
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status413(body)))
 			}
 			415 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status415(body)))
 			}
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status429(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateIndMbsPolicyResponse::Status503(body)))
 			}

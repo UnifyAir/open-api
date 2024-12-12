@@ -34,7 +34,7 @@ pub enum ReleaseSmContextResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -74,7 +74,7 @@ pub enum RetrieveSmContextResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -86,7 +86,7 @@ pub enum RetrieveSmContextResponse {
 	/// Service Unavailable
 	Status503_ServiceUnavailable(models::ExtProblemDetails),
 	/// Gateway Timeout
-	Status504_GatewayTimeout(models::ProblemDetails),
+	Status504_GatewayTimeout(models::common_models::ProblemDetails),
 	/// Generic Error
 	Status0_GenericError,
 }
@@ -118,7 +118,7 @@ pub enum SendMoDataResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -160,7 +160,7 @@ pub enum UpdateSmContextResponse {
 	/// unsuccessful update of an SM context - not found
 	Status404_UnsuccessfulUpdateOfAnSMContext(models::SmContextUpdateError),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

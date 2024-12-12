@@ -27,6 +27,4 @@ pub mod types;
 #[cfg(feature = "server")]
 pub(crate) mod header;
 
-use reqwest::header::HeaderName;
-
-pub const PARAM3GPP_SBI_TARGET_NF_ID: HeaderName = HeaderName::from_static("3gpp-sbi-target-nf-id");
+pub use oasbi::PARAM3GPP_SBI_TARGET_NF_ID;

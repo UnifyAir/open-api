@@ -1,10 +1,11 @@
+use std::marker::ConstParamTy;
 
-///NF types known to NRF
+/// NF types known to NRF
 ///
 /// <details><summary>JSON schema</summary>
 ///
 /// ```json
-///{
+/// {
 ///  "description": "NF types known to NRF",
 ///  "type": "string",
 ///  "enum": [
@@ -68,12 +69,12 @@
 ///    "SMS_ROUTER"
 ///  ],
 ///  "x-allow-unknown": true
-///}
+/// }
 /// ```
 /// </details>
 #[derive(
-	:: serde :: Deserialize,
-	:: serde :: Serialize,
+	::serde::Deserialize,
+	::serde::Serialize,
 	Clone,
 	Debug,
 	Eq,
@@ -82,6 +83,7 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+	ConstParamTy
 )]
 pub enum NfType {
 	#[default]
@@ -202,7 +204,7 @@ pub enum NfType {
 	#[serde(rename = "SMS_ROUTER")]
 	SmsRouter,
 	#[serde(untagged)]
-	UnknownOther(String),
+	Unknown
 }
 
 impl From<&NfType> for NfType {
@@ -272,7 +274,7 @@ impl ToString for NfType {
 			Self::Panf => "PANF".to_string(),
 			Self::IpSmGw => "IP_SM_GW".to_string(),
 			Self::SmsRouter => "SMS_ROUTER".to_string(),
-			Self::UnknownOther(ref value) => value.clone(),
+			Self::Unknown => unreachable!(),
 		}
 	}
 }
@@ -339,7 +341,7 @@ impl std::str::FromStr for NfType {
 			"PANF" => Ok(Self::Panf),
 			"IP_SM_GW" => Ok(Self::IpSmGw),
 			"SMS_ROUTER" => Ok(Self::SmsRouter),
-			_ => Ok(Self::UnknownOther(value.to_string())),
+			_ => Ok(Self::Unknown),
 		}
 	}
 }

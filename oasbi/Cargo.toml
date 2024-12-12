@@ -21,4 +21,4 @@ uuid.workspace = true
 thiserror.workspace = true
 http.workspace = true
 smart-default.workspace = true
-retry-after = {path = "../retry-after"}
+retry-after = { path = "../retry-after" }

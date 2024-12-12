@@ -34,7 +34,7 @@ pub enum ReleasePduSessionResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -74,7 +74,7 @@ pub enum RetrievePduSessionResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -86,7 +86,7 @@ pub enum RetrievePduSessionResponse {
 	/// Service Unavailable
 	Status503_ServiceUnavailable(models::ExtProblemDetails),
 	/// Gateway Timeout
-	Status504_GatewayTimeout(models::ProblemDetails),
+	Status504_GatewayTimeout(models::common_models::ProblemDetails),
 	/// Generic Error
 	Status0_GenericError,
 }
@@ -118,7 +118,7 @@ pub enum TransferMoDataResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -160,7 +160,7 @@ pub enum UpdatePduSessionResponse {
 	/// unsuccessful update of a PDU session
 	Status404_UnsuccessfulUpdateOfAPDUSession(models::HsmfUpdateError),
 	/// Length Required
-	Status411_LengthRequired(models::ProblemDetails),
+	Status411_LengthRequired(models::common_models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
