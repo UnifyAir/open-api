@@ -1,14 +1,20 @@
 mod uri;
+mod nf_type;
+mod generated;
+mod ipv4_addr;
+mod fqdn;
+mod ipv6_addr;
+mod ipv6_prefix;
+mod ipv4_addr_mask;
 
 pub use uri::Uri;
-
-mod nf_type;
-
 pub use nf_type::NfType;
-
-mod generated;
-
+pub use fqdn::Fqdn;
 pub use generated::types as common_models;
+pub use ipv6_addr::Ipv6Addr;
+pub use ipv4_addr::Ipv4Addr;
+pub use ipv6_prefix::Ipv6Prefix;
+pub use ipv4_addr_mask::Ipv4AddrMask;
 
 pub mod error {
 	/// Error from a TryFrom or FromStr implementation.

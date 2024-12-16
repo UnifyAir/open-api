@@ -10,7 +10,7 @@ pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
 #[allow(clippy::all)]
 pub mod types {
 	use crate::common::error;
-	use crate::common::{NfType, Uri};
+	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask};
 
 	/// Error returned in the access token response message
 	///
@@ -8797,111 +8797,6 @@ pub mod types {
 		}
 	}
 
-	/// Fully Qualified Domain Name
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "Fully Qualified Domain Name",
-	///  "type": "string",
-	///  "maxLength": 253,
-	///  "minLength": 4,
-	///  "pattern":
-	/// "^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Fqdn(String);
-
-	impl ::std::ops::Deref for Fqdn {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Fqdn> for String {
-		fn from(value: Fqdn) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Fqdn> for Fqdn {
-		fn from(value: &Fqdn) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Fqdn {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if value.len() > 253usize {
-				return Err("longer than 253 characters".into());
-			}
-			if value.len() < 4usize {
-				return Err("shorter than 4 characters".into());
-			}
-			if regress::Regex::new(
-				"^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\\
-				            .?$\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Fqdn {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Fqdn {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Fqdn {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Fqdn {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
 
 	/// a matching rule for a FQDN pattern
 	///
@@ -8977,8 +8872,8 @@ pub mod types {
 	)]
 	#[serde(untagged)]
 	pub enum FqdnRm {
-		#[default]
 		Fqdn(Fqdn),
+		#[default]
 		NullValue(NullValue),
 	}
 
@@ -12137,219 +12032,6 @@ pub mod types {
 		}
 	}
 
-	/// String identifying a IPv4 address formatted in the 'dotted decimal'
-	/// notation as defined in RFC 1166.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying a IPv4 address formatted in the
-	/// 'dotted decimal' notation as defined in RFC 1166.\n",
-	///  "examples": [
-	///    "198.51.100.1"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.
-	/// ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv4Addr(String);
-
-	impl ::std::ops::Deref for Ipv4Addr {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv4Addr> for String {
-		fn from(value: Ipv4Addr) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv4Addr> for Ipv4Addr {
-		fn from(value: &Ipv4Addr) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv4Addr {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				 ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				            ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv4Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv4Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv4Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv4Addr {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
-
-	/// "String identifying a IPv4 address mask formatted in the 'dotted
-	/// decimal' notation as defined in RFC 1166."
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "\"String identifying a IPv4 address mask formatted in
-	/// the 'dotted decimal' notation as defined in RFC 1166.\"\n",
-	///  "examples": [
-	///    "198.51.0.0/16"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.
-	/// ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/
-	/// ([0-9]|[1-2][0-9]|3[0-2]))$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv4AddrMask(String);
-
-	impl ::std::ops::Deref for Ipv4AddrMask {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv4AddrMask> for String {
-		fn from(value: Ipv4AddrMask) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv4AddrMask> for Ipv4AddrMask {
-		fn from(value: &Ipv4AddrMask) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv4AddrMask {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				 ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/\
-				 ([0-9]|[1-2][0-9]|3[0-2]))$",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				            ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/\
-				            ([0-9]|[1-2][0-9]|3[0-2]))$\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv4AddrMask {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv4AddrMask {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv4AddrMask {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv4AddrMask {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
-
 	/// String identifying a IPv4 address mask formatted in the 'dotted decimal'
 	/// notation as defined in RFC 1166 with the OpenAPI defined 'nullable:
 	/// true' property.
@@ -12378,16 +12060,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct Ipv4AddrMaskRm(pub Option<Ipv4AddrMaskRmInner>);
+	pub struct Ipv4AddrMaskRm(pub Option<Ipv4AddrMask>);
 
 	impl ::std::ops::Deref for Ipv4AddrMaskRm {
-		type Target = Option<Ipv4AddrMaskRmInner>;
-		fn deref(&self) -> &Option<Ipv4AddrMaskRmInner> {
+		type Target = Option<Ipv4AddrMask>;
+		fn deref(&self) -> &Option<Ipv4AddrMask> {
 			&self.0
 		}
 	}
 
-	impl From<Ipv4AddrMaskRm> for Option<Ipv4AddrMaskRmInner> {
+	impl From<Ipv4AddrMaskRm> for Option<Ipv4AddrMask> {
 		fn from(value: Ipv4AddrMaskRm) -> Self {
 			value.0
 		}
@@ -12399,119 +12081,9 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<Ipv4AddrMaskRmInner>> for Ipv4AddrMaskRm {
-		fn from(value: Option<Ipv4AddrMaskRmInner>) -> Self {
+	impl From<Option<Ipv4AddrMask>> for Ipv4AddrMaskRm {
+		fn from(value: Option<Ipv4AddrMask>) -> Self {
 			Self(value)
-		}
-	}
-
-	/// String identifying a IPv4 address mask formatted in the 'dotted decimal'
-	/// notation as defined in RFC 1166 with the OpenAPI defined 'nullable:
-	/// true' property.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying a IPv4 address mask formatted in the
-	/// 'dotted decimal' notation as defined in RFC 1166 with the OpenAPI
-	/// defined 'nullable: true' property.\n",
-	///  "examples": [
-	///    "198.51.0.0/16"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.
-	/// ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/
-	/// ([0-9]|[1-2][0-9]|3[0-2]))$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv4AddrMaskRmInner(String);
-
-	impl ::std::ops::Deref for Ipv4AddrMaskRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv4AddrMaskRmInner> for String {
-		fn from(value: Ipv4AddrMaskRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv4AddrMaskRmInner> for Ipv4AddrMaskRmInner {
-		fn from(value: &Ipv4AddrMaskRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv4AddrMaskRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				 ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/\
-				 ([0-9]|[1-2][0-9]|3[0-2]))$",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				            ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/\
-				            ([0-9]|[1-2][0-9]|3[0-2]))$\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv4AddrMaskRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv4AddrMaskRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv4AddrMaskRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv4AddrMaskRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
 		}
 	}
 
@@ -12542,16 +12114,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct Ipv4AddrRm(pub Option<Ipv4AddrRmInner>);
+	pub struct Ipv4AddrRm(pub Option<Ipv4Addr>);
 
 	impl ::std::ops::Deref for Ipv4AddrRm {
-		type Target = Option<Ipv4AddrRmInner>;
-		fn deref(&self) -> &Option<Ipv4AddrRmInner> {
+		type Target = Option<Ipv4Addr>;
+		fn deref(&self) -> &Option<Ipv4Addr> {
 			&self.0
 		}
 	}
 
-	impl From<Ipv4AddrRm> for Option<Ipv4AddrRmInner> {
+	impl From<Ipv4AddrRm> for Option<Ipv4Addr> {
 		fn from(value: Ipv4AddrRm) -> Self {
 			value.0
 		}
@@ -12563,228 +12135,12 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<Ipv4AddrRmInner>> for Ipv4AddrRm {
-		fn from(value: Option<Ipv4AddrRmInner>) -> Self {
+	impl From<Option<Ipv4Addr>> for Ipv4AddrRm {
+		fn from(value: Option<Ipv4Addr>) -> Self {
 			Self(value)
 		}
 	}
 
-	/// String identifying a IPv4 address formatted in the 'dotted decimal'
-	/// notation as defined in RFC 1166 with the OpenAPI defined 'nullable:
-	/// true' property.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying a IPv4 address formatted in the
-	/// 'dotted decimal' notation as defined in RFC 1166 with the OpenAPI
-	/// defined 'nullable: true' property.\n",
-	///  "examples": [
-	///    "198.51.100.1"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.
-	/// ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv4AddrRmInner(String);
-
-	impl ::std::ops::Deref for Ipv4AddrRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv4AddrRmInner> for String {
-		fn from(value: Ipv4AddrRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv4AddrRmInner> for Ipv4AddrRmInner {
-		fn from(value: &Ipv4AddrRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv4AddrRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				 ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.\
-				            ){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv4AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv4AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv4AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv4AddrRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
-
-	/// String identifying an IPv6 address formatted according to clause 4 of
-	/// RFC5952. The mixed IPv4 IPv6 notation according to clause 5 of RFC5952
-	/// shall not be used.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying an IPv6 address formatted according
-	/// to clause 4 of RFC5952. The mixed IPv4 IPv6 notation according to clause
-	/// 5 of RFC5952 shall not be used.\n",
-	///  "examples": [
-	///    "2001:db8:85a3::8a2e:370:7334"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):
-	/// ){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:
-	/// ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv6Addr(String);
-
-	impl ::std::ops::Deref for Ipv6Addr {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv6Addr> for String {
-		fn from(value: Ipv6Addr) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv6Addr> for Ipv6Addr {
-		fn from(value: &Ipv6Addr) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv6Addr {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:\
-				 |(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?\
-				 ::(([^:]+:)*[^:]+)?))$)",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,\
-				            3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:\
-				            ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv6Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv6Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv6Addr {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv6Addr {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
 
 	/// String identifying an IPv6 address formatted according to clause 4 of
 	/// RFC5952 with the OpenAPI 'nullable: true' property. The mixed IPv4 IPv6
@@ -12815,16 +12171,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct Ipv6AddrRm(pub Option<Ipv6AddrRmInner>);
+	pub struct Ipv6AddrRm(pub Option<Ipv6Addr>);
 
 	impl ::std::ops::Deref for Ipv6AddrRm {
-		type Target = Option<Ipv6AddrRmInner>;
-		fn deref(&self) -> &Option<Ipv6AddrRmInner> {
+		type Target = Option<Ipv6Addr>;
+		fn deref(&self) -> &Option<Ipv6Addr> {
 			&self.0
 		}
 	}
 
-	impl From<Ipv6AddrRm> for Option<Ipv6AddrRmInner> {
+	impl From<Ipv6AddrRm> for Option<Ipv6Addr> {
 		fn from(value: Ipv6AddrRm) -> Self {
 			value.0
 		}
@@ -12836,233 +12192,9 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<Ipv6AddrRmInner>> for Ipv6AddrRm {
-		fn from(value: Option<Ipv6AddrRmInner>) -> Self {
+	impl From<Option<Ipv6Addr>> for Ipv6AddrRm {
+		fn from(value: Option<Ipv6Addr>) -> Self {
 			Self(value)
-		}
-	}
-
-	/// String identifying an IPv6 address formatted according to clause 4 of
-	/// RFC5952 with the OpenAPI 'nullable: true' property. The mixed IPv4 IPv6
-	/// notation according to clause 5 of RFC5952 shall not be used.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying an IPv6 address formatted according
-	/// to clause 4 of RFC5952 with the OpenAPI 'nullable: true' property. The
-	/// mixed IPv4 IPv6 notation according to clause 5 of RFC5952 shall not be
-	/// used.\n",
-	///  "examples": [
-	///    "2001:db8:85a3::8a2e:370:7334"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):
-	/// ){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:
-	/// ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv6AddrRmInner(String);
-
-	impl ::std::ops::Deref for Ipv6AddrRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv6AddrRmInner> for String {
-		fn from(value: Ipv6AddrRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv6AddrRmInner> for Ipv6AddrRmInner {
-		fn from(value: &Ipv6AddrRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv6AddrRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:\
-				 |(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:]+:)*[^:]+)?\
-				 ::(([^:]+:)*[^:]+)?))$)",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,\
-				            3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))$)(?=.*^((([^:]+:){7}([^:\
-				            ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))$)\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv6AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv6AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv6AddrRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv6AddrRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
-
-	/// String identifying an IPv6 address prefix formatted according to clause
-	/// 4 of RFC 5952. IPv6Prefix data type may contain an individual /128 IPv6
-	/// address.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying an IPv6 address prefix formatted
-	/// according to clause 4 of RFC 5952. IPv6Prefix data type may contain an
-	/// individual /128 IPv6 address.\n",
-	///  "examples": [
-	///    "2001:db8:abcd:12::0/64"
-	///  ],
-	///  "type": "string",
-	///  "pattern":
-	/// "(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):
-	/// ){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/
-	/// (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:
-	/// ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv6Prefix(String);
-
-	impl ::std::ops::Deref for Ipv6Prefix {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv6Prefix> for String {
-		fn from(value: Ipv6Prefix) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv6Prefix> for Ipv6Prefix {
-		fn from(value: &Ipv6Prefix) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv6Prefix {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:\
-				 |(0?|([1-9a-f][0-9a-f]{0,3})))(\\/\
-				 (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:\
-				 ]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,\
-				            3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/\
-				            (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:\
-				            ){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv6Prefix {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv6Prefix {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv6Prefix {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv6Prefix {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
 		}
 	}
 
@@ -13093,16 +12225,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct Ipv6PrefixRm(pub Option<Ipv6PrefixRmInner>);
+	pub struct Ipv6PrefixRm(pub Option<Ipv6Prefix>);
 
 	impl ::std::ops::Deref for Ipv6PrefixRm {
-		type Target = Option<Ipv6PrefixRmInner>;
-		fn deref(&self) -> &Option<Ipv6PrefixRmInner> {
+		type Target = Option<Ipv6Prefix>;
+		fn deref(&self) -> &Option<Ipv6Prefix> {
 			&self.0
 		}
 	}
 
-	impl From<Ipv6PrefixRm> for Option<Ipv6PrefixRmInner> {
+	impl From<Ipv6PrefixRm> for Option<Ipv6Prefix> {
 		fn from(value: Ipv6PrefixRm) -> Self {
 			value.0
 		}
@@ -13114,120 +12246,9 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<Ipv6PrefixRmInner>> for Ipv6PrefixRm {
-		fn from(value: Option<Ipv6PrefixRmInner>) -> Self {
+	impl From<Option<Ipv6Prefix>> for Ipv6PrefixRm {
+		fn from(value: Option<Ipv6Prefix>) -> Self {
 			Self(value)
-		}
-	}
-
-	/// String identifying an IPv6 address prefix formatted according to clause
-	/// 4 of RFC 5952 with the OpenAPI 'nullable: true' property. IPv6Prefix
-	/// data type may contain an individual /128 IPv6 address.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "String identifying an IPv6 address prefix formatted
-	/// according to clause 4 of RFC 5952 with the OpenAPI 'nullable: true'
-	/// property. IPv6Prefix data type may contain an individual /128 IPv6
-	/// address.\n",
-	///  "type": "string",
-	///  "pattern":
-	/// "(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):
-	/// ){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/
-	/// (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:
-	/// ]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Ipv6PrefixRmInner(String);
-
-	impl ::std::ops::Deref for Ipv6PrefixRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Ipv6PrefixRmInner> for String {
-		fn from(value: Ipv6PrefixRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Ipv6PrefixRmInner> for Ipv6PrefixRmInner {
-		fn from(value: &Ipv6PrefixRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Ipv6PrefixRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new(
-				"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,3})):){0,6}(:\
-				 |(0?|([1-9a-f][0-9a-f]{0,3})))(\\/\
-				 (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:){7}([^:]+))|((([^:\
-				 ]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)",
-			)
-			.unwrap()
-			.find(value)
-			.is_none()
-			{
-				return Err("doesn't match pattern \
-				            \"(?=.*^((:|(0?|([1-9a-f][0-9a-f]{0,3}))):)((0?|([1-9a-f][0-9a-f]{0,\
-				            3})):){0,6}(:|(0?|([1-9a-f][0-9a-f]{0,3})))(\\/\
-				            (([0-9])|([0-9]{2})|(1[0-1][0-9])|(12[0-8])))$)(?=.*^((([^:]+:\
-				            ){7}([^:]+))|((([^:]+:)*[^:]+)?::(([^:]+:)*[^:]+)?))(\\/.+)$)\""
-					.into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Ipv6PrefixRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Ipv6PrefixRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Ipv6PrefixRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Ipv6PrefixRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
 		}
 	}
 

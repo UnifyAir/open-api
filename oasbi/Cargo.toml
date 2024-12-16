@@ -22,3 +22,5 @@ thiserror.workspace = true
 http.workspace = true
 smart-default.workspace = true
 retry-after = { path = "../retry-after" }
+fqdn.workspace = true
+ipnet.workspace = true

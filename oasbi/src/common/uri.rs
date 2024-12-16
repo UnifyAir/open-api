@@ -56,9 +56,13 @@ impl Default for Uri {
 }
 
 impl FromStr for Uri {
-	type Err = http::uri::InvalidUri;
+	type Err = super::error::ConversionError;
+
 	fn from_str(value: &str) -> Result<Self, Self::Err> {
-		Ok(Self(value.parse()?))
+		match value.parse() {
+			res @ Ok(_) => res,
+			Err(invalid) => Err(Self::Err::from(format!("Invalid Uri: {:?}", invalid)))
+		}
 	}
 }
 
