@@ -83,7 +83,7 @@ use std::marker::ConstParamTy;
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
-	ConstParamTy
+	ConstParamTy,
 )]
 pub enum NfType {
 	#[default]
@@ -204,7 +204,7 @@ pub enum NfType {
 	#[serde(rename = "SMS_ROUTER")]
 	SmsRouter,
 	#[serde(untagged)]
-	Unknown
+	Unknown,
 }
 
 impl From<&NfType> for NfType {
