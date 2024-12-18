@@ -10,7 +10,7 @@ pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
 #[allow(clippy::all)]
 pub mod types {
 	use crate::common::error;
-	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask, AmfId, AmfSetId, AmfRegionId};
+	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask, AmfId};
 
 	/// Error returned in the access token response message
 	///

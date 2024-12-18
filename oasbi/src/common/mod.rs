@@ -17,6 +17,7 @@ pub use ipv4_addr::Ipv4Addr;
 pub use ipv6_prefix::Ipv6Prefix;
 pub use ipv4_addr_mask::Ipv4AddrMask;
 pub use amf_id::{ AmfId, AmfSetId, AmfRegionId};
+pub use generated::types::*;
 
 pub mod error {
 	/// Error from a TryFrom or FromStr implementation.

@@ -9,7 +9,7 @@ pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
 pub mod types {
-	pub use crate::common::common_models::*;
+	
 	/// Error types.
 	pub use crate::common::*;
 	pub use crate::modified::nrf::*;
