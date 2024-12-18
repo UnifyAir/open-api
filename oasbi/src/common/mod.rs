@@ -6,6 +6,7 @@ mod fqdn;
 mod ipv6_addr;
 mod ipv6_prefix;
 mod ipv4_addr_mask;
+mod amf_id;
 
 pub use uri::Uri;
 pub use nf_type::NfType;
@@ -15,6 +16,7 @@ pub use ipv6_addr::Ipv6Addr;
 pub use ipv4_addr::Ipv4Addr;
 pub use ipv6_prefix::Ipv6Prefix;
 pub use ipv4_addr_mask::Ipv4AddrMask;
+pub use amf_id::{ AmfId, AmfSetId, AmfRegionId};
 
 pub mod error {
 	/// Error from a TryFrom or FromStr implementation.

@@ -16,9 +16,8 @@ publish = false
 
 [workspace.dependencies]
 http = { version = "1.1.0" }
-clap = { version = "4.5.4", features = ["cargo"] }
 serde = { version = "1.0.215", features = ["derive"] }
-serde_yaml = "0.9.34"
+serde_with = "3.11.0"
 tokio = { version = "1.38", features = ["full"] }
 bytes = "1.0"
 chrono = { version = "0.4", default-features = false, features = [
@@ -52,9 +51,7 @@ tracing-subscriber = "0.3"
 tracing = { version = "0.1.0" }
 thiserror = { version = "2.0.1" }
 smart-default = "0.7.1"
-hyper = "1.5.0"
-serde_with = "3.11.0"
-ipnet = { version = "2.10.1", features = ["serde"]}
+ipnet = { version = "2.3.0", features = ["serde"]}
 fqdn = { version = "0.4.3", features = [
     "domain-name-length-limited-to-255",
     "domain-label-length-limited-to-63",
