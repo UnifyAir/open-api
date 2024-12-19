@@ -109,6 +109,7 @@ fn release_pdu_session_validation(
 
 	Ok((path_params, body))
 }
+
 /// ReleasePduSession - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/pdu-sessions/{pduSessionRef}/release
 #[tracing::instrument(skip_all)]
@@ -134,368 +135,364 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status200_SuccessfulReleaseOfAPDUSessionWithContentInTheResponse
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status200_SuccessfulReleaseOfAPDUSessionWithContentInTheResponse
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status204_SuccessfulReleaseOfAPDUSession
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status204_SuccessfulReleaseOfAPDUSession
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::ReleasePduSessionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -524,6 +521,7 @@ fn retrieve_pdu_session_validation(
 
 	Ok((path_params, body))
 }
+
 /// RetrievePduSession - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/pdu-sessions/{pduSessionRef}/retrieve
 #[tracing::instrument(skip_all)]
@@ -560,384 +558,380 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status200_SuccessfulInformationRetrieval
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status200_SuccessfulInformationRetrieval
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status504_GatewayTimeout
+			(body)
+			=> {
+				let mut response = response.status(504);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status504_GatewayTimeout
-            (body)
-            => {
-                let mut response = response.status(504);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::RetrievePduSessionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -953,6 +947,7 @@ fn transfer_mo_data_validation(
 
 	Ok((path_params,))
 }
+
 /// TransferMoData - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/pdu-sessions/{pduSessionRef}/
 /// transfer-mo-data
@@ -979,368 +974,364 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status204_SuccessfulTransferingOfMOData
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status204_SuccessfulTransferingOfMOData
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::TransferMoDataResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -1369,6 +1360,7 @@ fn update_pdu_session_validation(
 
 	Ok((path_params, body))
 }
+
 /// UpdatePduSession - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/pdu-sessions/{pduSessionRef}/modify
 #[tracing::instrument(skip_all)]
@@ -1394,368 +1386,364 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status200_SuccessfulUpdateOfAPDUSessionWithContentInTheResponse
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status200_SuccessfulUpdateOfAPDUSessionWithContentInTheResponse
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status204_SuccessfulUpdateOfAPDUSessionWithoutContentInTheResponse
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status204_SuccessfulUpdateOfAPDUSessionWithoutContentInTheResponse
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status400_UnsuccessfulUpdateOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status403_UnsuccessfulUpdateOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status404_UnsuccessfulUpdateOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status400_UnsuccessfulUpdateOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status403_UnsuccessfulUpdateOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status404_UnsuccessfulUpdateOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status500_UnsuccessfulUpdateOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status503_UnsuccessfulUpdateOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status500_UnsuccessfulUpdateOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status503_UnsuccessfulUpdateOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_hsmfor_smf::UpdatePduSessionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -1771,6 +1759,7 @@ fn deliver_validation(
 
 	Ok((path_params,))
 }
+
 /// Deliver - POST
 /// /nsmf-pdusession/v1/nsmf-nidd/v1/pdu-sessions/{pduSessionRef}/deliver
 #[tracing::instrument(skip_all)]
@@ -1796,389 +1785,385 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status204_SuccessfulTransferingOfDelivery
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status204_SuccessfulTransferingOfDelivery
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status504_UnsuccessfulDeliveryOfMobileTerminatedData
+			(body)
+			=> {
+				let mut response = response.status(504);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status504_UnsuccessfulDeliveryOfMobileTerminatedData
-            (body)
-            => {
-                let mut response = response.status(504);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_pdu_session_nsmf_nidd::DeliverResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -2212,6 +2197,7 @@ fn release_sm_context_validation(
 
 	Ok((path_params, body))
 }
+
 /// ReleaseSmContext - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/sm-contexts/{smContextRef}/release
 #[tracing::instrument(skip_all)]
@@ -2237,368 +2223,364 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_sm_context::ReleaseSmContextResponse::Status200_SuccessfulReleaseOfAPDUSessionWithContentInTheResponse
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_sm_context::ReleaseSmContextResponse::Status200_SuccessfulReleaseOfAPDUSessionWithContentInTheResponse
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status204_SuccessfulReleaseOfAnSMContextWithoutContentInTheResponse
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status204_SuccessfulReleaseOfAnSMContextWithoutContentInTheResponse
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::ReleaseSmContextResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::ReleaseSmContextResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -2632,6 +2614,7 @@ fn retrieve_sm_context_validation(
 
 	Ok((path_params, body))
 }
+
 /// RetrieveSmContext - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/sm-contexts/{smContextRef}/retrieve
 #[tracing::instrument(skip_all)]
@@ -2668,384 +2651,380 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_sm_context::RetrieveSmContextResponse::Status200_SuccessfulRetrievalOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_sm_context::RetrieveSmContextResponse::Status200_SuccessfulRetrievalOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status504_GatewayTimeout
+			(body)
+			=> {
+				let mut response = response.status(504);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status504_GatewayTimeout
-            (body)
-            => {
-                let mut response = response.status(504);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::RetrieveSmContextResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::RetrieveSmContextResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -3061,6 +3040,7 @@ fn send_mo_data_validation(
 
 	Ok((path_params,))
 }
+
 /// SendMoData - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/sm-contexts/{smContextRef}/
 /// send-mo-data
@@ -3087,368 +3067,364 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_sm_context::SendMoDataResponse::Status204_SuccessfulSendingOfMOData
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::individual_sm_context::SendMoDataResponse::Status204_SuccessfulSendingOfMOData
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::SendMoDataResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::SendMoDataResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -3480,6 +3456,7 @@ fn update_sm_context_validation(
 
 	Ok((path_params, body))
 }
+
 /// UpdateSmContext - POST
 /// /nsmf-pdusession/v1/nsmf-pdusession/v1/sm-contexts/{smContextRef}/modify
 #[tracing::instrument(skip_all)]
@@ -3505,389 +3482,385 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_sm_context::UpdateSmContextResponse::Status200_SuccessfulUpdateOfAnSMContextWithContentInTheResponse
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_sm_context::UpdateSmContextResponse::Status200_SuccessfulUpdateOfAnSMContextWithContentInTheResponse
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status204_SuccessfulUpdateOfAnSMContextWithoutContentInTheResponse
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status204_SuccessfulUpdateOfAnSMContextWithoutContentInTheResponse
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status400_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status403_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status404_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status400_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status403_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status404_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status500_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status503_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status504_UnsuccessfulUpdateOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(504);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status500_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status503_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status504_UnsuccessfulUpdateOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(504);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_sm_context::UpdateSmContextResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_sm_context::UpdateSmContextResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -3903,6 +3876,7 @@ fn delete_individual_subcription_validation(
 
 	Ok((path_params,))
 }
+
 /// DeleteIndividualSubcription - DELETE
 /// /nsmf-pdusession/v1/nsmf-event-exposure/v1/subscriptions/{subId}
 #[tracing::instrument(skip_all)]
@@ -3938,305 +3912,301 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status204_NoContent
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status204_NoContent
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::DeleteIndividualSubcriptionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -4252,6 +4222,7 @@ fn get_individual_subcription_validation(
 
 	Ok((path_params,))
 }
+
 /// GetIndividualSubcription - GET
 /// /nsmf-pdusession/v1/nsmf-event-exposure/v1/subscriptions/{subId}
 #[tracing::instrument(skip_all)]
@@ -4287,326 +4258,322 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status200_OK
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status200_OK
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status406
+			=> {
+				let mut response = response.status(406);
+				response.body(Body::empty())
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status406
-            => {
-                let mut response = response.status(406);
-                response.body(Body::empty())
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::GetIndividualSubcriptionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -4638,6 +4605,7 @@ fn replace_individual_subcription_validation(
 
 	Ok((path_params, body))
 }
+
 /// ReplaceIndividualSubcription - PUT
 /// /nsmf-pdusession/v1/nsmf-event-exposure/v1/subscriptions/{subId}
 #[tracing::instrument(skip_all)]
@@ -4675,389 +4643,385 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status200_OK
-            (body)
-            => {
-                let mut response = response.status(200);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+		Ok(rsp) => match rsp {
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status200_OK
+			(body)
+			=> {
+				let mut response = response.status(200);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status204_NoContent
-            => {
-                let mut response = response.status(204);
-                response.body(Body::empty())
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status204_NoContent
+			=> {
+				let mut response = response.status(204);
+				response.body(Body::empty())
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::individual_subscription_document::ReplaceIndividualSubcriptionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -5081,6 +5045,7 @@ fn post_pdu_sessions_validation(
 
 	Ok((body,))
 }
+
 /// PostPduSessions - POST /nsmf-pdusession/v1/nsmf-pdusession/v1/pdu-sessions
 #[tracing::instrument(skip_all)]
 async fn post_pdu_sessions<I, A>(
@@ -5104,386 +5069,381 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status201_SuccessfulCreationOfAPDUSession
-            {
-                body,
-                location
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status201_SuccessfulCreationOfAPDUSession
+			{
+				body,
+				location
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				let mut response = response.status(201);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                let mut response = response.status(201);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status400_UnsuccessfulCreationOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status403_UnsuccessfulCreationOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status404_UnsuccessfulCreationOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status400_UnsuccessfulCreationOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status403_UnsuccessfulCreationOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status404_UnsuccessfulCreationOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status500_UnsuccessfulCreationOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status503_UnsuccessfulCreationOfAPDUSession
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status500_UnsuccessfulCreationOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status503_UnsuccessfulCreationOfAPDUSession
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::pdu_sessions_collection::PostPduSessionsResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::pdu_sessions_collection::PostPduSessionsResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -5495,6 +5455,7 @@ where
 fn post_sm_contexts_validation() -> std::result::Result<(), ValidationErrors> {
 	Ok(())
 }
+
 /// PostSmContexts - POST /nsmf-pdusession/v1/nsmf-pdusession/v1/sm-contexts
 #[tracing::instrument(skip_all)]
 async fn post_sm_contexts<I, A>(
@@ -5518,407 +5479,402 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::sm_contexts_collection::PostSmContextsResponse::Status201_SuccessfulCreationOfAnSMContext
-            {
-                body,
-                location
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::sm_contexts_collection::PostSmContextsResponse::Status201_SuccessfulCreationOfAnSMContext
+			{
+				body,
+				location
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				let mut response = response.status(201);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                let mut response = response.status(201);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status307_TemporaryRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status307_TemporaryRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(307);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status308_PermanentRedirect
+			{
+				body,
+				location,
+				param_3gpp_sbi_target_nf_id
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
+					let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
+								error!(error = ?e);
+								StatusCode::INTERNAL_SERVER_ERROR
+							});
+						}
+					};
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(307);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(
+							HeaderName::from_static(""),
+							param_3gpp_sbi_target_nf_id,
+						);
+					}
+				}
+				let mut response = response.status(308);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status308_PermanentRedirect
-            {
-                body,
-                location,
-                param_3gpp_sbi_target_nf_id
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status400_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status403_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                if let Some(param_3gpp_sbi_target_nf_id) = param_3gpp_sbi_target_nf_id {
-                    let param_3gpp_sbi_target_nf_id = match header::IntoHeaderValue(param_3gpp_sbi_target_nf_id).try_into() {
-                        Ok(val) => val,
-                        Err(e) => {
-                            return Response::builder()
-                                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                .body(Body::from(format!("An internal server error occurred handling param_3gpp_sbi_target_nf_id header - {}", e))).map_err(|e| {
-                                error!(error = ?e);
-                                StatusCode::INTERNAL_SERVER_ERROR
-                            });
-                        }
-                    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status404_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                    {
-                        let mut response_headers = response.headers_mut().unwrap();
-                        response_headers.insert(
-                            HeaderName::from_static(""),
-                            param_3gpp_sbi_target_nf_id,
-                        );
-                    }
-                }
-                let mut response = response.status(308);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status400_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status403_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status404_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status500_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status503_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status504_UnsuccessfulCreationOfAnSMContext
+			(body)
+			=> {
+				let mut response = response.status(504);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status500_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status503_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status504_UnsuccessfulCreationOfAnSMContext
-            (body)
-            => {
-                let mut response = response.status(504);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::sm_contexts_collection::PostSmContextsResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::sm_contexts_collection::PostSmContextsResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);
@@ -5942,6 +5898,7 @@ fn create_individual_subcription_validation(
 
 	Ok((body,))
 }
+
 /// CreateIndividualSubcription - POST
 /// /nsmf-pdusession/v1/nsmf-event-exposure/v1/subscriptions
 #[tracing::instrument(skip_all)]
@@ -5977,273 +5934,272 @@ where
 	let mut response = Response::builder();
 
 	let resp = match result {
-        Ok(rsp) => match rsp {
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status201_Created
-            {
-                body,
-                location
-            }
-            => {
-                let location = match header::IntoHeaderValue(location).try_into() {
-                    Ok(val) => val,
-                    Err(e) => {
-                        return Response::builder()
-                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                            .body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        });
-                    }
-                };
+		Ok(rsp) => match rsp {
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status201_Created
+			{
+				body,
+				location
+			}
+			=> {
+				let location = match header::IntoHeaderValue(location).try_into() {
+					Ok(val) => val,
+					Err(e) => {
+						return Response::builder()
+							.status(StatusCode::INTERNAL_SERVER_ERROR)
+							.body(Body::from(format!("An internal server error occurred handling location header - {}", e))).map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						});
+					}
+				};
 
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						HeaderName::from_static(""),
+						location,
+					);
+				}
+				let mut response = response.status(201);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        HeaderName::from_static(""),
-                        location,
-                    );
-                }
-                let mut response = response.status(201);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status400_BadRequest
+			(body)
+			=> {
+				let mut response = response.status(400);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status400_BadRequest
-            (body)
-            => {
-                let mut response = response.status(400);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status401_Unauthorized
+			(body)
+			=> {
+				let mut response = response.status(401);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status401_Unauthorized
-            (body)
-            => {
-                let mut response = response.status(401);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status403_Forbidden
+			(body)
+			=> {
+				let mut response = response.status(403);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status403_Forbidden
-            (body)
-            => {
-                let mut response = response.status(403);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status404_NotFound
+			(body)
+			=> {
+				let mut response = response.status(404);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status404_NotFound
-            (body)
-            => {
-                let mut response = response.status(404);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status411_LengthRequired
+			(body)
+			=> {
+				let mut response = response.status(411);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status411_LengthRequired
-            (body)
-            => {
-                let mut response = response.status(411);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status413_PayloadTooLarge
+			(body)
+			=> {
+				let mut response = response.status(413);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status413_PayloadTooLarge
-            (body)
-            => {
-                let mut response = response.status(413);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status415_UnsupportedMediaType
+			(body)
+			=> {
+				let mut response = response.status(415);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status415_UnsupportedMediaType
-            (body)
-            => {
-                let mut response = response.status(415);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status429_TooManyRequests
+			(body)
+			=> {
+				let mut response = response.status(429);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status429_TooManyRequests
-            (body)
-            => {
-                let mut response = response.status(429);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status500_InternalServerError
+			(body)
+			=> {
+				let mut response = response.status(500);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status500_InternalServerError
-            (body)
-            => {
-                let mut response = response.status(500);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status503_ServiceUnavailable
+			(body)
+			=> {
+				let mut response = response.status(503);
+				{
+					let mut response_headers = response.headers_mut().unwrap();
+					response_headers.insert(
+						CONTENT_TYPE,
+						HeaderValue::from_str("application/problem+json").map_err(|e| {
+							error!(error = ?e);
+							StatusCode::INTERNAL_SERVER_ERROR
+						})?);
+				}
 
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status503_ServiceUnavailable
-            (body)
-            => {
-                let mut response = response.status(503);
-                {
-                    let mut response_headers = response.headers_mut().unwrap();
-                    response_headers.insert(
-                        CONTENT_TYPE,
-                        HeaderValue::from_str("application/problem+json").map_err(|e| {
-                            error!(error = ?e);
-                            StatusCode::INTERNAL_SERVER_ERROR
-                        })?);
-                }
-
-                let body_content = tokio::task::spawn_blocking(move ||
-                    serde_json::to_vec(&body).map_err(|e| {
-                        error!(error = ?e);
-                        StatusCode::INTERNAL_SERVER_ERROR
-                    })).await.unwrap()?;
-                response.body(Body::from(body_content))
-            }
-            apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status0_GenericError
-            => {
-                let mut response = response.status(0);
-                response.body(Body::empty())
-            }
-        },
-        Err(_) => {
-            // Application code returned an error. This should not happen, as the implementation should
-            // return a valid response.
-            response.status(500).body(Body::empty())
-        }
-    };
+				let body_content = tokio::task::spawn_blocking(move ||
+					serde_json::to_vec(&body).map_err(|e| {
+						error!(error = ?e);
+						StatusCode::INTERNAL_SERVER_ERROR
+					})).await.unwrap()?;
+				response.body(Body::from(body_content))
+			}
+			apis::subscriptions_collection::CreateIndividualSubcriptionResponse::Status0_GenericError
+			=> {
+				let mut response = response.status(0);
+				response.body(Body::empty())
+			}
+		},
+		Err(_) => {
+			// Application code returned an error. This should not happen, as the implementation should
+			// return a valid response.
+			response.status(500).body(Body::empty())
+		}
+	};
 
 	resp.map_err(|e| {
 		error!(error = ?e);

@@ -354,7 +354,7 @@ pub struct SearchNfInstancesQueryParams {
 	/// Guami used to search for an appropriate AMF
 	#[serde(rename = "guami")]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub guami: Option<common_models::Guami>,
+	pub guami: Option<Guami>,
 	/// SUPI of the user
 	#[serde(rename = "supi")]
 	#[validate(

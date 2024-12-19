@@ -16,15 +16,15 @@ pub enum Non3GppSmsfDeregistrationResponse {
 	/// Expected response to a valid request
 	Status204 = 204,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Unprocessable Request
-	Status422(models::common_models::ProblemDetails) = 422,
+	Status422(models::ProblemDetails) = 422,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -42,35 +42,35 @@ impl DeserResponse for Non3GppSmsfDeregistrationResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Non3GppSmsfDeregistrationResponse::Status400(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Non3GppSmsfDeregistrationResponse::Status404(body)))
 			}
 			422 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Non3GppSmsfDeregistrationResponse::Status422(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Non3GppSmsfDeregistrationResponse::Status500(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Non3GppSmsfDeregistrationResponse::Status503(body)))
 			}

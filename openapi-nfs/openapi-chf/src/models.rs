@@ -62,6 +62,6 @@ pub struct NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutPathParams {
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 #[serde(untagged)]
 pub enum NchfConvergedchargingV3ChargingdataPost400Response {
-	ProblemDetails(models::common_models::ProblemDetails),
+	ProblemDetails(models::ProblemDetails),
 	ChargingDataResponse(models::ChargingDataResponse),
 }

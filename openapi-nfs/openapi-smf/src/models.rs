@@ -1,13 +1,6 @@
 #![allow(unused_qualifications)]
 
-use http::HeaderValue;
 pub use oasbi::smf::types::*;
-use serde_with::skip_serializing_none;
-use validator::Validate;
-
-#[cfg(feature = "server")]
-use crate::header;
-use crate::types::*;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]

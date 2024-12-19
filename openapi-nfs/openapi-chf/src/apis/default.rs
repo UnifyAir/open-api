@@ -30,19 +30,19 @@ pub enum NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Not Found
 	Status404(models::NchfConvergedchargingV3ChargingdataPost400Response) = 404,
 	/// Gone
-	Status410(models::common_models::ProblemDetails) = 410,
+	Status410(models::ProblemDetails) = 410,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -115,7 +115,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status401
 					(body)
@@ -134,7 +134,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			410 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status410
 					(body)
@@ -143,7 +143,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status411
 					(body)
@@ -152,7 +152,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status413
 					(body)
@@ -161,7 +161,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status500
 					(body)
@@ -170,7 +170,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefRelease
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, NchfConvergedchargingV3ChargingdataChargingDataRefReleasePostResponse::Status503
 					(body)
@@ -209,7 +209,7 @@ pub enum NchfConvergedchargingV3ChargingdataChargingDataRefUpdatePostResponse {
 	/// Bad request
 	Status400(models::NchfConvergedchargingV3ChargingdataPost400Response) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
 	Status403(models::NchfConvergedchargingV3ChargingdataPost400Response) = 403,
 	/// Not Found
@@ -217,17 +217,17 @@ pub enum NchfConvergedchargingV3ChargingdataChargingDataRefUpdatePostResponse {
 	/// Method Not Allowed
 	Status405 = 405,
 	/// Request Timeout
-	Status408(models::common_models::ProblemDetails) = 408,
+	Status408(models::ProblemDetails) = 408,
 	/// Gone
-	Status410(models::common_models::ProblemDetails) = 410,
+	Status410(models::ProblemDetails) = 410,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -319,7 +319,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -365,7 +365,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			408 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -377,7 +377,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			410 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -389,7 +389,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -401,7 +401,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -413,7 +413,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -425,7 +425,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataChargingDataRefUpdateP
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -467,7 +467,7 @@ pub enum NchfConvergedchargingV3ChargingdataPostResponse {
 	/// Bad request
 	Status400(models::NchfConvergedchargingV3ChargingdataPost400Response) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
 	Status403(models::NchfConvergedchargingV3ChargingdataPost400Response) = 403,
 	/// Not Found
@@ -475,17 +475,17 @@ pub enum NchfConvergedchargingV3ChargingdataPostResponse {
 	/// Method Not Allowed
 	Status405 = 405,
 	/// Request Timeout
-	Status408(models::common_models::ProblemDetails) = 408,
+	Status408(models::ProblemDetails) = 408,
 	/// Gone
-	Status410(models::common_models::ProblemDetails) = 410,
+	Status410(models::ProblemDetails) = 410,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -575,7 +575,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -615,7 +615,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			408 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -625,7 +625,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			410 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -635,7 +635,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -645,7 +645,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -655,7 +655,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -665,7 +665,7 @@ impl DeserResponse for NchfConvergedchargingV3ChargingdataPostResponse {
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -696,25 +696,25 @@ pub enum NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 		location: String,
 	} = 201,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Unsupported Media Type
-	Status415(models::common_models::ProblemDetails) = 415,
+	Status415(models::ProblemDetails) = 415,
 	/// Too Many Requests
-	Status429(models::common_models::ProblemDetails) = 429,
+	Status429(models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -749,7 +749,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -759,7 +759,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -769,7 +769,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -779,7 +779,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -789,7 +789,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -799,7 +799,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -809,7 +809,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			415 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -819,7 +819,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -829,7 +829,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -839,7 +839,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsPostResponse {
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -879,19 +879,19 @@ pub enum NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDeleteResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Too Many Requests
-	Status429(models::common_models::ProblemDetails) = 429,
+	Status429(models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -966,7 +966,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -978,7 +978,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -990,7 +990,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1002,7 +1002,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1014,7 +1014,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1026,7 +1026,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1038,7 +1038,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdDele
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1078,25 +1078,25 @@ pub enum NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutResponse {
 		param_3gpp_sbi_target_nf_id: Option<String>,
 	} = 308,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Unsupported Media Type
-	Status415(models::common_models::ProblemDetails) = 415,
+	Status415(models::ProblemDetails) = 415,
 	/// Too Many Requests
-	Status429(models::common_models::ProblemDetails) = 429,
+	Status429(models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -1177,7 +1177,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1189,7 +1189,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1201,7 +1201,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1213,7 +1213,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1225,7 +1225,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1237,7 +1237,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1249,7 +1249,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			415 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1261,7 +1261,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1273,7 +1273,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,
@@ -1285,7 +1285,7 @@ impl DeserResponse for NchfSpendinglimitcontrolV1SubscriptionsSubscriptionIdPutR
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((
 					status,

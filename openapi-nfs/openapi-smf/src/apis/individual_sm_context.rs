@@ -1,11 +1,10 @@
 use async_trait::async_trait;
 use axum::extract::*;
-use axum_extra::extract::{CookieJar, Multipart};
-use bytes::Bytes;
+use axum_extra::extract::CookieJar;
 use http::Method;
 use serde::{Deserialize, Serialize};
 
-use crate::{models, types::*};
+use crate::models;
 
 #[derive(Debug, Serialize, Deserialize)]
 #[must_use]
@@ -34,7 +33,7 @@ pub enum ReleaseSmContextResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::common_models::ProblemDetails),
+	Status411_LengthRequired(models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -74,7 +73,7 @@ pub enum RetrieveSmContextResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::common_models::ProblemDetails),
+	Status411_LengthRequired(models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -86,7 +85,7 @@ pub enum RetrieveSmContextResponse {
 	/// Service Unavailable
 	Status503_ServiceUnavailable(models::ExtProblemDetails),
 	/// Gateway Timeout
-	Status504_GatewayTimeout(models::common_models::ProblemDetails),
+	Status504_GatewayTimeout(models::ProblemDetails),
 	/// Generic Error
 	Status0_GenericError,
 }
@@ -118,7 +117,7 @@ pub enum SendMoDataResponse {
 	/// Not Found
 	Status404_NotFound(models::ExtProblemDetails),
 	/// Length Required
-	Status411_LengthRequired(models::common_models::ProblemDetails),
+	Status411_LengthRequired(models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type
@@ -160,7 +159,7 @@ pub enum UpdateSmContextResponse {
 	/// unsuccessful update of an SM context - not found
 	Status404_UnsuccessfulUpdateOfAnSMContext(models::SmContextUpdateError),
 	/// Length Required
-	Status411_LengthRequired(models::common_models::ProblemDetails),
+	Status411_LengthRequired(models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

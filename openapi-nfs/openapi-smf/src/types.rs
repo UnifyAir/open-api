@@ -1,6 +1,6 @@
 use std::{mem, str::FromStr};
 
-use base64::{Engine, engine::general_purpose};
+use base64::{engine::general_purpose, Engine};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use validator::{ValidateLength, ValidateRange};
 
@@ -32,9 +32,9 @@ pub fn default_optional_nullable<T>() -> Option<Nullable<T>> {
 pub fn deserialize_optional_nullable<'de, D, T>(
 	deserializer: D
 ) -> Result<Option<Nullable<T>>, D::Error>
-where
-	D: Deserializer<'de>,
-	T: Deserialize<'de>,
+  where
+	  D: Deserializer<'de>,
+	  T: Deserialize<'de>,
 {
 	Option::<T>::deserialize(deserializer).map(|val| match val {
 		Some(inner) => Some(Nullable::Present(inner)),
@@ -648,8 +648,8 @@ where
 		&self,
 		serializer: S,
 	) -> Result<S::Ok, S::Error>
-	where
-		S: Serializer,
+	  where
+		  S: Serializer,
 	{
 		match *self {
 			Nullable::Present(ref inner) => serializer.serialize_some(&inner),
@@ -663,8 +663,8 @@ where
 	T: serde::de::DeserializeOwned,
 {
 	fn deserialize<D>(deserializer: D) -> Result<Nullable<T>, D::Error>
-	where
-		D: Deserializer<'de>,
+									   where
+										   D: Deserializer<'de>,
 	{
 		// In order to deserialize a required, but nullable, value, we first have to
 		// check whether the value is present at all. To do this, we deserialize to a
@@ -699,8 +699,8 @@ impl Serialize for ByteArray {
 		&self,
 		serializer: S,
 	) -> Result<S::Ok, S::Error>
-	where
-		S: Serializer,
+	  where
+		  S: Serializer,
 	{
 		serializer.serialize_str(&general_purpose::STANDARD.encode(&self.0))
 	}
@@ -708,8 +708,8 @@ impl Serialize for ByteArray {
 
 impl<'de> Deserialize<'de> for ByteArray {
 	fn deserialize<D>(deserializer: D) -> Result<ByteArray, D::Error>
-	where
-		D: Deserializer<'de>,
+									   where
+										   D: Deserializer<'de>,
 	{
 		let s = String::deserialize(deserializer)?;
 		match general_purpose::STANDARD.decode(s) {

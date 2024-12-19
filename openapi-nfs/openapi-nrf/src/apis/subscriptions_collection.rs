@@ -33,27 +33,27 @@ pub enum CreateSubscriptionResponse {
 		location: String,
 	} = 308,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Length Required
-	Status411(models::common_models::ProblemDetails) = 411,
+	Status411(models::ProblemDetails) = 411,
 	/// Payload Too Large
-	Status413(models::common_models::ProblemDetails) = 413,
+	Status413(models::ProblemDetails) = 413,
 	/// Unsupported Media Type
-	Status415(models::common_models::ProblemDetails) = 415,
+	Status415(models::ProblemDetails) = 415,
 	/// Too Many Requests
-	Status429(models::common_models::ProblemDetails) = 429,
+	Status429(models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Not Implemented
-	Status501(models::common_models::ProblemDetails) = 501,
+	Status501(models::ProblemDetails) = 501,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Generic Error
 	Statusdefault = 0,
 }
@@ -135,77 +135,77 @@ impl DeserResponse for CreateSubscriptionResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status400(body)))
 			}
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status401(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status404(body)))
 			}
 			411 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status411(body)))
 			}
 			413 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status413(body)))
 			}
 			415 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status415(body)))
 			}
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status429(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status500(body)))
 			}
 			501 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status501(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, CreateSubscriptionResponse::Status503(body)))
 			}

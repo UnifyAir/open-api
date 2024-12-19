@@ -1,4 +1,4 @@
-use std::{convert::TryFrom, fmt, ops::Deref};
+use std::{convert::TryFrom, ops::Deref};
 
 use chrono::{DateTime, Utc};
 use http::HeaderValue;

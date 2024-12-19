@@ -21,9 +21,9 @@ pub enum SubscribeToSharedDataResponse {
 		location: String,
 	} = 201,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -55,14 +55,14 @@ impl DeserResponse for SubscribeToSharedDataResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, SubscribeToSharedDataResponse::Status400(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, SubscribeToSharedDataResponse::Status404(body)))
 			}

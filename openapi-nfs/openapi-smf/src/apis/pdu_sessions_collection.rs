@@ -1,11 +1,10 @@
 use async_trait::async_trait;
 use axum::extract::*;
-use axum_extra::extract::{CookieJar, Multipart};
-use bytes::Bytes;
+use axum_extra::extract::CookieJar;
 use http::Method;
 use serde::{Deserialize, Serialize};
 
-use crate::{models, types::*};
+use crate::models;
 
 #[derive(Debug, Serialize, Deserialize)]
 #[must_use]
@@ -35,7 +34,7 @@ pub enum PostPduSessionsResponse {
 	/// unsuccessful creation of a PDU session
 	Status404_UnsuccessfulCreationOfAPDUSession(models::PduSessionCreateError),
 	/// Length Required
-	Status411_LengthRequired(models::common_models::ProblemDetails),
+	Status411_LengthRequired(models::ProblemDetails),
 	/// Payload Too Large
 	Status413_PayloadTooLarge(models::ExtProblemDetails),
 	/// Unsupported Media Type

@@ -16,21 +16,21 @@ pub enum Delete5GMbsGroupResponse {
 	/// Expected response to a valid request
 	Status204 = 204,
 	/// Bad request
-	Status400(models::common_models::ProblemDetails) = 400,
+	Status400(models::ProblemDetails) = 400,
 	/// Unauthorized
-	Status401(models::common_models::ProblemDetails) = 401,
+	Status401(models::ProblemDetails) = 401,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Too Many Requests
-	Status429(models::common_models::ProblemDetails) = 429,
+	Status429(models::ProblemDetails) = 429,
 	/// Internal Server Error
-	Status500(models::common_models::ProblemDetails) = 500,
+	Status500(models::ProblemDetails) = 500,
 	/// Bad Gateway
-	Status502(models::common_models::ProblemDetails) = 502,
+	Status502(models::ProblemDetails) = 502,
 	/// Service Unavailable
-	Status503(models::common_models::ProblemDetails) = 503,
+	Status503(models::ProblemDetails) = 503,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -48,56 +48,56 @@ impl DeserResponse for Delete5GMbsGroupResponse {
 			400 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status400(body)))
 			}
 			401 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status401(body)))
 			}
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status404(body)))
 			}
 			429 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status429(body)))
 			}
 			500 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status500(body)))
 			}
 			502 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status502(body)))
 			}
 			503 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, Delete5GMbsGroupResponse::Status503(body)))
 			}

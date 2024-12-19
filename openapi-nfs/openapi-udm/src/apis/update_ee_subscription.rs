@@ -18,9 +18,9 @@ pub enum UpdateEeSubscriptionResponse {
 	/// Successful response
 	Status204 = 204,
 	/// Forbidden
-	Status403(models::common_models::ProblemDetails) = 403,
+	Status403(models::ProblemDetails) = 403,
 	/// Not Found
-	Status404(models::common_models::ProblemDetails) = 404,
+	Status404(models::ProblemDetails) = 404,
 	/// Unexpected error
 	Statusdefault = 0,
 }
@@ -45,14 +45,14 @@ impl DeserResponse for UpdateEeSubscriptionResponse {
 			403 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateEeSubscriptionResponse::Status403(body)))
 			}
 			404 => {
 				let data = resp.text().await?;
 				// Deserialize body only when dataType is present and no headers
-				let body: models::common_models::ProblemDetails = serde_json::from_str(&data)?;
+				let body: models::ProblemDetails = serde_json::from_str(&data)?;
 
 				Ok((status, UpdateEeSubscriptionResponse::Status404(body)))
 			}
