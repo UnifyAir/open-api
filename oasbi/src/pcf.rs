@@ -15369,7 +15369,7 @@ pub mod types {
 		#[serde(rename = "groupIds", default, skip_serializing_if = "Vec::is_empty")]
 		pub group_ids: Vec<GroupId>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		/// mapping of each S-NSSAI of the Allowed NSSAI to the corresponding
 		/// S-NSSAI of the HPLMN.
 		#[serde(
@@ -15597,7 +15597,7 @@ pub mod types {
 		#[serde(rename = "groupIds", default, skip_serializing_if = "Vec::is_empty")]
 		pub group_ids: Vec<GroupId>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(rename = "hPcfId", default, skip_serializing_if = "Option::is_none")]
 		pub h_pcf_id: Option<NfInstanceId>,
 		#[serde(rename = "notificationUri")]
@@ -15837,7 +15837,7 @@ pub mod types {
 		)]
 		pub alt_notif_ipv6_addrs: Vec<Ipv6Addr>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		/// mapping of each S-NSSAI of the Allowed NSSAI to the corresponding
 		/// S-NSSAI of the HPLMN.
 		#[serde(
@@ -16061,7 +16061,7 @@ pub mod types {
 		#[serde(rename = "groupIds", default, skip_serializing_if = "Vec::is_empty")]
 		pub group_ids: Vec<GroupId>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "notificationUri",
 			default,
@@ -22144,7 +22144,7 @@ pub mod types {
 		#[serde(rename = "anGwAddr", default, skip_serializing_if = "Option::is_none")]
 		pub an_gw_addr: Option<SchemasAnGwAddress>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "servNfInstId",
 			default,

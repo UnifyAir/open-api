@@ -640,7 +640,7 @@ pub mod types {
 		/// If present, this IE shall contain the list of GUAMI(s) (supported by
 		/// the AMF) for which the backupAmf IE applies.
 		#[serde(rename = "guamiList", default, skip_serializing_if = "Vec::is_empty")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 	}
 
 	/// Cause information. Possible values are
@@ -3642,7 +3642,7 @@ pub mod types {
 		)]
 		pub five_g_mm_cause_value: Option<Uinteger>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "hoPreparationIndication",
 			default,
@@ -5783,7 +5783,7 @@ pub mod types {
 		)]
 		pub grp_rep_time: Option<DurationSec>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(rename = "ImmeRep", default, skip_serializing_if = "Option::is_none")]
 		pub imme_rep: Option<bool>,
 		#[serde(
@@ -6418,7 +6418,7 @@ pub mod types {
 			#[serde(default, skip_serializing_if = "Option::is_none")]
 			gpsi: Option<Gpsi>,
 			#[serde(default, skip_serializing_if = "Option::is_none")]
-			guami: Option<crate::common::common_models::Guami>,
+			guami: Option<crate::common::Guami>,
 			#[serde(
 				rename = "hNwPubKeyId",
 				default,
@@ -6735,7 +6735,7 @@ pub mod types {
 			#[serde(default, skip_serializing_if = "Option::is_none")]
 			gpsi: Option<Gpsi>,
 			#[serde(default, skip_serializing_if = "Option::is_none")]
-			guami: Option<crate::common::common_models::Guami>,
+			guami: Option<crate::common::Guami>,
 			#[serde(
 				rename = "hNwPubKeyId",
 				default,
@@ -12568,7 +12568,7 @@ pub mod types {
 		#[serde(default, skip_serializing_if = "Option::is_none")]
 		pub gpsi: Option<Gpsi>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "hNwPubKeyId",
 			default,
@@ -14046,7 +14046,7 @@ pub mod types {
 		)]
 		pub forwarding_f_teid: Option<Bytes>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(rename = "hoState", default, skip_serializing_if = "Option::is_none")]
 		pub ho_state: Option<HoState>,
 		#[serde(rename = "maNwUpgradeInd", default)]

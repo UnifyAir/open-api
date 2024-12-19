@@ -800,7 +800,7 @@ pub mod types {
 	///  ],
 	///  "properties": {
 	///    "oldGuami": {
-	///      "$ref": "#/components/schemas/crate::common::common_models::Guami"
+	///      "$ref": "#/components/schemas/crate::common::Guami"
 	///    },
 	///    "subscription": {
 	///      "$ref": "#/components/schemas/AmfEventSubscription"
@@ -817,7 +817,7 @@ pub mod types {
 	)]
 	pub struct AmfCreateEventSubscription {
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		pub subscription: AmfEventSubscription,
 		#[serde(
 			rename = "supportedFeatures",
@@ -2407,7 +2407,7 @@ pub mod types {
 	)]
 	pub struct AmfStatusInfo {
 		#[serde(rename = "guamiList")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 		#[serde(rename = "statusChange")]
 		pub status_change: StatusChange,
 		#[serde(
@@ -4275,7 +4275,7 @@ pub mod types {
 		)]
 		pub modified_ebi_list: Vec<EbiArpMapping>,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		#[serde(rename = "pduSessionId")]
 		pub pdu_session_id: PduSessionId,
 		#[serde(
@@ -8752,7 +8752,7 @@ pub mod types {
 		#[serde(rename = "extBufSupport", default)]
 		pub ext_buf_support: bool,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		pub reachability: UeReachability,
 		#[serde(
 			rename = "supportedFeatures",
@@ -15038,7 +15038,7 @@ pub mod types {
 		#[serde(default, skip_serializing_if = "Option::is_none")]
 		pub ecgi: Option<Ecgi>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "lcsCorrelationId",
 			default,
@@ -15385,7 +15385,7 @@ pub mod types {
 		#[serde(rename = "nfId", default, skip_serializing_if = "Option::is_none")]
 		pub nf_id: Option<NfInstanceId>,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "pduSessionId",
 			default,
@@ -15978,7 +15978,7 @@ pub mod types {
 		)]
 		pub an_n2i_pv6_addr: Option<Ipv6Addr>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
-		pub guami: Option<crate::common::common_models::Guami>,
+		pub guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "initialAmfName",
 			default,
@@ -20669,7 +20669,7 @@ pub mod types {
 		)]
 		pub location_age: Option<AgeOfLocationEstimate>,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		#[serde(rename = "ratType", default, skip_serializing_if = "Option::is_none")]
 		pub rat_type: Option<RatType>,
 		#[serde(
@@ -23200,7 +23200,7 @@ pub mod types {
 		)]
 		pub motion_event_info: Option<MotionEventInfo>,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		#[serde(default, skip_serializing_if = "Option::is_none")]
 		pub pei: Option<Pei>,
 		#[serde(
@@ -26407,7 +26407,7 @@ pub mod types {
 		#[serde(rename = "amfStatusUri")]
 		pub amf_status_uri: Uri,
 		#[serde(rename = "guamiList", default, skip_serializing_if = "Vec::is_empty")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 	}
 
 	impl From<&SubscriptionData> for SubscriptionData {
@@ -30160,7 +30160,7 @@ pub mod types {
 		#[serde(rename = "nfId", default, skip_serializing_if = "Option::is_none")]
 		pub nf_id: Option<NfInstanceId>,
 		#[serde(rename = "oldGuami", default, skip_serializing_if = "Option::is_none")]
-		pub old_guami: Option<crate::common::common_models::Guami>,
+		pub old_guami: Option<crate::common::Guami>,
 		#[serde(
 			rename = "supportedFeatures",
 			default,

@@ -11,7 +11,6 @@ mod amf_id;
 pub use uri::Uri;
 pub use nf_type::NfType;
 pub use fqdn::Fqdn;
-pub use generated::types as common_models;
 pub use ipv6_addr::Ipv6Addr;
 pub use ipv4_addr::Ipv4Addr;
 pub use ipv6_prefix::Ipv6Prefix;

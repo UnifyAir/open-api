@@ -999,15 +999,15 @@ pub mod types {
 			default,
 			skip_serializing_if = "Vec::is_empty"
 		)]
-		pub backup_info_amf_failure: Vec<crate::common::common_models::Guami>,
+		pub backup_info_amf_failure: Vec<crate::common::Guami>,
 		#[serde(
 			rename = "backupInfoAmfRemoval",
 			default,
 			skip_serializing_if = "Vec::is_empty"
 		)]
-		pub backup_info_amf_removal: Vec<crate::common::common_models::Guami>,
+		pub backup_info_amf_removal: Vec<crate::common::Guami>,
 		#[serde(rename = "guamiList")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 		#[serde(
 			rename = "highLatencyCom",
 			default,
@@ -3541,7 +3541,7 @@ pub mod types {
 	)]
 	pub struct GuamiListCond {
 		#[serde(rename = "guamiList")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 	}
 
 	impl From<&GuamiListCond> for GuamiListCond {
@@ -13493,15 +13493,15 @@ pub mod types {
 			default,
 			skip_serializing_if = "Vec::is_empty"
 		)]
-		pub backup_info_amf_failure: Vec<crate::common::common_models::Guami>,
+		pub backup_info_amf_failure: Vec<crate::common::Guami>,
 		#[serde(
 			rename = "backupInfoAmfRemoval",
 			default,
 			skip_serializing_if = "Vec::is_empty"
 		)]
-		pub backup_info_amf_removal: Vec<crate::common::common_models::Guami>,
+		pub backup_info_amf_removal: Vec<crate::common::Guami>,
 		#[serde(rename = "guamiList")]
-		pub guami_list: Vec<crate::common::common_models::Guami>,
+		pub guami_list: Vec<crate::common::Guami>,
 		#[serde(
 			rename = "highLatencyCom",
 			default,
