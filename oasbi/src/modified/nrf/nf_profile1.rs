@@ -525,55 +525,53 @@ use crate::nrf::types::*;
 /// }
 /// ```
 /// </details>
-#[derive(
-	::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
-)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault)]
 pub struct NfProfile1Unchecked {
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of AanfInfo
-	fqdn: Option<Fqdn>,
+	pub fqdn: Option<Fqdn>,
 	#[serde(rename = "ipv4Addresses")]
-	ipv4_addresses: Vec<Ipv4Addr>,
+	pub ipv4_addresses: Vec<Ipv4Addr>,
 	#[serde(rename = "ipv6Addresses")]
-	ipv6_addresses: Vec<Ipv6Addr>,
+	pub ipv6_addresses: Vec<Ipv6Addr>,
 	#[serde(
 		rename = "aanfInfoList",
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	aanf_info_list: ::std::collections::HashMap<String, AanfInfo>,
+	pub aanf_info_list: ::std::collections::HashMap<String, AanfInfo>,
 	#[serde(
 		rename = "allowedNfDomains",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	allowed_nf_domains: Vec<String>,
+	pub allowed_nf_domains: Vec<String>,
 	#[serde(
 		rename = "allowedNfTypes",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	allowed_nf_types: Vec<NfType>,
+	pub allowed_nf_types: Vec<NfType>,
 	#[serde(
 		rename = "allowedNssais",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	allowed_nssais: Vec<ExtSnssai>,
+	pub allowed_nssais: Vec<ExtSnssai>,
 	#[serde(
 		rename = "allowedPlmns",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	allowed_plmns: Vec<PlmnId>,
+	pub allowed_plmns: Vec<PlmnId>,
 	#[serde(
 		rename = "allowedSnpns",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	allowed_snpns: Vec<PlmnIdNid>,
+	pub allowed_snpns: Vec<PlmnIdNid>,
 	#[serde(rename = "amfInfo", default, skip_serializing_if = "Option::is_none")]
-	amf_info: Option<AmfInfo>,
+	pub amf_info: Option<AmfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of AmfInfo
 	#[serde(
@@ -581,9 +579,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	amf_info_list: ::std::collections::HashMap<String, AmfInfo>,
+	pub amf_info_list: ::std::collections::HashMap<String, AmfInfo>,
 	#[serde(rename = "ausfInfo", default, skip_serializing_if = "Option::is_none")]
-	ausf_info: Option<AusfInfo>,
+	pub ausf_info: Option<AusfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of AusfInfo
 	#[serde(
@@ -591,9 +589,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	ausf_info_list: ::std::collections::HashMap<String, AusfInfo>,
+	pub ausf_info_list: ::std::collections::HashMap<String, AusfInfo>,
 	#[serde(rename = "bsfInfo", default, skip_serializing_if = "Option::is_none")]
-	bsf_info: Option<BsfInfo>,
+	pub bsf_info: Option<BsfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of BsfInfo
 	#[serde(
@@ -601,11 +599,11 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	bsf_info_list: ::std::collections::HashMap<String, BsfInfo>,
+	pub bsf_info_list: ::std::collections::HashMap<String, BsfInfo>,
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	capacity: Option<u16>,
+	pub capacity: Option<u16>,
 	#[serde(rename = "chfInfo", default, skip_serializing_if = "Option::is_none")]
-	chf_info: Option<ChfInfo>,
+	pub chf_info: Option<ChfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of ChfInfo
 	#[serde(
@@ -613,27 +611,27 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	chf_info_list: ::std::collections::HashMap<String, ChfInfo>,
+	pub chf_info_list: ::std::collections::HashMap<String, ChfInfo>,
 	#[serde(
 		rename = "collocatedNfInstances",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	collocated_nf_instances: Vec<CollocatedNfInstance>,
+	pub collocated_nf_instances: Vec<CollocatedNfInstance>,
 	#[serde(
 		rename = "customInfo",
 		default,
 		skip_serializing_if = "::serde_json::Map::is_empty"
 	)]
-	custom_info: ::serde_json::Map<String, ::serde_json::Value>,
+	pub custom_info: ::serde_json::Map<String, ::serde_json::Value>,
 	#[serde(rename = "dccfInfo", default, skip_serializing_if = "Option::is_none")]
-	dccf_info: Option<DccfInfo>,
+	pub dccf_info: Option<DccfInfo>,
 	#[serde(
 		rename = "defaultNotificationSubscriptions",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	default_notification_subscriptions: Vec<DefaultNotificationSubscription>,
+	pub default_notification_subscriptions: Vec<DefaultNotificationSubscription>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of EasdfInfo
 	#[serde(
@@ -641,23 +639,23 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	easdf_info_list: ::std::collections::HashMap<String, EasdfInfo>,
+	pub easdf_info_list: ::std::collections::HashMap<String, EasdfInfo>,
 	#[serde(
 		rename = "5gDdnmfInfo",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	five_g_ddnmf_info: Option<_5gDdnmfInfo>,
+	pub five_g_ddnmf_info: Option<_5gDdnmfInfo>,
 	#[serde(rename = "gmlcInfo", default, skip_serializing_if = "Option::is_none")]
-	gmlc_info: Option<GmlcInfo>,
+	pub gmlc_info: Option<GmlcInfo>,
 	#[serde(
 		rename = "heartBeatTimer",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	heart_beat_timer: Option<std::num::NonZeroU64>,
+	pub heart_beat_timer: Option<std::num::NonZeroU64>,
 	#[serde(rename = "hniList", default, skip_serializing_if = "Vec::is_empty")]
-	hni_list: Vec<Fqdn>,
+	pub hni_list: Vec<Fqdn>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of HssInfo
 	#[serde(
@@ -665,29 +663,29 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	hss_info_list: ::std::collections::HashMap<String, HssInfo>,
+	pub hss_info_list: ::std::collections::HashMap<String, HssInfo>,
 	#[serde(
 		rename = "interPlmnFqdn",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	inter_plmn_fqdn: Option<Fqdn>,
+	pub inter_plmn_fqdn: Option<Fqdn>,
 	#[serde(rename = "iwmscInfo", default, skip_serializing_if = "Option::is_none")]
-	iwmsc_info: Option<IwmscInfo>,
+	pub iwmsc_info: Option<IwmscInfo>,
 	#[serde(rename = "lcHSupportInd", default)]
-	lc_h_support_ind: bool,
+	pub lc_h_support_ind: bool,
 	#[serde(rename = "lmfInfo", default, skip_serializing_if = "Option::is_none")]
-	lmf_info: Option<LmfInfo>,
+	pub lmf_info: Option<LmfInfo>,
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	load: Option<i64>,
+	pub load: Option<i64>,
 	#[serde(
 		rename = "loadTimeStamp",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	load_time_stamp: Option<DateTime>,
+	pub load_time_stamp: Option<DateTime>,
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	locality: Option<String>,
+	pub locality: Option<String>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of MbSmfInfo
 	#[serde(
@@ -695,7 +693,7 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	mb_smf_info_list: ::std::collections::HashMap<String, MbSmfInfo>,
+	pub mb_smf_info_list: ::std::collections::HashMap<String, MbSmfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of MbUpfInfo
 	#[serde(
@@ -703,25 +701,25 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	mb_upf_info_list: ::std::collections::HashMap<String, MbUpfInfo>,
+	pub mb_upf_info_list: ::std::collections::HashMap<String, MbUpfInfo>,
 	#[serde(rename = "mfafInfo", default, skip_serializing_if = "Option::is_none")]
-	mfaf_info: Option<MfafInfo>,
+	pub mfaf_info: Option<MfafInfo>,
 	#[serde(rename = "mnpfInfo", default, skip_serializing_if = "Option::is_none")]
-	mnpf_info: Option<MnpfInfo>,
+	pub mnpf_info: Option<MnpfInfo>,
 	#[serde(rename = "nefInfo", default, skip_serializing_if = "Option::is_none")]
-	nef_info: Option<NefInfo>,
+	pub nef_info: Option<NefInfo>,
 	#[serde(rename = "nfInstanceId")]
-	nf_instance_id: NfInstanceId,
+	pub nf_instance_id: NfInstanceId,
 	#[serde(
 		rename = "nfInstanceName",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	nf_instance_name: Option<String>,
+	pub nf_instance_name: Option<String>,
 	#[serde(rename = "nfProfileChangesInd", default)]
-	nf_profile_changes_ind: bool,
+	pub nf_profile_changes_ind: bool,
 	#[serde(rename = "nfProfileChangesSupportInd", default)]
-	nf_profile_changes_support_ind: bool,
+	pub nf_profile_changes_support_ind: bool,
 	/// A map (list of key-value pairs) where serviceInstanceId serves
 	/// as key of NFService
 	#[serde(
@@ -729,13 +727,13 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	nf_service_list: ::std::collections::HashMap<String, NfService1>,
+	pub nf_service_list: ::std::collections::HashMap<String, NfService1>,
 	#[serde(rename = "nfServicePersistence", default)]
-	nf_service_persistence: bool,
+	pub nf_service_persistence: bool,
 	#[serde(rename = "nfServices", default, skip_serializing_if = "Vec::is_empty")]
-	nf_services: Vec<NfService1>,
+	pub nf_services: Vec<NfService1>,
 	#[serde(rename = "nfSetIdList", default, skip_serializing_if = "Vec::is_empty")]
-	nf_set_id_list: Vec<NfSetId>,
+	pub nf_set_id_list: Vec<NfSetId>,
 	/// A map (list of key-value pairs) where NfSetId serves as key of
 	/// DateTime
 	#[serde(
@@ -743,13 +741,13 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	nf_set_recovery_time_list: ::std::collections::HashMap<String, DateTime>,
+	pub nf_set_recovery_time_list: ::std::collections::HashMap<String, DateTime>,
 	#[serde(rename = "nfStatus")]
-	nf_status: NfStatus,
+	pub nf_status: NfStatus,
 	#[serde(rename = "nfType")]
-	nf_type: NfType,
+	pub nf_type: NfType,
 	#[serde(rename = "nrfInfo", default, skip_serializing_if = "Option::is_none")]
-	nrf_info: Option<NrfInfo>,
+	pub nrf_info: Option<NrfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of NsacfInfo
 	#[serde(
@@ -757,17 +755,17 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	nsacf_info_list: ::std::collections::HashMap<String, NsacfInfo>,
+	pub nsacf_info_list: ::std::collections::HashMap<String, NsacfInfo>,
 	#[serde(rename = "nsiList", default, skip_serializing_if = "Vec::is_empty")]
-	nsi_list: Vec<String>,
+	pub nsi_list: Vec<String>,
 	#[serde(
 		rename = "nssaafInfo",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	nssaaf_info: Option<NssaafInfo>,
+	pub nssaaf_info: Option<NssaafInfo>,
 	#[serde(rename = "nwdafInfo", default, skip_serializing_if = "Option::is_none")]
-	nwdaf_info: Option<NwdafInfo>,
+	pub nwdaf_info: Option<NwdafInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of NwdafInfo
 	#[serde(
@@ -775,11 +773,11 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	nwdaf_info_list: ::std::collections::HashMap<String, NwdafInfo>,
+	pub nwdaf_info_list: ::std::collections::HashMap<String, NwdafInfo>,
 	#[serde(rename = "olcHSupportInd", default)]
-	olc_h_support_ind: bool,
+	pub olc_h_support_ind: bool,
 	#[serde(rename = "pcfInfo", default, skip_serializing_if = "Option::is_none")]
-	pcf_info: Option<PcfInfo>,
+	pub pcf_info: Option<PcfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of PcfInfo
 	#[serde(
@@ -787,7 +785,7 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	pcf_info_list: ::std::collections::HashMap<String, PcfInfo>,
+	pub pcf_info_list: ::std::collections::HashMap<String, PcfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of PcscfInfo
 	#[serde(
@@ -795,31 +793,31 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	pcscf_info_list: ::std::collections::HashMap<String, PcscfInfo>,
+	pub pcscf_info_list: ::std::collections::HashMap<String, PcscfInfo>,
 	#[serde(
 		rename = "perPlmnSnssaiList",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	per_plmn_snssai_list: Vec<PlmnSnssai>,
+	pub per_plmn_snssai_list: Vec<PlmnSnssai>,
 	#[serde(rename = "plmnList", default, skip_serializing_if = "Vec::is_empty")]
-	plmn_list: Vec<PlmnId>,
+	pub plmn_list: Vec<PlmnId>,
 	#[serde(default, skip_serializing_if = "Option::is_none")]
-	priority: Option<u16>,
+	pub priority: Option<u16>,
 	#[serde(
 		rename = "recoveryTime",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	recovery_time: Option<DateTime>,
+	pub recovery_time: Option<DateTime>,
 	#[serde(rename = "sNssais", default, skip_serializing_if = "Vec::is_empty")]
-	s_nssais: Vec<ExtSnssai>,
+	pub s_nssais: Vec<ExtSnssai>,
 	#[serde(rename = "scpDomains", default, skip_serializing_if = "Vec::is_empty")]
-	scp_domains: Vec<String>,
+	pub scp_domains: Vec<String>,
 	#[serde(rename = "scpInfo", default, skip_serializing_if = "Option::is_none")]
-	scp_info: Option<ScpInfo>,
+	pub scp_info: Option<ScpInfo>,
 	#[serde(rename = "seppInfo", default, skip_serializing_if = "Option::is_none")]
-	sepp_info: Option<SeppInfo>,
+	pub sepp_info: Option<SeppInfo>,
 	/// A map (list of key-value pairs) where NfServiceSetId serves as
 	/// key of DateTime
 	#[serde(
@@ -827,15 +825,15 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	service_set_recovery_time_list: ::std::collections::HashMap<String, DateTime>,
+	pub service_set_recovery_time_list: ::std::collections::HashMap<String, DateTime>,
 	#[serde(
 		rename = "servingScope",
 		default,
 		skip_serializing_if = "Vec::is_empty"
 	)]
-	serving_scope: Vec<String>,
+	pub serving_scope: Vec<String>,
 	#[serde(rename = "smfInfo", default, skip_serializing_if = "Option::is_none")]
-	smf_info: Option<SmfInfo>,
+	pub smf_info: Option<SmfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of SmfInfo
 	#[serde(
@@ -843,9 +841,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	smf_info_list: ::std::collections::HashMap<String, SmfInfo>,
+	pub smf_info_list: ::std::collections::HashMap<String, SmfInfo>,
 	#[serde(rename = "snpnList", default, skip_serializing_if = "Vec::is_empty")]
-	snpn_list: Vec<PlmnIdNid>,
+	pub snpn_list: Vec<PlmnIdNid>,
 	/// The key of the map is the IANA-assigned SMI Network Management
 	/// Private Enterprise Codes
 	#[serde(
@@ -853,14 +851,14 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	supported_vendor_specific_features:
+	pub supported_vendor_specific_features:
 		::std::collections::HashMap<String, Vec<VendorSpecificFeature>>,
 	#[serde(
 		rename = "trustAfInfo",
 		default,
 		skip_serializing_if = "Option::is_none"
 	)]
-	trust_af_info: Option<TrustAfInfo>,
+	pub trust_af_info: Option<TrustAfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of TsctsfInfo
 	#[serde(
@@ -868,9 +866,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	tsctsf_info_list: ::std::collections::HashMap<String, TsctsfInfo>,
+	pub tsctsf_info_list: ::std::collections::HashMap<String, TsctsfInfo>,
 	#[serde(rename = "udmInfo", default, skip_serializing_if = "Option::is_none")]
-	udm_info: Option<UdmInfo>,
+	pub udm_info: Option<UdmInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of UdmInfo
 	#[serde(
@@ -878,9 +876,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	udm_info_list: ::std::collections::HashMap<String, UdmInfo>,
+	pub udm_info_list: ::std::collections::HashMap<String, UdmInfo>,
 	#[serde(rename = "udrInfo", default, skip_serializing_if = "Option::is_none")]
-	udr_info: Option<UdrInfo>,
+	pub udr_info: Option<UdrInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of UdrInfo
 	#[serde(
@@ -888,9 +886,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	udr_info_list: ::std::collections::HashMap<String, UdrInfo>,
+	pub udr_info_list: ::std::collections::HashMap<String, UdrInfo>,
 	#[serde(rename = "udsfInfo", default, skip_serializing_if = "Option::is_none")]
-	udsf_info: Option<UdsfInfo>,
+	pub udsf_info: Option<UdsfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of UdsfInfo
 	#[serde(
@@ -898,9 +896,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	udsf_info_list: ::std::collections::HashMap<String, UdsfInfo>,
+	pub udsf_info_list: ::std::collections::HashMap<String, UdsfInfo>,
 	#[serde(rename = "upfInfo", default, skip_serializing_if = "Option::is_none")]
-	upf_info: Option<UpfInfo>,
+	pub upf_info: Option<UpfInfo>,
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of UpfInfo
 	#[serde(
@@ -908,9 +906,9 @@ pub struct NfProfile1Unchecked {
 		default,
 		skip_serializing_if = "::std::collections::HashMap::is_empty"
 	)]
-	upf_info_list: ::std::collections::HashMap<String, UpfInfo>,
+	pub upf_info_list: ::std::collections::HashMap<String, UpfInfo>,
 	#[serde(rename = "vendorId", default, skip_serializing_if = "Option::is_none")]
-	vendor_id: Option<VendorId>,
+	pub vendor_id: Option<VendorId>,
 }
 
 impl From<&NfProfile1Unchecked> for NfProfile1Unchecked {
@@ -919,9 +917,7 @@ impl From<&NfProfile1Unchecked> for NfProfile1Unchecked {
 	}
 }
 
-#[derive(
-	::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
-)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault)]
 #[serde(try_from = "NfProfile1Unchecked")]
 pub struct NfProfile1(NfProfile1Unchecked);
 
@@ -930,16 +926,17 @@ impl TryFrom<NfProfile1Unchecked> for NfProfile1 {
 
 	fn try_from(value: NfProfile1Unchecked) -> Result<Self, Self::Error> {
 		// Checking the following condition from the NFProfile1Unchecked
-		//anyOf:
+		// anyOf:
 		//  - required: [ fqdn ]
-		//	- required: [ ipv4Addresses ]
-		//	- required: [ ipv6Addresses ]
-		if value.fqdn.is_none() && value.ipv4_addresses.len() == 0 && value.ipv6_addresses.len() == 0 {
+		// 	- required: [ ipv4Addresses ]
+		// 	- required: [ ipv6Addresses ]
+		if value.fqdn.is_none()
+			&& value.ipv4_addresses.len() == 0
+			&& value.ipv6_addresses.len() == 0
+		{
 			Err("Atleast one of of fqdn, ipv4_addresses, ipv6_addresses is absent".into())
 		} else {
-			Ok(Self (value))
+			Ok(Self(value))
 		}
 	}
 }
-
-
