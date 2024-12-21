@@ -10,12 +10,13 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum MbsmfServiceName {
     #[default]
-    #[serde(rename = "nmbsmf_mbssession")]
+    #[serde(rename = "nmbsmf-mbssession")]
     MBSSession,
-    #[serde(rename = "nmbsmf_tmgi")]
+    #[serde(rename = "nmbsmf-tmgi")]
     TMGI,
 }
 

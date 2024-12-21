@@ -10,12 +10,13 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum NssfServiceName {
     #[default]
-    #[serde(rename = "nnssf_nssaiavailability")]
+    #[serde(rename = "nnssf-nssaiavailability")]
     NSSAIAvailability,
-    #[serde(rename = "nnssf_nsselection")]
+    #[serde(rename = "nnssf-nsselection")]
     NSSelection,
 }
 

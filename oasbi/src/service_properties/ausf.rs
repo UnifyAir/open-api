@@ -10,14 +10,15 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum AusfServiceName {
     #[default]
-    #[serde(rename = "nausf_sorprotection")]
+    #[serde(rename = "nausf-sorprotection")]
     SoRProtection,
-    #[serde(rename = "nausf_ueauthentication")]
+    #[serde(rename = "nausf-ueauthentication")]
     UEAuthentication,
-    #[serde(rename = "nausf_upuprotection")]
+    #[serde(rename = "nausf-upuprotection")]
     UPUProtection,
 }
 

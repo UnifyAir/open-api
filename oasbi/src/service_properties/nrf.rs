@@ -10,16 +10,17 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum NrfServiceName {
     #[default]
-    #[serde(rename = "nnrf_accesstoken")]
+    #[serde(rename = "nnrf-accesstoken")]
     AccessToken,
-    #[serde(rename = "nnrf_bootstrapping")]
+    #[serde(rename = "nnrf-bootstrapping")]
     Bootstrapping,
-    #[serde(rename = "nnrf_nfdiscovery")]
+    #[serde(rename = "nnrf-nfdiscovery")]
     NFDiscovery,
-    #[serde(rename = "nnrf_nfmanagement")]
+    #[serde(rename = "nnrf-nfmanagement")]
     NFManagement,
 }
 

@@ -9,21 +9,22 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+	Copy,
 )]
 pub enum AmfServiceName {
-    #[default]
-    #[serde(rename = "namf_communication")]
-    Communication,
-    #[serde(rename = "namf_eventexposure")]
-    EventExposure,
-    #[serde(rename = "namf_location")]
-    Location,
-    #[serde(rename = "namf_mbsbroadcast")]
-    MBSBroadcast,
-    #[serde(rename = "namf_mbscommunication")]
-    MBSCommunication,
-    #[serde(rename = "namf_mt")]
-    MT,
+	#[default]
+	#[serde(rename = "namf-communication")]
+	Communication,
+	#[serde(rename = "namf-eventexposure")]
+	EventExposure,
+	#[serde(rename = "namf-location")]
+	Location,
+	#[serde(rename = "namf-mbsbroadcast")]
+	MBSBroadcast,
+	#[serde(rename = "namf-mbscommunication")]
+	MBSCommunication,
+	#[serde(rename = "namf-mt")]
+	MT,
 }
 
 pub enum AmfService {

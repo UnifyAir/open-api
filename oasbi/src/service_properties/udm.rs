@@ -10,28 +10,29 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum UdmServiceName {
     #[default]
-    #[serde(rename = "nudm_ee")]
+    #[serde(rename = "nudm-ee")]
     EE,
-    #[serde(rename = "nudm_mt")]
+    #[serde(rename = "nudm-mt")]
     MT,
-    #[serde(rename = "nudm_niddau")]
+    #[serde(rename = "nudm-niddau")]
     NIDDAU,
-    #[serde(rename = "nudm_pp")]
+    #[serde(rename = "nudm-pp")]
     PP,
-    #[serde(rename = "nudm_rsds")]
+    #[serde(rename = "nudm-rsds")]
     RSDS,
-    #[serde(rename = "nudm_sdm")]
+    #[serde(rename = "nudm-sdm")]
     SDM,
-    #[serde(rename = "nudm_ssau")]
+    #[serde(rename = "nudm-ssau")]
     SSAU,
-    #[serde(rename = "nudm_ueau")]
+    #[serde(rename = "nudm-ueau")]
     UEAU,
-    #[serde(rename = "nudm_uecm")]
+    #[serde(rename = "nudm-uecm")]
     UECM,
-    #[serde(rename = "nudm_ueid")]
+    #[serde(rename = "nudm-ueid")]
     UEID,
 }
 

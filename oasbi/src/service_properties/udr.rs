@@ -10,10 +10,11 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum UdrServiceName {
     #[default]
-    #[serde(rename = "nudr_groupidmap")]
+    #[serde(rename = "nudr-groupidmap")]
     GroupIDmap,
 }
 

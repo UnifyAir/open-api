@@ -10,14 +10,15 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum ChfServiceName {
     #[default]
-    #[serde(rename = "nchf_spendinglimitcontrol")]
+    #[serde(rename = "nchf-spendinglimitcontrol")]
     SpendingLimitControl,
-    #[serde(rename = "nchf_convergedcharging")]
+    #[serde(rename = "nchf-convergedcharging")]
     ConvergedCharging,
-    #[serde(rename = "nchf_offlineonlycharging")]
+    #[serde(rename = "nchf-offlineonlycharging")]
     OfflineOnlyCharging,
 }
 

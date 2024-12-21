@@ -10,26 +10,27 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum PcfServiceName {
     #[default]
-    #[serde(rename = "npcf_ampolicycontrol")]
+    #[serde(rename = "npcf-ampolicycontrol")]
     AMPolicyControl,
-    #[serde(rename = "npcf_smpolicycontrol")]
+    #[serde(rename = "npcf-smpolicycontrol")]
     SMPolicyControl,
-    #[serde(rename = "npcf_policyauthorization")]
+    #[serde(rename = "npcf-policyauthorization")]
     PolicyAuthorization,
-    #[serde(rename = "npcf_eventexposure")]
+    #[serde(rename = "npcf-eventexposure")]
     EventExposure,
-    #[serde(rename = "npcf_uepolicycontrol")]
+    #[serde(rename = "npcf-uepolicycontrol")]
     UEPolicyControl,
-    #[serde(rename = "npcf_ampolicyauthorization")]
+    #[serde(rename = "npcf-ampolicyauthorization")]
     AMPolicyAuthorization,
-    #[serde(rename = "npcf_mbspolicyauthorization")]
+    #[serde(rename = "npcf-mbspolicyauthorization")]
     MBSPolicyAuthorization,
-    #[serde(rename = "npcf_mbspolicycontrol")]
+    #[serde(rename = "npcf-mbspolicycontrol")]
     MBSPolicyControl,
-    #[serde(rename = "npcf_bdtpolicycontrol")]
+    #[serde(rename = "npcf-bdtpolicycontrol")]
     BDTPolicyControl,
 }
 

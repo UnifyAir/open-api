@@ -10,14 +10,15 @@
 	PartialEq,
 	PartialOrd,
 	smart_default::SmartDefault,
+    Copy,
 )]
 pub enum SmfServiceName {
     #[default]
-    #[serde(rename = "nsmf_pdusession")]
+    #[serde(rename = "nsmf-pdusession")]
     PDUSession,
-    #[serde(rename = "nsmf_eventexposure")]
+    #[serde(rename = "nsmf-eventexposure")]
     EventExposure,
-    #[serde(rename = "nsmf_nidd")]
+    #[serde(rename = "nsmf-nidd")]
     NIDD,
 }
 
