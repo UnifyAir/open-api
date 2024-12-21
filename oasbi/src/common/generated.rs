@@ -10,7 +10,7 @@ pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
 #[allow(clippy::all)]
 pub mod types {
 	use crate::common::error;
-	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask, AmfId};
+	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask, AmfId, Mcc, Mnc};
 
 	/// Error returned in the access token response message
 	///
@@ -15419,99 +15419,6 @@ pub mod types {
 		}
 	}
 
-	/// Mobile Country Code part of the PLMN, comprising 3 digits, as defined in
-	/// clause 9.3.3.5 of 3GPP TS 38.413.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "Mobile Country Code part of the PLMN, comprising 3
-	/// digits, as defined in clause 9.3.3.5 of 3GPP TS 38.413. \n",
-	///  "type": "string",
-	///  "pattern": "^\\d{3}$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Mcc(String);
-
-	impl ::std::ops::Deref for Mcc {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Mcc> for String {
-		fn from(value: Mcc) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Mcc> for Mcc {
-		fn from(value: &Mcc) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Mcc {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new("^\\d{3}$")
-				.unwrap()
-				.find(value)
-				.is_none()
-			{
-				return Err("doesn't match pattern \"^\\d{3}$\"".into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Mcc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Mcc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Mcc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Mcc {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
 
 	/// Mobile Country Code part of the PLMN, comprising 3 digits, as defined in
 	/// clause 9.3.3.5 of  3GPP TS 38.413 with the OpenAPI 'nullable: true'
@@ -16525,99 +16432,7 @@ pub mod types {
 		}
 	}
 
-	/// Mobile Network Code part of the PLMN, comprising 2 or 3 digits, as
-	/// defined in clause 9.3.3.5 of 3GPP TS 38.413.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "Mobile Network Code part of the PLMN, comprising 2 or 3
-	/// digits, as defined in clause 9.3.3.5 of 3GPP TS 38.413.",
-	///  "type": "string",
-	///  "pattern": "^\\d{2,3}$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct Mnc(String);
 
-	impl ::std::ops::Deref for Mnc {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<Mnc> for String {
-		fn from(value: Mnc) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&Mnc> for Mnc {
-		fn from(value: &Mnc) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for Mnc {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new("^\\d{2,3}$")
-				.unwrap()
-				.find(value)
-				.is_none()
-			{
-				return Err("doesn't match pattern \"^\\d{2,3}$\"".into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for Mnc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for Mnc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for Mnc {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for Mnc {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
 
 	/// Mobile Network Code part of the PLMN, comprising 2 or 3 digits, as
 	/// defined in clause 9.3.3.5 of 3GPP TS 38.413 with the OpenAPI 'nullable:
@@ -17448,7 +17263,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy
 	)]
 	pub struct NfInstanceId(pub uuid::Uuid);
 
@@ -21571,7 +21386,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy,
 	)]
 	pub struct PlmnId {
 		pub mcc: Mcc,
