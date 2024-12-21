@@ -1,3 +1,28 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum NrfServiceName {
+    #[default]
+    #[serde(rename = "nnrf_accesstoken")]
+    AccessToken,
+    #[serde(rename = "nnrf_bootstrapping")]
+    Bootstrapping,
+    #[serde(rename = "nnrf_nfdiscovery")]
+    NFDiscovery,
+    #[serde(rename = "nnrf_nfmanagement")]
+    NFManagement,
+}
+
 pub enum NrfService {
 	AccessToken(NrfAccessTokenOperation),
 	Bootstrapping(NrfBootstrappingOperation),

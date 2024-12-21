@@ -1,3 +1,24 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum MbsmfServiceName {
+    #[default]
+    #[serde(rename = "nmbsmf_mbssession")]
+    MBSSession,
+    #[serde(rename = "nmbsmf_tmgi")]
+    TMGI,
+}
+
 pub enum MbsmfService {
 	MBSSession(MbsmfMBSSessionOperation),
 	TMGI(MbsmfTMGIOperation),

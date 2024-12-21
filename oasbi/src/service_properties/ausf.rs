@@ -1,3 +1,26 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum AusfServiceName {
+    #[default]
+    #[serde(rename = "nausf_sorprotection")]
+    SoRProtection,
+    #[serde(rename = "nausf_ueauthentication")]
+    UEAuthentication,
+    #[serde(rename = "nausf_upuprotection")]
+    UPUProtection,
+}
+
 pub enum AusfService {
 	SoRProtection(AusfSoRProtectionOperation),
 	UEAuthentication(AusfUEAuthenticationOperation),

@@ -1,3 +1,26 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum ChfServiceName {
+    #[default]
+    #[serde(rename = "nchf_spendinglimitcontrol")]
+    SpendingLimitControl,
+    #[serde(rename = "nchf_convergedcharging")]
+    ConvergedCharging,
+    #[serde(rename = "nchf_offlineonlycharging")]
+    OfflineOnlyCharging,
+}
+
 pub enum ChfService {
 	SpendingLimitControl(ChfSpendingLimitControlOperation),
 	ConvergedCharging(ChfConvergedChargingOperation),

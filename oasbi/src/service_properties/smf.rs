@@ -1,3 +1,26 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum SmfServiceName {
+    #[default]
+    #[serde(rename = "nsmf_pdusession")]
+    PDUSession,
+    #[serde(rename = "nsmf_eventexposure")]
+    EventExposure,
+    #[serde(rename = "nsmf_nidd")]
+    NIDD,
+}
+
 pub enum SmfService {
 	PDUSession(SmfPDUSessionOperation),
 	EventExposure(SmfEventExposureOperation),

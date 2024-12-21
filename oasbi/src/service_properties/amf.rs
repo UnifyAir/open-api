@@ -1,3 +1,31 @@
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum AmfServiceName {
+    #[default]
+    #[serde(rename = "namf_communication")]
+    Communication,
+    #[serde(rename = "namf_eventexposure")]
+    EventExposure,
+    #[serde(rename = "namf_location")]
+    Location,
+    #[serde(rename = "namf_mbsbroadcast")]
+    MBSBroadcast,
+    #[serde(rename = "namf_mbscommunication")]
+    MBSCommunication,
+    #[serde(rename = "namf_mt")]
+    MT,
+}
+
 pub enum AmfService {
 	Communication(AmfCommunicationOperation),
 	EventExposure(AmfEventExposureOperation),

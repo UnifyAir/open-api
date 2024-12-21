@@ -1,3 +1,40 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum UdmServiceName {
+    #[default]
+    #[serde(rename = "nudm_ee")]
+    EE,
+    #[serde(rename = "nudm_mt")]
+    MT,
+    #[serde(rename = "nudm_niddau")]
+    NIDDAU,
+    #[serde(rename = "nudm_pp")]
+    PP,
+    #[serde(rename = "nudm_rsds")]
+    RSDS,
+    #[serde(rename = "nudm_sdm")]
+    SDM,
+    #[serde(rename = "nudm_ssau")]
+    SSAU,
+    #[serde(rename = "nudm_ueau")]
+    UEAU,
+    #[serde(rename = "nudm_uecm")]
+    UECM,
+    #[serde(rename = "nudm_ueid")]
+    UEID,
+}
+
 pub enum UdmService {
 	EE(UdmEEOperation),
 	MT(UdmMTOperation),

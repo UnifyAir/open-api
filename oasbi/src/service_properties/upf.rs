@@ -1,3 +1,22 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum UpfServiceName {
+    #[default]
+    #[serde(rename = "nupf_eventexposure")]
+    EventExposure,
+}
+
 pub enum UpfService {
 	EventExposure(UpfEventExposureOperation),
 }

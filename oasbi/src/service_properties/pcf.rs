@@ -1,3 +1,38 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum PcfServiceName {
+    #[default]
+    #[serde(rename = "npcf_ampolicycontrol")]
+    AMPolicyControl,
+    #[serde(rename = "npcf_smpolicycontrol")]
+    SMPolicyControl,
+    #[serde(rename = "npcf_policyauthorization")]
+    PolicyAuthorization,
+    #[serde(rename = "npcf_eventexposure")]
+    EventExposure,
+    #[serde(rename = "npcf_uepolicycontrol")]
+    UEPolicyControl,
+    #[serde(rename = "npcf_ampolicyauthorization")]
+    AMPolicyAuthorization,
+    #[serde(rename = "npcf_mbspolicyauthorization")]
+    MBSPolicyAuthorization,
+    #[serde(rename = "npcf_mbspolicycontrol")]
+    MBSPolicyControl,
+    #[serde(rename = "npcf_bdtpolicycontrol")]
+    BDTPolicyControl,
+}
+
 pub enum PcfService {
 	AMPolicyControl(PcfAMPolicyControlOperation),
 	SMPolicyControl(PcfSMPolicyControlOperation),

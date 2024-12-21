@@ -1,3 +1,24 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum NssfServiceName {
+    #[default]
+    #[serde(rename = "nnssf_nssaiavailability")]
+    NSSAIAvailability,
+    #[serde(rename = "nnssf_nsselection")]
+    NSSelection,
+}
+
 pub enum NssfService {
 	NSSAIAvailability(NssfNSSAIAvailabilityOperation),
 	NSSelection(NssfNSSelectionOperation),

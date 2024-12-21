@@ -1,3 +1,22 @@
+
+#[derive(
+	::serde::Deserialize,
+	::serde::Serialize,
+	Clone,
+	Debug,
+	Eq,
+	Hash,
+	Ord,
+	PartialEq,
+	PartialOrd,
+	smart_default::SmartDefault,
+)]
+pub enum UdrServiceName {
+    #[default]
+    #[serde(rename = "nudr_groupidmap")]
+    GroupIDmap,
+}
+
 pub enum UdrService {
 	GroupIDmap(UdrGroupIDmapOperation),
 }
