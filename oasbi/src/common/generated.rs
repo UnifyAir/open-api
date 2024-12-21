@@ -15442,16 +15442,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct MccRm(pub Option<MccRmInner>);
+	pub struct MccRm(pub Option<Mcc>);
 
 	impl ::std::ops::Deref for MccRm {
-		type Target = Option<MccRmInner>;
-		fn deref(&self) -> &Option<MccRmInner> {
+		type Target = Option<Mcc>;
+		fn deref(&self) -> &Option<Mcc> {
 			&self.0
 		}
 	}
 
-	impl From<MccRm> for Option<MccRmInner> {
+	impl From<MccRm> for Option<Mcc> {
 		fn from(value: MccRm) -> Self {
 			value.0
 		}
@@ -15463,105 +15463,9 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<MccRmInner>> for MccRm {
-		fn from(value: Option<MccRmInner>) -> Self {
+	impl From<Option<Mcc>> for MccRm {
+		fn from(value: Option<Mcc>) -> Self {
 			Self(value)
-		}
-	}
-
-	/// Mobile Country Code part of the PLMN, comprising 3 digits, as defined in
-	/// clause 9.3.3.5 of  3GPP TS 38.413 with the OpenAPI 'nullable: true'
-	/// property.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "Mobile Country Code part of the PLMN, comprising 3
-	/// digits, as defined in clause 9.3.3.5 of  3GPP TS 38.413 with the OpenAPI
-	/// 'nullable: true' property.\n",
-	///  "type": "string",
-	///  "pattern": "^\\d{3}$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct MccRmInner(String);
-
-	impl ::std::ops::Deref for MccRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<MccRmInner> for String {
-		fn from(value: MccRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&MccRmInner> for MccRmInner {
-		fn from(value: &MccRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for MccRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new("^\\d{3}$")
-				.unwrap()
-				.find(value)
-				.is_none()
-			{
-				return Err("doesn't match pattern \"^\\d{3}$\"".into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for MccRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for MccRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for MccRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for MccRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
 		}
 	}
 
@@ -16456,16 +16360,16 @@ pub mod types {
 	#[derive(
 		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
-	pub struct MncRm(pub Option<MncRmInner>);
+	pub struct MncRm(pub Option<Mnc>);
 
 	impl ::std::ops::Deref for MncRm {
-		type Target = Option<MncRmInner>;
-		fn deref(&self) -> &Option<MncRmInner> {
+		type Target = Option<Mnc>;
+		fn deref(&self) -> &Option<Mnc> {
 			&self.0
 		}
 	}
 
-	impl From<MncRm> for Option<MncRmInner> {
+	impl From<MncRm> for Option<Mnc> {
 		fn from(value: MncRm) -> Self {
 			value.0
 		}
@@ -16477,107 +16381,12 @@ pub mod types {
 		}
 	}
 
-	impl From<Option<MncRmInner>> for MncRm {
-		fn from(value: Option<MncRmInner>) -> Self {
+	impl From<Option<Mnc>> for MncRm {
+		fn from(value: Option<Mnc>) -> Self {
 			Self(value)
 		}
 	}
 
-	/// Mobile Network Code part of the PLMN, comprising 2 or 3 digits, as
-	/// defined in clause 9.3.3.5 of 3GPP TS 38.413 with the OpenAPI 'nullable:
-	/// true' property.
-	///
-	/// <details><summary>JSON schema</summary>
-	///
-	/// ```json
-	/// {
-	///  "description": "Mobile Network Code part of the PLMN, comprising 2 or 3
-	/// digits, as defined in clause 9.3.3.5 of 3GPP TS 38.413 with the OpenAPI
-	/// 'nullable: true' property.\n",
-	///  "type": "string",
-	///  "pattern": "^\\d{2,3}$"
-	/// }
-	/// ```
-	/// </details>
-	#[derive(
-		::serde::Serialize,
-		Clone,
-		Debug,
-		Eq,
-		Hash,
-		Ord,
-		PartialEq,
-		PartialOrd,
-		smart_default::SmartDefault,
-	)]
-	pub struct MncRmInner(String);
-
-	impl ::std::ops::Deref for MncRmInner {
-		type Target = String;
-		fn deref(&self) -> &String {
-			&self.0
-		}
-	}
-
-	impl From<MncRmInner> for String {
-		fn from(value: MncRmInner) -> Self {
-			value.0
-		}
-	}
-
-	impl From<&MncRmInner> for MncRmInner {
-		fn from(value: &MncRmInner) -> Self {
-			value.clone()
-		}
-	}
-
-	impl ::std::str::FromStr for MncRmInner {
-		type Err = self::error::ConversionError;
-		fn from_str(value: &str) -> Result<Self, self::error::ConversionError> {
-			if regress::Regex::new("^\\d{2,3}$")
-				.unwrap()
-				.find(value)
-				.is_none()
-			{
-				return Err("doesn't match pattern \"^\\d{2,3}$\"".into());
-			}
-			Ok(Self(value.to_string()))
-		}
-	}
-
-	impl ::std::convert::TryFrom<&str> for MncRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &str) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<&String> for MncRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: &String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl ::std::convert::TryFrom<String> for MncRmInner {
-		type Error = self::error::ConversionError;
-		fn try_from(value: String) -> Result<Self, self::error::ConversionError> {
-			value.parse()
-		}
-	}
-
-	impl<'de> ::serde::Deserialize<'de> for MncRmInner {
-		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-		where
-			D: ::serde::Deserializer<'de>,
-		{
-			String::deserialize(deserializer)?
-				.parse()
-				.map_err(|e: self::error::ConversionError| {
-					<D::Error as ::serde::de::Error>::custom(e.to_string())
-				})
-		}
-	}
 
 	/// Contain the MO Exception Data Counter.
 	///

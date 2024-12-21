@@ -2,7 +2,12 @@ use std::{fmt::Display, str::FromStr};
 
 use serde_with::{DeserializeFromStr, SerializeDisplay};
 
-use super::{error::ConversionError, impl_try_from_strings, display_for_newtype};
+use super::{
+	deref_for_newtype,
+	display_for_newtype,
+	error::ConversionError,
+	impl_try_from_strings,
+};
 
 /// Mobile Country Code part of the PLMN, comprising 3 digits, as defined in
 /// clause 9.3.3.5 of 3GPP TS 38.413.
@@ -57,6 +62,7 @@ impl FromStr for Mcc {
 
 impl_try_from_strings!(Mcc);
 display_for_newtype!(Mcc);
+deref_for_newtype!(Mcc, u16);
 
 #[derive(
 	Copy,
@@ -72,7 +78,6 @@ display_for_newtype!(Mcc);
 	DeserializeFromStr,
 )]
 pub struct Mnc(u16); // 2 or 3 digits can fit in a u16.
-
 
 impl TryFrom<u16> for Mnc {
 	type Error = ConversionError;
@@ -98,11 +103,13 @@ impl FromStr for Mnc {
 
 impl_try_from_strings!(Mnc);
 display_for_newtype!(Mnc);
+deref_for_newtype!(Mnc, u16);
 
 #[cfg(test)]
 mod tests {
-	use super::*;
 	use serde_json;
+
+	use super::*;
 
 	#[test]
 	fn test_mcc_valid() {
