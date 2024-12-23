@@ -1,41 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum UdmServiceName {
-    #[default]
-    #[serde(rename = "nudm-ee")]
-    EE,
-    #[serde(rename = "nudm-mt")]
-    MT,
-    #[serde(rename = "nudm-niddau")]
-    NIDDAU,
-    #[serde(rename = "nudm-pp")]
-    PP,
-    #[serde(rename = "nudm-rsds")]
-    RSDS,
-    #[serde(rename = "nudm-sdm")]
-    SDM,
-    #[serde(rename = "nudm-ssau")]
-    SSAU,
-    #[serde(rename = "nudm-ueau")]
-    UEAU,
-    #[serde(rename = "nudm-uecm")]
-    UECM,
-    #[serde(rename = "nudm-ueid")]
-    UEID,
-}
-
 pub enum UdmService {
 	EE(UdmEEOperation),
 	MT(UdmMTOperation),
@@ -52,16 +14,16 @@ pub enum UdmService {
 impl super::ServiceProperties for UdmService {
 	fn get_path(&self) -> String {
 		match self {
-			UdmService::EE(inner) => format!("/ee/{}", inner.get_path()),
-			UdmService::MT(inner) => format!("/mt/{}", inner.get_path()),
-			UdmService::NIDDAU(inner) => format!("/niddau/{}", inner.get_path()),
-			UdmService::PP(inner) => format!("/pp/{}", inner.get_path()),
-			UdmService::RSDS(inner) => format!("/rsds/{}", inner.get_path()),
-			UdmService::SDM(inner) => format!("/sdm/{}", inner.get_path()),
-			UdmService::SSAU(inner) => format!("/ssau/{}", inner.get_path()),
-			UdmService::UEAU(inner) => format!("/ueau/{}", inner.get_path()),
-			UdmService::UECM(inner) => format!("/uecm/{}", inner.get_path()),
-			UdmService::UEID(inner) => format!("/ueid/{}", inner.get_path()),
+			UdmService::EE(inner) => format!("/nudm-ee/v1/{}", inner.get_path()),
+			UdmService::MT(inner) => format!("/nudm-mt/v1/{}", inner.get_path()),
+			UdmService::NIDDAU(inner) => format!("/nudm-niddau/v1/{}", inner.get_path()),
+			UdmService::PP(inner) => format!("/nudm-pp/v1/{}", inner.get_path()),
+			UdmService::RSDS(inner) => format!("/nudm-rsds/v1/{}", inner.get_path()),
+			UdmService::SDM(inner) => format!("/nudm-sdm/v2/{}", inner.get_path()),
+			UdmService::SSAU(inner) => format!("/nudm-ssau/v1/{}", inner.get_path()),
+			UdmService::UEAU(inner) => format!("/nudm-ueau/v1/{}", inner.get_path()),
+			UdmService::UECM(inner) => format!("/nudm-uecm/v1/{}", inner.get_path()),
+			UdmService::UEID(inner) => format!("/nudm-ueid/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -81,472 +43,468 @@ impl super::ServiceProperties for UdmService {
 }
 
 pub enum UdmEEOperation {
-	Createeesubscription,
-	Deleteeesubscription,
-	Updateeesubscription,
+	CreateEeSubscription,
+	DeleteEeSubscription,
+	UpdateEeSubscription,
 }
 
 impl super::ServiceProperties for UdmEEOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmEEOperation::Createeesubscription => "/{}/ee-subscriptions".to_string(),
-			UdmEEOperation::Deleteeesubscription => "/{}/ee-subscriptions/{}".to_string(),
-			UdmEEOperation::Updateeesubscription => "/{}/ee-subscriptions/{}".to_string(),
+			UdmEEOperation::CreateEeSubscription => "{}/ee-subscriptions".to_string(),
+			UdmEEOperation::DeleteEeSubscription => "{}/ee-subscriptions/{}".to_string(),
+			UdmEEOperation::UpdateEeSubscription => "{}/ee-subscriptions/{}".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmEEOperation::Createeesubscription => reqwest::Method::POST,
-			UdmEEOperation::Deleteeesubscription => reqwest::Method::DELETE,
-			UdmEEOperation::Updateeesubscription => reqwest::Method::PATCH,
+			UdmEEOperation::CreateEeSubscription => reqwest::Method::POST,
+			UdmEEOperation::DeleteEeSubscription => reqwest::Method::DELETE,
+			UdmEEOperation::UpdateEeSubscription => reqwest::Method::PATCH,
 		}
 	}
 }
 
 pub enum UdmMTOperation {
-	Queryueinfo,
-	Providelocationinfo,
+	QueryUeInfo,
+	ProvideLocationInfo,
 }
 
 impl super::ServiceProperties for UdmMTOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmMTOperation::Queryueinfo => "/{}".to_string(),
-			UdmMTOperation::Providelocationinfo => "/{}/loc-info/provide-loc-info".to_string(),
+			UdmMTOperation::QueryUeInfo => "{}".to_string(),
+			UdmMTOperation::ProvideLocationInfo => "{}/loc-info/provide-loc-info".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmMTOperation::Queryueinfo => reqwest::Method::GET,
-			UdmMTOperation::Providelocationinfo => reqwest::Method::POST,
+			UdmMTOperation::QueryUeInfo => reqwest::Method::GET,
+			UdmMTOperation::ProvideLocationInfo => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum UdmNIDDAUOperation {
-	Authorizenidddata,
+	AuthorizeNiddData,
 }
 
 impl super::ServiceProperties for UdmNIDDAUOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmNIDDAUOperation::Authorizenidddata => "/{}/authorize".to_string(),
+			UdmNIDDAUOperation::AuthorizeNiddData => "{}/authorize".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmNIDDAUOperation::Authorizenidddata => reqwest::Method::POST,
+			UdmNIDDAUOperation::AuthorizeNiddData => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum UdmPPOperation {
 	Update,
-	Create5gvngroup,
-	Delete5gvngroup,
-	Modify5gvngroup,
-	Get5gvngroup,
-	Createppdataentry,
-	Deleteppdataentry,
-	Getppdataentry,
-	Create5gmbsgroup,
-	Delete5gmbsgroup,
-	Modify5gmbsgroup,
-	Get5gmbsgroup,
+	Create5GVNGroup,
+	Delete5GVNGroup,
+	Modify5GVNGroup,
+	Get5GVNGroup,
+	CreatePPDataEntry,
+	DeletePPDataEntry,
+	GetPPDataEntry,
+	Create5GMBSGroup,
+	Delete5GMBSGroup,
+	Modify5GMBSGroup,
+	Get5GMBSGroup,
 }
 
 impl super::ServiceProperties for UdmPPOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmPPOperation::Update => "/{}/pp-data".to_string(),
-			UdmPPOperation::Create5gvngroup => "/5g-vn-groups/{}".to_string(),
-			UdmPPOperation::Delete5gvngroup => "/5g-vn-groups/{}".to_string(),
-			UdmPPOperation::Modify5gvngroup => "/5g-vn-groups/{}".to_string(),
-			UdmPPOperation::Get5gvngroup => "/5g-vn-groups/{}".to_string(),
-			UdmPPOperation::Createppdataentry => "/{}/pp-data-store/{}".to_string(),
-			UdmPPOperation::Deleteppdataentry => "/{}/pp-data-store/{}".to_string(),
-			UdmPPOperation::Getppdataentry => "/{}/pp-data-store/{}".to_string(),
-			UdmPPOperation::Create5gmbsgroup => "/mbs-group-membership/{}".to_string(),
-			UdmPPOperation::Delete5gmbsgroup => "/mbs-group-membership/{}".to_string(),
-			UdmPPOperation::Modify5gmbsgroup => "/mbs-group-membership/{}".to_string(),
-			UdmPPOperation::Get5gmbsgroup => "/mbs-group-membership/{}".to_string(),
+			UdmPPOperation::Update => "{}/pp-data".to_string(),
+			UdmPPOperation::Create5GVNGroup => "5g-vn-groups/{}".to_string(),
+			UdmPPOperation::Delete5GVNGroup => "5g-vn-groups/{}".to_string(),
+			UdmPPOperation::Modify5GVNGroup => "5g-vn-groups/{}".to_string(),
+			UdmPPOperation::Get5GVNGroup => "5g-vn-groups/{}".to_string(),
+			UdmPPOperation::CreatePPDataEntry => "{}/pp-data-store/{}".to_string(),
+			UdmPPOperation::DeletePPDataEntry => "{}/pp-data-store/{}".to_string(),
+			UdmPPOperation::GetPPDataEntry => "{}/pp-data-store/{}".to_string(),
+			UdmPPOperation::Create5GMBSGroup => "mbs-group-membership/{}".to_string(),
+			UdmPPOperation::Delete5GMBSGroup => "mbs-group-membership/{}".to_string(),
+			UdmPPOperation::Modify5GMBSGroup => "mbs-group-membership/{}".to_string(),
+			UdmPPOperation::Get5GMBSGroup => "mbs-group-membership/{}".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
 			UdmPPOperation::Update => reqwest::Method::PATCH,
-			UdmPPOperation::Create5gvngroup => reqwest::Method::PUT,
-			UdmPPOperation::Delete5gvngroup => reqwest::Method::DELETE,
-			UdmPPOperation::Modify5gvngroup => reqwest::Method::PATCH,
-			UdmPPOperation::Get5gvngroup => reqwest::Method::GET,
-			UdmPPOperation::Createppdataentry => reqwest::Method::PUT,
-			UdmPPOperation::Deleteppdataentry => reqwest::Method::DELETE,
-			UdmPPOperation::Getppdataentry => reqwest::Method::GET,
-			UdmPPOperation::Create5gmbsgroup => reqwest::Method::PUT,
-			UdmPPOperation::Delete5gmbsgroup => reqwest::Method::DELETE,
-			UdmPPOperation::Modify5gmbsgroup => reqwest::Method::PATCH,
-			UdmPPOperation::Get5gmbsgroup => reqwest::Method::GET,
+			UdmPPOperation::Create5GVNGroup => reqwest::Method::PUT,
+			UdmPPOperation::Delete5GVNGroup => reqwest::Method::DELETE,
+			UdmPPOperation::Modify5GVNGroup => reqwest::Method::PATCH,
+			UdmPPOperation::Get5GVNGroup => reqwest::Method::GET,
+			UdmPPOperation::CreatePPDataEntry => reqwest::Method::PUT,
+			UdmPPOperation::DeletePPDataEntry => reqwest::Method::DELETE,
+			UdmPPOperation::GetPPDataEntry => reqwest::Method::GET,
+			UdmPPOperation::Create5GMBSGroup => reqwest::Method::PUT,
+			UdmPPOperation::Delete5GMBSGroup => reqwest::Method::DELETE,
+			UdmPPOperation::Modify5GMBSGroup => reqwest::Method::PATCH,
+			UdmPPOperation::Get5GMBSGroup => reqwest::Method::GET,
 		}
 	}
 }
 
 pub enum UdmRSDSOperation {
-	Reportsmdeliverystatus,
+	ReportSMDeliveryStatus,
 }
 
 impl super::ServiceProperties for UdmRSDSOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmRSDSOperation::Reportsmdeliverystatus => "/{}/sm-delivery-status".to_string(),
+			UdmRSDSOperation::ReportSMDeliveryStatus => "{}/sm-delivery-status".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmRSDSOperation::Reportsmdeliverystatus => reqwest::Method::POST,
+			UdmRSDSOperation::ReportSMDeliveryStatus => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum UdmSDMOperation {
-	Getdatasets,
-	Getnssai,
-	Getuectxinamfdata,
-	Getamdata,
-	Getecrdata,
-	Getsmfseldata,
-	Getuectxinsmfdata,
-	Getuectxinsmsfdata,
-	Gettraceconfigdata,
-	Getsmdata,
-	Getsmsdata,
-	Getsmsmngtdata,
-	Getlcsprivacydata,
-	Getlcsmodata,
-	Getlcsbcadata,
-	Getv2xdata,
-	Getprosedata,
-	Getmbsdata,
-	Getucdata,
+	GetDataSets,
+	GetNSSAI,
+	GetUeCtxInAmfData,
+	GetAmData,
+	GetEcrData,
+	GetSmfSelData,
+	GetUeCtxInSmfData,
+	GetUeCtxInSmsfData,
+	GetTraceConfigData,
+	GetSmData,
+	GetSmsData,
+	GetSmsMngtData,
+	GetLcsPrivacyData,
+	GetLcsMoData,
+	GetLcsBcaData,
+	GetV2xData,
+	GetProseData,
+	GetMbsData,
+	GetUcData,
 	Subscribe,
 	Unsubscribe,
 	Modify,
-	Getsupiorgpsi,
-	Sorackinfo,
-	Upuack,
-	Snssaisack,
-	Cagack,
-	Updatesorinfo,
-	Getshareddata,
-	Subscribetoshareddata,
-	Unsubscribeforshareddata,
-	Modifyshareddatasubs,
-	Getgroupidentifiers,
-	Getindividualshareddata,
-	Getmultipleidentifiers,
+	GetSupiOrGpsi,
+	SorAckInfo,
+	UpuAck,
+	SNSSAIsAck,
+	CAGAck,
+	UpdateSORInfo,
+	GetSharedData,
+	SubscribeToSharedData,
+	UnsubscribeForSharedData,
+	ModifySharedDataSubs,
+	GetGroupIdentifiers,
+	GetIndividualSharedData,
+	GetMultipleIdentifiers,
 }
 
 impl super::ServiceProperties for UdmSDMOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmSDMOperation::Getdatasets => "/{}".to_string(),
-			UdmSDMOperation::Getnssai => "/{}/nssai".to_string(),
-			UdmSDMOperation::Getuectxinamfdata => "/{}/ue-context-in-amf-data".to_string(),
-			UdmSDMOperation::Getamdata => "/{}/am-data".to_string(),
-			UdmSDMOperation::Getecrdata => "/{}/am-data/ecr-data".to_string(),
-			UdmSDMOperation::Getsmfseldata => "/{}/smf-select-data".to_string(),
-			UdmSDMOperation::Getuectxinsmfdata => "/{}/ue-context-in-smf-data".to_string(),
-			UdmSDMOperation::Getuectxinsmsfdata => "/{}/ue-context-in-smsf-data".to_string(),
-			UdmSDMOperation::Gettraceconfigdata => "/{}/trace-data".to_string(),
-			UdmSDMOperation::Getsmdata => "/{}/sm-data".to_string(),
-			UdmSDMOperation::Getsmsdata => "/{}/sms-data".to_string(),
-			UdmSDMOperation::Getsmsmngtdata => "/{}/sms-mng-data".to_string(),
-			UdmSDMOperation::Getlcsprivacydata => "/{}/lcs-privacy-data".to_string(),
-			UdmSDMOperation::Getlcsmodata => "/{}/lcs-mo-data".to_string(),
-			UdmSDMOperation::Getlcsbcadata => "/{}/lcs-bca-data".to_string(),
-			UdmSDMOperation::Getv2xdata => "/{}/v2x-data".to_string(),
-			UdmSDMOperation::Getprosedata => "/{}/prose-data".to_string(),
-			UdmSDMOperation::Getmbsdata => "/{}/5mbs-data".to_string(),
-			UdmSDMOperation::Getucdata => "/{}/uc-data".to_string(),
-			UdmSDMOperation::Subscribe => "/{}/sdm-subscriptions".to_string(),
-			UdmSDMOperation::Unsubscribe => "/{}/sdm-subscriptions/{}".to_string(),
-			UdmSDMOperation::Modify => "/{}/sdm-subscriptions/{}".to_string(),
-			UdmSDMOperation::Getsupiorgpsi => "/{}/id-translation-result".to_string(),
-			UdmSDMOperation::Sorackinfo => "/{}/am-data/sor-ack".to_string(),
-			UdmSDMOperation::Upuack => "/{}/am-data/upu-ack".to_string(),
-			UdmSDMOperation::Snssaisack => "/{}/am-data/subscribed-snssais-ack".to_string(),
-			UdmSDMOperation::Cagack => "/{}/am-data/cag-ack".to_string(),
-			UdmSDMOperation::Updatesorinfo => "/{}/am-data/update-sor".to_string(),
-			UdmSDMOperation::Getshareddata => "/shared-data".to_string(),
-			UdmSDMOperation::Subscribetoshareddata => "/shared-data-subscriptions".to_string(),
-			UdmSDMOperation::Unsubscribeforshareddata => {
-				"/shared-data-subscriptions/{}".to_string()
-			}
-			UdmSDMOperation::Modifyshareddatasubs => "/shared-data-subscriptions/{}".to_string(),
-			UdmSDMOperation::Getgroupidentifiers => "/group-data/group-identifiers".to_string(),
-			UdmSDMOperation::Getindividualshareddata => "/shared-data/{}".to_string(),
-			UdmSDMOperation::Getmultipleidentifiers => "/multiple-identifiers".to_string(),
+			UdmSDMOperation::GetDataSets => "{}".to_string(),
+			UdmSDMOperation::GetNSSAI => "{}/nssai".to_string(),
+			UdmSDMOperation::GetUeCtxInAmfData => "{}/ue-context-in-amf-data".to_string(),
+			UdmSDMOperation::GetAmData => "{}/am-data".to_string(),
+			UdmSDMOperation::GetEcrData => "{}/am-data/ecr-data".to_string(),
+			UdmSDMOperation::GetSmfSelData => "{}/smf-select-data".to_string(),
+			UdmSDMOperation::GetUeCtxInSmfData => "{}/ue-context-in-smf-data".to_string(),
+			UdmSDMOperation::GetUeCtxInSmsfData => "{}/ue-context-in-smsf-data".to_string(),
+			UdmSDMOperation::GetTraceConfigData => "{}/trace-data".to_string(),
+			UdmSDMOperation::GetSmData => "{}/sm-data".to_string(),
+			UdmSDMOperation::GetSmsData => "{}/sms-data".to_string(),
+			UdmSDMOperation::GetSmsMngtData => "{}/sms-mng-data".to_string(),
+			UdmSDMOperation::GetLcsPrivacyData => "{}/lcs-privacy-data".to_string(),
+			UdmSDMOperation::GetLcsMoData => "{}/lcs-mo-data".to_string(),
+			UdmSDMOperation::GetLcsBcaData => "{}/lcs-bca-data".to_string(),
+			UdmSDMOperation::GetV2xData => "{}/v2x-data".to_string(),
+			UdmSDMOperation::GetProseData => "{}/prose-data".to_string(),
+			UdmSDMOperation::GetMbsData => "{}/5mbs-data".to_string(),
+			UdmSDMOperation::GetUcData => "{}/uc-data".to_string(),
+			UdmSDMOperation::Subscribe => "{}/sdm-subscriptions".to_string(),
+			UdmSDMOperation::Unsubscribe => "{}/sdm-subscriptions/{}".to_string(),
+			UdmSDMOperation::Modify => "{}/sdm-subscriptions/{}".to_string(),
+			UdmSDMOperation::GetSupiOrGpsi => "{}/id-translation-result".to_string(),
+			UdmSDMOperation::SorAckInfo => "{}/am-data/sor-ack".to_string(),
+			UdmSDMOperation::UpuAck => "{}/am-data/upu-ack".to_string(),
+			UdmSDMOperation::SNSSAIsAck => "{}/am-data/subscribed-snssais-ack".to_string(),
+			UdmSDMOperation::CAGAck => "{}/am-data/cag-ack".to_string(),
+			UdmSDMOperation::UpdateSORInfo => "{}/am-data/update-sor".to_string(),
+			UdmSDMOperation::GetSharedData => "shared-data".to_string(),
+			UdmSDMOperation::SubscribeToSharedData => "shared-data-subscriptions".to_string(),
+			UdmSDMOperation::UnsubscribeForSharedData => "shared-data-subscriptions/{}".to_string(),
+			UdmSDMOperation::ModifySharedDataSubs => "shared-data-subscriptions/{}".to_string(),
+			UdmSDMOperation::GetGroupIdentifiers => "group-data/group-identifiers".to_string(),
+			UdmSDMOperation::GetIndividualSharedData => "shared-data/{}".to_string(),
+			UdmSDMOperation::GetMultipleIdentifiers => "multiple-identifiers".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmSDMOperation::Getdatasets => reqwest::Method::GET,
-			UdmSDMOperation::Getnssai => reqwest::Method::GET,
-			UdmSDMOperation::Getuectxinamfdata => reqwest::Method::GET,
-			UdmSDMOperation::Getamdata => reqwest::Method::GET,
-			UdmSDMOperation::Getecrdata => reqwest::Method::GET,
-			UdmSDMOperation::Getsmfseldata => reqwest::Method::GET,
-			UdmSDMOperation::Getuectxinsmfdata => reqwest::Method::GET,
-			UdmSDMOperation::Getuectxinsmsfdata => reqwest::Method::GET,
-			UdmSDMOperation::Gettraceconfigdata => reqwest::Method::GET,
-			UdmSDMOperation::Getsmdata => reqwest::Method::GET,
-			UdmSDMOperation::Getsmsdata => reqwest::Method::GET,
-			UdmSDMOperation::Getsmsmngtdata => reqwest::Method::GET,
-			UdmSDMOperation::Getlcsprivacydata => reqwest::Method::GET,
-			UdmSDMOperation::Getlcsmodata => reqwest::Method::GET,
-			UdmSDMOperation::Getlcsbcadata => reqwest::Method::GET,
-			UdmSDMOperation::Getv2xdata => reqwest::Method::GET,
-			UdmSDMOperation::Getprosedata => reqwest::Method::GET,
-			UdmSDMOperation::Getmbsdata => reqwest::Method::GET,
-			UdmSDMOperation::Getucdata => reqwest::Method::GET,
+			UdmSDMOperation::GetDataSets => reqwest::Method::GET,
+			UdmSDMOperation::GetNSSAI => reqwest::Method::GET,
+			UdmSDMOperation::GetUeCtxInAmfData => reqwest::Method::GET,
+			UdmSDMOperation::GetAmData => reqwest::Method::GET,
+			UdmSDMOperation::GetEcrData => reqwest::Method::GET,
+			UdmSDMOperation::GetSmfSelData => reqwest::Method::GET,
+			UdmSDMOperation::GetUeCtxInSmfData => reqwest::Method::GET,
+			UdmSDMOperation::GetUeCtxInSmsfData => reqwest::Method::GET,
+			UdmSDMOperation::GetTraceConfigData => reqwest::Method::GET,
+			UdmSDMOperation::GetSmData => reqwest::Method::GET,
+			UdmSDMOperation::GetSmsData => reqwest::Method::GET,
+			UdmSDMOperation::GetSmsMngtData => reqwest::Method::GET,
+			UdmSDMOperation::GetLcsPrivacyData => reqwest::Method::GET,
+			UdmSDMOperation::GetLcsMoData => reqwest::Method::GET,
+			UdmSDMOperation::GetLcsBcaData => reqwest::Method::GET,
+			UdmSDMOperation::GetV2xData => reqwest::Method::GET,
+			UdmSDMOperation::GetProseData => reqwest::Method::GET,
+			UdmSDMOperation::GetMbsData => reqwest::Method::GET,
+			UdmSDMOperation::GetUcData => reqwest::Method::GET,
 			UdmSDMOperation::Subscribe => reqwest::Method::POST,
 			UdmSDMOperation::Unsubscribe => reqwest::Method::DELETE,
 			UdmSDMOperation::Modify => reqwest::Method::PATCH,
-			UdmSDMOperation::Getsupiorgpsi => reqwest::Method::GET,
-			UdmSDMOperation::Sorackinfo => reqwest::Method::PUT,
-			UdmSDMOperation::Upuack => reqwest::Method::PUT,
-			UdmSDMOperation::Snssaisack => reqwest::Method::PUT,
-			UdmSDMOperation::Cagack => reqwest::Method::PUT,
-			UdmSDMOperation::Updatesorinfo => reqwest::Method::POST,
-			UdmSDMOperation::Getshareddata => reqwest::Method::GET,
-			UdmSDMOperation::Subscribetoshareddata => reqwest::Method::POST,
-			UdmSDMOperation::Unsubscribeforshareddata => reqwest::Method::DELETE,
-			UdmSDMOperation::Modifyshareddatasubs => reqwest::Method::PATCH,
-			UdmSDMOperation::Getgroupidentifiers => reqwest::Method::GET,
-			UdmSDMOperation::Getindividualshareddata => reqwest::Method::GET,
-			UdmSDMOperation::Getmultipleidentifiers => reqwest::Method::GET,
+			UdmSDMOperation::GetSupiOrGpsi => reqwest::Method::GET,
+			UdmSDMOperation::SorAckInfo => reqwest::Method::PUT,
+			UdmSDMOperation::UpuAck => reqwest::Method::PUT,
+			UdmSDMOperation::SNSSAIsAck => reqwest::Method::PUT,
+			UdmSDMOperation::CAGAck => reqwest::Method::PUT,
+			UdmSDMOperation::UpdateSORInfo => reqwest::Method::POST,
+			UdmSDMOperation::GetSharedData => reqwest::Method::GET,
+			UdmSDMOperation::SubscribeToSharedData => reqwest::Method::POST,
+			UdmSDMOperation::UnsubscribeForSharedData => reqwest::Method::DELETE,
+			UdmSDMOperation::ModifySharedDataSubs => reqwest::Method::PATCH,
+			UdmSDMOperation::GetGroupIdentifiers => reqwest::Method::GET,
+			UdmSDMOperation::GetIndividualSharedData => reqwest::Method::GET,
+			UdmSDMOperation::GetMultipleIdentifiers => reqwest::Method::GET,
 		}
 	}
 }
 
 pub enum UdmSSAUOperation {
-	Servicespecificauthorization,
-	Servicespecificauthorizationremoval,
+	ServiceSpecificAuthorization,
+	ServiceSpecificAuthorizationRemoval,
 }
 
 impl super::ServiceProperties for UdmSSAUOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmSSAUOperation::Servicespecificauthorization => "/{}/{}/authorize".to_string(),
-			UdmSSAUOperation::Servicespecificauthorizationremoval => "/{}/{}/remove".to_string(),
+			UdmSSAUOperation::ServiceSpecificAuthorization => "{}/{}/authorize".to_string(),
+			UdmSSAUOperation::ServiceSpecificAuthorizationRemoval => "{}/{}/remove".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmSSAUOperation::Servicespecificauthorization => reqwest::Method::POST,
-			UdmSSAUOperation::Servicespecificauthorizationremoval => reqwest::Method::POST,
+			UdmSSAUOperation::ServiceSpecificAuthorization => reqwest::Method::POST,
+			UdmSSAUOperation::ServiceSpecificAuthorizationRemoval => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum UdmUEAUOperation {
-	Generateauthdata,
-	Getrgauthdata,
-	Confirmauth,
-	Generateav,
-	Deleteauth,
-	Generategbaav,
-	Generateproseav,
+	GenerateAuthData,
+	GetRgAuthData,
+	ConfirmAuth,
+	GenerateAv,
+	DeleteAuth,
+	GenerateGbaAv,
+	GenerateProseAV,
 }
 
 impl super::ServiceProperties for UdmUEAUOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmUEAUOperation::Generateauthdata => {
-				"/{}/security-information/generate-auth-data".to_string()
+			UdmUEAUOperation::GenerateAuthData => {
+				"{}/security-information/generate-auth-data".to_string()
 			}
-			UdmUEAUOperation::Getrgauthdata => "/{}/security-information-rg".to_string(),
-			UdmUEAUOperation::Confirmauth => "/{}/auth-events".to_string(),
-			UdmUEAUOperation::Generateav => {
-				"/{}/hss-security-information/{}/generate-av".to_string()
+			UdmUEAUOperation::GetRgAuthData => "{}/security-information-rg".to_string(),
+			UdmUEAUOperation::ConfirmAuth => "{}/auth-events".to_string(),
+			UdmUEAUOperation::GenerateAv => {
+				"{}/hss-security-information/{}/generate-av".to_string()
 			}
-			UdmUEAUOperation::Deleteauth => "/{}/auth-events/{}".to_string(),
-			UdmUEAUOperation::Generategbaav => {
-				"/{}/gba-security-information/generate-av".to_string()
+			UdmUEAUOperation::DeleteAuth => "{}/auth-events/{}".to_string(),
+			UdmUEAUOperation::GenerateGbaAv => {
+				"{}/gba-security-information/generate-av".to_string()
 			}
-			UdmUEAUOperation::Generateproseav => {
-				"/{}/prose-security-information/generate-av".to_string()
+			UdmUEAUOperation::GenerateProseAV => {
+				"{}/prose-security-information/generate-av".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmUEAUOperation::Generateauthdata => reqwest::Method::POST,
-			UdmUEAUOperation::Getrgauthdata => reqwest::Method::GET,
-			UdmUEAUOperation::Confirmauth => reqwest::Method::POST,
-			UdmUEAUOperation::Generateav => reqwest::Method::POST,
-			UdmUEAUOperation::Deleteauth => reqwest::Method::PUT,
-			UdmUEAUOperation::Generategbaav => reqwest::Method::POST,
-			UdmUEAUOperation::Generateproseav => reqwest::Method::POST,
+			UdmUEAUOperation::GenerateAuthData => reqwest::Method::POST,
+			UdmUEAUOperation::GetRgAuthData => reqwest::Method::GET,
+			UdmUEAUOperation::ConfirmAuth => reqwest::Method::POST,
+			UdmUEAUOperation::GenerateAv => reqwest::Method::POST,
+			UdmUEAUOperation::DeleteAuth => reqwest::Method::PUT,
+			UdmUEAUOperation::GenerateGbaAv => reqwest::Method::POST,
+			UdmUEAUOperation::GenerateProseAV => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum UdmUECMOperation {
-	Getregistrations,
-	Sendroutinginfosm,
-	Op3gppregistration,
-	Update3gppregistration,
-	Get3gppregistration,
-	Deregamf,
-	Peiupdate,
-	Updateroaminginformation,
-	Non3gppregistration,
-	Updatenon3gppregistration,
-	Getnon3gppregistration,
-	Getsmfregistration,
+	GetRegistrations,
+	SendRoutingInfoSm,
+	Op3GppRegistration,
+	Update3GppRegistration,
+	Get3GppRegistration,
+	DeregAMF,
+	PeiUpdate,
+	UpdateRoamingInformation,
+	Non3GppRegistration,
+	UpdateNon3GppRegistration,
+	GetNon3GppRegistration,
+	GetSmfRegistration,
 	Registration,
-	Smfderegistration,
-	Retrievesmfregistration,
-	Updatesmfregistration,
-	Op3gppsmsfregistration,
-	Op3gppsmsfderegistration,
-	Get3gppsmsfregistration,
-	Non3gppsmsfregistration,
-	Non3gppsmsfderegistration,
-	Getnon3gppsmsfregistration,
-	Ipsmgwregistration,
-	Ipsmgwderegistration,
-	Getipsmgwregistration,
-	Triggerpcscfrestoration,
-	Getlocationinfo,
-	Getnwdafregistration,
-	Nwdafregistration,
-	Nwdafderegistration,
-	Updatenwdafregistration,
+	SmfDeregistration,
+	RetrieveSmfRegistration,
+	UpdateSmfRegistration,
+	Op3GppSmsfRegistration,
+	Op3GppSmsfDeregistration,
+	Get3GppSmsfRegistration,
+	Non3GppSmsfRegistration,
+	Non3GppSmsfDeregistration,
+	GetNon3GppSmsfRegistration,
+	IpSmGwRegistration,
+	IpSmGwDeregistration,
+	GetIpSmGwRegistration,
+	TriggerPCSCFRestoration,
+	GetLocationInfo,
+	GetNwdafRegistration,
+	NwdafRegistration,
+	NwdafDeregistration,
+	UpdateNwdafRegistration,
 }
 
 impl super::ServiceProperties for UdmUECMOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmUECMOperation::Getregistrations => "/{}/registrations".to_string(),
-			UdmUECMOperation::Sendroutinginfosm => {
-				"/{}/registrations/send-routing-info-sm".to_string()
+			UdmUECMOperation::GetRegistrations => "{}/registrations".to_string(),
+			UdmUECMOperation::SendRoutingInfoSm => {
+				"{}/registrations/send-routing-info-sm".to_string()
 			}
-			UdmUECMOperation::Op3gppregistration => "/{}/registrations/amf-3gpp-access".to_string(),
-			UdmUECMOperation::Update3gppregistration => {
-				"/{}/registrations/amf-3gpp-access".to_string()
+			UdmUECMOperation::Op3GppRegistration => "{}/registrations/amf-3gpp-access".to_string(),
+			UdmUECMOperation::Update3GppRegistration => {
+				"{}/registrations/amf-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Get3gppregistration => {
-				"/{}/registrations/amf-3gpp-access".to_string()
+			UdmUECMOperation::Get3GppRegistration => "{}/registrations/amf-3gpp-access".to_string(),
+			UdmUECMOperation::DeregAMF => "{}/registrations/amf-3gpp-access/dereg-amf".to_string(),
+			UdmUECMOperation::PeiUpdate => {
+				"{}/registrations/amf-3gpp-access/pei-update".to_string()
 			}
-			UdmUECMOperation::Deregamf => "/{}/registrations/amf-3gpp-access/dereg-amf".to_string(),
-			UdmUECMOperation::Peiupdate => {
-				"/{}/registrations/amf-3gpp-access/pei-update".to_string()
+			UdmUECMOperation::UpdateRoamingInformation => {
+				"{}/registrations/amf-3gpp-access/roaming-info-update".to_string()
 			}
-			UdmUECMOperation::Updateroaminginformation => {
-				"/{}/registrations/amf-3gpp-access/roaming-info-update".to_string()
+			UdmUECMOperation::Non3GppRegistration => {
+				"{}/registrations/amf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Non3gppregistration => {
-				"/{}/registrations/amf-non-3gpp-access".to_string()
+			UdmUECMOperation::UpdateNon3GppRegistration => {
+				"{}/registrations/amf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Updatenon3gppregistration => {
-				"/{}/registrations/amf-non-3gpp-access".to_string()
+			UdmUECMOperation::GetNon3GppRegistration => {
+				"{}/registrations/amf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Getnon3gppregistration => {
-				"/{}/registrations/amf-non-3gpp-access".to_string()
+			UdmUECMOperation::GetSmfRegistration => {
+				"{}/registrations/smf-registrations".to_string()
 			}
-			UdmUECMOperation::Getsmfregistration => {
-				"/{}/registrations/smf-registrations".to_string()
+			UdmUECMOperation::Registration => "{}/registrations/smf-registrations/{}".to_string(),
+			UdmUECMOperation::SmfDeregistration => {
+				"{}/registrations/smf-registrations/{}".to_string()
 			}
-			UdmUECMOperation::Registration => "/{}/registrations/smf-registrations/{}".to_string(),
-			UdmUECMOperation::Smfderegistration => {
-				"/{}/registrations/smf-registrations/{}".to_string()
+			UdmUECMOperation::RetrieveSmfRegistration => {
+				"{}/registrations/smf-registrations/{}".to_string()
 			}
-			UdmUECMOperation::Retrievesmfregistration => {
-				"/{}/registrations/smf-registrations/{}".to_string()
+			UdmUECMOperation::UpdateSmfRegistration => {
+				"{}/registrations/smf-registrations/{}".to_string()
 			}
-			UdmUECMOperation::Updatesmfregistration => {
-				"/{}/registrations/smf-registrations/{}".to_string()
+			UdmUECMOperation::Op3GppSmsfRegistration => {
+				"{}/registrations/smsf-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Op3gppsmsfregistration => {
-				"/{}/registrations/smsf-3gpp-access".to_string()
+			UdmUECMOperation::Op3GppSmsfDeregistration => {
+				"{}/registrations/smsf-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Op3gppsmsfderegistration => {
-				"/{}/registrations/smsf-3gpp-access".to_string()
+			UdmUECMOperation::Get3GppSmsfRegistration => {
+				"{}/registrations/smsf-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Get3gppsmsfregistration => {
-				"/{}/registrations/smsf-3gpp-access".to_string()
+			UdmUECMOperation::Non3GppSmsfRegistration => {
+				"{}/registrations/smsf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Non3gppsmsfregistration => {
-				"/{}/registrations/smsf-non-3gpp-access".to_string()
+			UdmUECMOperation::Non3GppSmsfDeregistration => {
+				"{}/registrations/smsf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Non3gppsmsfderegistration => {
-				"/{}/registrations/smsf-non-3gpp-access".to_string()
+			UdmUECMOperation::GetNon3GppSmsfRegistration => {
+				"{}/registrations/smsf-non-3gpp-access".to_string()
 			}
-			UdmUECMOperation::Getnon3gppsmsfregistration => {
-				"/{}/registrations/smsf-non-3gpp-access".to_string()
+			UdmUECMOperation::IpSmGwRegistration => "{}/registrations/ip-sm-gw".to_string(),
+			UdmUECMOperation::IpSmGwDeregistration => "{}/registrations/ip-sm-gw".to_string(),
+			UdmUECMOperation::GetIpSmGwRegistration => "{}/registrations/ip-sm-gw".to_string(),
+			UdmUECMOperation::TriggerPCSCFRestoration => "restore-pcscf".to_string(),
+			UdmUECMOperation::GetLocationInfo => "{}/registrations/location".to_string(),
+			UdmUECMOperation::GetNwdafRegistration => {
+				"{}/registrations/nwdaf-registrations".to_string()
 			}
-			UdmUECMOperation::Ipsmgwregistration => "/{}/registrations/ip-sm-gw".to_string(),
-			UdmUECMOperation::Ipsmgwderegistration => "/{}/registrations/ip-sm-gw".to_string(),
-			UdmUECMOperation::Getipsmgwregistration => "/{}/registrations/ip-sm-gw".to_string(),
-			UdmUECMOperation::Triggerpcscfrestoration => "/restore-pcscf".to_string(),
-			UdmUECMOperation::Getlocationinfo => "/{}/registrations/location".to_string(),
-			UdmUECMOperation::Getnwdafregistration => {
-				"/{}/registrations/nwdaf-registrations".to_string()
+			UdmUECMOperation::NwdafRegistration => {
+				"{}/registrations/nwdaf-registrations/{}".to_string()
 			}
-			UdmUECMOperation::Nwdafregistration => {
-				"/{}/registrations/nwdaf-registrations/{}".to_string()
+			UdmUECMOperation::NwdafDeregistration => {
+				"{}/registrations/nwdaf-registrations/{}".to_string()
 			}
-			UdmUECMOperation::Nwdafderegistration => {
-				"/{}/registrations/nwdaf-registrations/{}".to_string()
-			}
-			UdmUECMOperation::Updatenwdafregistration => {
-				"/{}/registrations/nwdaf-registrations/{}".to_string()
+			UdmUECMOperation::UpdateNwdafRegistration => {
+				"{}/registrations/nwdaf-registrations/{}".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdmUECMOperation::Getregistrations => reqwest::Method::GET,
-			UdmUECMOperation::Sendroutinginfosm => reqwest::Method::POST,
-			UdmUECMOperation::Op3gppregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Update3gppregistration => reqwest::Method::PATCH,
-			UdmUECMOperation::Get3gppregistration => reqwest::Method::GET,
-			UdmUECMOperation::Deregamf => reqwest::Method::POST,
-			UdmUECMOperation::Peiupdate => reqwest::Method::POST,
-			UdmUECMOperation::Updateroaminginformation => reqwest::Method::POST,
-			UdmUECMOperation::Non3gppregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Updatenon3gppregistration => reqwest::Method::PATCH,
-			UdmUECMOperation::Getnon3gppregistration => reqwest::Method::GET,
-			UdmUECMOperation::Getsmfregistration => reqwest::Method::GET,
+			UdmUECMOperation::GetRegistrations => reqwest::Method::GET,
+			UdmUECMOperation::SendRoutingInfoSm => reqwest::Method::POST,
+			UdmUECMOperation::Op3GppRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::Update3GppRegistration => reqwest::Method::PATCH,
+			UdmUECMOperation::Get3GppRegistration => reqwest::Method::GET,
+			UdmUECMOperation::DeregAMF => reqwest::Method::POST,
+			UdmUECMOperation::PeiUpdate => reqwest::Method::POST,
+			UdmUECMOperation::UpdateRoamingInformation => reqwest::Method::POST,
+			UdmUECMOperation::Non3GppRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::UpdateNon3GppRegistration => reqwest::Method::PATCH,
+			UdmUECMOperation::GetNon3GppRegistration => reqwest::Method::GET,
+			UdmUECMOperation::GetSmfRegistration => reqwest::Method::GET,
 			UdmUECMOperation::Registration => reqwest::Method::PUT,
-			UdmUECMOperation::Smfderegistration => reqwest::Method::DELETE,
-			UdmUECMOperation::Retrievesmfregistration => reqwest::Method::GET,
-			UdmUECMOperation::Updatesmfregistration => reqwest::Method::PATCH,
-			UdmUECMOperation::Op3gppsmsfregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Op3gppsmsfderegistration => reqwest::Method::DELETE,
-			UdmUECMOperation::Get3gppsmsfregistration => reqwest::Method::GET,
-			UdmUECMOperation::Non3gppsmsfregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Non3gppsmsfderegistration => reqwest::Method::DELETE,
-			UdmUECMOperation::Getnon3gppsmsfregistration => reqwest::Method::GET,
-			UdmUECMOperation::Ipsmgwregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Ipsmgwderegistration => reqwest::Method::DELETE,
-			UdmUECMOperation::Getipsmgwregistration => reqwest::Method::GET,
-			UdmUECMOperation::Triggerpcscfrestoration => reqwest::Method::POST,
-			UdmUECMOperation::Getlocationinfo => reqwest::Method::GET,
-			UdmUECMOperation::Getnwdafregistration => reqwest::Method::GET,
-			UdmUECMOperation::Nwdafregistration => reqwest::Method::PUT,
-			UdmUECMOperation::Nwdafderegistration => reqwest::Method::DELETE,
-			UdmUECMOperation::Updatenwdafregistration => reqwest::Method::PATCH,
+			UdmUECMOperation::SmfDeregistration => reqwest::Method::DELETE,
+			UdmUECMOperation::RetrieveSmfRegistration => reqwest::Method::GET,
+			UdmUECMOperation::UpdateSmfRegistration => reqwest::Method::PATCH,
+			UdmUECMOperation::Op3GppSmsfRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::Op3GppSmsfDeregistration => reqwest::Method::DELETE,
+			UdmUECMOperation::Get3GppSmsfRegistration => reqwest::Method::GET,
+			UdmUECMOperation::Non3GppSmsfRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::Non3GppSmsfDeregistration => reqwest::Method::DELETE,
+			UdmUECMOperation::GetNon3GppSmsfRegistration => reqwest::Method::GET,
+			UdmUECMOperation::IpSmGwRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::IpSmGwDeregistration => reqwest::Method::DELETE,
+			UdmUECMOperation::GetIpSmGwRegistration => reqwest::Method::GET,
+			UdmUECMOperation::TriggerPCSCFRestoration => reqwest::Method::POST,
+			UdmUECMOperation::GetLocationInfo => reqwest::Method::GET,
+			UdmUECMOperation::GetNwdafRegistration => reqwest::Method::GET,
+			UdmUECMOperation::NwdafRegistration => reqwest::Method::PUT,
+			UdmUECMOperation::NwdafDeregistration => reqwest::Method::DELETE,
+			UdmUECMOperation::UpdateNwdafRegistration => reqwest::Method::PATCH,
 		}
 	}
 }
@@ -558,7 +516,7 @@ pub enum UdmUEIDOperation {
 impl super::ServiceProperties for UdmUEIDOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdmUEIDOperation::Deconceal => "/deconceal".to_string(),
+			UdmUEIDOperation::Deconceal => "deconceal".to_string(),
 		}
 	}
 

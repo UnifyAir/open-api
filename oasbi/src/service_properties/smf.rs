@@ -1,27 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum SmfServiceName {
-    #[default]
-    #[serde(rename = "nsmf-pdusession")]
-    PDUSession,
-    #[serde(rename = "nsmf-eventexposure")]
-    EventExposure,
-    #[serde(rename = "nsmf-nidd")]
-    NIDD,
-}
-
 pub enum SmfService {
 	PDUSession(SmfPDUSessionOperation),
 	EventExposure(SmfEventExposureOperation),
@@ -31,9 +7,11 @@ pub enum SmfService {
 impl super::ServiceProperties for SmfService {
 	fn get_path(&self) -> String {
 		match self {
-			SmfService::PDUSession(inner) => format!("/pdusession/{}", inner.get_path()),
-			SmfService::EventExposure(inner) => format!("/eventexposure/{}", inner.get_path()),
-			SmfService::NIDD(inner) => format!("/nidd/{}", inner.get_path()),
+			SmfService::PDUSession(inner) => format!("/nsmf-pdusession/v1/{}", inner.get_path()),
+			SmfService::EventExposure(inner) => {
+				format!("/nsmf-event-exposure/v1/{}", inner.get_path())
+			}
+			SmfService::NIDD(inner) => format!("/nsmf-nidd/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -46,79 +24,79 @@ impl super::ServiceProperties for SmfService {
 }
 
 pub enum SmfPDUSessionOperation {
-	Postsmcontexts,
-	Retrievesmcontext,
-	Updatesmcontext,
-	Releasesmcontext,
-	Sendmodata,
-	Postpdusessions,
-	Updatepdusession,
-	Releasepdusession,
-	Retrievepdusession,
-	Transfermodata,
+	PostSmContexts,
+	RetrieveSmContext,
+	UpdateSmContext,
+	ReleaseSmContext,
+	SendMoData,
+	PostPduSessions,
+	UpdatePduSession,
+	ReleasePduSession,
+	RetrievePduSession,
+	TransferMoData,
 }
 
 impl super::ServiceProperties for SmfPDUSessionOperation {
 	fn get_path(&self) -> String {
 		match self {
-			SmfPDUSessionOperation::Postsmcontexts => "/sm-contexts".to_string(),
-			SmfPDUSessionOperation::Retrievesmcontext => "/sm-contexts/{}/retrieve".to_string(),
-			SmfPDUSessionOperation::Updatesmcontext => "/sm-contexts/{}/modify".to_string(),
-			SmfPDUSessionOperation::Releasesmcontext => "/sm-contexts/{}/release".to_string(),
-			SmfPDUSessionOperation::Sendmodata => "/sm-contexts/{}/send-mo-data".to_string(),
-			SmfPDUSessionOperation::Postpdusessions => "/pdu-sessions".to_string(),
-			SmfPDUSessionOperation::Updatepdusession => "/pdu-sessions/{}/modify".to_string(),
-			SmfPDUSessionOperation::Releasepdusession => "/pdu-sessions/{}/release".to_string(),
-			SmfPDUSessionOperation::Retrievepdusession => "/pdu-sessions/{}/retrieve".to_string(),
-			SmfPDUSessionOperation::Transfermodata => {
-				"/pdu-sessions/{}/transfer-mo-data".to_string()
+			SmfPDUSessionOperation::PostSmContexts => "sm-contexts".to_string(),
+			SmfPDUSessionOperation::RetrieveSmContext => "sm-contexts/{}/retrieve".to_string(),
+			SmfPDUSessionOperation::UpdateSmContext => "sm-contexts/{}/modify".to_string(),
+			SmfPDUSessionOperation::ReleaseSmContext => "sm-contexts/{}/release".to_string(),
+			SmfPDUSessionOperation::SendMoData => "sm-contexts/{}/send-mo-data".to_string(),
+			SmfPDUSessionOperation::PostPduSessions => "pdu-sessions".to_string(),
+			SmfPDUSessionOperation::UpdatePduSession => "pdu-sessions/{}/modify".to_string(),
+			SmfPDUSessionOperation::ReleasePduSession => "pdu-sessions/{}/release".to_string(),
+			SmfPDUSessionOperation::RetrievePduSession => "pdu-sessions/{}/retrieve".to_string(),
+			SmfPDUSessionOperation::TransferMoData => {
+				"pdu-sessions/{}/transfer-mo-data".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			SmfPDUSessionOperation::Postsmcontexts => reqwest::Method::POST,
-			SmfPDUSessionOperation::Retrievesmcontext => reqwest::Method::POST,
-			SmfPDUSessionOperation::Updatesmcontext => reqwest::Method::POST,
-			SmfPDUSessionOperation::Releasesmcontext => reqwest::Method::POST,
-			SmfPDUSessionOperation::Sendmodata => reqwest::Method::POST,
-			SmfPDUSessionOperation::Postpdusessions => reqwest::Method::POST,
-			SmfPDUSessionOperation::Updatepdusession => reqwest::Method::POST,
-			SmfPDUSessionOperation::Releasepdusession => reqwest::Method::POST,
-			SmfPDUSessionOperation::Retrievepdusession => reqwest::Method::POST,
-			SmfPDUSessionOperation::Transfermodata => reqwest::Method::POST,
+			SmfPDUSessionOperation::PostSmContexts => reqwest::Method::POST,
+			SmfPDUSessionOperation::RetrieveSmContext => reqwest::Method::POST,
+			SmfPDUSessionOperation::UpdateSmContext => reqwest::Method::POST,
+			SmfPDUSessionOperation::ReleaseSmContext => reqwest::Method::POST,
+			SmfPDUSessionOperation::SendMoData => reqwest::Method::POST,
+			SmfPDUSessionOperation::PostPduSessions => reqwest::Method::POST,
+			SmfPDUSessionOperation::UpdatePduSession => reqwest::Method::POST,
+			SmfPDUSessionOperation::ReleasePduSession => reqwest::Method::POST,
+			SmfPDUSessionOperation::RetrievePduSession => reqwest::Method::POST,
+			SmfPDUSessionOperation::TransferMoData => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum SmfEventExposureOperation {
-	Createindividualsubcription,
-	Getindividualsubcription,
-	Replaceindividualsubcription,
-	Deleteindividualsubcription,
+	CreateIndividualSubcription,
+	GetIndividualSubcription,
+	ReplaceIndividualSubcription,
+	DeleteIndividualSubcription,
 }
 
 impl super::ServiceProperties for SmfEventExposureOperation {
 	fn get_path(&self) -> String {
 		match self {
-			SmfEventExposureOperation::Createindividualsubcription => "/subscriptions".to_string(),
-			SmfEventExposureOperation::Getindividualsubcription => "/subscriptions/{}".to_string(),
-			SmfEventExposureOperation::Replaceindividualsubcription => {
-				"/subscriptions/{}".to_string()
+			SmfEventExposureOperation::CreateIndividualSubcription => "subscriptions".to_string(),
+			SmfEventExposureOperation::GetIndividualSubcription => "subscriptions/{}".to_string(),
+			SmfEventExposureOperation::ReplaceIndividualSubcription => {
+				"subscriptions/{}".to_string()
 			}
-			SmfEventExposureOperation::Deleteindividualsubcription => {
-				"/subscriptions/{}".to_string()
+			SmfEventExposureOperation::DeleteIndividualSubcription => {
+				"subscriptions/{}".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			SmfEventExposureOperation::Createindividualsubcription => reqwest::Method::POST,
-			SmfEventExposureOperation::Getindividualsubcription => reqwest::Method::GET,
-			SmfEventExposureOperation::Replaceindividualsubcription => reqwest::Method::PUT,
-			SmfEventExposureOperation::Deleteindividualsubcription => reqwest::Method::DELETE,
+			SmfEventExposureOperation::CreateIndividualSubcription => reqwest::Method::POST,
+			SmfEventExposureOperation::GetIndividualSubcription => reqwest::Method::GET,
+			SmfEventExposureOperation::ReplaceIndividualSubcription => reqwest::Method::PUT,
+			SmfEventExposureOperation::DeleteIndividualSubcription => reqwest::Method::DELETE,
 		}
 	}
 }
@@ -130,7 +108,7 @@ pub enum SmfNIDDOperation {
 impl super::ServiceProperties for SmfNIDDOperation {
 	fn get_path(&self) -> String {
 		match self {
-			SmfNIDDOperation::Deliver => "/pdu-sessions/{}/deliver".to_string(),
+			SmfNIDDOperation::Deliver => "pdu-sessions/{}/deliver".to_string(),
 		}
 	}
 

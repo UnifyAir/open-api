@@ -1,23 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum UdrServiceName {
-    #[default]
-    #[serde(rename = "nudr-groupidmap")]
-    GroupIDmap,
-}
-
 pub enum UdrService {
 	GroupIDmap(UdrGroupIDmapOperation),
 }
@@ -25,7 +5,7 @@ pub enum UdrService {
 impl super::ServiceProperties for UdrService {
 	fn get_path(&self) -> String {
 		match self {
-			UdrService::GroupIDmap(inner) => format!("/groupidmap/{}", inner.get_path()),
+			UdrService::GroupIDmap(inner) => format!("/nudr-group-id-map/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -36,19 +16,19 @@ impl super::ServiceProperties for UdrService {
 }
 
 pub enum UdrGroupIDmapOperation {
-	Getnfgroupids,
+	GetNfGroupIDs,
 }
 
 impl super::ServiceProperties for UdrGroupIDmapOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UdrGroupIDmapOperation::Getnfgroupids => "/nf-group-ids".to_string(),
+			UdrGroupIDmapOperation::GetNfGroupIDs => "nf-group-ids".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UdrGroupIDmapOperation::Getnfgroupids => reqwest::Method::GET,
+			UdrGroupIDmapOperation::GetNfGroupIDs => reqwest::Method::GET,
 		}
 	}
 }

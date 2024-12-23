@@ -1,25 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum MbsmfServiceName {
-    #[default]
-    #[serde(rename = "nmbsmf-mbssession")]
-    MBSSession,
-    #[serde(rename = "nmbsmf-tmgi")]
-    TMGI,
-}
-
 pub enum MbsmfService {
 	MBSSession(MbsmfMBSSessionOperation),
 	TMGI(MbsmfTMGIOperation),
@@ -28,8 +6,10 @@ pub enum MbsmfService {
 impl super::ServiceProperties for MbsmfService {
 	fn get_path(&self) -> String {
 		match self {
-			MbsmfService::MBSSession(inner) => format!("/mbssession/{}", inner.get_path()),
-			MbsmfService::TMGI(inner) => format!("/tmgi/{}", inner.get_path()),
+			MbsmfService::MBSSession(inner) => {
+				format!("/nmbsmf-mbssession/v1/{}", inner.get_path())
+			}
+			MbsmfService::TMGI(inner) => format!("/nmbsmf-tmgi/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -44,37 +24,37 @@ pub enum MbsmfMBSSessionOperation {
 	Create,
 	Update,
 	Release,
-	Contextupdate,
-	Statussubscribe,
-	Statussubscribemod,
-	Statusunsubscribe,
-	Contextstatussubscribe,
-	Contextstatussubscribemod,
-	Contextstatusunsubscribe,
+	ContextUpdate,
+	StatusSubscribe,
+	StatusSubscribeMod,
+	StatusUnSubscribe,
+	ContextStatusSubscribe,
+	ContextStatusSubscribeMod,
+	ContextStatusUnSubscribe,
 }
 
 impl super::ServiceProperties for MbsmfMBSSessionOperation {
 	fn get_path(&self) -> String {
 		match self {
-			MbsmfMBSSessionOperation::Create => "/mbs-sessions".to_string(),
-			MbsmfMBSSessionOperation::Update => "/mbs-sessions/{}".to_string(),
-			MbsmfMBSSessionOperation::Release => "/mbs-sessions/{}".to_string(),
-			MbsmfMBSSessionOperation::Contextupdate => "/mbs-sessions/contexts/update".to_string(),
-			MbsmfMBSSessionOperation::Statussubscribe => "/mbs-sessions/subscriptions".to_string(),
-			MbsmfMBSSessionOperation::Statussubscribemod => {
-				"/mbs-sessions/subscriptions/{}".to_string()
+			MbsmfMBSSessionOperation::Create => "mbs-sessions".to_string(),
+			MbsmfMBSSessionOperation::Update => "mbs-sessions/{}".to_string(),
+			MbsmfMBSSessionOperation::Release => "mbs-sessions/{}".to_string(),
+			MbsmfMBSSessionOperation::ContextUpdate => "mbs-sessions/contexts/update".to_string(),
+			MbsmfMBSSessionOperation::StatusSubscribe => "mbs-sessions/subscriptions".to_string(),
+			MbsmfMBSSessionOperation::StatusSubscribeMod => {
+				"mbs-sessions/subscriptions/{}".to_string()
 			}
-			MbsmfMBSSessionOperation::Statusunsubscribe => {
-				"/mbs-sessions/subscriptions/{}".to_string()
+			MbsmfMBSSessionOperation::StatusUnSubscribe => {
+				"mbs-sessions/subscriptions/{}".to_string()
 			}
-			MbsmfMBSSessionOperation::Contextstatussubscribe => {
-				"/mbs-sessions/contexts/subscriptions".to_string()
+			MbsmfMBSSessionOperation::ContextStatusSubscribe => {
+				"mbs-sessions/contexts/subscriptions".to_string()
 			}
-			MbsmfMBSSessionOperation::Contextstatussubscribemod => {
-				"/mbs-sessions/contexts/subscriptions/{}".to_string()
+			MbsmfMBSSessionOperation::ContextStatusSubscribeMod => {
+				"mbs-sessions/contexts/subscriptions/{}".to_string()
 			}
-			MbsmfMBSSessionOperation::Contextstatusunsubscribe => {
-				"/mbs-sessions/contexts/subscriptions/{}".to_string()
+			MbsmfMBSSessionOperation::ContextStatusUnSubscribe => {
+				"mbs-sessions/contexts/subscriptions/{}".to_string()
 			}
 		}
 	}
@@ -84,34 +64,34 @@ impl super::ServiceProperties for MbsmfMBSSessionOperation {
 			MbsmfMBSSessionOperation::Create => reqwest::Method::POST,
 			MbsmfMBSSessionOperation::Update => reqwest::Method::PATCH,
 			MbsmfMBSSessionOperation::Release => reqwest::Method::DELETE,
-			MbsmfMBSSessionOperation::Contextupdate => reqwest::Method::POST,
-			MbsmfMBSSessionOperation::Statussubscribe => reqwest::Method::POST,
-			MbsmfMBSSessionOperation::Statussubscribemod => reqwest::Method::PATCH,
-			MbsmfMBSSessionOperation::Statusunsubscribe => reqwest::Method::DELETE,
-			MbsmfMBSSessionOperation::Contextstatussubscribe => reqwest::Method::POST,
-			MbsmfMBSSessionOperation::Contextstatussubscribemod => reqwest::Method::PATCH,
-			MbsmfMBSSessionOperation::Contextstatusunsubscribe => reqwest::Method::DELETE,
+			MbsmfMBSSessionOperation::ContextUpdate => reqwest::Method::POST,
+			MbsmfMBSSessionOperation::StatusSubscribe => reqwest::Method::POST,
+			MbsmfMBSSessionOperation::StatusSubscribeMod => reqwest::Method::PATCH,
+			MbsmfMBSSessionOperation::StatusUnSubscribe => reqwest::Method::DELETE,
+			MbsmfMBSSessionOperation::ContextStatusSubscribe => reqwest::Method::POST,
+			MbsmfMBSSessionOperation::ContextStatusSubscribeMod => reqwest::Method::PATCH,
+			MbsmfMBSSessionOperation::ContextStatusUnSubscribe => reqwest::Method::DELETE,
 		}
 	}
 }
 
 pub enum MbsmfTMGIOperation {
-	Allocatetmgi,
-	Tmgideallocate,
+	AllocateTmgi,
+	TMGIDeallocate,
 }
 
 impl super::ServiceProperties for MbsmfTMGIOperation {
 	fn get_path(&self) -> String {
 		match self {
-			MbsmfTMGIOperation::Allocatetmgi => "/tmgi".to_string(),
-			MbsmfTMGIOperation::Tmgideallocate => "/tmgi".to_string(),
+			MbsmfTMGIOperation::AllocateTmgi => "tmgi".to_string(),
+			MbsmfTMGIOperation::TMGIDeallocate => "tmgi".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			MbsmfTMGIOperation::Allocatetmgi => reqwest::Method::POST,
-			MbsmfTMGIOperation::Tmgideallocate => reqwest::Method::DELETE,
+			MbsmfTMGIOperation::AllocateTmgi => reqwest::Method::POST,
+			MbsmfTMGIOperation::TMGIDeallocate => reqwest::Method::DELETE,
 		}
 	}
 }

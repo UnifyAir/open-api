@@ -1,32 +1,3 @@
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-	Copy,
-)]
-pub enum AmfServiceName {
-	#[default]
-	#[serde(rename = "namf-communication")]
-	Communication,
-	#[serde(rename = "namf-eventexposure")]
-	EventExposure,
-	#[serde(rename = "namf-location")]
-	Location,
-	#[serde(rename = "namf-mbsbroadcast")]
-	MBSBroadcast,
-	#[serde(rename = "namf-mbscommunication")]
-	MBSCommunication,
-	#[serde(rename = "namf-mt")]
-	MT,
-}
-
 pub enum AmfService {
 	Communication(AmfCommunicationOperation),
 	EventExposure(AmfEventExposureOperation),
@@ -39,14 +10,14 @@ pub enum AmfService {
 impl super::ServiceProperties for AmfService {
 	fn get_path(&self) -> String {
 		match self {
-			AmfService::Communication(inner) => format!("/communication/{}", inner.get_path()),
-			AmfService::EventExposure(inner) => format!("/eventexposure/{}", inner.get_path()),
-			AmfService::Location(inner) => format!("/location/{}", inner.get_path()),
-			AmfService::MBSBroadcast(inner) => format!("/mbsbroadcast/{}", inner.get_path()),
+			AmfService::Communication(inner) => format!("/namf-comm/v1/{}", inner.get_path()),
+			AmfService::EventExposure(inner) => format!("/namf-evts/v1/{}", inner.get_path()),
+			AmfService::Location(inner) => format!("/namf-loc/v1/{}", inner.get_path()),
+			AmfService::MBSBroadcast(inner) => format!("/namf-mbs-bc/v1/{}", inner.get_path()),
 			AmfService::MBSCommunication(inner) => {
-				format!("/mbscommunication/{}", inner.get_path())
+				format!("/namf-mbs-comm/v1/{}", inner.get_path())
 			}
-			AmfService::MT(inner) => format!("/mt/{}", inner.get_path()),
+			AmfService::MT(inner) => format!("/namf-mt/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -62,200 +33,198 @@ impl super::ServiceProperties for AmfService {
 }
 
 pub enum AmfCommunicationOperation {
-	Createuecontext,
-	Releaseuecontext,
-	Ebiassignment,
-	Uecontexttransfer,
-	Registrationstatusupdate,
-	Relocateuecontext,
-	Cancelrelocateuecontext,
-	N1n2messagetransfer,
-	N1n2messagesubscribe,
-	N1n2messageunsubscribe,
-	Nonuen2messagetransfer,
-	Nonuen2infosubscribe,
-	Nonuen2infounsubscribe,
-	Amfstatuschangesubscribe,
-	Amfstatuschangeunsubscribe,
-	Amfstatuschangesubscribemodfy,
+	CreateUEContext,
+	ReleaseUEContext,
+	EBIAssignment,
+	UEContextTransfer,
+	RegistrationStatusUpdate,
+	RelocateUEContext,
+	CancelRelocateUEContext,
+	N1N2MessageTransfer,
+	N1N2MessageSubscribe,
+	N1N2MessageUnSubscribe,
+	NonUeN2MessageTransfer,
+	NonUeN2InfoSubscribe,
+	NonUeN2InfoUnSubscribe,
+	AMFStatusChangeSubscribe,
+	AMFStatusChangeUnSubscribe,
+	AMFStatusChangeSubscribeModfy,
 }
 
 impl super::ServiceProperties for AmfCommunicationOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfCommunicationOperation::Createuecontext => "/ue-contexts/{}".to_string(),
-			AmfCommunicationOperation::Releaseuecontext => "/ue-contexts/{}/release".to_string(),
-			AmfCommunicationOperation::Ebiassignment => "/ue-contexts/{}/assign-ebi".to_string(),
-			AmfCommunicationOperation::Uecontexttransfer => "/ue-contexts/{}/transfer".to_string(),
-			AmfCommunicationOperation::Registrationstatusupdate => {
-				"/ue-contexts/{}/transfer-update".to_string()
+			AmfCommunicationOperation::CreateUEContext => "ue-contexts/{}".to_string(),
+			AmfCommunicationOperation::ReleaseUEContext => "ue-contexts/{}/release".to_string(),
+			AmfCommunicationOperation::EBIAssignment => "ue-contexts/{}/assign-ebi".to_string(),
+			AmfCommunicationOperation::UEContextTransfer => "ue-contexts/{}/transfer".to_string(),
+			AmfCommunicationOperation::RegistrationStatusUpdate => {
+				"ue-contexts/{}/transfer-update".to_string()
 			}
-			AmfCommunicationOperation::Relocateuecontext => "/ue-contexts/{}/relocate".to_string(),
-			AmfCommunicationOperation::Cancelrelocateuecontext => {
-				"/ue-contexts/{}/cancel-relocate".to_string()
+			AmfCommunicationOperation::RelocateUEContext => "ue-contexts/{}/relocate".to_string(),
+			AmfCommunicationOperation::CancelRelocateUEContext => {
+				"ue-contexts/{}/cancel-relocate".to_string()
 			}
-			AmfCommunicationOperation::N1n2messagetransfer => {
-				"/ue-contexts/{}/n1-n2-messages".to_string()
+			AmfCommunicationOperation::N1N2MessageTransfer => {
+				"ue-contexts/{}/n1-n2-messages".to_string()
 			}
-			AmfCommunicationOperation::N1n2messagesubscribe => {
-				"/ue-contexts/{}/n1-n2-messages/subscriptions".to_string()
+			AmfCommunicationOperation::N1N2MessageSubscribe => {
+				"ue-contexts/{}/n1-n2-messages/subscriptions".to_string()
 			}
-			AmfCommunicationOperation::N1n2messageunsubscribe => {
-				"/ue-contexts/{}/n1-n2-messages/subscriptions/{}".to_string()
+			AmfCommunicationOperation::N1N2MessageUnSubscribe => {
+				"ue-contexts/{}/n1-n2-messages/subscriptions/{}".to_string()
 			}
-			AmfCommunicationOperation::Nonuen2messagetransfer => {
-				"/non-ue-n2-messages/transfer".to_string()
+			AmfCommunicationOperation::NonUeN2MessageTransfer => {
+				"non-ue-n2-messages/transfer".to_string()
 			}
-			AmfCommunicationOperation::Nonuen2infosubscribe => {
-				"/non-ue-n2-messages/subscriptions".to_string()
+			AmfCommunicationOperation::NonUeN2InfoSubscribe => {
+				"non-ue-n2-messages/subscriptions".to_string()
 			}
-			AmfCommunicationOperation::Nonuen2infounsubscribe => {
-				"/non-ue-n2-messages/subscriptions/{}".to_string()
+			AmfCommunicationOperation::NonUeN2InfoUnSubscribe => {
+				"non-ue-n2-messages/subscriptions/{}".to_string()
 			}
-			AmfCommunicationOperation::Amfstatuschangesubscribe => "/subscriptions".to_string(),
-			AmfCommunicationOperation::Amfstatuschangeunsubscribe => {
-				"/subscriptions/{}".to_string()
-			}
-			AmfCommunicationOperation::Amfstatuschangesubscribemodfy => {
-				"/subscriptions/{}".to_string()
+			AmfCommunicationOperation::AMFStatusChangeSubscribe => "subscriptions".to_string(),
+			AmfCommunicationOperation::AMFStatusChangeUnSubscribe => "subscriptions/{}".to_string(),
+			AmfCommunicationOperation::AMFStatusChangeSubscribeModfy => {
+				"subscriptions/{}".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfCommunicationOperation::Createuecontext => reqwest::Method::PUT,
-			AmfCommunicationOperation::Releaseuecontext => reqwest::Method::POST,
-			AmfCommunicationOperation::Ebiassignment => reqwest::Method::POST,
-			AmfCommunicationOperation::Uecontexttransfer => reqwest::Method::POST,
-			AmfCommunicationOperation::Registrationstatusupdate => reqwest::Method::POST,
-			AmfCommunicationOperation::Relocateuecontext => reqwest::Method::POST,
-			AmfCommunicationOperation::Cancelrelocateuecontext => reqwest::Method::POST,
-			AmfCommunicationOperation::N1n2messagetransfer => reqwest::Method::POST,
-			AmfCommunicationOperation::N1n2messagesubscribe => reqwest::Method::POST,
-			AmfCommunicationOperation::N1n2messageunsubscribe => reqwest::Method::DELETE,
-			AmfCommunicationOperation::Nonuen2messagetransfer => reqwest::Method::POST,
-			AmfCommunicationOperation::Nonuen2infosubscribe => reqwest::Method::POST,
-			AmfCommunicationOperation::Nonuen2infounsubscribe => reqwest::Method::DELETE,
-			AmfCommunicationOperation::Amfstatuschangesubscribe => reqwest::Method::POST,
-			AmfCommunicationOperation::Amfstatuschangeunsubscribe => reqwest::Method::DELETE,
-			AmfCommunicationOperation::Amfstatuschangesubscribemodfy => reqwest::Method::PUT,
+			AmfCommunicationOperation::CreateUEContext => reqwest::Method::PUT,
+			AmfCommunicationOperation::ReleaseUEContext => reqwest::Method::POST,
+			AmfCommunicationOperation::EBIAssignment => reqwest::Method::POST,
+			AmfCommunicationOperation::UEContextTransfer => reqwest::Method::POST,
+			AmfCommunicationOperation::RegistrationStatusUpdate => reqwest::Method::POST,
+			AmfCommunicationOperation::RelocateUEContext => reqwest::Method::POST,
+			AmfCommunicationOperation::CancelRelocateUEContext => reqwest::Method::POST,
+			AmfCommunicationOperation::N1N2MessageTransfer => reqwest::Method::POST,
+			AmfCommunicationOperation::N1N2MessageSubscribe => reqwest::Method::POST,
+			AmfCommunicationOperation::N1N2MessageUnSubscribe => reqwest::Method::DELETE,
+			AmfCommunicationOperation::NonUeN2MessageTransfer => reqwest::Method::POST,
+			AmfCommunicationOperation::NonUeN2InfoSubscribe => reqwest::Method::POST,
+			AmfCommunicationOperation::NonUeN2InfoUnSubscribe => reqwest::Method::DELETE,
+			AmfCommunicationOperation::AMFStatusChangeSubscribe => reqwest::Method::POST,
+			AmfCommunicationOperation::AMFStatusChangeUnSubscribe => reqwest::Method::DELETE,
+			AmfCommunicationOperation::AMFStatusChangeSubscribeModfy => reqwest::Method::PUT,
 		}
 	}
 }
 
 pub enum AmfEventExposureOperation {
-	Createsubscription,
-	Modifysubscription,
-	Deletesubscription,
+	CreateSubscription,
+	ModifySubscription,
+	DeleteSubscription,
 }
 
 impl super::ServiceProperties for AmfEventExposureOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfEventExposureOperation::Createsubscription => "/subscriptions".to_string(),
-			AmfEventExposureOperation::Modifysubscription => "/subscriptions/{}".to_string(),
-			AmfEventExposureOperation::Deletesubscription => "/subscriptions/{}".to_string(),
+			AmfEventExposureOperation::CreateSubscription => "subscriptions".to_string(),
+			AmfEventExposureOperation::ModifySubscription => "subscriptions/{}".to_string(),
+			AmfEventExposureOperation::DeleteSubscription => "subscriptions/{}".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfEventExposureOperation::Createsubscription => reqwest::Method::POST,
-			AmfEventExposureOperation::Modifysubscription => reqwest::Method::PATCH,
-			AmfEventExposureOperation::Deletesubscription => reqwest::Method::DELETE,
+			AmfEventExposureOperation::CreateSubscription => reqwest::Method::POST,
+			AmfEventExposureOperation::ModifySubscription => reqwest::Method::PATCH,
+			AmfEventExposureOperation::DeleteSubscription => reqwest::Method::DELETE,
 		}
 	}
 }
 
 pub enum AmfLocationOperation {
-	Providepositioninginfo,
-	Providelocationinfo,
-	Cancellocation,
+	ProvidePositioningInfo,
+	ProvideLocationInfo,
+	CancelLocation,
 }
 
 impl super::ServiceProperties for AmfLocationOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfLocationOperation::Providepositioninginfo => "/{}/provide-pos-info".to_string(),
-			AmfLocationOperation::Providelocationinfo => "/{}/provide-loc-info".to_string(),
-			AmfLocationOperation::Cancellocation => "/{}/cancel-pos-info".to_string(),
+			AmfLocationOperation::ProvidePositioningInfo => "{}/provide-pos-info".to_string(),
+			AmfLocationOperation::ProvideLocationInfo => "{}/provide-loc-info".to_string(),
+			AmfLocationOperation::CancelLocation => "{}/cancel-pos-info".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfLocationOperation::Providepositioninginfo => reqwest::Method::POST,
-			AmfLocationOperation::Providelocationinfo => reqwest::Method::POST,
-			AmfLocationOperation::Cancellocation => reqwest::Method::POST,
+			AmfLocationOperation::ProvidePositioningInfo => reqwest::Method::POST,
+			AmfLocationOperation::ProvideLocationInfo => reqwest::Method::POST,
+			AmfLocationOperation::CancelLocation => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum AmfMBSBroadcastOperation {
-	Contextcreate,
-	Contextdelete,
-	Contextupdate,
+	ContextCreate,
+	ContextDelete,
+	ContextUpdate,
 }
 
 impl super::ServiceProperties for AmfMBSBroadcastOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfMBSBroadcastOperation::Contextcreate => "/mbs-contexts".to_string(),
-			AmfMBSBroadcastOperation::Contextdelete => "/mbs-contexts/{}".to_string(),
-			AmfMBSBroadcastOperation::Contextupdate => "/mbs-contexts/{}/update".to_string(),
+			AmfMBSBroadcastOperation::ContextCreate => "mbs-contexts".to_string(),
+			AmfMBSBroadcastOperation::ContextDelete => "mbs-contexts/{}".to_string(),
+			AmfMBSBroadcastOperation::ContextUpdate => "mbs-contexts/{}/update".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfMBSBroadcastOperation::Contextcreate => reqwest::Method::POST,
-			AmfMBSBroadcastOperation::Contextdelete => reqwest::Method::DELETE,
-			AmfMBSBroadcastOperation::Contextupdate => reqwest::Method::POST,
+			AmfMBSBroadcastOperation::ContextCreate => reqwest::Method::POST,
+			AmfMBSBroadcastOperation::ContextDelete => reqwest::Method::DELETE,
+			AmfMBSBroadcastOperation::ContextUpdate => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum AmfMBSCommunicationOperation {
-	N2messagetransfer,
+	N2MessageTransfer,
 }
 
 impl super::ServiceProperties for AmfMBSCommunicationOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfMBSCommunicationOperation::N2messagetransfer => "/n2-messages/transfer".to_string(),
+			AmfMBSCommunicationOperation::N2MessageTransfer => "n2-messages/transfer".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfMBSCommunicationOperation::N2messagetransfer => reqwest::Method::POST,
+			AmfMBSCommunicationOperation::N2MessageTransfer => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum AmfMTOperation {
-	Providedomainselectioninfo,
-	Enableuereachability,
-	Enablegroupreachability,
+	ProvideDomainSelectionInfo,
+	EnableUeReachability,
+	EnableGroupReachability,
 }
 
 impl super::ServiceProperties for AmfMTOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AmfMTOperation::Providedomainselectioninfo => "/ue-contexts/{}".to_string(),
-			AmfMTOperation::Enableuereachability => "/ue-contexts/{}/ue-reachind".to_string(),
-			AmfMTOperation::Enablegroupreachability => {
-				"/ue-contexts/enable-group-reachability".to_string()
+			AmfMTOperation::ProvideDomainSelectionInfo => "ue-contexts/{}".to_string(),
+			AmfMTOperation::EnableUeReachability => "ue-contexts/{}/ue-reachind".to_string(),
+			AmfMTOperation::EnableGroupReachability => {
+				"ue-contexts/enable-group-reachability".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AmfMTOperation::Providedomainselectioninfo => reqwest::Method::GET,
-			AmfMTOperation::Enableuereachability => reqwest::Method::PUT,
-			AmfMTOperation::Enablegroupreachability => reqwest::Method::POST,
+			AmfMTOperation::ProvideDomainSelectionInfo => reqwest::Method::GET,
+			AmfMTOperation::EnableUeReachability => reqwest::Method::PUT,
+			AmfMTOperation::EnableGroupReachability => reqwest::Method::POST,
 		}
 	}
 }

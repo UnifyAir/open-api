@@ -1,25 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum NssfServiceName {
-    #[default]
-    #[serde(rename = "nnssf-nssaiavailability")]
-    NSSAIAvailability,
-    #[serde(rename = "nnssf-nsselection")]
-    NSSelection,
-}
-
 pub enum NssfService {
 	NSSAIAvailability(NssfNSSAIAvailabilityOperation),
 	NSSelection(NssfNSSelectionOperation),
@@ -29,9 +7,11 @@ impl super::ServiceProperties for NssfService {
 	fn get_path(&self) -> String {
 		match self {
 			NssfService::NSSAIAvailability(inner) => {
-				format!("/nssaiavailability/{}", inner.get_path())
+				format!("/nnssf-nssaiavailability/v1/{}", inner.get_path())
 			}
-			NssfService::NSSelection(inner) => format!("/nsselection/{}", inner.get_path()),
+			NssfService::NSSelection(inner) => {
+				format!("/nnssf-nsselection/v2/{}", inner.get_path())
+			}
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -43,71 +23,71 @@ impl super::ServiceProperties for NssfService {
 }
 
 pub enum NssfNSSAIAvailabilityOperation {
-	Nssaiavailabilityput,
-	Nssaiavailabilitypatch,
-	Nssaiavailabilitydelete,
-	Nssaiavailabilitypost,
-	Nssaiavailabilityunsubscribe,
-	Nssaiavailabilitysubmodifypatch,
-	Nssaiavailabilityoptions,
+	NSSAIAvailabilityPut,
+	NSSAIAvailabilityPatch,
+	NSSAIAvailabilityDelete,
+	NSSAIAvailabilityPost,
+	NSSAIAvailabilityUnsubscribe,
+	NSSAIAvailabilitySubModifyPatch,
+	NSSAIAvailabilityOptions,
 }
 
 impl super::ServiceProperties for NssfNSSAIAvailabilityOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityput => {
-				"/nssai-availability/{}".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPut => {
+				"nssai-availability/{}".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitypatch => {
-				"/nssai-availability/{}".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPatch => {
+				"nssai-availability/{}".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitydelete => {
-				"/nssai-availability/{}".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityDelete => {
+				"nssai-availability/{}".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitypost => {
-				"/nssai-availability/subscriptions".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPost => {
+				"nssai-availability/subscriptions".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityunsubscribe => {
-				"/nssai-availability/subscriptions/{}".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityUnsubscribe => {
+				"nssai-availability/subscriptions/{}".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitysubmodifypatch => {
-				"/nssai-availability/subscriptions/{}".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilitySubModifyPatch => {
+				"nssai-availability/subscriptions/{}".to_string()
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityoptions => {
-				"/nssai-availability".to_string()
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityOptions => {
+				"nssai-availability".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityput => reqwest::Method::PUT,
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitypatch => reqwest::Method::PATCH,
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitydelete => reqwest::Method::DELETE,
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitypost => reqwest::Method::POST,
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityunsubscribe => reqwest::Method::DELETE,
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilitysubmodifypatch => {
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPut => reqwest::Method::PUT,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPatch => reqwest::Method::PATCH,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityDelete => reqwest::Method::DELETE,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityPost => reqwest::Method::POST,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityUnsubscribe => reqwest::Method::DELETE,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilitySubModifyPatch => {
 				reqwest::Method::PATCH
 			}
-			NssfNSSAIAvailabilityOperation::Nssaiavailabilityoptions => reqwest::Method::OPTIONS,
+			NssfNSSAIAvailabilityOperation::NSSAIAvailabilityOptions => reqwest::Method::OPTIONS,
 		}
 	}
 }
 
 pub enum NssfNSSelectionOperation {
-	Nsselectionget,
+	NSSelectionGet,
 }
 
 impl super::ServiceProperties for NssfNSSelectionOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NssfNSSelectionOperation::Nsselectionget => "/network-slice-information".to_string(),
+			NssfNSSelectionOperation::NSSelectionGet => "network-slice-information".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NssfNSSelectionOperation::Nsselectionget => reqwest::Method::GET,
+			NssfNSSelectionOperation::NSSelectionGet => reqwest::Method::GET,
 		}
 	}
 }

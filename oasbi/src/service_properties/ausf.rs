@@ -1,27 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum AusfServiceName {
-    #[default]
-    #[serde(rename = "nausf-sorprotection")]
-    SoRProtection,
-    #[serde(rename = "nausf-ueauthentication")]
-    UEAuthentication,
-    #[serde(rename = "nausf-upuprotection")]
-    UPUProtection,
-}
-
 pub enum AusfService {
 	SoRProtection(AusfSoRProtectionOperation),
 	UEAuthentication(AusfUEAuthenticationOperation),
@@ -31,11 +7,13 @@ pub enum AusfService {
 impl super::ServiceProperties for AusfService {
 	fn get_path(&self) -> String {
 		match self {
-			AusfService::SoRProtection(inner) => format!("/sorprotection/{}", inner.get_path()),
-			AusfService::UEAuthentication(inner) => {
-				format!("/ueauthentication/{}", inner.get_path())
+			AusfService::SoRProtection(inner) => {
+				format!("/nausf-sorprotection/v1/{}", inner.get_path())
 			}
-			AusfService::UPUProtection(inner) => format!("/upuprotection/{}", inner.get_path()),
+			AusfService::UEAuthentication(inner) => format!("/nausf-auth/v1/{}", inner.get_path()),
+			AusfService::UPUProtection(inner) => {
+				format!("/nausf-upuprotection/v1/{}", inner.get_path())
+			}
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -48,88 +26,86 @@ impl super::ServiceProperties for AusfService {
 }
 
 pub enum AusfSoRProtectionOperation {
-	Postuesor,
+	CreateSoRProtection,
 }
 
 impl super::ServiceProperties for AusfSoRProtectionOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AusfSoRProtectionOperation::Postuesor => "/{}/ue-sor".to_string(),
+			AusfSoRProtectionOperation::CreateSoRProtection => "{}/ue-sor".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AusfSoRProtectionOperation::Postuesor => reqwest::Method::POST,
+			AusfSoRProtectionOperation::CreateSoRProtection => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum AusfUEAuthenticationOperation {
-	Postueauthentications,
-	Postueauthenticationsderegister,
-	Putueauthentications5gakaconfirmation,
-	Delete5gakaauthenticationresult,
-	Eapauthmethod,
-	Deleteeapauthenticationresult,
-	Postrgauthentications,
-	Postproseauthentications,
-	Proseauth,
-	Deleteproseauthenticationresult,
+	CreateUEAuthentication,
+	DeregisterUE,
+	Create5gAkaAuthenticationResult,
+	Delete5gAkaAuthenticationResult,
+	EapAuthMethod,
+	DeleteEapAuthenticationResult,
+	CreateRgAuthentication,
+	CreateProSeEapSession,
+	ProseAuth,
+	DeleteProSeAuthenticationResult,
 }
 
 impl super::ServiceProperties for AusfUEAuthenticationOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AusfUEAuthenticationOperation::Postueauthentications => {
-				"/ue-authentications".to_string()
+			AusfUEAuthenticationOperation::CreateUEAuthentication => {
+				"ue-authentications".to_string()
 			}
-			AusfUEAuthenticationOperation::Postueauthenticationsderegister => {
-				"/ue-authentications/deregister".to_string()
+			AusfUEAuthenticationOperation::DeregisterUE => {
+				"ue-authentications/deregister".to_string()
 			}
-			AusfUEAuthenticationOperation::Putueauthentications5gakaconfirmation => {
-				"/ue-authentications/{}/5g-aka-confirmation".to_string()
+			AusfUEAuthenticationOperation::Create5gAkaAuthenticationResult => {
+				"ue-authentications/{}/5g-aka-confirmation".to_string()
 			}
-			AusfUEAuthenticationOperation::Delete5gakaauthenticationresult => {
-				"/ue-authentications/{}/5g-aka-confirmation".to_string()
+			AusfUEAuthenticationOperation::Delete5gAkaAuthenticationResult => {
+				"ue-authentications/{}/5g-aka-confirmation".to_string()
 			}
-			AusfUEAuthenticationOperation::Eapauthmethod => {
-				"/ue-authentications/{}/eap-session".to_string()
+			AusfUEAuthenticationOperation::EapAuthMethod => {
+				"ue-authentications/{}/eap-session".to_string()
 			}
-			AusfUEAuthenticationOperation::Deleteeapauthenticationresult => {
-				"/ue-authentications/{}/eap-session".to_string()
+			AusfUEAuthenticationOperation::DeleteEapAuthenticationResult => {
+				"ue-authentications/{}/eap-session".to_string()
 			}
-			AusfUEAuthenticationOperation::Postrgauthentications => {
-				"/rg-authentications".to_string()
+			AusfUEAuthenticationOperation::CreateRgAuthentication => {
+				"rg-authentications".to_string()
 			}
-			AusfUEAuthenticationOperation::Postproseauthentications => {
-				"/prose-authentications".to_string()
+			AusfUEAuthenticationOperation::CreateProSeEapSession => {
+				"prose-authentications".to_string()
 			}
-			AusfUEAuthenticationOperation::Proseauth => {
-				"/prose-authentications/{}/prose-auth".to_string()
+			AusfUEAuthenticationOperation::ProseAuth => {
+				"prose-authentications/{}/prose-auth".to_string()
 			}
-			AusfUEAuthenticationOperation::Deleteproseauthenticationresult => {
-				"/prose-authentications/{}/prose-auth".to_string()
+			AusfUEAuthenticationOperation::DeleteProSeAuthenticationResult => {
+				"prose-authentications/{}/prose-auth".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AusfUEAuthenticationOperation::Postueauthentications => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Postueauthenticationsderegister => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Putueauthentications5gakaconfirmation => {
-				reqwest::Method::PUT
-			}
-			AusfUEAuthenticationOperation::Delete5gakaauthenticationresult => {
+			AusfUEAuthenticationOperation::CreateUEAuthentication => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::DeregisterUE => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::Create5gAkaAuthenticationResult => reqwest::Method::PUT,
+			AusfUEAuthenticationOperation::Delete5gAkaAuthenticationResult => {
 				reqwest::Method::DELETE
 			}
-			AusfUEAuthenticationOperation::Eapauthmethod => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Deleteeapauthenticationresult => reqwest::Method::DELETE,
-			AusfUEAuthenticationOperation::Postrgauthentications => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Postproseauthentications => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Proseauth => reqwest::Method::POST,
-			AusfUEAuthenticationOperation::Deleteproseauthenticationresult => {
+			AusfUEAuthenticationOperation::EapAuthMethod => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::DeleteEapAuthenticationResult => reqwest::Method::DELETE,
+			AusfUEAuthenticationOperation::CreateRgAuthentication => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::CreateProSeEapSession => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::ProseAuth => reqwest::Method::POST,
+			AusfUEAuthenticationOperation::DeleteProSeAuthenticationResult => {
 				reqwest::Method::DELETE
 			}
 		}
@@ -137,19 +113,19 @@ impl super::ServiceProperties for AusfUEAuthenticationOperation {
 }
 
 pub enum AusfUPUProtectionOperation {
-	Postueupu,
+	CreateUPUProtection,
 }
 
 impl super::ServiceProperties for AusfUPUProtectionOperation {
 	fn get_path(&self) -> String {
 		match self {
-			AusfUPUProtectionOperation::Postueupu => "/{}/ue-upu".to_string(),
+			AusfUPUProtectionOperation::CreateUPUProtection => "{}/ue-upu".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			AusfUPUProtectionOperation::Postueupu => reqwest::Method::POST,
+			AusfUPUProtectionOperation::CreateUPUProtection => reqwest::Method::POST,
 		}
 	}
 }

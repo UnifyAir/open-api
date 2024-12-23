@@ -1,22 +1,3 @@
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-	Copy,
-)]
-pub enum UpfServiceName {
-	#[default]
-	#[serde(rename = "nupf-eventexposure")]
-	EventExposure,
-}
-
 pub enum UpfService {
 	EventExposure(UpfEventExposureOperation),
 }
@@ -24,7 +5,7 @@ pub enum UpfService {
 impl super::ServiceProperties for UpfService {
 	fn get_path(&self) -> String {
 		match self {
-			UpfService::EventExposure(inner) => format!("/eventexposure/{}", inner.get_path()),
+			UpfService::EventExposure(inner) => format!("/nupf-ee/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -35,21 +16,21 @@ impl super::ServiceProperties for UpfService {
 }
 
 pub enum UpfEventExposureOperation {
-	Createindividualsubcription,
+	CreateIndividualSubcription,
 }
 
 impl super::ServiceProperties for UpfEventExposureOperation {
 	fn get_path(&self) -> String {
 		match self {
-			UpfEventExposureOperation::Createindividualsubcription => {
-				"/ee-subscriptions".to_string()
+			UpfEventExposureOperation::CreateIndividualSubcription => {
+				"ee-subscriptions".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			UpfEventExposureOperation::Createindividualsubcription => reqwest::Method::POST,
+			UpfEventExposureOperation::CreateIndividualSubcription => reqwest::Method::POST,
 		}
 	}
 }

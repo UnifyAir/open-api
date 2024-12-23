@@ -1,27 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum ChfServiceName {
-    #[default]
-    #[serde(rename = "nchf-spendinglimitcontrol")]
-    SpendingLimitControl,
-    #[serde(rename = "nchf-convergedcharging")]
-    ConvergedCharging,
-    #[serde(rename = "nchf-offlineonlycharging")]
-    OfflineOnlyCharging,
-}
-
 pub enum ChfService {
 	SpendingLimitControl(ChfSpendingLimitControlOperation),
 	ConvergedCharging(ChfConvergedChargingOperation),
@@ -32,13 +8,13 @@ impl super::ServiceProperties for ChfService {
 	fn get_path(&self) -> String {
 		match self {
 			ChfService::SpendingLimitControl(inner) => {
-				format!("/spendinglimitcontrol/{}", inner.get_path())
+				format!("/nchf-spendinglimitcontrol/v1/{}", inner.get_path())
 			}
 			ChfService::ConvergedCharging(inner) => {
-				format!("/convergedcharging/{}", inner.get_path())
+				format!("/nchf-convergedcharging/v3/{}", inner.get_path())
 			}
 			ChfService::OfflineOnlyCharging(inner) => {
-				format!("/offlineonlycharging/{}", inner.get_path())
+				format!("/nchf-offlineonlycharging/v1/{}", inner.get_path())
 			}
 		}
 	}
@@ -52,85 +28,83 @@ impl super::ServiceProperties for ChfService {
 }
 
 pub enum ChfSpendingLimitControlOperation {
-	Postsubscriptions,
-	Putsubscriptions,
-	Deletesubscriptions,
+	PostSUBSCRIPTIONS,
+	PutSUBSCRIPTIONS,
+	DeleteSUBSCRIPTIONS,
 }
 
 impl super::ServiceProperties for ChfSpendingLimitControlOperation {
 	fn get_path(&self) -> String {
 		match self {
-			ChfSpendingLimitControlOperation::Postsubscriptions => "/subscriptions".to_string(),
-			ChfSpendingLimitControlOperation::Putsubscriptions => "/subscriptions/{}".to_string(),
-			ChfSpendingLimitControlOperation::Deletesubscriptions => {
-				"/subscriptions/{}".to_string()
-			}
+			ChfSpendingLimitControlOperation::PostSUBSCRIPTIONS => "subscriptions".to_string(),
+			ChfSpendingLimitControlOperation::PutSUBSCRIPTIONS => "subscriptions/{}".to_string(),
+			ChfSpendingLimitControlOperation::DeleteSUBSCRIPTIONS => "subscriptions/{}".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			ChfSpendingLimitControlOperation::Postsubscriptions => reqwest::Method::POST,
-			ChfSpendingLimitControlOperation::Putsubscriptions => reqwest::Method::PUT,
-			ChfSpendingLimitControlOperation::Deletesubscriptions => reqwest::Method::DELETE,
+			ChfSpendingLimitControlOperation::PostSUBSCRIPTIONS => reqwest::Method::POST,
+			ChfSpendingLimitControlOperation::PutSUBSCRIPTIONS => reqwest::Method::PUT,
+			ChfSpendingLimitControlOperation::DeleteSUBSCRIPTIONS => reqwest::Method::DELETE,
 		}
 	}
 }
 
 pub enum ChfConvergedChargingOperation {
-	Postchargingdata,
-	Postchargingdataupdate,
-	Postchargingdatarelease,
+	PostCHARGINGDATA,
+	PostCHARGINGDATAUPDATE,
+	PostCHARGINGDATARELEASE,
 }
 
 impl super::ServiceProperties for ChfConvergedChargingOperation {
 	fn get_path(&self) -> String {
 		match self {
-			ChfConvergedChargingOperation::Postchargingdata => "/chargingdata".to_string(),
-			ChfConvergedChargingOperation::Postchargingdataupdate => {
-				"/chargingdata/{}/update".to_string()
+			ChfConvergedChargingOperation::PostCHARGINGDATA => "chargingdata".to_string(),
+			ChfConvergedChargingOperation::PostCHARGINGDATAUPDATE => {
+				"chargingdata/{}/update".to_string()
 			}
-			ChfConvergedChargingOperation::Postchargingdatarelease => {
-				"/chargingdata/{}/release".to_string()
+			ChfConvergedChargingOperation::PostCHARGINGDATARELEASE => {
+				"chargingdata/{}/release".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			ChfConvergedChargingOperation::Postchargingdata => reqwest::Method::POST,
-			ChfConvergedChargingOperation::Postchargingdataupdate => reqwest::Method::POST,
-			ChfConvergedChargingOperation::Postchargingdatarelease => reqwest::Method::POST,
+			ChfConvergedChargingOperation::PostCHARGINGDATA => reqwest::Method::POST,
+			ChfConvergedChargingOperation::PostCHARGINGDATAUPDATE => reqwest::Method::POST,
+			ChfConvergedChargingOperation::PostCHARGINGDATARELEASE => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum ChfOfflineOnlyChargingOperation {
-	Postofflinechargingdata,
-	Postofflinechargingdataupdate,
-	Postofflinechargingdatarelease,
+	PostOFFLINECHARGINGDATA,
+	PostOFFLINECHARGINGDATAUPDATE,
+	PostOFFLINECHARGINGDATARELEASE,
 }
 
 impl super::ServiceProperties for ChfOfflineOnlyChargingOperation {
 	fn get_path(&self) -> String {
 		match self {
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdata => {
-				"/offlinechargingdata".to_string()
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATA => {
+				"offlinechargingdata".to_string()
 			}
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdataupdate => {
-				"/offlinechargingdata/{}/update".to_string()
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATAUPDATE => {
+				"offlinechargingdata/{}/update".to_string()
 			}
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdatarelease => {
-				"/offlinechargingdata/{}/release".to_string()
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATARELEASE => {
+				"offlinechargingdata/{}/release".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdata => reqwest::Method::POST,
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdataupdate => reqwest::Method::POST,
-			ChfOfflineOnlyChargingOperation::Postofflinechargingdatarelease => {
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATA => reqwest::Method::POST,
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATAUPDATE => reqwest::Method::POST,
+			ChfOfflineOnlyChargingOperation::PostOFFLINECHARGINGDATARELEASE => {
 				reqwest::Method::POST
 			}
 		}

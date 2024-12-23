@@ -1,29 +1,3 @@
-
-#[derive(
-	::serde::Deserialize,
-	::serde::Serialize,
-	Clone,
-	Debug,
-	Eq,
-	Hash,
-	Ord,
-	PartialEq,
-	PartialOrd,
-	smart_default::SmartDefault,
-    Copy,
-)]
-pub enum NrfServiceName {
-    #[default]
-    #[serde(rename = "nnrf-accesstoken")]
-    AccessToken,
-    #[serde(rename = "nnrf-bootstrapping")]
-    Bootstrapping,
-    #[serde(rename = "nnrf-nfdiscovery")]
-    NFDiscovery,
-    #[serde(rename = "nnrf-nfmanagement")]
-    NFManagement,
-}
-
 pub enum NrfService {
 	AccessToken(NrfAccessTokenOperation),
 	Bootstrapping(NrfBootstrappingOperation),
@@ -34,10 +8,10 @@ pub enum NrfService {
 impl super::ServiceProperties for NrfService {
 	fn get_path(&self) -> String {
 		match self {
-			NrfService::AccessToken(inner) => format!("/accesstoken/{}", inner.get_path()),
-			NrfService::Bootstrapping(inner) => format!("/bootstrapping/{}", inner.get_path()),
-			NrfService::NFDiscovery(inner) => format!("/nfdiscovery/{}", inner.get_path()),
-			NrfService::NFManagement(inner) => format!("/nfmanagement/{}", inner.get_path()),
+			NrfService::AccessToken(inner) => format!("///{}", inner.get_path()),
+			NrfService::Bootstrapping(inner) => format!("///{}", inner.get_path()),
+			NrfService::NFDiscovery(inner) => format!("/nnrf-disc/v1/{}", inner.get_path()),
+			NrfService::NFManagement(inner) => format!("/nnrf-nfm/v1/{}", inner.get_path()),
 		}
 	}
 	fn get_http_method(&self) -> reqwest::Method {
@@ -51,118 +25,118 @@ impl super::ServiceProperties for NrfService {
 }
 
 pub enum NrfAccessTokenOperation {
-	Accesstokenrequest,
+	AccessTokenRequest,
 }
 
 impl super::ServiceProperties for NrfAccessTokenOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NrfAccessTokenOperation::Accesstokenrequest => "/oauth2/token".to_string(),
+			NrfAccessTokenOperation::AccessTokenRequest => "oauth2/token".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NrfAccessTokenOperation::Accesstokenrequest => reqwest::Method::POST,
+			NrfAccessTokenOperation::AccessTokenRequest => reqwest::Method::POST,
 		}
 	}
 }
 
 pub enum NrfBootstrappingOperation {
-	Bootstrappinginforequest,
+	BootstrappingInfoRequest,
 }
 
 impl super::ServiceProperties for NrfBootstrappingOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NrfBootstrappingOperation::Bootstrappinginforequest => "/bootstrapping".to_string(),
+			NrfBootstrappingOperation::BootstrappingInfoRequest => "bootstrapping".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NrfBootstrappingOperation::Bootstrappinginforequest => reqwest::Method::GET,
+			NrfBootstrappingOperation::BootstrappingInfoRequest => reqwest::Method::GET,
 		}
 	}
 }
 
 pub enum NrfNFDiscoveryOperation {
-	Searchnfinstances,
-	Retrievestoredsearch,
-	Retrievecompletesearch,
-	Scpdomainroutinginfoget,
-	Scpdomainroutinginfosubscribe,
-	Scpdomainroutinginfounsubscribe,
+	SearchNFInstances,
+	RetrieveStoredSearch,
+	RetrieveCompleteSearch,
+	SCPDomainRoutingInfoGet,
+	ScpDomainRoutingInfoSubscribe,
+	ScpDomainRoutingInfoUnsubscribe,
 }
 
 impl super::ServiceProperties for NrfNFDiscoveryOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NrfNFDiscoveryOperation::Searchnfinstances => "/nf-instances".to_string(),
-			NrfNFDiscoveryOperation::Retrievestoredsearch => "/searches/{}".to_string(),
-			NrfNFDiscoveryOperation::Retrievecompletesearch => "/searches/{}/complete".to_string(),
-			NrfNFDiscoveryOperation::Scpdomainroutinginfoget => {
-				"/scp-domain-routing-info".to_string()
+			NrfNFDiscoveryOperation::SearchNFInstances => "nf-instances".to_string(),
+			NrfNFDiscoveryOperation::RetrieveStoredSearch => "searches/{}".to_string(),
+			NrfNFDiscoveryOperation::RetrieveCompleteSearch => "searches/{}/complete".to_string(),
+			NrfNFDiscoveryOperation::SCPDomainRoutingInfoGet => {
+				"scp-domain-routing-info".to_string()
 			}
-			NrfNFDiscoveryOperation::Scpdomainroutinginfosubscribe => {
-				"/scp-domain-routing-info-subs".to_string()
+			NrfNFDiscoveryOperation::ScpDomainRoutingInfoSubscribe => {
+				"scp-domain-routing-info-subs".to_string()
 			}
-			NrfNFDiscoveryOperation::Scpdomainroutinginfounsubscribe => {
-				"/scp-domain-routing-info-subs/{}".to_string()
+			NrfNFDiscoveryOperation::ScpDomainRoutingInfoUnsubscribe => {
+				"scp-domain-routing-info-subs/{}".to_string()
 			}
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NrfNFDiscoveryOperation::Searchnfinstances => reqwest::Method::GET,
-			NrfNFDiscoveryOperation::Retrievestoredsearch => reqwest::Method::GET,
-			NrfNFDiscoveryOperation::Retrievecompletesearch => reqwest::Method::GET,
-			NrfNFDiscoveryOperation::Scpdomainroutinginfoget => reqwest::Method::GET,
-			NrfNFDiscoveryOperation::Scpdomainroutinginfosubscribe => reqwest::Method::POST,
-			NrfNFDiscoveryOperation::Scpdomainroutinginfounsubscribe => reqwest::Method::DELETE,
+			NrfNFDiscoveryOperation::SearchNFInstances => reqwest::Method::GET,
+			NrfNFDiscoveryOperation::RetrieveStoredSearch => reqwest::Method::GET,
+			NrfNFDiscoveryOperation::RetrieveCompleteSearch => reqwest::Method::GET,
+			NrfNFDiscoveryOperation::SCPDomainRoutingInfoGet => reqwest::Method::GET,
+			NrfNFDiscoveryOperation::ScpDomainRoutingInfoSubscribe => reqwest::Method::POST,
+			NrfNFDiscoveryOperation::ScpDomainRoutingInfoUnsubscribe => reqwest::Method::DELETE,
 		}
 	}
 }
 
 pub enum NrfNFManagementOperation {
-	Getnfinstances,
-	Optionsnfinstances,
-	Getnfinstance,
-	Registernfinstance,
-	Updatenfinstance,
-	Deregisternfinstance,
-	Createsubscription,
-	Updatesubscription,
-	Removesubscription,
+	GetNFInstances,
+	OptionsNFInstances,
+	GetNFInstance,
+	RegisterNFInstance,
+	UpdateNFInstance,
+	DeregisterNFInstance,
+	CreateSubscription,
+	UpdateSubscription,
+	RemoveSubscription,
 }
 
 impl super::ServiceProperties for NrfNFManagementOperation {
 	fn get_path(&self) -> String {
 		match self {
-			NrfNFManagementOperation::Getnfinstances => "/nf-instances".to_string(),
-			NrfNFManagementOperation::Optionsnfinstances => "/nf-instances".to_string(),
-			NrfNFManagementOperation::Getnfinstance => "/nf-instances/{}".to_string(),
-			NrfNFManagementOperation::Registernfinstance => "/nf-instances/{}".to_string(),
-			NrfNFManagementOperation::Updatenfinstance => "/nf-instances/{}".to_string(),
-			NrfNFManagementOperation::Deregisternfinstance => "/nf-instances/{}".to_string(),
-			NrfNFManagementOperation::Createsubscription => "/subscriptions".to_string(),
-			NrfNFManagementOperation::Updatesubscription => "/subscriptions/{}".to_string(),
-			NrfNFManagementOperation::Removesubscription => "/subscriptions/{}".to_string(),
+			NrfNFManagementOperation::GetNFInstances => "nf-instances".to_string(),
+			NrfNFManagementOperation::OptionsNFInstances => "nf-instances".to_string(),
+			NrfNFManagementOperation::GetNFInstance => "nf-instances/{}".to_string(),
+			NrfNFManagementOperation::RegisterNFInstance => "nf-instances/{}".to_string(),
+			NrfNFManagementOperation::UpdateNFInstance => "nf-instances/{}".to_string(),
+			NrfNFManagementOperation::DeregisterNFInstance => "nf-instances/{}".to_string(),
+			NrfNFManagementOperation::CreateSubscription => "subscriptions".to_string(),
+			NrfNFManagementOperation::UpdateSubscription => "subscriptions/{}".to_string(),
+			NrfNFManagementOperation::RemoveSubscription => "subscriptions/{}".to_string(),
 		}
 	}
 
 	fn get_http_method(&self) -> reqwest::Method {
 		match self {
-			NrfNFManagementOperation::Getnfinstances => reqwest::Method::GET,
-			NrfNFManagementOperation::Optionsnfinstances => reqwest::Method::OPTIONS,
-			NrfNFManagementOperation::Getnfinstance => reqwest::Method::GET,
-			NrfNFManagementOperation::Registernfinstance => reqwest::Method::PUT,
-			NrfNFManagementOperation::Updatenfinstance => reqwest::Method::PATCH,
-			NrfNFManagementOperation::Deregisternfinstance => reqwest::Method::DELETE,
-			NrfNFManagementOperation::Createsubscription => reqwest::Method::POST,
-			NrfNFManagementOperation::Updatesubscription => reqwest::Method::PATCH,
-			NrfNFManagementOperation::Removesubscription => reqwest::Method::DELETE,
+			NrfNFManagementOperation::GetNFInstances => reqwest::Method::GET,
+			NrfNFManagementOperation::OptionsNFInstances => reqwest::Method::OPTIONS,
+			NrfNFManagementOperation::GetNFInstance => reqwest::Method::GET,
+			NrfNFManagementOperation::RegisterNFInstance => reqwest::Method::PUT,
+			NrfNFManagementOperation::UpdateNFInstance => reqwest::Method::PATCH,
+			NrfNFManagementOperation::DeregisterNFInstance => reqwest::Method::DELETE,
+			NrfNFManagementOperation::CreateSubscription => reqwest::Method::POST,
+			NrfNFManagementOperation::UpdateSubscription => reqwest::Method::PATCH,
+			NrfNFManagementOperation::RemoveSubscription => reqwest::Method::DELETE,
 		}
 	}
 }
