@@ -20,8 +20,8 @@ pub fn new<I, A>(api_impl: I) -> Router
 {
 	// build our application with a route
 	Router::new()
-		.route("//bootstrapping", get(bootstrapping_info_request::<I, A>))
-		.route("//oauth2/token", post(access_token_request::<I, A>))
+		.route("/bootstrapping", get(bootstrapping_info_request::<I, A>))
+		.route("/oauth2/token", post(access_token_request::<I, A>))
 		.route(
 			"/nnrf-disc/v1/nf-instances",
 			get(search_nf_instances::<I, A>),

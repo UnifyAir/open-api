@@ -530,9 +530,17 @@ pub struct NfProfile1Unchecked {
 	/// A map (list of key-value pairs) where a (unique) valid JSON
 	/// string serves as key of AanfInfo
 	pub fqdn: Option<Fqdn>,
-	#[serde(rename = "ipv4Addresses")]
+	#[serde(
+		rename = "ipv4Addresses",
+		skip_serializing_if = "Vec::is_empty",
+		default
+	)]
 	pub ipv4_addresses: Vec<Ipv4Addr>,
-	#[serde(rename = "ipv6Addresses")]
+	#[serde(
+		rename = "ipv4Addresses",
+		skip_serializing_if = "Vec::is_empty",
+		default
+	)]
 	pub ipv6_addresses: Vec<Ipv6Addr>,
 	#[serde(
 		rename = "aanfInfoList",
