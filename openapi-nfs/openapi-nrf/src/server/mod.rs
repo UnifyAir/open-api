@@ -184,47 +184,53 @@ where
 				accept_encoding,
 				content_encoding,
 			} => {
-				let cache_control = match header::IntoHeaderValue(cache_control).try_into() {
-					Ok(val) => val,
-					Err(e) => {
-						return Response::builder()
-							.status(StatusCode::INTERNAL_SERVER_ERROR)
-							.body(Body::from(format!(
-								"An internal server error occurred handling cache_control header \
+				if let Some(cache_control) = cache_control {
+					let cache_control = match header::IntoHeaderValue(cache_control).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!(
+									"An internal server error occurred handling cache_control header \
 								 - {}",
-								e
-							)))
-							.map_err(|e| {
-								error!(error = ?e);
-								StatusCode::INTERNAL_SERVER_ERROR
-							});
+									e
+								)))
+								.map_err(|e| {
+									error!(error = ?e);
+									StatusCode::INTERNAL_SERVER_ERROR
+								});
+						}
+					};
+
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(HeaderName::from_static(""), cache_control);
+					}
+				}
+
+				if let Some(pragma) = pragma {
+					let pragma = match header::IntoHeaderValue(pragma).try_into() {
+						Ok(val) => val,
+						Err(e) => {
+							return Response::builder()
+								.status(StatusCode::INTERNAL_SERVER_ERROR)
+								.body(Body::from(format!(
+									"An internal server error occurred handling pragma header - {}",
+									e
+								)))
+								.map_err(|e| {
+									error!(error = ?e);
+									StatusCode::INTERNAL_SERVER_ERROR
+								});
+						}
+					};
+
+					{
+						let mut response_headers = response.headers_mut().unwrap();
+						response_headers.insert(HeaderName::from_static(""), pragma);
 					}
 				};
 
-				{
-					let mut response_headers = response.headers_mut().unwrap();
-					response_headers.insert(HeaderName::from_static(""), cache_control);
-				}
-				let pragma = match header::IntoHeaderValue(pragma).try_into() {
-					Ok(val) => val,
-					Err(e) => {
-						return Response::builder()
-							.status(StatusCode::INTERNAL_SERVER_ERROR)
-							.body(Body::from(format!(
-								"An internal server error occurred handling pragma header - {}",
-								e
-							)))
-							.map_err(|e| {
-								error!(error = ?e);
-								StatusCode::INTERNAL_SERVER_ERROR
-							});
-					}
-				};
-
-				{
-					let mut response_headers = response.headers_mut().unwrap();
-					response_headers.insert(HeaderName::from_static(""), pragma);
-				}
 				if let Some(accept_encoding) = accept_encoding {
 					let accept_encoding = match header::IntoHeaderValue(accept_encoding).try_into()
 					{

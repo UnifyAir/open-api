@@ -18,8 +18,8 @@ pub enum AccessTokenRequestResponse {
 	/// Successful Access Token Request
 	Status200 {
 		body: models::AccessTokenRsp,
-		cache_control: String,
-		pragma: String,
+		cache_control: Option<String>,
+		pragma: Option<String>,
 		accept_encoding: Option<String>,
 		content_encoding: Option<String>,
 	} = 200,
@@ -69,24 +69,16 @@ impl DeserResponse for AccessTokenRequestResponse {
 
 		match status.as_u16() {
 			200 => {
-				let cache_control: String = resp
+				let cache_control: Option<String> = resp
 					.headers()
 					.get(reqwest::header::CACHE_CONTROL)
-					.ok_or(ReqError::RequiredHeaderNotFound(
-						"cache_control".to_string(),
-						Backtrace::force_capture(),
-					))?
-					.to_str()?
-					.to_owned();
-				let pragma: String = resp
+					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
+					.flatten();
+				let pragma: Option<String> = resp
 					.headers()
 					.get(reqwest::header::PRAGMA)
-					.ok_or(ReqError::RequiredHeaderNotFound(
-						"pragma".to_string(),
-						Backtrace::force_capture(),
-					))?
-					.to_str()?
-					.to_owned();
+					.map(|v| v.to_str().ok().map(|s| s.to_owned()))
+					.flatten();
 				let accept_encoding: Option<String> = resp
 					.headers()
 					.get(reqwest::header::ACCEPT_ENCODING)
