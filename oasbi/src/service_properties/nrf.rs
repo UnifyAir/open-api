@@ -8,8 +8,8 @@ pub enum NrfService {
 impl super::ServiceProperties for NrfService {
 	fn get_path(&self) -> String {
 		match self {
-			NrfService::AccessToken(inner) => format!("///{}", inner.get_path()),
-			NrfService::Bootstrapping(inner) => format!("///{}", inner.get_path()),
+			NrfService::AccessToken(inner) => format!("/{}", inner.get_path()),
+			NrfService::Bootstrapping(inner) => format!("/{}", inner.get_path()),
 			NrfService::NFDiscovery(inner) => format!("/nnrf-disc/v1/{}", inner.get_path()),
 			NrfService::NFManagement(inner) => format!("/nnrf-nfm/v1/{}", inner.get_path()),
 		}
