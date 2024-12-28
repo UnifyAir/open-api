@@ -17072,7 +17072,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy, PartialEq, Eq, Hash
 	)]
 	pub struct NfInstanceId(pub uuid::Uuid);
 
@@ -36611,6 +36611,7 @@ pub struct Client {
 	pub(crate) client: reqwest::Client,
 }
 
+#[allow(dead_code)]
 impl Client {
 	/// Create a new client.
 	///
