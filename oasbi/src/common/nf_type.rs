@@ -84,6 +84,7 @@ use std::marker::ConstParamTy;
 	PartialOrd,
 	smart_default::SmartDefault,
 	ConstParamTy,
+	Copy
 )]
 pub enum NfType {
 	#[default]
