@@ -929,6 +929,12 @@ impl From<&NfProfile1Unchecked> for NfProfile1Unchecked {
 #[serde(try_from = "NfProfile1Unchecked")]
 pub struct NfProfile1(NfProfile1Unchecked);
 
+impl NfProfile1 {
+	pub fn get(&self) -> &NfProfile1Unchecked {
+		&self.0
+	}
+}
+
 impl TryFrom<NfProfile1Unchecked> for NfProfile1 {
 	type Error = error::ConversionError;
 
