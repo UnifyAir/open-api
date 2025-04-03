@@ -58,3 +58,4 @@ fqdn = { version = "0.4.3", features = [
     "domain-label-cannot-start-or-end-with-hyphen",
     "domain-name-without-special-chars",
 ] }
+ascii = { version = "1.1.0", features = ["serde"] }

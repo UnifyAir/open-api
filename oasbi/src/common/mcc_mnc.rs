@@ -1,5 +1,6 @@
 use std::{fmt::Display, str::FromStr};
 
+use ascii::AsciiString;
 use serde_with::{DeserializeFromStr, SerializeDisplay};
 
 use super::{
@@ -24,7 +25,6 @@ use super::{
 /// ```
 /// </details>
 #[derive(
-	Copy,
 	Clone,
 	Debug,
 	Eq,
@@ -36,13 +36,20 @@ use super::{
 	SerializeDisplay,
 	DeserializeFromStr,
 )]
-pub struct Mcc(u16); // 3 digits can fit in a u16.
+pub struct Mcc(AsciiString); // 3 digits can fit in a u16.
+
+fn convert_to_ascii_string(value: u16) -> AsciiString {
+	let bytes = value.to_string().into_bytes();
+	// SAFETY: Converting a number to string will only produce ASCII digits (0-9)
+	unsafe { AsciiString::from_ascii_unchecked(bytes) }
+}
 
 impl TryFrom<u16> for Mcc {
 	type Error = ConversionError;
 	fn try_from(value: u16) -> Result<Self, Self::Error> {
 		if value > 99 && value < 1000 {
-			Ok(Mcc(value))
+			let int_ascii = convert_to_ascii_string(value);
+			Ok(Mcc(int_ascii))
 		} else {
 			Err("Mcc must be a 3 digit (100 to 999)")?
 		}
@@ -54,18 +61,30 @@ impl FromStr for Mcc {
 	type Err = ConversionError;
 
 	fn from_str(value: &str) -> Result<Self, Self::Err> {
-		u16::from_str_radix(value, 10)
-			.map_err(|e| format!("Mcc Parsing Error: {}", e.to_string()))?
-			.try_into()
+		if value.len() != 3 {
+			return Err("Mcc must be exactly 3 digits".into());
+		}
+		if !value.chars().all(|c| c.is_ascii_digit()) {
+			return Err("Mcc must contain only digits".into());
+		}
+		// SAFETY: `value` is a valid ASCII string as all characters are digits
+		let mcc_ascii = unsafe { AsciiString::from_ascii_unchecked(value.as_bytes()) };
+		Ok(Mcc(mcc_ascii))
+	}
+}
+
+impl Mcc {
+	pub unsafe fn from_str_unchecked(value: String) -> Self {
+		let ascii = AsciiString::from_ascii_unchecked(value.into_bytes());
+		Mcc(ascii)
 	}
 }
 
 impl_try_from_strings!(Mcc);
 display_for_newtype!(Mcc);
-deref_for_newtype!(Mcc, u16);
+deref_for_newtype!(Mcc, AsciiString);
 
 #[derive(
-	Copy,
 	Clone,
 	Debug,
 	Eq,
@@ -77,13 +96,14 @@ deref_for_newtype!(Mcc, u16);
 	SerializeDisplay,
 	DeserializeFromStr,
 )]
-pub struct Mnc(u16); // 2 or 3 digits can fit in a u16.
+pub struct Mnc(AsciiString); // 2 or 3 digits can fit in a u16.
 
 impl TryFrom<u16> for Mnc {
 	type Error = ConversionError;
 	fn try_from(value: u16) -> Result<Self, Self::Error> {
 		if value > 9 && value < 1000 {
-			Ok(Mnc(value))
+			let int_ascii = convert_to_ascii_string(value);
+			Ok(Mnc(int_ascii))
 		} else {
 			Err("Mnc must be a 2-3 digit (10 to 999)")?
 		}
@@ -95,15 +115,28 @@ impl FromStr for Mnc {
 	type Err = ConversionError;
 
 	fn from_str(value: &str) -> Result<Self, Self::Err> {
-		u16::from_str_radix(value, 10)
-			.map_err(|e| format!("Mnc Parsing Error: {}", e.to_string()))?
-			.try_into()
+		if value.len() < 2 || value.len() > 3 {
+			return Err("Mnc must be 2 or 3 digits".into());
+		}
+		if !value.chars().all(|c| c.is_ascii_digit()) {
+			return Err("Mnc must contain only digits".into());
+		}
+		// SAFETY: `value` is a valid ASCII string as all characters are digits
+		let ascii = unsafe { AsciiString::from_ascii_unchecked(value.as_bytes()) };
+		Ok(Mnc(ascii))
+	}
+}
+
+impl Mnc {
+	pub unsafe fn from_str_unchecked(value: String) -> Self {
+		let ascii = AsciiString::from_ascii_unchecked(value.into_bytes());
+		Mnc(ascii)
 	}
 }
 
 impl_try_from_strings!(Mnc);
 display_for_newtype!(Mnc);
-deref_for_newtype!(Mnc, u16);
+deref_for_newtype!(Mnc, AsciiString);
 
 #[cfg(test)]
 mod tests {
@@ -111,10 +144,23 @@ mod tests {
 
 	use super::*;
 
+	fn assert_mcc_valid(input: &str) {
+		let mcc = Mcc::from_str(input).unwrap();
+		assert_eq!(mcc.to_string(), input);
+	}
+
+	fn assert_mnc_valid(input: &str) {
+		let mnc = Mnc::from_str(input).unwrap();
+		assert_eq!(mnc.to_string(), input);
+	}
+
 	#[test]
 	fn test_mcc_valid() {
-		let mcc = Mcc::from_str("310").unwrap();
-		assert_eq!(mcc.to_string(), "310");
+		assert_mcc_valid("310");
+		assert_mcc_valid("001");
+		assert_mcc_valid("010");
+		assert_mcc_valid("100");
+		assert_mcc_valid("999");
 	}
 
 	#[test]
@@ -136,11 +182,12 @@ mod tests {
 
 	#[test]
 	fn test_mnc_valid() {
-		let mnc_2_digits = Mnc::from_str("10").unwrap();
-		assert_eq!(mnc_2_digits.to_string(), "10");
-
-		let mnc_3_digits = Mnc::from_str("123").unwrap();
-		assert_eq!(mnc_3_digits.to_string(), "123");
+		assert_mnc_valid("10");
+		assert_mnc_valid("123");
+		assert_mnc_valid("001");
+		assert_mnc_valid("010");
+		assert_mnc_valid("01");
+		assert_mnc_valid("999");
 	}
 
 	#[test]

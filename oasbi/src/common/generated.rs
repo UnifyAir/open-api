@@ -21195,7 +21195,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy,
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
 	)]
 	pub struct PlmnId {
 		pub mcc: Mcc,

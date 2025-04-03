@@ -25,3 +25,4 @@ retry-after = { path = "../retry-after" }
 fqdn.workspace = true
 ipnet.workspace = true
 serde_with.workspace = true
+ascii.workspace = true
