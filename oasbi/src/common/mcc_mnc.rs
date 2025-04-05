@@ -1,3 +1,4 @@
+use macros::NewUnchecked;
 use std::{fmt::Display, str::FromStr};
 
 use ascii::AsciiString;
@@ -35,6 +36,7 @@ use super::{
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
+	NewUnchecked
 )]
 pub struct Mcc(AsciiString); // 3 digits can fit in a u16.
 
@@ -73,13 +75,6 @@ impl FromStr for Mcc {
 	}
 }
 
-impl Mcc {
-	pub unsafe fn from_str_unchecked(value: String) -> Self {
-		let ascii = AsciiString::from_ascii_unchecked(value.into_bytes());
-		Mcc(ascii)
-	}
-}
-
 impl_try_from_strings!(Mcc);
 display_for_newtype!(Mcc);
 deref_for_newtype!(Mcc, AsciiString);
@@ -95,6 +90,7 @@ deref_for_newtype!(Mcc, AsciiString);
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
+	NewUnchecked
 )]
 pub struct Mnc(AsciiString); // 2 or 3 digits can fit in a u16.
 
@@ -127,12 +123,6 @@ impl FromStr for Mnc {
 	}
 }
 
-impl Mnc {
-	pub unsafe fn from_str_unchecked(value: String) -> Self {
-		let ascii = AsciiString::from_ascii_unchecked(value.into_bytes());
-		Mnc(ascii)
-	}
-}
 
 impl_try_from_strings!(Mnc);
 display_for_newtype!(Mnc);

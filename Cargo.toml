@@ -1,5 +1,5 @@
 [workspace]
-members = ["oasbi", "openapi-nfs/*", "retry-after", "scripts/*"]
+members = ["oasbi", "openapi-nfs/*", "macros", "retry-after", "scripts/*"]
 resolver = "2"
 
 [workspace.package]
