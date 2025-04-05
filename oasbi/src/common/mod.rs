@@ -19,6 +19,7 @@ pub use ipv6_prefix::Ipv6Prefix;
 pub use mcc_mnc::{Mcc, Mnc};
 pub use nf_type::NfType;
 pub use uri::Uri;
+pub use macros::NewUnchecked;
 
 pub mod error {
 	/// Error from a TryFrom or FromStr implementation.

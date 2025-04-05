@@ -2,9 +2,9 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 
 #[allow(unused_imports)]
-use crate::progenitor_client::{encode_path, RequestBuilderExt};
-#[allow(unused_imports)]
 pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use crate::progenitor_client::{RequestBuilderExt, encode_path};
 
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
@@ -1592,6 +1592,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct AmfEventReportTypeCode(String);
 
@@ -2580,6 +2581,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct AmfUpdateEventOptionItemPath(String);
 
@@ -2878,6 +2880,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct AmfUpdateEventSubscriptionItemPath(String);
 
@@ -5787,6 +5790,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CorrelationId(String);
 
@@ -8439,6 +8443,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct E164Number(String);
 
@@ -12827,6 +12832,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct LdrReference(String);
 
@@ -22206,6 +22212,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct RegistrationContextContainerRrcEstCause(String);
 
@@ -25224,6 +25231,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SeafDataNh(String);
 
@@ -26641,6 +26649,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TacRangeEnd(String);
 
@@ -26732,6 +26741,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TacRangeStart(String);
 

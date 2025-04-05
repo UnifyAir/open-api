@@ -1,10 +1,10 @@
-use macros::NewUnchecked;
-use std::{fmt::Display, str::FromStr};
+use std::str::FromStr;
 
 use ascii::AsciiString;
 use serde_with::{DeserializeFromStr, SerializeDisplay};
 
 use super::{
+	NewUnchecked,
 	deref_for_newtype,
 	display_for_newtype,
 	error::ConversionError,
@@ -36,7 +36,7 @@ use super::{
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
-	NewUnchecked
+	NewUnchecked,
 )]
 pub struct Mcc(AsciiString); // 3 digits can fit in a u16.
 
@@ -90,7 +90,7 @@ deref_for_newtype!(Mcc, AsciiString);
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
-	NewUnchecked
+	NewUnchecked,
 )]
 pub struct Mnc(AsciiString); // 2 or 3 digits can fit in a u16.
 
@@ -122,7 +122,6 @@ impl FromStr for Mnc {
 		Ok(Mnc(ascii))
 	}
 }
-
 
 impl_try_from_strings!(Mnc);
 display_for_newtype!(Mnc);

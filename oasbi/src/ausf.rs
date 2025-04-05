@@ -2,14 +2,14 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 
 #[allow(unused_imports)]
-use crate::progenitor_client::{encode_path, RequestBuilderExt};
-#[allow(unused_imports)]
 pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use crate::progenitor_client::{RequestBuilderExt, encode_path};
 
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
 pub mod types {
-	
+
 	/// Error types.
 	pub use crate::common::*;
 
@@ -547,6 +547,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct AuthenticationInfoRoutingIndicator(String);
 
@@ -638,6 +639,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Autn(String);
 
@@ -729,6 +731,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Auts(String);
 
@@ -958,6 +961,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CounterSor(String);
 
@@ -1050,6 +1054,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CounterUpu(String);
 
@@ -1318,6 +1323,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct HxresStar(String);
 
@@ -1410,6 +1416,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct KnrProSe(String);
 
@@ -1502,6 +1509,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Kseaf(String);
 
@@ -1594,6 +1602,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Msk(String);
 
@@ -2077,6 +2086,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Rand(String);
 
@@ -2214,6 +2224,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ResStarInner(String);
 
@@ -2436,6 +2447,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct RoutingId(String);
 
@@ -2593,6 +2605,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ServingNetworkName(String);
 
@@ -2830,6 +2843,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SorMac(String);
 
@@ -3147,6 +3161,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Suci(String);
 
@@ -3506,6 +3521,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UpuHeader(String);
 
@@ -3665,6 +3681,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UpuMac(String);
 

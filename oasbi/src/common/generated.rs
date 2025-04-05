@@ -2,15 +2,28 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 
 #[allow(unused_imports)]
-use crate::progenitor_client::{encode_path, RequestBuilderExt};
-#[allow(unused_imports)]
 pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use crate::progenitor_client::{RequestBuilderExt, encode_path};
 
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
 pub mod types {
-	use crate::common::error;
-	use crate::common::{NfType, Uri, Ipv4Addr, Ipv6Addr, Fqdn, Ipv6Prefix, Ipv4AddrMask, AmfId, Mcc, Mnc};
+	use macros::NewUnchecked;
+
+	use crate::common::{
+		AmfId,
+		Fqdn,
+		Ipv4Addr,
+		Ipv4AddrMask,
+		Ipv6Addr,
+		Ipv6Prefix,
+		Mcc,
+		Mnc,
+		NfType,
+		Uri,
+		error,
+	};
 
 	/// Error returned in the access token response message
 	///
@@ -470,6 +483,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct AccessTokenReqScope(String);
 
@@ -1134,7 +1148,6 @@ pub mod types {
 			Self::NullValue(value)
 		}
 	}
-
 
 	/// AmfName
 	///
@@ -2881,6 +2894,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct BitRate(String);
 
@@ -3022,6 +3036,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct BitRateRmInner(String);
 
@@ -3315,6 +3330,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CMsisdn(String);
 
@@ -3454,6 +3470,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CMsisdnRmInner(String);
 
@@ -3546,6 +3563,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CagId(String);
 
@@ -3685,6 +3703,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CellGlobalIdCellId(String);
 
@@ -3776,6 +3795,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct CellGlobalIdLac(String);
 
@@ -6421,6 +6441,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ENbId(String);
 
@@ -6901,6 +6922,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct EutraCellId(String);
 
@@ -7044,6 +7066,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct EutraCellIdRmInner(String);
 
@@ -7277,6 +7300,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct EutraLocationGeodeticInformation(String);
 
@@ -7373,6 +7397,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct EutraLocationGeographicalInformation(String);
 
@@ -7942,6 +7967,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ExtSnssaiSd(String);
 
@@ -8036,6 +8062,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ExternalGroupId(String);
 
@@ -8185,6 +8212,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ExternalGroupIdRmInner(String);
 
@@ -8504,7 +8532,6 @@ pub mod types {
 		}
 	}
 
-
 	/// a matching rule for a FQDN pattern
 	///
 	/// <details><summary>JSON schema</summary>
@@ -8705,6 +8732,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GNbIdGNbValue(String);
 
@@ -9319,6 +9347,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant0GeodeticInformation(String);
 
@@ -9415,6 +9444,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant0GeographicalInformation(String);
 
@@ -9513,6 +9543,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant1GeodeticInformation(String);
 
@@ -9609,6 +9640,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant1GeographicalInformation(String);
 
@@ -9707,6 +9739,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant2GeodeticInformation(String);
 
@@ -9803,6 +9836,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GeraLocationVariant2GeographicalInformation(String);
 
@@ -10114,6 +10148,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Gpsi(String);
 
@@ -10269,6 +10304,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GpsiRmInner(String);
 
@@ -10368,6 +10404,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GroupId(String);
 
@@ -10522,6 +10559,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct GroupIdRmInner(String);
 
@@ -10788,6 +10826,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct HfcNId(String);
 
@@ -10923,6 +10962,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct HfcNIdRmInner(String);
 
@@ -11848,7 +11888,6 @@ pub mod types {
 		}
 	}
 
-
 	/// String identifying an IPv6 address formatted according to clause 4 of
 	/// RFC5952 with the OpenAPI 'nullable: true' property. The mixed IPv4 IPv6
 	/// notation according to clause 5 of RFC5952 shall not be used.
@@ -12735,6 +12774,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct LocationAreaIdLac(String);
 
@@ -13352,6 +13392,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct MacAddr48(String);
 
@@ -13499,6 +13540,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct MacAddr48RmInner(String);
 
@@ -13912,6 +13954,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct MbsFsaId(String);
 
@@ -15419,7 +15462,6 @@ pub mod types {
 		}
 	}
 
-
 	/// Mobile Country Code part of the PLMN, comprising 3 digits, as defined in
 	/// clause 9.3.3.5 of  3GPP TS 38.413 with the OpenAPI 'nullable: true'
 	/// property.
@@ -16336,8 +16378,6 @@ pub mod types {
 		}
 	}
 
-
-
 	/// Mobile Network Code part of the PLMN, comprising 2 or 3 digits, as
 	/// defined in clause 9.3.3.5 of 3GPP TS 38.413 with the OpenAPI 'nullable:
 	/// true' property.
@@ -16386,7 +16426,6 @@ pub mod types {
 			Self(value)
 		}
 	}
-
 
 	/// Contain the MO Exception Data Counter.
 	///
@@ -16527,6 +16566,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct N3IwfId(String);
 
@@ -16750,6 +16790,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct N3gaLocationN3IwfId(String);
 
@@ -17072,7 +17113,15 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Copy, PartialEq, Eq, Hash
+		::serde::Deserialize,
+		::serde::Serialize,
+		Clone,
+		Debug,
+		smart_default::SmartDefault,
+		Copy,
+		PartialEq,
+		Eq,
+		Hash,
 	)]
 	pub struct NfInstanceId(pub uuid::Uuid);
 
@@ -17393,6 +17442,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NgeNbId(String);
 
@@ -17483,6 +17533,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Nid(String);
 
@@ -17624,6 +17675,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NidRmInner(String);
 
@@ -18090,6 +18142,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NrCellId(String);
 
@@ -18233,6 +18286,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NrCellIdRmInner(String);
 
@@ -18445,6 +18499,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NrLocationGeodeticInformation(String);
 
@@ -18541,6 +18596,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NrLocationGeographicalInformation(String);
 
@@ -19103,7 +19159,12 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
+		::serde::Deserialize,
+		::serde::Serialize,
+		Clone,
+		Debug,
+		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct NullValue(pub ());
 
@@ -19547,6 +19608,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PacketErrRate(String);
 
@@ -19690,6 +19752,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PacketErrRateRmInner(String);
 
@@ -20786,6 +20849,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Pei(String);
 
@@ -20937,6 +21001,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PeiRmInner(String);
 
@@ -25642,6 +25707,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct RoutingAreaIdLac(String);
 
@@ -25734,6 +25800,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct RoutingAreaIdRac(String);
 
@@ -26527,6 +26594,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SdRangeEnd(String);
 
@@ -26623,6 +26691,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SdRangeStart(String);
 
@@ -27079,6 +27148,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ServiceAreaIdLac(String);
 
@@ -27171,6 +27241,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct ServiceAreaIdSac(String);
 
@@ -29623,6 +29694,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SnssaiSd(String);
 
@@ -30407,6 +30479,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Supi(String);
 
@@ -30505,6 +30578,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SupiOrSuci(String);
 
@@ -30655,6 +30729,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SupiRmInner(String);
 
@@ -30761,6 +30836,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SupportedFeatures(String);
 
@@ -30993,6 +31069,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Tac(String);
 
@@ -31174,6 +31251,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TacRmInner(String);
 
@@ -31604,6 +31682,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TmgiMbsServiceId(String);
 
@@ -31815,6 +31894,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TngfId(String);
 
@@ -32196,6 +32276,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TraceDataInnerEventList(String);
 
@@ -32305,6 +32386,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TraceDataInnerInterfaceList(String);
 
@@ -32410,6 +32492,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TraceDataInnerNeTypeList(String);
 
@@ -32518,6 +32601,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TraceDataInnerTraceRef(String);
 
@@ -33199,6 +33283,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct TypeAllocationCode(String);
 
@@ -34867,6 +34952,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant0GeodeticInformation(String);
 
@@ -34963,6 +35049,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant0GeographicalInformation(String);
 
@@ -35061,6 +35148,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant1GeodeticInformation(String);
 
@@ -35157,6 +35245,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant1GeographicalInformation(String);
 
@@ -35255,6 +35344,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant2GeodeticInformation(String);
 
@@ -35351,6 +35441,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct UtraLocationVariant2GeographicalInformation(String);
 
@@ -35447,6 +35538,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct VarUeId(String);
 
@@ -35597,6 +35689,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct VarUeIdRmInner(String);
 
@@ -35758,6 +35851,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct WAgfId(String);
 
@@ -35851,6 +35945,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct WildcardDnn(String);
 
@@ -35988,6 +36083,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct WildcardDnnRmInner(String);
 
@@ -36262,6 +36358,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct _5gPrukId(String);
 
@@ -36297,6 +36394,7 @@ pub mod types {
 			{
 				return Err("doesn't match pattern \
 				            \"^rid[0-9]{1,4}\\.pid[0-9a-fA-F]+\\@prose-cp\\.5gc\\.mnc[0-9]{2,3}\\
+				            \
 				            .mcc[0-9]{3}\\.3gppnetwork\\.org$\""
 					.into());
 			}

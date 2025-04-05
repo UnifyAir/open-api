@@ -4,7 +4,6 @@
 
 use std::backtrace::Backtrace;
 
-
 use retry_after::FromHeaderValueError;
 use thiserror::Error;
 
@@ -12,6 +11,7 @@ pub mod amf;
 pub mod ausf;
 pub mod chf;
 pub mod common;
+mod modified;
 pub mod nrf;
 pub mod nssf;
 pub mod pcf;
@@ -21,7 +21,6 @@ pub mod smf;
 pub mod udm;
 pub mod udr;
 pub mod upf;
-mod modified;
 
 #[derive(Debug, Error)]
 pub enum ReqError {

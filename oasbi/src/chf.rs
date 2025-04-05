@@ -2,14 +2,14 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 
 #[allow(unused_imports)]
-use crate::progenitor_client::{encode_path, RequestBuilderExt};
-#[allow(unused_imports)]
 pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use crate::progenitor_client::{RequestBuilderExt, encode_path};
 
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
 pub mod types {
-	
+
 	/// Error types.
 	pub use crate::common::*;
 
@@ -1952,6 +1952,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct E164(String);
 
@@ -5596,6 +5597,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct N2ConnectionChargingInformationRrcEstCause(String);
 
@@ -7252,6 +7254,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct OctetString(String);
 
@@ -8765,6 +8768,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionInformationChargingCharacteristics(String);
 
@@ -12541,6 +12545,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SchemasMcc(String);
 
@@ -12632,6 +12637,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SchemasMnc(String);
 
@@ -12757,6 +12763,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SchemasTac(String);
 
@@ -14871,6 +14878,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SmsChargingInformationSMStatus(String);
 

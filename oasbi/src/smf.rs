@@ -2,14 +2,14 @@
 use reqwest::header::{HeaderMap, HeaderValue};
 
 #[allow(unused_imports)]
-use crate::progenitor_client::{encode_path, RequestBuilderExt};
-#[allow(unused_imports)]
 pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use crate::progenitor_client::{RequestBuilderExt, encode_path};
 
 /// Types used as operation parameters and responses.
 #[allow(clippy::all)]
 pub mod types {
-	
+
 	/// Error types.
 	pub use crate::common::*;
 
@@ -1728,6 +1728,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct EpsBearerContextStatus(String);
 
@@ -3985,6 +3986,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct HsmfUpdateErrorN1smCause(String);
 
@@ -4271,6 +4273,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct HsmfUpdatedDataHomeProvidedChargingId(String);
 
@@ -7012,6 +7015,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreateDataVariant0ChargingId(String);
 
@@ -7103,6 +7107,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreateDataVariant1ChargingId(String);
 
@@ -7259,6 +7264,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreateErrorN1smCause(String);
 
@@ -7917,6 +7923,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant0HomeProvidedChargingId(String);
 
@@ -8010,6 +8017,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant0SscMode(String);
 
@@ -8101,6 +8109,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant0UeIpv6InterfaceId(String);
 
@@ -8194,6 +8203,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant1HomeProvidedChargingId(String);
 
@@ -8287,6 +8297,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant1SscMode(String);
 
@@ -8378,6 +8389,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct PduSessionCreatedDataVariant1UeIpv6InterfaceId(String);
 
@@ -12039,6 +12051,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SmContextChargingId(String);
 
@@ -13415,6 +13428,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct SmContextSscMode(String);
 
@@ -15193,6 +15207,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct Teid(String);
 
@@ -17217,6 +17232,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked,
 	)]
 	pub struct VsmfUpdateErrorN1smCause(String);
 

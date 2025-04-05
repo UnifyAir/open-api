@@ -1,6 +1,7 @@
 #[allow(unused_imports)]
 use reqwest::header::{HeaderMap, HeaderValue};
 
+
 #[allow(unused_imports)]
 use crate::progenitor_client::{encode_path, RequestBuilderExt};
 #[allow(unused_imports)]
@@ -557,6 +558,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct AccessAndMobilitySubscriptionDataRoutingIndicator(String);
 
@@ -2903,6 +2905,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct AuthenticationInfoResultRoutingId(String);
 
@@ -3200,6 +3203,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Autn(String);
 
@@ -3291,6 +3295,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Auts(String);
 
@@ -3851,6 +3856,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct CkPrime(String);
 
@@ -4639,6 +4645,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct ConfidentialityKey(String);
 
@@ -4777,6 +4784,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct CounterSor(String);
 
@@ -4869,6 +4877,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct CounterUpu(String);
 
@@ -6340,6 +6349,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct E164Number(String);
 
@@ -6752,6 +6762,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct EdrxParametersEdrxValue(String);
 
@@ -8083,6 +8094,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct ExtGroupId(String);
 
@@ -9397,6 +9409,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct IdentityRangeEnd(String);
 
@@ -9488,6 +9501,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct IdentityRangeStart(String);
 
@@ -9645,6 +9659,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct IkPrime(String);
 
@@ -9875,6 +9890,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct IntegrityKey(String);
 
@@ -10541,6 +10557,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Kasme(String);
 
@@ -10632,6 +10649,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Kausf(String);
 
@@ -16761,6 +16779,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct PtwParametersExtendedPtwValue(String);
 
@@ -16852,6 +16871,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct PtwParametersPtwValue(String);
 
@@ -17017,6 +17037,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Rand(String);
 
@@ -18303,6 +18324,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct RoutingId(String);
 
@@ -20412,6 +20434,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct ServingNetworkName(String);
 
@@ -20828,6 +20851,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct SharedDataId(String);
 
@@ -22167,6 +22191,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct SorMac(String);
 
@@ -22815,6 +22840,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Suci(String);
 
@@ -23036,6 +23062,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct SupiRangeEnd(String);
 
@@ -23127,6 +23154,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct SupiRangeStart(String);
 
@@ -24401,6 +24429,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct UpuMac(String);
 
@@ -25091,6 +25120,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct Xres(String);
 
@@ -25182,6 +25212,7 @@ pub mod types {
 		PartialEq,
 		PartialOrd,
 		smart_default::SmartDefault,
+		NewUnchecked
 	)]
 	pub struct XresStar(String);
 
