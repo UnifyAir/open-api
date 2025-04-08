@@ -14,7 +14,7 @@ use syn::DeriveInput;
 /// 
 /// # Example
 /// ```
-/// use your_crate::NewUnchecked;
+/// use macros::NewUnchecked;
 /// 
 /// #[derive(NewUnchecked)]
 /// struct PersonId(String);
