@@ -57,7 +57,6 @@ impl AmfId {
 
 		Self::try_from(value)
 	}
-
 }
 
 impl TryFrom<u32> for AmfId {
@@ -145,6 +144,9 @@ impl AmfSetId {
 		Self::try_from(value)
 	}
 
+	pub fn inner(&self) -> u16 {
+		self.0
+	}
 }
 
 impl TryFrom<u16> for AmfSetId {
@@ -229,6 +231,10 @@ impl AmfRegionId {
 
 	pub fn new(value: u8) -> Self {
 		Self(value)
+	}
+
+	pub fn inner(&self) -> u8 {
+		self.0
 	}
 }
 

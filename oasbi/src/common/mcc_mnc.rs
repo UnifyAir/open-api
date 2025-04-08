@@ -36,9 +36,15 @@ use super::{
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
-	NewUnchecked,
 )]
 pub struct Mcc(AsciiString); // 3 digits can fit in a u16.
+
+impl Mcc {
+	pub unsafe fn new_unchecked(value: String) -> Self {
+		let ascii = unsafe { AsciiString::from_ascii_unchecked(value.as_bytes()) };
+		Self(ascii)
+	}
+}
 
 fn convert_to_ascii_string(value: u16) -> AsciiString {
 	let bytes = value.to_string().into_bytes();
@@ -90,9 +96,15 @@ deref_for_newtype!(Mcc, AsciiString);
 	Default,
 	SerializeDisplay,
 	DeserializeFromStr,
-	NewUnchecked,
 )]
 pub struct Mnc(AsciiString); // 2 or 3 digits can fit in a u16.
+
+impl Mnc {
+	pub unsafe fn new_unchecked(value: String) -> Self {
+		let ascii = unsafe { AsciiString::from_ascii_unchecked(value.as_bytes()) };
+		Self(ascii)
+	}
+}
 
 impl TryFrom<u16> for Mnc {
 	type Error = ConversionError;

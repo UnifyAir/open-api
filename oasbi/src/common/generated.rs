@@ -21260,7 +21260,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Eq, PartialEq, Hash, Ord, PartialOrd,
 	)]
 	pub struct PlmnId {
 		pub mcc: Mcc,
@@ -31352,7 +31352,7 @@ pub mod types {
 	/// ```
 	/// </details>
 	#[derive(
-		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault,
+		::serde::Deserialize, ::serde::Serialize, Clone, Debug, smart_default::SmartDefault, Eq, PartialEq, Hash, Ord, PartialOrd,
 	)]
 	pub struct Tai {
 		#[serde(default, skip_serializing_if = "Option::is_none")]
