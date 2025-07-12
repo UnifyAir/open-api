@@ -56,6 +56,18 @@ impl From<&Ipv6Addr> for Ipv6Addr {
 	}
 }
 
+impl From<StdIpv6Addr> for Ipv6Addr {
+	fn from(value: StdIpv6Addr) -> Self {
+		Ipv6Addr(value)
+	}
+}
+
+impl From<&StdIpv6Addr> for Ipv6Addr {
+	fn from(value: &StdIpv6Addr) -> Self {
+		Ipv6Addr(*value)
+	}
+}
+
 /// `FromStr` implementation with validation.
 impl FromStr for Ipv6Addr {
 	type Err = super::error::ConversionError;

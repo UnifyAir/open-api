@@ -33,6 +33,12 @@ impl From<&Ipv4Addr> for Ipv4Addr {
 	}
 }
 
+impl From<&StdIpv4Addr> for Ipv4Addr {
+	fn from(value: &StdIpv4Addr) -> Self {
+		Self(*value)
+	}
+}
+
 impl From<StdIpv4Addr> for Ipv4Addr {
 	fn from(value: StdIpv4Addr) -> Self {
 		Self(value)
